@@ -1,0 +1,35 @@
+eSIM
+- https://en.wikipedia.org/wiki/ESIM
+
+5G
+- https://it.wikipedia.org/wiki/5G#Tecnologie (paragrafi 1-5-7)
+
+5G SA
+- https://www.corrierecomunicazioni.it/digital-economy/5g-standalone-inizia-la-nuova-rivoluzione-delle-tlc-mobili/
+- https://www.hdblog.it/mobile/articoli/n535308/5g-standalone-sa-nsa-differenze/
+- https://www.ericsson.com/it/blog/3/2021/4/5g-standalone-cose-e-quali-sono-le-differenze-rispetto-allattuale-5g
+
+eNodeB
+- https://www.is-wireless.com/networks/software/enodeb/
+
+gNodeB
+- https://www.is-wireless.com/networks/software/gnodeb/
+
+SDR
+- https://en.wikipedia.org/wiki/Software-defined_radio
+
+RAN
+- https://www.redhat.com/it/topics/5g-networks/what-is-radio-access-network
+- https://en.wikipedia.org/wiki/Radio_access_networkn1
+- https://www.techtarget.com/searchnetworking/definition/radio-access-network-RAN
+
+LTE
+- https://it.wikipedia.org/wiki/LTE_(telefonia)
+- https://www.digi.com/blog/post/what-is-lte
+
+IMSI-CATCHER
+- https://en.wikipedia.org/wiki/IMSI-catcher
+- https://www.eff.org/it/wp/gotta-catch-em-all-understanding-how-imsi-catchers-exploit-cell-networks
+
+ASN.1
+- https://learn.microsoft.com/it-it/windows/win32/seccertenroll/about-introduction-to-asn-1-syntax-and-encoding

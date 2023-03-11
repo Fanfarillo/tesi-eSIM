@@ -12,3 +12,6 @@ Sito relativo alla simulazione di SM-DP+:
 
 Sito che vende una sim programmabile che, attraverso un'apposita app, permette di trasformare un telefono senza e-sim in un telefono e-sim compatibile:
 - https://esim.me
+
+Implementazione dell'eSIM:
+- https://source.android.com/docs/core/connect/esim-overview?hl=it
