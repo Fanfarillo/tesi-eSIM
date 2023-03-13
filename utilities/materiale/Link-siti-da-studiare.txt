@@ -26,7 +26,6 @@ gNodeB
 - https://www.is-wireless.com/networks/software/gnodeb/
 
 IMSI-CATCHER
-- https://en.wikipedia.org/wiki/IMSI-catcher
 - https://www.eff.org/it/wp/gotta-catch-em-all-understanding-how-imsi-catchers-exploit-cell-networks
 
 ASN.1
