@@ -7,7 +7,7 @@ Bisognerà acquistare una sim programmabile compatibile con 5G SA. I due main ve
 - https://open-cells.com/index.php/sim-cards/
 - https://shop.sysmocom.de/SIM/Cards/
 
-Sito relativo alla simulazione di SM-DP+:
+Sito relativo alla simulazione di SM-DP+ (che sembra offrire anche un server DNS):
 - https://www.ul.com/services/ul-sm-dp-simulator
 
 Sito che vende una sim programmabile che, attraverso un'apposita app, permette di trasformare un telefono senza e-sim in un telefono e-sim compatibile:

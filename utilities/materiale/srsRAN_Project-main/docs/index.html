@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SRS GNB documentation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+        }
+
+        .header {
+            padding: 60px;
+            text-align: center;
+            background: #35a4ff;
+            color: white;
+            font-size: 30px;
+        }
+
+        a {
+            margin: 10px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 40px;
+            padding: 36px 0 36px 50px;
+        }
+
+        .a_list {
+            margin: 1px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 40px;
+            padding: 1px 0 1px 1px;
+        }
+
+        .code {
+            background-image: url("./code.png");
+        }
+
+        .book {
+            background-image: url("./book.png");
+        }
+
+        .debug {
+            background-image: url("./debug.png");
+        }
+
+        .test {
+            background-image: url("./test.png");
+        }
+
+        .list {
+            background-image: url("./list.png");
+            ;
+        }
+
+
+        p {
+            padding-bottom: 10px;
+
+        }
+
+        .content {
+            padding: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>SRS GNB documentation</h1>
+    </div>
+
+    <div class="content">
+        <a>Commit hash: commit_hash</a>
+        <p></p>
+        <a class="book" href="https://softwareradiosystems.gitlab.io/srsGNB_docs">Documentation</a>
+        <p></p>
+        <a class="code" href="./index_doxygen.html">Doxygen</a>
+        <p></p>
+        <a class="debug" href="./codechecker-cppcheck-html/index.html">Cppcheck Analysis</a>
+        <p></p>
+        <a class="debug" href="./codechecker-clang-tidy-html/index.html">Clang Tidy Analysis</a>
+        <!-- <p></p>
+        <a class="debug" href="./codechecker-clangsa-html/index.html">Clang Static Analysis</a> -->
+        <p></p>
+        <a class="debug" href="./coverage_html/index.html">Code coverage</a>
+        <p></p>
+        <a class="test" href="./test_report.html">Tests report</a>
+        <p></p>
+        <p></p>
+        <p></p>
+        <a class="test">e2e test:</a>
+        <p></p>
+        <ul>
+            <li>
+                <a class="a_list" href="https://softwareradiosystems.gitlab.io/-/srsgnb/-/jobs/zmq_job_id/artifacts/zmq/report.html">zmq</a>
+            </li>
+            <p></p>
+            <li>
+                <a class="a_list" href="https://softwareradiosystems.gitlab.io/-/srsgnb/-/jobs/zmq_tsan_job_id/artifacts/zmq-tsan/report.html">zmq tsan</a>
+            </li>
+            <p></p>
+            <!-- <li>
+                <a class="a_list" href="https://softwareradiosystems.gitlab.io/-/srsgnb/-/jobs/zmq_asan_job_id/artifacts/zmq-tsan/report.html">zmq asan</a>
+            </li>
+            <p></p> -->
+            <li>
+                <a class="a_list" href="https://softwareradiosystems.gitlab.io/-/srsgnb/-/jobs/rf_job_id/artifacts/rf/report.html">rf</a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
