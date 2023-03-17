@@ -3,7 +3,7 @@ Ci sono alcuni software opensource per configurare una RAN e creare reti LTE/5G 
 - openairinterface: https://openairinterface.org
 - open5GS: https://open5gs.org
 
-Bisognerà acquistare una sim programmabile compatibile con 5G SA. I due main vendor sono i seguenti:
+Bisognerà acquistare una SIM programmabile compatibile con 5G SA. I due main vendor sono i seguenti:
 - https://open-cells.com/index.php/sim-cards/
 - https://shop.sysmocom.de/SIM/Cards/
 
@@ -14,4 +14,9 @@ Sito che vende una sim programmabile che, attraverso un'apposita app, permette d
 - https://esim.me
 
 Implementazione dell'eSIM:
-- https://source.android.com/docs/core/connect/esim-overview?hl=it
+- https://source.android.com/docs/core/connect/esim-overview
+
+Bidognerà acquistare un telefono facilmente rootabile che supporti la eSIM:
+- https://esim.holafly.com/it/carte-esim/esim-telefoni/
+- https://www.hdblog.it/schede-tecniche/google-pixel-5_i4611/
+- https://www.guidesmartphone.net/come-eseguire-il-root-di-google-pixel-5-con-magisk/
