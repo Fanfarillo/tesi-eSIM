@@ -1,0 +1,8 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{6}{}%
+\contentsline {chapter}{\numberline {2}Nuovo capitolo}{8}{}%
+\contentsline {section}{\numberline {2.1}Sezione}{8}{}%
+\contentsline {subsection}{\numberline {2.1.1}Sottosezione}{8}{}%
+\contentsline {section}{\numberline {2.2}Altra sezione}{8}{}%
+\contentsline {chapter}{\numberline {3}Conclusione}{9}{}%
