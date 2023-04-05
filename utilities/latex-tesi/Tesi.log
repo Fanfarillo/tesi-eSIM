@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  2 APR 2023 12:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  5 APR 2023 11:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -94,15 +94,28 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 \Gin@req@height=\dimen150
 \Gin@req@width=\dimen151
 )
+(c:/texlive/2022/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip50
+\f@nch@O@elh=\skip51
+\f@nch@O@erh=\skip52
+\f@nch@O@olh=\skip53
+\f@nch@O@orh=\skip54
+\f@nch@O@elf=\skip55
+\f@nch@O@erf=\skip56
+\f@nch@O@olf=\skip57
+\f@nch@O@orf=\skip58
+)
 (c:/texlive/2022/texmf-dist/tex/latex/fncychap/fncychap.sty
 Package: fncychap 2007/07/30 v1.34 LaTeX package (Revised chapters)
-\RW=\skip50
-\mylen=\skip51
-\myhi=\skip52
-\px=\skip53
-\py=\skip54
-\pyy=\skip55
-\pxx=\skip56
+\RW=\skip59
+\mylen=\skip60
+\myhi=\skip61
+\px=\skip62
+\py=\skip63
+\pyy=\skip64
+\pxx=\skip65
 )
 (c:/texlive/2022/texmf-dist/tex/latex/frontespizio/frontespizio.sty
 Package: frontespizio 2011/09/21 1.4a (Enrico Gregorio)
@@ -143,20 +156,20 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 (./Tesi.aux)
 \openout1 = `Tesi.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -192,15 +205,15 @@ LaTeX Font Info:    ... okay on input line 9.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \it@ocap on input line 9.
-LaTeX Info: Redefining \it@ccap on input line 9.
+LaTeX Info: Redefining \it@ocap on input line 15.
+LaTeX Info: Redefining \it@ccap on input line 15.
 
 File italian.ldf warning: 
 italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting 
-italian.ldf    on input line 9.
+italian.ldf    on input line 15.
 
 (c:/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -227,7 +240,7 @@ e
 <Tesi-frn.pdf, id=1, 597.50829pt x 845.0471pt>
 File: Tesi-frn.pdf Graphic file (type pdf)
 <use Tesi-frn.pdf>
-Package pdftex.def Info: Tesi-frn.pdf  used on input line 10.
+Package pdftex.def Info: Tesi-frn.pdf  used on input line 16.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
  [1
 
@@ -260,12 +273,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 Capitolo 1.
 LaTeX Font Info:    Trying to load font information for OT1+phv on input line 3
-2.
+8.
 (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3
-2.
+8.
 
 (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -273,7 +286,7 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 <boat.jpeg, id=51, 1927.2pt x 1084.05pt>
 File: boat.jpeg Graphic file (type jpg)
 <use boat.jpeg>
-Package pdftex.def Info: boat.jpeg  used on input line 35.
+Package pdftex.def Info: boat.jpeg  used on input line 41.
 (pdftex.def)             Requested size: 426.79135pt x 240.06316pt.
  [6
 
@@ -281,23 +294,23 @@ Package pdftex.def Info: boat.jpeg  used on input line 35.
 Capitolo 2.
 [8
 
-]
+] [9]
 Capitolo 3.
-[9
-
-] [10
+[10
 
 ] [11
 
+] [12
+
 ] (./Tesi.aux) ) 
 Here is how much of TeX's memory you used:
- 3791 strings out of 476024
- 62291 string characters out of 5794016
- 1853382 words of memory out of 5000000
- 24198 multiletter control sequences out of 15000+600000
- 518455 words of font info for 45 fonts, out of 8000000 for 9000
+ 3975 strings out of 476024
+ 64949 string characters out of 5794016
+ 1854382 words of memory out of 5000000
+ 24379 multiletter control sequences out of 15000+600000
+ 518102 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,10n,62p,209b,283s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,62p,202b,283s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/tex
 live/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2022/texmf-di
@@ -308,10 +321,10 @@ s/cm/cmr12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17
 .pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/
 texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive/2022/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (11 pages, 435673 bytes).
+Output written on Tesi.pdf (12 pages, 438014 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
