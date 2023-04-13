@@ -1,7 +1,9 @@
 \documentclass[10pt, twoside, openany]{book}
 
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
+\usepackage{cite}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage[Lenny]{fncychap}
@@ -11,6 +13,7 @@
 \fancyhead{}
 \fancyhead[LE]{\rightmark\hfill\leftmark}
 \fancyhead[RO]{\leftmark\hfill\rightmark}
+\bibliographystyle{plain}
 
 \begin{document}
 \begin{frontespizio}
@@ -27,7 +30,7 @@
 
 \begin{flushright}
 \null\vspace{\stretch{1}}
-\textit{Citazione}
+\textit{[Citazione]}
 \vspace{\stretch{2}}\null
 \end{flushright}
 
@@ -36,80 +39,61 @@
 \listoftables
 
 \chapter{Introduzione}
-Qui bisogna scrivere l'introduzione.
-\begin{figure}
-  \includegraphics[width=\linewidth]{boat.jpeg}
-  \caption{A boat.}
-  \label{fig:boat1}
-\end{figure}
-Figure \ref{fig:boat1} shows a boat.
+[TODO]
 
-\chapter{Nuovo capitolo}
-\section{Sezione}
-This is where you tell people why they should bother reading your article.
+\chapter{Interfacce e funzionamento della eSIM}
+[TODO]
 
-\subsection{Sottosezione}
-This is the section that is invariably much longer than it should be, and
-where everyone tries to impress peers about how easy it is to locate various
-references in online databases.
+%\cite{Android-docs}
+%\cite{GSMA}
 
-\section{Altra sezione}
-Not much of a paper, but it's a start.
+\chapter{Analisi della sicurezza della eSIM a run-time}
+[TODO]
 
-\section{Per una nuova pagina}
-Riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.\\
-Ancora riga.
+\chapter{Analisi della sicurezza della eSIM a boot-time}
+\section{Funzionamento del boot della eSIM}
+[TODO]
+
+\section{Potenziali vulnerabilità}
+[TODO]
+
+\section{Prove sperimentali}
+[TODO]
 
 \chapter{Conclusione}
-Qui bisogna scrivere la conclusione.\\
-\begin{table}[h!]
-  \begin{center}
-    \caption{Your first table.}
-    \label{tab:table1}
-    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
-      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
-      $\alpha$ & $\beta$ & $\gamma$ \\
-      \hline
-      1 & 1110.1 & a\\
-      2 & 10.1 & b\\
-      3 & 23.113231 & c\\
-    \end{tabular}
-  \end{center}
-\end{table}
+[TODO]
 
-\chapter*{Bibliografia}
-Qui bisogna scrivere la bibliografia.
+\bibliography{Bibliography}
 
 \chapter*{Ringraziamenti}
-Qui bisogna scrivere i ringraziamenti.
+[TODO]
+
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{boat.jpeg}
+%  \caption{A boat.}
+%  \label{fig:boat1}
+%\end{figure}
+%Figure \ref{fig:boat1} shows a boat.
+
+%\section{Sezione}
+%This is where you tell people why they should bother reading your article.
+
+%\subsection{Sottosezione}
+%Hi.
+
+%\begin{table}[h!]
+%  \begin{center}
+%    \caption{Your first table.}
+%    \label{tab:table1}
+%    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+%      \textbf{Value 1} & \textbf{Value 2} & \textbf{Value 3}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+%      \hline
+%      1 & 1110.1 & a\\
+%      2 & 10.1 & b\\
+%      3 & 23.113231 & c\\
+%    \end{tabular}
+%  \end{center}
+%\end{table}
 
 \end{document}
