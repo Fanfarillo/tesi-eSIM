@@ -4,6 +4,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
 \usepackage{cite}
+\usepackage[numbers, sort&compress]{natbib}
+\usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage[Lenny]{fncychap}
@@ -13,7 +15,7 @@
 \fancyhead{}
 \fancyhead[LE]{\rightmark\hfill\leftmark}
 \fancyhead[RO]{\leftmark\hfill\rightmark}
-\bibliographystyle{plain}
+\bibliographystyle{unsrtnat}
 
 \begin{document}
 \begin{frontespizio}
@@ -39,13 +41,24 @@
 \listoftables
 
 \chapter{Introduzione}
-[TODO]
+\section{Panoramica sulla eSIM}
+La eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni attuali ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento della eSIM sia a run-time che a boot-time.
+
+\section{Obiettivo del lavoro}
+La presente trattazione si propone di effettuare un'analisi di sicurezza e delle vulnerabilità della eSIM e del suo funzionamento e, successivamente, di tentare di sfruttare, anche con delle attività di laboratorio, le eventuali vulnerabilità trovate.
+
+\section{Definizioni preliminari}
+\begin{itemize}
+\item \textbf{eUICC (embedded Universal Integrated Circuit Card)}: è un chip utilizzato all'interno dei telefoni all'interno del quale è embeddato il software della eSIM. È integrato direttamente nei dispositivi (i.e. non è rimovibile) ed è progettato per essere programmato a distanza. Può contenere uno o più profili SIM.
+\item \textbf{SM-DP+ (Subscription Manager Data Preparation plus)}: è un protocollo che rappresenta una tecnica di provisioning usata per configurare le eSIM in modo automatico e remoto. Rispetto alla versione base SM-DP, offre delle funzionalità aggiuntive come un sistema di crittografia più avanzato e un'architettura di rete più flessibile.
+\item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, incluse la creazione, l'aggiornamento e la cancellazione.
+\end{itemize}
+
+\section{Panoramica sui capitoli successivi}
+Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura e sulle interfacce della eSIM, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà effettuata un'analisi della sicurezza della eSIM a run-time, mentre nel capitolo 4 si procederà con l'analisi della sicurezza della eSIM a boot-time (i.e. durante la fase di configurazione).
 
 \chapter{Interfacce e funzionamento della eSIM}
 [TODO]
-
-%\cite{Android-docs}
-%\cite{GSMA}
 
 \chapter{Analisi della sicurezza della eSIM a run-time}
 [TODO]
@@ -63,6 +76,9 @@
 \chapter{Conclusione}
 [TODO]
 
+\cite{GSMA}
+\cite{Android-docs}
+
 \bibliography{Bibliography}
 
 \chapter*{Ringraziamenti}
@@ -74,12 +90,6 @@
 %  \label{fig:boat1}
 %\end{figure}
 %Figure \ref{fig:boat1} shows a boat.
-
-%\section{Sezione}
-%This is where you tell people why they should bother reading your article.
-
-%\subsection{Sottosezione}
-%Hi.
 
 %\begin{table}[h!]
 %  \begin{center}

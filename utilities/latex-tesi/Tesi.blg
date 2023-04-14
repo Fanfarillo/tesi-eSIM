@@ -1,48 +1,50 @@
 This is BibTeX, Version 0.99d (TeX Live 2022)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Tesi.aux
-The style file: plain.bst
+The style file: unsrtnat.bst
 Database file #1: Bibliography.bib
-Warning--empty publisher in GSMA
-You've used 2 entries,
-            2118 wiz_defined-function locations,
-            508 strings with 4136 characters,
-and the built_in function-call counts, 440 in all, are:
-= -- 38
-> -- 14
-< -- 0
-+ -- 6
-- -- 4
-* -- 20
-:= -- 85
-add.period$ -- 6
-call.type$ -- 2
-change.case$ -- 7
-chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 22
-empty$ -- 40
-format.name$ -- 4
-if$ -- 87
-int.to.chr$ -- 0
-int.to.str$ -- 2
+Warning--empty title in Corcom
+Warning--empty title in GSMA
+Warning--empty title in Android-docs
+You've used 3 entries,
+            2481 wiz_defined-function locations,
+            567 strings with 4867 characters,
+and the built_in function-call counts, 820 in all, are:
+= -- 66
+> -- 21
+< -- 3
++ -- 12
+- -- 6
+* -- 44
+:= -- 140
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 3
+chr.to.int$ -- 3
+cite$ -- 6
+duplicate$ -- 54
+empty$ -- 85
+format.name$ -- 9
+if$ -- 166
+int.to.chr$ -- 1
+int.to.str$ -- 4
 missing$ -- 3
-newline$ -- 13
-num.names$ -- 4
-pop$ -- 13
+newline$ -- 23
+num.names$ -- 9
+pop$ -- 27
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 3
 quote$ -- 0
-skip$ -- 13
+skip$ -- 34
 stack$ -- 0
-substring$ -- 10
-swap$ -- 2
+substring$ -- 6
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 6
-warning$ -- 1
-while$ -- 4
-width$ -- 3
-write$ -- 21
-(There was 1 warning)
+type$ -- 21
+warning$ -- 3
+while$ -- 6
+width$ -- 0
+write$ -- 43
+(There were 3 warnings)

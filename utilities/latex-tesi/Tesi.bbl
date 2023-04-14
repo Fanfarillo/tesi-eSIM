@@ -1,13 +1,25 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem{Android-docs}
+\bibitem[Corcom(2023)]{Corcom}
+Corcom.
+\newblock \emph{"Telefonia mobile, cosa sono le eSim? E perché sono più
+  sicure?"}, 2023.
+\newblock
+  \url{https://corrierecomunicazioni.it/telco/telefonia-mobile-cosa-sono-le-esim-e-perche-sono-piu-sicure/}.
+
+\bibitem[Association(2016)]{GSMA}
+GSM Association.
+\newblock \emph{"RSP Technical Specification Version 2.0"}, 2016.
+\newblock \url{https://gsma.com/newsroom/wp-content/uploads/SGP.22_v2.0.pdf}.
+
+\bibitem[di~Android(2023)]{Android-docs}
 Team di~Android.
-\newblock Implementing esim.
-\newblock {\em Documentation}, 2023.
-
-\bibitem{GSMA}
-{GSM Association}.
-\newblock {\em {RSP Technical Specification Version 2.0}}.
-\newblock 2016.
+\newblock \emph{"Implementing eSIM"}, 2023.
+\newblock \url{https://source.android.com/docs/core/connect/esim-overview}.
 
 \end{thebibliography}
