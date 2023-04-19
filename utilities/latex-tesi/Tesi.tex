@@ -49,7 +49,7 @@ La presente trattazione si propone di effettuare un'analisi di sicurezza e delle
 
 \section{Definizioni preliminari}
 \begin{itemize}
-\item \textbf{eUICC (embedded Universal Integrated Circuit Card)}: è un chip utilizzato all'interno dei telefoni all'interno del quale è embeddato il software della eSIM. È integrato direttamente nei dispositivi (i.e. non è rimovibile) ed è progettato per essere programmato a distanza. Può contenere uno o più profili SIM.
+\item \textbf{eUICC (embedded Universal Integrated Circuit Card)}: è un chip utilizzato all'interno dei telefoni all'interno del quale è embeddato il software della eSIM. È integrato direttamente nei dispositivi (i.e. non è rimovibile) ed è progettato per essere programmato a distanza. Può contenere uno o più profili eSIM.
 \item \textbf{SM-DP+ (Subscription Manager Data Preparation plus)}: è un protocollo che rappresenta una tecnica di provisioning usata per configurare le eSIM in modo automatico e remoto. Rispetto alla versione base SM-DP, offre delle funzionalità aggiuntive come un sistema di crittografia più avanzato e un'architettura di rete più flessibile.
 \item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, incluse la creazione, l'aggiornamento e la cancellazione.
 \end{itemize}
@@ -58,7 +58,15 @@ La presente trattazione si propone di effettuare un'analisi di sicurezza e delle
 Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura e sulle interfacce della eSIM, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà effettuata un'analisi della sicurezza della eSIM a run-time, mentre nel capitolo 4 si procederà con l'analisi della sicurezza della eSIM a boot-time (i.e. durante la fase di configurazione).
 
 \chapter{Interfacce e funzionamento della eSIM}
-[TODO]
+\section{Architettura di RSP}
+Per comprendere appieno come funziona e come si interfaccia la eSIM all'interno dei dispositivi mobili, è necessario introdurre il protocollo RSP, anche perché la eSIM si colloca proprio all'interno dell'architettura di RSP.\\
+RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ per gestire la comunicazione tra il server SM-DP+ e la scheda eSIM del dispositivo mobile (i.e. l'eUICC). In particolare, definisce le operazioni di provisioning specifiche per la comunicazione dell'eUICC. Quest'ultimo comprende i dati sia dell'operatore che dell'utente che, nel caso delle SIM tradizionali, verrebbero appunto memorizzati su una SIM card fisica. Entrando più nel dettaglio sul funzionamento di RSP, l'end user che vuole ottenere un profilo eSIM offerto da un particolare operatore (nel quale viene definito un piano tariffario), deve pagare l'operatore affinché esso gli fornisca un codice QR. Dopodiché, deve effettuare la scansione di tale codice QR per avviare lo scaricamento (operazione di Download) e l'installazione (operazione di Install) del profilo eSIM: a questo punto, la connessione tra end user (col relativo profilo eSIM) e operatore è completata. Se in un secondo momento l'end user ha la necessità di ottenere e utilizzare un secondo profilo eSIM, gli è sufficiente ripetere i medesimi passaggi appena descritto, e questo secondo profilo può essere installato all'interno del medesimo eUICC che ospita già il primo profilo. Tale meccanismo è illustrato nella figura \ref{fig:RSP-functioning} tratta da \cite{GSMA-whitepaper}.
+\begin{figure}
+  \includegraphics[width=\linewidth]{RSP-functioning.png}
+  \caption{Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.}
+  \label{fig:RSP-functioning}
+\end{figure}
+\\Per quanto riguarda l'architettura interna di RSP nello specifico, esistono due soluzioni differenti \cite{GSMA-docs}.
 
 \chapter{Analisi della sicurezza della eSIM a run-time}
 [TODO]
@@ -75,8 +83,6 @@ Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura e sul
 
 \chapter{Conclusione}
 [TODO]
-
-\cite{GSMA}
 \cite{Android-docs}
 
 \bibliography{Bibliography}

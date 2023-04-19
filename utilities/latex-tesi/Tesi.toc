@@ -6,9 +6,10 @@
 \contentsline {section}{\numberline {1.3}Definizioni preliminari}{6}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Panoramica sui capitoli successivi}{6}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Interfacce e funzionamento della eSIM}{8}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Analisi della sicurezza della eSIM a run-time}{9}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Analisi della sicurezza della eSIM a boot-time}{10}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot della eSIM}{10}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{10}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{10}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Conclusione}{11}{chapter.5}%
+\contentsline {section}{\numberline {2.1}Architettura di RSP}{8}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Analisi della sicurezza della eSIM a run-time}{10}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Analisi della sicurezza della eSIM a boot-time}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot della eSIM}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{11}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{11}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusione}{12}{chapter.5}%

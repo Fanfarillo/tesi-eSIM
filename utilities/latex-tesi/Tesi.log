@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  14 APR 2023 18:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  19 APR 2023 18:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -402,7 +402,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-<Tesi-frn.pdf, id=52, 597.50829pt x 845.0471pt>
+<Tesi-frn.pdf, id=56, 597.50829pt x 845.0471pt>
 File: Tesi-frn.pdf Graphic file (type pdf)
 <use Tesi-frn.pdf>
 Package pdftex.def Info: Tesi-frn.pdf  used on input line 21.
@@ -451,19 +451,33 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 ] [7]
 Capitolo 2.
+<RSP-functioning.png, id=142, 445.665pt x 250.536pt>
+File: RSP-functioning.png Graphic file (type png)
+<use RSP-functioning.png>
+Package pdftex.def Info: RSP-functioning.png  used on input line 65.
+(pdftex.def)             Requested size: 426.79135pt x 239.92691pt.
 [8
 
 ]
-Capitolo 3.
-[9
 
-]
-Capitolo 4.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 22.43335pt, for example:
+(fancyhdr)                \setlength{\headheight}{22.43335pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-10.43335pt}.
+
+[9 <./RSP-functioning.png>]
+Capitolo 3.
 [10
 
 ]
+Capitolo 4.
+[11
+
+]
 Capitolo 5.
-(./Tesi.bbl [11
+(./Tesi.bbl [12
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -477,22 +491,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 10 https : / / corrierecomunicazioni . it / telco /
  []
 
-) [12
+) [13
 
-] [13
+] [14
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: C761E2F7B9A69170D044B50D5AB860ED;2309.
+(rerunfilecheck)             Checksum: 3E3298437A1AD3B4F743F471BFC65538;2465.
  ) 
 Here is how much of TeX's memory you used:
- 11163 strings out of 476024
- 176619 string characters out of 5794016
- 1858382 words of memory out of 5000000
- 31425 multiletter control sequences out of 15000+600000
+ 11181 strings out of 476024
+ 176969 string characters out of 5794016
+ 1859382 words of memory out of 5000000
+ 31437 multiletter control sequences out of 15000+600000
  518000 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,76p,1002b,457s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,76p,1382b,457s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/tex
 live/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
@@ -505,10 +519,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist
 /fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/urw/helvetic/uhvr8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/ut
 mr8a.pfb>
-Output written on Tesi.pdf (13 pages, 169522 bytes).
+Output written on Tesi.pdf (14 pages, 348429 bytes).
 PDF statistics:
- 219 PDF objects out of 1000 (max. 8388607)
- 175 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 102 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 239 PDF objects out of 1000 (max. 8388607)
+ 192 compressed objects within 2 object streams
+ 33 named destinations out of 1000 (max. 500000)
+ 115 words of extra memory for PDF output out of 10000 (max. 10000000)
 

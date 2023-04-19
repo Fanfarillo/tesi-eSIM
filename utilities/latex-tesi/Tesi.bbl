@@ -1,4 +1,4 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -12,7 +12,13 @@ Corcom.
 \newblock
   \url{https://corrierecomunicazioni.it/telco/telefonia-mobile-cosa-sono-le-esim-e-perche-sono-piu-sicure/}.
 
-\bibitem[Association(2016)]{GSMA}
+\bibitem[Association(2018)]{GSMA-whitepaper}
+GSM Association.
+\newblock \emph{"The what and how of Remote SIM Provisioning"}, 2018.
+\newblock
+  \url{https://gsma.com/esim/wp-content/uploads/2018/12/esim-whitepaper.pdf}.
+
+\bibitem[Association(2016)]{GSMA-docs}
 GSM Association.
 \newblock \emph{"RSP Technical Specification Version 2.0"}, 2016.
 \newblock \url{https://gsma.com/newsroom/wp-content/uploads/SGP.22_v2.0.pdf}.
