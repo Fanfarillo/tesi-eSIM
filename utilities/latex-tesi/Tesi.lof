@@ -2,7 +2,10 @@
 \babel@toc {italian}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.}}{9}{figure.2.1}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.\relax }}{9}{figure.caption.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Architettura di RSP nel caso di LPA non embeddato nell'eUICC.\relax }}{9}{figure.caption.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Architettura di RSP nel caso di LPA embeddato nell'eUICC.\relax }}{10}{figure.caption.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Architettura dell'eUICC.\relax }}{12}{figure.caption.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
