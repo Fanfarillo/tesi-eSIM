@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -22,6 +22,12 @@ GSM Association.
 GSM Association.
 \newblock \emph{"RSP Technical Specification Version 2.0"}, 2016.
 \newblock \url{https://gsma.com/newsroom/wp-content/uploads/SGP.22_v2.0.pdf}.
+
+\bibitem[Ahmed et~al.(2022)Ahmed, Peltonen, Sethi, and Aura]{Sec-analysis}
+Abu~Shohel Ahmed, Aleksi Peltonen, Mohit Sethi, and Tuomas Aura.
+\newblock \emph{"Security Analysis of the Consumer Remote SIM Provisioning
+  Protocol"}, 2022.
+\newblock \url{https://arxiv.org/pdf/2211.15323.pdf}.
 
 \bibitem[IETF(2008)]{RFC-5246}
 IETF.

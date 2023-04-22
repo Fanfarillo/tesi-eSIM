@@ -6,49 +6,50 @@ Database file #1: Bibliography.bib
 Warning--empty title in Corcom
 Warning--empty title in GSMA-whitepaper
 Warning--empty title in GSMA-docs
+Warning--empty title in Sec-analysis
 Warning--empty title in RFC-5246
 Warning--empty title in RFC-8446
 Warning--empty title in GSMA-docs2
 Warning--empty title in Android-docs
-You've used 7 entries,
+You've used 8 entries,
             2481 wiz_defined-function locations,
-            587 strings with 5401 characters,
-and the built_in function-call counts, 1868 in all, are:
-= -- 154
-> -- 49
+            592 strings with 5607 characters,
+and the built_in function-call counts, 2217 in all, are:
+= -- 178
+> -- 76
 < -- 7
-+ -- 28
-- -- 14
-* -- 100
-:= -- 312
-add.period$ -- 21
-call.type$ -- 7
-change.case$ -- 7
-chr.to.int$ -- 7
-cite$ -- 14
-duplicate$ -- 126
-empty$ -- 197
-format.name$ -- 21
-if$ -- 386
++ -- 38
+- -- 22
+* -- 130
+:= -- 373
+add.period$ -- 24
+call.type$ -- 8
+change.case$ -- 8
+chr.to.int$ -- 8
+cite$ -- 16
+duplicate$ -- 144
+empty$ -- 225
+format.name$ -- 30
+if$ -- 456
 int.to.chr$ -- 1
-int.to.str$ -- 8
-missing$ -- 7
-newline$ -- 43
-num.names$ -- 21
-pop$ -- 63
+int.to.str$ -- 9
+missing$ -- 8
+newline$ -- 48
+num.names$ -- 24
+pop$ -- 72
 preamble$ -- 1
-purify$ -- 7
+purify$ -- 8
 quote$ -- 0
-skip$ -- 78
+skip$ -- 88
 stack$ -- 0
-substring$ -- 14
-swap$ -- 14
+substring$ -- 16
+swap$ -- 16
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 49
-warning$ -- 7
-while$ -- 14
+type$ -- 56
+warning$ -- 8
+while$ -- 16
 width$ -- 0
-write$ -- 91
-(There were 7 warnings)
+write$ -- 103
+(There were 8 warnings)
