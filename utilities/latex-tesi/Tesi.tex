@@ -189,7 +189,12 @@ L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro 
 \item \underline{Activation code approach}: la figura \ref{fig:activation-code} tratta da \cite{Sec-analysis} mostra questo secondo approccio. L'operatore ordina al server SM-DP+ dei profili (messaggio 1), e il server li rende disponibili con un codice di attivazione (tipicamente un codice QR) e li restituisce all'operatore (messaggio 2). Il codice di attivazione include il nome S del server domain, l'identificatore $I_{ac}$ del profilo e, opzionalmente, l'OID, ovvero l'identificatore del server SM-DP+. Quando l'end user vuole effettuare una nuova sottoscrizione e ottenere così un nuovo profilo, contatta l'operatore (messaggio 0, che può essere inviato sia prima che dopo l'interazione tra operatore e SM-DP+ server appena descritta), il quale restituisce il codice di attivazione opportuno (messaggio 3).
 \item \underline{SM-DS assisted approach}: è un approccio analogo all'activation code, con la differenza che SM-DP+ si appoggia sui server SM-DS per comunicare con l'eUICC.
 \end{enumerate}
-\item \textbf{Common handshake}:
+\item \textbf{Common handshake}: la figura \ref{fig:common-handshake} tratta da \cite{Sec-analysis} mostra i dettagli di questa fase, che coinvolge tre attori fondamentali: il server SM-DP+, l'applicazione LPA e l'eUICC. Lo stato iniziale delle tre entità è descritto qui di seguito.
+\begin{itemize}
+\item Il server SM-DP+ è dotato di tre certificati, tutti e tre rilasciati dal CI: $Cert_{St}$ è il certificato TLS, $Cert_{Sa}$ è il certificato usato per autenticarsi all'eUICC e $Cert_{Sp}$ è il certificato che permette di rilasciare i profili eSIM. Il server possiede anche il profilo P che l'utente deve scaricare e il relativo identificatore \textit{mnoId} dell'operatore. Infine, ha l'identificatore U dell'eUICC target, l'identificatore $I_{ac}$ del profilo oppure entrambi.
+\item L'applicazione LPA conosce l'indirizzo S del server e, opzionalmente, l'identificatore $I_{ac}$ del profilo e l'identificatore OID del server.
+\item L'eUICC ha una catena di certificati composta da $Cert_{U}$ e $Cert_{EUM}$.
+\end{itemize}
 \item \textbf{Profile download}:
 \end{itemize}
 \begin{figure}
