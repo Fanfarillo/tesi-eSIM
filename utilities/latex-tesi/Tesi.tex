@@ -53,8 +53,8 @@ La presente trattazione si propone di effettuare un'analisi di sicurezza e delle
 \section{Definizioni preliminari}
 \begin{itemize}
 \item \textbf{eUICC (embedded Universal Integrated Circuit Card)}: è un chip utilizzato all'interno dei telefoni all'interno del quale è embeddato il software dell'eSIM. È integrato direttamente nei dispositivi (i.e. non è rimovibile) ed è progettato per essere programmato a distanza. Può contenere uno o più profili eSIM.
+\item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, inclusi la creazione, l'aggiornamento e la cancellazione.
 \item \textbf{SM-DP+ (Subscription Manager Data Preparation plus)}: è un protocollo che rappresenta una tecnica di provisioning usata per configurare le eSIM in modo automatico e remoto. Rispetto alla versione base SM-DP, offre delle funzionalità aggiuntive come un sistema di crittografia più avanzato e un'architettura di rete più flessibile.
-\item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, incluse la creazione, l'aggiornamento e la cancellazione.
 \end{itemize}
 
 \section{Panoramica sui capitoli successivi}
@@ -197,8 +197,9 @@ L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro 
 \item L'eUICC ha una catena di certificati composta da $Cert_{U}$ e $Cert_{EUM}$.
 \end{itemize}
 L'obiettivo per il server SM-DP+ e l'eUICC è quello di autenticarsi vicendevolmente all'interno di un tunnel TLS. Per iniziare questo processo, l'end user chiede all'eUICC di generare un nonce $N_{U}$ (messaggio 1) e l'eUICC replica con $N_{U}$ e la chiave $SKI_{CI}$ che determina la curva ellittica che verrà usata per i certificati, le firme e l'ECDH (elliptic-curve Diffie-Hellman) key exchange (messaggio 2). L'applicazione LPA inoltra queste due informazioni al server insieme a S (messaggio 3). Il server genera così un identificatore di sessione $I_{t}$ fresh e risponde all'LPA con un messaggio firmato con la propria chiave privata $SK_{Sa}$ che comprende $I_{t}$, il nonce $N_{U}$, un altro nonce $N_{S}$ e il proprio indirizzo S (messaggio 4). L'LPA verifica l'autenticità delle informazioni contenute nel digest, ad esempio controllando il valore di S, e in caso di successo inoltra il messaggio all'eUICC con l'identificatore $I_{ac}$ del profilo (messaggio 5). Anche l'eUICC invia il proprio digest firmato con la propria chiave privata $SK_{U}$ che contiene $I_{t}$, il nonce $N_{S}$, l'indirizzo S del server e $I_{ac}$ (messaggio 6), e l'LPA inoltra tale messaggio al server (messaggio 7); è importante notare che $I_{ac}$ è non nullo solo nell'approccio activation code. Dopodiché, il server seleziona il profilo per l'eUICC in base a $I_{ac}$ (caso activation code) oppure in base all'identificatore U dell'eUICC presente in $Cert_{U}$ (caso default server). A questo punto, invia la signature di $I_{t}$ firmata con $SK_{Sp}$ (messaggio 8) e l'LPA, quando la riceve, la inoltra a sua volta all'eUICC (messaggio 9). Quest'ultimo, infine, verifica che la signature sia autentica e che i certificati $Cert_{Sa}$ e $Cert_{Sp}$ facciano riferimento allo stesso identificatore OID del server, in modo da assicurarsi che il server stesso sia effettivamente quello autorizzato.
-\item \textbf{Profile download}: la figura \ref{fig:profile-download} tratta da \cite{Sec-analysis} mostra i dettagli di quest'ultima fase, che non è altro che una continuazione della common handshake. I messaggi 10, 11, 12, 13 si occupano di portare a termine un key exchange basato su elliptic-curve key agreement (ECKA), tramite il quale viene calcolato uno shared secret da cui, mediante una key derivation function (KDF) saranno derivate le chiavi di sessione k (per la cifratura) e k' (per l'integrità).
+\item \textbf{Profile download}: la figura \ref{fig:profile-download} tratta da \cite{Sec-analysis} mostra i dettagli di quest'ultima fase, che non è altro che una continuazione della common handshake. I messaggi 10, 11, 12, 13 si occupano di portare a termine un key exchange basato su elliptic-curve key agreement (ECKA), tramite il quale viene calcolato uno shared secret da cui, mediante una key derivation function (KDF), saranno derivate le chiavi di sessione k (per la cifratura) e k' (per l'integrità dei dati). Contestualmente all'authenticated key exchange, avviene il download del profilo eSIM, in cui il server SM-DP+ invia all'LPA il profilo cifrato con la chiave k e l'identificatore \textit{mnoId} dell'operatore (messaggio 12), dove entrambe le informazioni sono firmate singolarmente con la chiave k' mediante il meccanismo di message authentication code (MAC). Dopodiché, l'LPA mostra l'identificatore \textit{mnoId} all'utente, che dovrà stabilire se fa riferimento all'operatore giusto: se sì, l'LPA inoltra tutte le informazioni all'eUICC (messaggio 13) il quale, dopo aver derivato le chiavi di sessione k, k', dovrà decriptare il profilo P, che risulterà finalmente essere utilizzabile. A questo punto l'eUICC elimina le chiavi k, k' e invia all'LPA un messaggio firmato con la chiave $SK_{U}$ che, tra le varie cose, comprende anche un sequence number \textit{Seq} (messaggio 14). L'LPA può decidere di inoltrare immediatamente il messaggio al server (messaggio 15) oppure di aspettare una quantità di tempo prefissata. Il server verifica che il sequence number \textit{Seq} del messaggio è maggiore dell'ultimo sequence number precedentemente inviato dal medesimo eUICC: in caso affermativo, risponde all'LPA con HTTP OK (messaggio 16), cosicché l'LPA richieda all'eUICC di rimuovere la notifica associato al sequence number \textit{Seq} (messaggio 17). Infine, l'eUICC replica all'LPA con un acknowledgement (messaggio 18).
 \end{itemize}
+In definitiva, in questa sezione è emerso come l'LPA svolga principalmente il ruolo di relay nell'interazione tra server SM-DP+ ed eUICC. Non solo: l'LPA è fondamentale anche per verificare l'autenticità del server durante la fase di common handshake e per permettere all'utente di stabilire se si sta per scaricare un profilo eSIM associato all'operatore corretto o meno. Dunque, svolge delle importanti funzioni di sicurezza e di gestione dei dati durante la comunicazione tra il server e l'eUICC.
 \begin{figure}
 \includegraphics[width=\linewidth]{default-server.png}
 \caption{Approccio default server per le fasi di profile ordering e download initialization.}
@@ -220,6 +221,19 @@ L'obiettivo per il server SM-DP+ e l'eUICC è quello di autenticarsi vicendevolm
 \label{fig:profile-download}
 \end{figure}
 
+\subsection{Regole per la comunicazione in RSP}
+Qualunque comunicazione remota definita per RSP, oltre a prevedere il meccanismo di mutua autenticazione descritto in precedenza, deve far fede alle regole riportate di seguito \cite{GSMA-docs}.
+\begin{itemize}
+\item \textbf{Privacy dei dati}: l'eUICC, in quanto client, non deve rivelare alcuna informazione privata a un server SM-DP+ non autenticato. Inoltre, non deve generare materiale firmato prima del completamento del processo di autenticazione.
+\item \textbf{Protezione della comunicazione}: quando possibile, la comunicazione tra eUICC e server SM-DP+, oltre a essere protetta dall'integrità dei messaggi, dalla cifratura e dall'autenticazione del mittente, dovrebbe essere caratterizzata dalla proprietà di Forward Secrecy. Secondo tale proprietà, se anche una chiave a lungo termine viene compromessa, le chiavi di sessione generate a partire da essa rimangono comunque riservate.
+\item \textbf{Autorizzazione}: il server SM-DP+ deve sempre verificare che il client che ha inviato una richiesta sia effettivamente autorizzato prima di far partire l'esecuzione della funzione desiderata.
+\end{itemize}
+
+\section{Chiavi crittografiche e certificati}
+
+\subsection{[DA INTEGRARE]}
+Con riferimento alla guida di Android per le API e per l'implementazione del deployment dei profili eSIM \cite{Android-docs}, l'interazione tra un'applicazione LPA e l'interfaccia all'eUICC (legata al componente EuiccManager in \cite{Android-docs}) può avvenire solo se l'applicazione dispone dei privilegi dell'operatore. Di norma, tali privilegi sono conferiti all'applicazione se il certificato usato per firmarla coincide col certificato presente nel profilo fornito da SM-DP+.
+
 \chapter{Sicurezza dell'eSIM a run-time}
 [TODO]
 
@@ -235,7 +249,6 @@ L'obiettivo per il server SM-DP+ e l'eUICC è quello di autenticarsi vicendevolm
 
 \chapter{Conclusione}
 [TODO]
-\cite{Android-docs}
 
 \bibliography{Bibliography}
 

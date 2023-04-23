@@ -13,9 +13,12 @@
 \contentsline {section}{\numberline {2.3}Interazione tra eUICC, LPA, SM-DP+ e operatore}{13}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Sicurezza TLS}{13}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Dettagli sull'interazione in RSP}{14}{subsection.2.3.2}%
-\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{17}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{18}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{18}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{18}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{18}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Conclusione}{19}{chapter.5}%
+\contentsline {subsection}{\numberline {2.3.3}Regole per la comunicazione in RSP}{15}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Chiavi crittografiche e certificati}{17}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}[DA INTEGRARE]}{17}{subsection.2.4.1}%
+\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{18}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{19}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{19}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{19}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusione}{20}{chapter.5}%
