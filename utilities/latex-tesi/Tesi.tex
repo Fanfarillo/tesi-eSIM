@@ -44,7 +44,7 @@
 \listoftables
 
 \chapter{Introduzione}
-\section{Panoramica sulla eSIM}
+\section{Panoramica sull'eSIM}
 La eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni attuali ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
 
 \section{Obiettivo del lavoro}
@@ -357,7 +357,56 @@ Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
 \end{tabularx}
 \end{center}
 \end{table}
-\\Nelle figure [TODO]
+\\Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs} sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
+\begin{figure}
+\includegraphics[width=\linewidth]{profile-states1}
+\caption{Primo diagramma a stati per i profili eSIM.}
+\label{fig:profile-states1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{profile-states2}
+\caption{Secondo diagramma a stati per i profili eSIM.}
+\label{fig:profile-states2}
+\end{figure}
+\\Con riferimento alla figura \ref{fig:profile-states1}, a partire dallo stato Available:
+\begin{itemize}
+\item Si passa allo stato Allocated se si effettua l'ordine di download senza specificare l'EID.
+\item Si passa allo stato Linked se si effettua l'ordine di download specificando l'EID.
+\end{itemize}
+A partire dallo stato Allocated:
+\begin{itemize}
+\item Si passa allo stato Confirmed se si conferma l'ordine di download con releaseFlag=false.
+\item Si passa allo stato Released se si conferma l'ordine di download con releaseFlag=true.
+\end{itemize}
+A partire dallo stato Linked:
+\begin{itemize}
+\item Si passa allo stato Confirmed se si conferma l'ordine di download con releaseFlag=false.
+\item Si passa allo stato Released se si conferma l'ordine di download con releaseFlag=true.
+\end{itemize}
+A partire dallo stato Confirmed:
+\begin{itemize}
+\item Si passa allo stato Released se si effettua il rilascio del profilo in modo tale che sia effettivamente pronto per il download e l'installazione.
+\end{itemize}
+A partire dallo stato Released:
+\begin{itemize}
+\item Si passa allo stato Downloaded se il profilo viene consegnato all'LPA con successo.
+\item Si passa allo stato Error se si ha un errore nel consegnare il profilo all'LPA.
+\end{itemize}
+A partire dallo stato Downloaded:
+\begin{itemize}
+\item Si passa allo stato Installed se il profilo viene installato sull'eUICC con successo.
+\item Si passa allo stato Error se si ha un errore nell'installare il profilo sull'eUICC.
+\end{itemize}
+Con riferimento alla figura \ref{fig:profile-states2}, a partire dagli stati Allocated / Linked / Confirmed / Released:
+\begin{itemize}
+\item Si torna allo stato Available se l'ordine di download viene annullato con finalProfileStatusIndicator=Available.
+\item Si passa allo stato Unavailable se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
+\end{itemize}
+A partire dallo stato Error:
+\begin{itemize}
+\item Si torna allo stato Available in modo automatico oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Available.
+\item Si passa allo stato Unavailable in modo automatico oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
+\end{itemize}
 
 \chapter{Sicurezza dell'eSIM a run-time}
 [TODO]
