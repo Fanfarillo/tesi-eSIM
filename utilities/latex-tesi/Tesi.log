@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 APR 2023 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 APR 2023 18:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -520,7 +520,7 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<Tesi-frn.pdf, id=96, 597.50829pt x 845.0471pt>
+<Tesi-frn.pdf, id=100, 597.50829pt x 845.0471pt>
 File: Tesi-frn.pdf Graphic file (type pdf)
 <use Tesi-frn.pdf>
 Package pdftex.def Info: Tesi-frn.pdf  used on input line 24.
@@ -564,17 +564,17 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 ] [7]
 Capitolo 2.
-<RSP-functioning.png, id=211, 445.665pt x 250.536pt>
+<RSP-functioning.png, id=220, 445.665pt x 250.536pt>
 File: RSP-functioning.png Graphic file (type png)
 <use RSP-functioning.png>
 Package pdftex.def Info: RSP-functioning.png  used on input line 68.
 (pdftex.def)             Requested size: 426.79135pt x 239.92691pt.
-<RSP-LPAd.png, id=216, 462.528pt x 387.24675pt>
+<RSP-LPAd.png, id=225, 462.528pt x 387.24675pt>
 File: RSP-LPAd.png Graphic file (type png)
 <use RSP-LPAd.png>
 Package pdftex.def Info: RSP-LPAd.png  used on input line 76.
 (pdftex.def)             Requested size: 426.79135pt x 357.34674pt.
-<RSP-LPAe.png, id=221, 486.01575pt x 392.06474pt>
+<RSP-LPAe.png, id=230, 486.01575pt x 392.06474pt>
 File: RSP-LPAe.png Graphic file (type png)
 <use RSP-LPAe.png>
 Package pdftex.def Info: RSP-LPAe.png  used on input line 91.
@@ -587,28 +587,28 @@ Underfull \hbox (badness 1953) in paragraph at lines 142--142
  []
 
 [11]
-<eUICC-arch.png, id=251, 470.9595pt x 282.45525pt>
+<eUICC-arch.png, id=260, 470.9595pt x 282.45525pt>
 File: eUICC-arch.png Graphic file (type png)
 <use eUICC-arch.png>
 Package pdftex.def Info: eUICC-arch.png  used on input line 152.
 (pdftex.def)             Requested size: 426.79135pt x 255.97443pt.
  [12 <./eUICC-arch.png>] [13] [14]
-<default-server.png, id=295, 529.37775pt x 244.5135pt>
+<default-server.png, id=304, 529.37775pt x 244.5135pt>
 File: default-server.png Graphic file (type png)
 <use default-server.png>
 Package pdftex.def Info: default-server.png  used on input line 204.
 (pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
-<activation-code.png, id=296, 452.892pt x 227.04825pt>
+<activation-code.png, id=305, 452.892pt x 227.04825pt>
 File: activation-code.png Graphic file (type png)
 <use activation-code.png>
 Package pdftex.def Info: activation-code.png  used on input line 209.
 (pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
-<common-handshake.png, id=297, 647.41875pt x 493.845pt>
+<common-handshake.png, id=306, 647.41875pt x 493.845pt>
 File: common-handshake.png Graphic file (type png)
 <use common-handshake.png>
 Package pdftex.def Info: common-handshake.png  used on input line 214.
 (pdftex.def)             Requested size: 426.79135pt x 325.55438pt.
-<profile-download.png, id=298, 629.35126pt x 349.90726pt>
+<profile-download.png, id=307, 629.35126pt x 349.90726pt>
 File: profile-download.png Graphic file (type png)
 <use profile-download.png>
 Package pdftex.def Info: profile-download.png  used on input line 219.
@@ -618,17 +618,35 @@ g>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[17 <./profile-download.png>] [18]
-Capitolo 3.
-[19
 
-]
-Capitolo 4.
+Underfull \hbox (badness 1490) in paragraph at lines 315--315
+[]|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
+ []
+
+
+Underfull \hbox (badness 3009) in paragraph at lines 315--315
+\OT1/cmr/m/n/10 CI. Cor-ri-spon-de al cer-ti-fi-ca-to
+ []
+
+<cert-chain.png, id=351, 631.158pt x 460.72125pt>
+File: cert-chain.png Graphic file (type png)
+<use cert-chain.png>
+Package pdftex.def Info: cert-chain.png  used on input line 320.
+(pdftex.def)             Requested size: 426.79135pt x 311.53583pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[17 <./profile-download.png>] [18] [19 <./cert-chain.png>]
+Capitolo 3.
 [20
 
 ]
+Capitolo 4.
+[21
+
+]
 Capitolo 5.
-(./Tesi.bbl [21
+(./Tesi.bbl [22
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -642,19 +660,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 10 https : / / corrierecomunicazioni . it / telco /
  []
 
-) [22
+) [23
 
-] [23
+] [24
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: DA5D945DEF69BDB6378CFEB983119FB3;4507.
+(rerunfilecheck)             Checksum: B2615B3A13382BAAC9990458F293729B;4624.
  ) 
 Here is how much of TeX's memory you used:
- 13450 strings out of 476024
- 216548 string characters out of 5794016
- 1867382 words of memory out of 5000000
- 33625 multiletter control sequences out of 15000+600000
+ 13464 strings out of 476024
+ 216777 string characters out of 5794016
+ 1870382 words of memory out of 5000000
+ 33634 multiletter control sequences out of 15000+600000
  519059 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,13n,76p,2022b,652s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -671,10 +689,10 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (23 pages, 876526 bytes).
+Output written on Tesi.pdf (24 pages, 999148 bytes).
 PDF statistics:
- 448 PDF objects out of 1000 (max. 8388607)
- 362 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
- 230 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 478 PDF objects out of 1000 (max. 8388607)
+ 383 compressed objects within 4 object streams
+ 79 named destinations out of 1000 (max. 500000)
+ 243 words of extra memory for PDF output out of 10000 (max. 10000000)
 

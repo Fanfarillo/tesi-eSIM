@@ -147,7 +147,7 @@ ESci & CI & SM-DP+, SM-DS, EUM & Viene usata per richiedere certificati.\\
 ****Root SM-DS è il server primario utilizzato da un operatore di rete mobile per gestire le attivazioni e le disattivazioni delle sottoscrizioni e per gestire funzionalità come l'autenticazione e l'autorizzazione degli utenti. D'altra parte, si hanno gli Alternative SM-DS, che sono server di backup a cui si ricorre quando il Root SM-DS non è disponibile.
 
 \section{Architettura dell'eUICC}
-Nella figura \ref{fig:eUICC-arch} (tratta da \cite{GSMA-docs}) è schematizzata l'architettura interna del chip eUICC, dove i riquadri e le frecce in rosso sono relativi rispettivamente ai componenti e alle interfacce che, nell'ambito dell'eUICC, sono presenti esclusivamente nel caso in cui l'applicazione LPA sia effettivamente embeddata all'interno dell'eUICC (LPAe).
+Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs} è schematizzata l'architettura interna del chip eUICC, dove i riquadri e le frecce in rosso sono relativi rispettivamente ai componenti e alle interfacce che, nell'ambito dell'eUICC, sono presenti esclusivamente nel caso in cui l'applicazione LPA sia effettivamente embeddata all'interno dell'eUICC (LPAe).
 \begin{figure}
 \includegraphics[width=\linewidth]{eUICC-arch.png}
 \caption{Architettura dell'eUICC.}
@@ -273,17 +273,55 @@ otPK.DP.ECKA & Chiave pubblica one-time del server SM-DP+ usata per il key agree
 \hline
 otSK.DP.ECKA & Chiave privata one-time del server SM-DP+ usata per il key agreement.\\
 \hline
-PK.DP.TLS & Chiave pubblica del server SM-DP+ usata per verificare le signature TLS del server. È inclusa nel certificato che corrisponde a $Cert_{St}$ nella sottosezione \ref{sec:RSP-interaction}.\\
+PK.DP.TLS & Chiave pubblica del server SM-DP+ usata per verificare le signature TLS del server. È inclusa nel certificato CERT.DP.TLS.\\
 \hline
 SK.DP.TLS & Chiave privata del server SM-DP+ usata per generare le signature per autenticarsi all'LPA. Corrisponde alla chiave $SK_{St}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-PK.DS.TLS & Chiave pubblica del server SM-DS usata per verificare le signature TLS di SM-DS.\\
+PK.DS.TLS & Chiave pubblica del server SM-DS usata per verificare le signature TLS di SM-DS. È inclusa nel certificato CERT.DS.TLS.\\
 \hline
 SK.DS.TLS & Chiave privata del server SM-DS usata per generare le signature per autenticarsi all'LPA.\\
 \hline
 \end{tabularx}
 \end{center}
 \end{table}
+
+\subsection{Certificati}
+I certificati propri dei principali componenti che partecipano all'interazione data dal protocollo RSP sono riportate nella tabella \ref{tab:cert} tratta da \cite{GSMA-docs}.
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Certificati in RSP}
+\label{tab:cert}
+\begin{tabularx}{\textwidth}{|c|X|X|}
+\hline
+\textbf{Nome} & \textbf{Descrizione} & \textbf{Note}\\
+\hline
+CERT.CI.ECDSA & Certificato GSMA CI & Viene firmato e rilasciato dal CI.\\
+\hline
+CERT.EUM.ECDSA & Certificato EUM & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{EUM}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+\hline
+CERT.DPauth.ECDSA & Certificato SM-DP+ per autenticarsi all'eUICC & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{Sa}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+\hline
+CERT.DPpb.ECDSA & Certificato SM-DP+ per rilasciare e firmare i profili eSIM & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{Sp}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+\hline
+CERT.DP.TLS & Certificato TLS di SM-DP+ & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{St}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+\hline
+CERT.DSauth.ECDSA & Certificato SM-DS & Viene firmato e rilasciato dal CI.\\
+\hline
+CERT.DS.TLS & Certificato TLS di SM-DS & Viene firmato e rilasciato dal CI.\\
+\hline
+CERT.EUICC.ECDSA & Certificato eUICC & Viene firmato e rilasciato dall'EUM.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+\\La figura \ref{fig:cert-chain} tratta da \cite{GSMA-docs} definisce uno schema riassuntivo della catena di certificati definita dalla Public Key Infrastructure (PKI) di RSP.
+\begin{figure}
+\includegraphics[width=\linewidth]{cert-chain.png}
+\caption{Catena di certificati definita dalla PKI di RSP.}
+\label{fig:cert-chain}
+\end{figure}
+All'interno della PKI, il Certificate Issuer di GSMA (GSMA CI) è la Root Certification Authority del servizio RSP e, di conseguenza, rappresenta il nodo radice della catena. La figura \ref{fig:cert-chain}, inoltre, rimarca bene come tutti i certificati siano rilasciati dal CI, fatta eccezione di CERT.EUICC.ECDSA che, invece, viene rilasciato dall'EUM.
 
 \subsection{[DA INTEGRARE]}
 Con riferimento alla guida di Android per le API e per l'implementazione del deployment dei profili eSIM \cite{Android-docs}, l'interazione tra un'applicazione LPA e l'interfaccia all'eUICC (legata al componente EuiccManager in \cite{Android-docs}) può avvenire solo se l'applicazione dispone dei privilegi dell'operatore. Di norma, tali privilegi sono conferiti all'applicazione se il certificato usato per firmarla coincide col certificato presente nel profilo fornito da SM-DP+.
