@@ -325,6 +325,40 @@ All'interno della PKI, il Certificate Issuer di GSMA (CI) è la Root Certificati
 Il CI fornisce una Certificate Revocation List (CRL), che è la lista dei certificati revocati tra tutti i certificati non scaduti che erano stati rilasciati da quello stesso CI. Ciascun CI, per giunta, deve pubblicare la propria CRL sia periodicamente, sia ogni volta che viene revocato un particolare certificato \cite{GSMA-docs}.\\
 In realtà, i certificati relativi alla PKI di RSP di cui si è discusso finora non sono gli unici certificati utilizzati per effettuare il deployment dei profili eSIM: esiste anche un certificato per firmare l'applicazione LPA e un certificato da inserire in ciascun profilo eSIM da distribuire all'end user. Dove entrano in gioco tali certificati? Con riferimento alla guida di Android per le API e per l'implementazione del deployment dei profili eSIM \cite{Android-docs}, l'interazione tra un'applicazione LPA e l'interfaccia all'eUICC (legata al componente EuiccManager in \cite{Android-docs}) può avvenire solo se l'applicazione dispone dei privilegi dell'operatore. Di norma, tali privilegi sono conferiti all'applicazione se il certificato usato per firmarla coincide col certificato presente nel profilo fornito da SM-DP+.
 
+\section{Ciclo di vita dei profili in SM-DP+}
+La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Stati dei profili eSIM}
+\label{tab:profile-states}
+\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+\textbf{Nome} & \textbf{Descrizione}\\
+\hline
+Available & Il profilo è disponibile nell’inventory del server SM-DP+.\\
+\hline
+Allocated & Il profilo è riservato per il download senza essere linkato a un EID (eUICC ID).\\
+\hline
+Linked & Il profilo è riservato per il download ed è linkato a un EID.\\
+\hline
+Confirmed & Il profilo è riservato per il download (che sia esso linkato o non linkato a un EID) col matching ID (i.e. il codice che identifica la transazione di download) e il codice di conferma (i.e. il codice che deve essere inserito dall'end user), se richiesti.\\
+\hline
+Released & Il profilo è pronto per il download e l’installazione dopo che l’operatore ha effettuato la configurazione di rete.\\
+\hline
+Downloaded & Il profilo è stato consegnato all’LPA (i.e. è stato scaricato).\\
+\hline
+Installed & Il profilo è stato installato sull’eUICC con successo.\\
+\hline
+Error & Il profilo non è stato installato a causa di una condizione di errore.\\
+\hline
+Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+\\Nelle figure [TODO]
+
 \chapter{Sicurezza dell'eSIM a run-time}
 [TODO]
 
