@@ -17,7 +17,6 @@
 \contentsline {section}{\numberline {2.4}Chiavi crittografiche e certificati}{17}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Chiavi crittografiche}{17}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Certificati}{17}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}[DA INTEGRARE]}{17}{subsection.2.4.3}%
 \contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{20}{chapter.3}%
 \contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{21}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{21}{section.4.1}%
