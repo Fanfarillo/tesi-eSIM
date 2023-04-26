@@ -18,10 +18,11 @@ GSM Association.
 \newblock
   \url{https://gsma.com/esim/wp-content/uploads/2018/12/esim-whitepaper.pdf}.
 
-\bibitem[Association(2016)]{GSMA-docs}
+\bibitem[Association(2022)]{GSMA-docs-new}
 GSM Association.
-\newblock \emph{"RSP Technical Specification Version 2.0"}, 2016.
-\newblock \url{https://gsma.com/newsroom/wp-content/uploads/SGP.22_v2.0.pdf}.
+\newblock \emph{"RSP Technical Specification Version 3.0"}, 2022.
+\newblock
+  \url{https://gsma.com/esim/wp-content/uploads/2022/10/SGP.22-v3.0-1.pdf}.
 
 \bibitem[Ahmed et~al.(2022)Ahmed, Peltonen, Sethi, and Aura]{Sec-analysis}
 Abu~Shohel Ahmed, Aleksi Peltonen, Mohit Sethi, and Tuomas Aura.
@@ -41,15 +42,14 @@ IETF.
   2018.
 \newblock \url{https://rfc-editor.org/rfc/rfc8446}.
 
-\bibitem[Association(2022)]{GSMA-docs2}
-GSM Association.
-\newblock \emph{"RSP Technical Specification Version 3.0"}, 2022.
-\newblock
-  \url{https://gsma.com/esim/wp-content/uploads/2022/10/SGP.22-v3.0-1.pdf}.
-
 \bibitem[di~Android(2023)]{Android-docs}
 Team di~Android.
 \newblock \emph{"Implementing eSIM"}, 2023.
 \newblock \url{https://source.android.com/docs/core/connect/esim-overview}.
+
+\bibitem[Association(2016)]{GSMA-docs-old}
+GSM Association.
+\newblock \emph{"RSP Technical Specification Version 2.0"}, 2016.
+\newblock \url{https://gsma.com/newsroom/wp-content/uploads/SGP.22_v2.0.pdf}.
 
 \end{thebibliography}

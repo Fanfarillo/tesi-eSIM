@@ -69,9 +69,9 @@ RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ 
 \caption{Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.}
 \label{fig:RSP-functioning}
 \end{figure}
-\\Per quanto riguarda l'architettura interna di RSP nello specifico, esistono due soluzioni differenti \cite{GSMA-docs}.
+\\Per quanto riguarda l'architettura interna di RSP nello specifico, esistono due soluzioni diverse \cite{GSMA-docs-new}.
 \begin{enumerate}
-\item \textbf{LPA embeddato nel dispositivo mobile ma non all'interno dell'eUICC (LPAd)}: oltre alla comunicazione tra l'applicazione LPA e SM-DP+, si utilizzano delle apposite interfacce anche per la comunicazione tra l'eUICC e l'applicazione LPA, come mostrato nella figura \ref{fig:RSP-LPAd} tratta da \cite{GSMA-docs}.
+\item \textbf{LPA embeddato nel dispositivo mobile ma non all'interno dell'eUICC (LPAd)}: oltre alla comunicazione tra l'applicazione LPA e SM-DP+, si utilizzano delle apposite interfacce anche per la comunicazione tra l'eUICC e l'applicazione LPA, come mostrato nella figura \ref{fig:RSP-LPAd} tratta da \cite{GSMA-docs-new}.
 \begin{figure}
 \includegraphics[width=\linewidth]{RSP-LPAd.png}
 \caption{Architettura di RSP nel caso di LPA non embeddato nell'eUICC.}
@@ -80,13 +80,16 @@ RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ 
 Di seguito è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura di RSP raffigurata in \ref{fig:RSP-LPAd}.
 \begin{itemize}
 \item \textbf{CI} = Certificate Issuer: è un'entità autorizzata a rilasciare certificati digitali.
+\item \textbf{Device App} = una qualunque applicazione installata nel dispositivo mobile.
+\item \textbf{Enterprise} = impresa (i.e. azienda, organizzazione o entità governativa) che si iscrive ai servizi mobili che devono essere utilizzati dai dipendenti a supporto dell'impresa stessa.
 \item \textbf{EUM} = eUICC Manufacturer: è il fornitore delle eUICC e del software residente (e.g. firmware, sistema operativo); svolge anche il ruolo di certificate authority subordinata al CI e rilascia certificati all'eUICC \cite{Sec-analysis}.
+\item \textbf{HRI Server} = server che fornisce le High Resolution Icon, che sono icone che vengono create per essere visualizzate in alta risoluzione.
 \item \textbf{LDSd} = Local Discovery Service (quando LPA non è nell'eUICC).
 \item \textbf{LPDd} = Local Profile Download (quando LPA non è nell'eUICC).
 \item \textbf{LUId} = Local User Interface (quando LPA non è nell'eUICC).
 \item \textbf{SM-DS} = Subscription Manager Discovery Server: è il componente che fornisce un mezzo a SM-DP+ per raggiungere l'eUICC senza dover sapere a quale rete il dispositivo è connesso.
 \end{itemize}
-\item \textbf{LPA embeddato all'interno dell'eUICC (LPAe)}: sono necessarie solo delle interfacce tra l'eUICC e SM-DP+, come mostrato nella figura \ref{fig:RSP-LPAe} tratta da \cite{GSMA-docs}.
+\item \textbf{LPA embeddato all'interno dell'eUICC (LPAe)}: sono necessarie solo delle interfacce tra l'eUICC e SM-DP+, come mostrato nella figura \ref{fig:RSP-LPAe} tratta da \cite{GSMA-docs-new}.
 \begin{figure}
 \includegraphics[width=\linewidth]{RSP-LPAe.png}
 \caption{Architettura di RSP nel caso di LPA embeddato nell'eUICC.}
@@ -97,11 +100,12 @@ Successivamente è riportato un breve glossario che chiarisce il significato di 
 \item \textbf{LDSe} = Local Discovery Service (quando LPA è nell'eUICC).
 \item \textbf{LPDe} = Local Profile Download (quando LPA è nell'eUICC).
 \item \textbf{LUIe} = Local User Interface (quando LPA è nell'eUICC).
+\item \textbf{UIMe} = User Inteface Module.
 \end{itemize}
 \end{enumerate}
 
 \subsection{Interfacce presenti nell'architettura di RSP}
-Sono illustrate nella tabella \ref{tab:interfaces}, costruita a partire da informazioni tratte da \cite{GSMA-docs}.
+Sono illustrate nella tabella \ref{tab:interfaces}, costruita a partire da informazioni tratte da \cite{GSMA-docs-new}.\\
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -131,6 +135,10 @@ ES12 & SM-DP+ & SM-DS & Viene usata per la gestione degli eventi.\\
 \hline
 ES15 & SM-DS & SM-DS & Viene usata per connettere gli SM-DS tra loro nel caso in cui ce ne sia più di uno.\\
 \hline
+ES22 & LPAd & Device App & Viene usata da un'applicazione del dispositivo mobile per interoperare con l'LPA.\\
+\hline
+ES25 & UIMe & LUIe & Viene usata per trasferire verso l'LPA le interazioni dell'end user.\\
+\hline
 ESop & Operatore & End user & È specifica per le relazioni di business tra l'operatore e l'end user.\\
 \hline
 ESeu & End user & LUI & È specifica per le relazioni di business tra l'end user e la LUI.\\
@@ -139,15 +147,21 @@ ESeum & eUICC & EUM & È specifica per le relazioni di business tra l'eUICC e l'
 \hline
 ESci & CI & SM-DP+, SM-DS, EUM & Viene usata per richiedere certificati.\\
 \hline
+EShri & LUI & HRI Server & Viene usata per recuperare le High Resolution Icon.\\
+\hline
+ESent & Operatore & Enterprise & È un'interfaccia che prescinde dagli scopi del presente documento.\\
+\hline
+ESapp & Operatore & Device App & È un'interfaccia che prescinde dagli scopi del presente documento.\\
+\hline
 \end{tabularx}
 \end{center}
 \end{table}
-\\**Un Profile Package è un pacchetto di dati associato a un profilo che contiene le informazioni di configurazione necessarie per attivare e utilizzare quel profilo all'interno di una scheda eSIM. Esistono diversi tipi di Profile Package: l'Unprotected Profile Package (UPP) è un pacchetto di dati non protetto da alcun meccanismo di sicurezza, come l'autenticazione o la crittografia; il Protected Profile Package (PPP) è un pacchetto di dati protetto da alcuni meccanismi di sicurezza; il Bound Profile Package (BPP) è un pacchetto di dati legato a un particolare dispositivo o a una piattaforma di servizi; il Segmented Bound Profile Package (SBPP), infine, non è altro che un BPP suddiviso in molteplici segmenti che possono essere utilizzati in modo indipendente e separato.\\
-***ISD-P (Issuer Security Domain Profile) è un contenitore sicuro che ospita un unico profilo.\\
-****Root SM-DS è il server primario utilizzato da un operatore di rete mobile per gestire le attivazioni e le disattivazioni delle sottoscrizioni e per gestire funzionalità come l'autenticazione e l'autorizzazione degli utenti. D'altra parte, si hanno gli Alternative SM-DS, che sono server di backup a cui si ricorre quando il Root SM-DS non è disponibile.
+\\\textit{*Un Profile Package è un pacchetto di dati associato a un profilo che contiene le informazioni di configurazione necessarie per attivare e utilizzare quel profilo all'interno di una scheda eSIM. Esistono diversi tipi di Profile Package: l'Unprotected Profile Package (UPP) è un pacchetto di dati non protetto da alcun meccanismo di sicurezza, come l'autenticazione o la crittografia; il Protected Profile Package (PPP) è un pacchetto di dati protetto da alcuni meccanismi di sicurezza; il Bound Profile Package (BPP) è un pacchetto di dati legato a un particolare dispositivo o a una piattaforma di servizi; il Segmented Bound Profile Package (SBPP), infine, non è altro che un BPP suddiviso in molteplici segmenti che possono essere utilizzati in modo indipendente e separato.}\\
+\textit{**ISD-P (Issuer Security Domain Profile) è un contenitore sicuro che ospita un unico profilo.}\\
+\textit{***Root SM-DS è il server primario utilizzato da un operatore di rete mobile per gestire le attivazioni e le disattivazioni delle sottoscrizioni e per gestire funzionalità come l'autenticazione e l'autorizzazione degli utenti. D'altra parte, si hanno gli Alternative SM-DS, che sono server di backup a cui si ricorre quando il Root SM-DS non è disponibile.}
 
 \section{Architettura dell'eUICC}
-Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs} è schematizzata l'architettura interna del chip eUICC, dove i riquadri e le frecce in rosso sono relativi rispettivamente ai componenti e alle interfacce che, nell'ambito dell'eUICC, sono presenti esclusivamente nel caso in cui l'applicazione LPA sia effettivamente embeddata all'interno dell'eUICC (LPAe).
+Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzata l'architettura interna del chip eUICC, dove i riquadri e le frecce in rosso sono relativi rispettivamente ai componenti e alle interfacce che, nell'ambito dell'eUICC, sono presenti esclusivamente nel caso in cui l'applicazione LPA sia effettivamente embeddata all'interno dell'eUICC (LPAe).
 \begin{figure}
 \includegraphics[width=\linewidth]{eUICC-arch.png}
 \caption{Architettura dell'eUICC.}
@@ -178,7 +192,7 @@ Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs} è schematizzata l'
 
 \section{Interazione tra eUICC, LPA, SM-DP+ e operatore}
 \subsection{Sicurezza TLS}
-Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA). In particolare, in ES2+ è prevista la mutua autenticazione tra le parti, mentre in ES9+ è prevista solo l'autenticazione del server. La documentazione di GSMA di riferimento \cite{GSMA-docs} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, documenti più recenti di GSMA \cite{GSMA-docs2} introducono la possibilità (e suggeriscono) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui nei capitoli successivi potrebbe essere necessario verificare a livello pratico qual è la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
+Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA). In particolare, in ES2+ è prevista la mutua autenticazione tra le parti, mentre in ES9+ è prevista solo l'autenticazione del server. La documentazione di GSMA di riferimento \cite{GSMA-docs-new} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, introduce anche la possibilità (e suggerisce) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui nei capitoli successivi potrebbe essere necessario verificare a livello pratico qual è la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
 Un discorso analogo vale per l'interazione che si ha nella mutua autenticazione tra l'eUICC e il server SM-DP+, dove le due parti interagiscono tra loro tramite un TLS tunnel \cite{Sec-analysis}. Per quanto invece riguarda la comunicazione tra eUICC e applicazione LPA, è richiesto l'utilizzo di un pairwise secure channel (ovvero di un canale di comunicazione sicuro rispetto alla confidenzialità e all'autenticazione dei messaggi) che collega le due parti all'interno del dispositivo mobile \cite{Sec-analysis}. Tuttavia, non esiste una specifica universale che imponga l'utilizzo di un particolare protocollo di crittografia per proteggere il pairwise secure channel; il protocollo più utilizzato a tal proposito rimane TLS ma, di nuovo, potrebbe essere necessario stabilire con un approccio pratico se nel canale di comunicazione tra eUICC e LPA viene utilizzato TLS oppure un protocollo differente.
 
 \subsection{Dettagli sull'interazione in RSP}\label{sec:RSP-interaction}
@@ -222,16 +236,22 @@ In definitiva, in questa sezione è emerso come l'LPA svolga principalmente il r
 \end{figure}
 
 \subsection{Regole per la comunicazione in RSP}
-Qualunque comunicazione remota definita per RSP, oltre a prevedere il meccanismo di mutua autenticazione descritto in precedenza, deve far fede alle regole riportate di seguito \cite{GSMA-docs}.
+Qualunque comunicazione remota definita per RSP, oltre a prevedere il meccanismo di mutua autenticazione descritto in precedenza, deve far fede alle regole riportate di seguito \cite{GSMA-docs-new}.
 \begin{itemize}
-\item \textbf{Privacy dei dati}: l'eUICC, in quanto client, non deve rivelare alcuna informazione privata a un server SM-DP+ non autenticato. Inoltre, non deve generare materiale firmato prima del completamento del processo di autenticazione.
-\item \textbf{Protezione della comunicazione}: quando possibile, la comunicazione tra eUICC e server SM-DP+, oltre a essere protetta dall'integrità dei messaggi, dalla cifratura e dall'autenticazione del mittente, dovrebbe essere caratterizzata dalla proprietà di Forward Secrecy. Secondo tale proprietà, se anche una chiave a lungo termine viene compromessa, le chiavi di sessione generate a partire da essa rimangono comunque riservate.
+\item \textbf{Privacy dei dati}: l'eUICC, in quanto client, non deve rivelare alcuna informazione privata a un server SM-DP+ non autenticato. Inoltre, non deve generare materiale firmato prima del completamento del processo di autenticazione del server.
+\item \textbf{Protezione della comunicazione}: quando possibile, la comunicazione tra eUICC e server SM-DP+, oltre a essere protetta dall'integrità dei messaggi, dalla cifratura e dall'autenticazione del mittente, dovrebbe essere caratterizzata dalla proprietà di Perfect Forward Secrecy. Secondo tale proprietà, se anche una chiave a lungo termine viene compromessa, le chiavi di sessione generate a partire da essa rimangono comunque riservate.
 \item \textbf{Autorizzazione}: il server SM-DP+ deve sempre verificare che il client che ha inviato una richiesta sia effettivamente autorizzato prima di far partire l'esecuzione della funzione desiderata.
 \end{itemize}
 
 \section{Chiavi crittografiche e certificati}
 \subsection{Chiavi crittografiche}
-Le chiavi utilizzate dai principali componenti che partecipano all'interazione data dal protocollo RSP sono riportate nella tabella \ref{tab:keys} tratta da \cite{GSMA-docs}.
+Le chiavi utilizzate dai principali componenti che partecipano all'interazione data dal protocollo RSP hanno tutte un nome di tipo <XX>.<YY>.<ZZ> \cite{GSMA-docs-new}, dove:
+\begin{itemize}
+\item \textbf{$<$XX$>$}: indica la natura della chiave (i.e. chiave pubblica PK, chiave privata SK, chiave pubblica one-time otPK, chiave privata one-time otSK).
+\item \textbf{$<$YY$>$}: indica il proprietario della chiave.
+\item \textbf{$<$ZZ$>$}: indica il tipo di utilizzo della chiave (i.e. digital signature SIG, key agreement KA, TLS).
+\end{itemize}
+Le chiavi di maggiore rilievo, comunque sia, sono riportate nella tabella \ref{tab:keys} tratta da \cite{GSMA-docs-old}.
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -241,37 +261,37 @@ Le chiavi utilizzate dai principali componenti che partecipano all'interazione d
 \hline
 \textbf{Nome} & \textbf{Descrizione}\\
 \hline
-PK.EUICC.ECDSA & Chiave pubblica dell'eUICC usata per verificare le signature dell'eUICC. È inclusa nel certificato CERT.EUICC.ECDSA.\\
+PK.EUICC.SIG & Chiave pubblica dell'eUICC usata per verificare le signature dell'eUICC. È inclusa nel certificato CERT.EUICC.SIG.\\
 \hline
-SK.EUICC.ECDSA & Chiave privata dell'eUICC usata per generare le signature. Corrisponde alla chiave $SK_{U}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
+SK.EUICC.SIG & Chiave privata dell'eUICC usata per generare le signature. Corrisponde alla chiave $SK_{U}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-PK.DPauth.ECDSA & Chiave pubblica del server SM-DP+ usata per verificare le signature del server. È inclusa nel certificato CERT.DPauth.ECDSA.\\
+PK.DPauth.SIG & Chiave pubblica del server SM-DP+ usata per verificare le signature del server. È inclusa nel certificato CERT.DPauth.SIG.\\
 \hline
-SK.DPauth.ECDSA & Chiave privata del server SM-DP+ usata per generare le signature per autenticarsi all'eUICC. Corrisponde alla chiave $SK_{Sa}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
+SK.DPauth.SIG & Chiave privata del server SM-DP+ usata per generare le signature per autenticarsi all'eUICC. Corrisponde alla chiave $SK_{Sa}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-PK.DPpb.ECDSA & Chiave pubblica del server SM-DP+ usata per verificare le signature del server comprese nel BPP.  È inclusa nel certificato CERT.DPpb.ECDSA.\\
+PK.DPpb.SIG & Chiave pubblica del server SM-DP+ usata per verificare le signature del server comprese nel BPP.  È inclusa nel certificato CERT.DPpb.ECDSA.\\
 \hline
-SK.DPpb.ECDSA & Chiave privata del server SM-DP+ usata per generare le signature per il binding dei profili. Corrisponde alla chiave $SK_{Sp}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
+SK.DPpb.SIG & Chiave privata del server SM-DP+ usata per generare le signature per il binding dei profili. Corrisponde alla chiave $SK_{Sp}$ citata nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-PK.DSauth.ECDSA & Chiave pubblica del server SM-DS usata per verificare le signature di SM-DS. È inclusa nel certificato CERT.DSauth.ECDSA.\\
+PK.DSauth.SIG & Chiave pubblica del server SM-DS usata per verificare le signature di SM-DS. È inclusa nel certificato CERT.DSauth.SIG.\\
 \hline
-SK.DSauth.ECDSA & Chiave privata del server SM-DS usata per generare le signature per autenticarsi all'eUICC.\\
+SK.DSauth.SIG & Chiave privata del server SM-DS usata per generare le signature per autenticarsi all'eUICC.\\
 \hline
-PK.EUM.ECDSA & Chiave pubblica dell'EUM usata per verificare i certificati degli eUICC. È inclusa nel certificato CERT.EUM.ECDSA.\\
+PK.EUM.SIG & Chiave pubblica dell'EUM usata per verificare i certificati degli eUICC. È inclusa nel certificato CERT.EUM.SIG.\\
 \hline
-SK.EUM.ECDSA & Chiave privata dell'EUM usata per firmare i certificati degli eUICC.\\
+SK.EUM.SIG & Chiave privata dell'EUM usata per firmare i certificati degli eUICC.\\
 \hline
-PK.CI.ECDSA &  Chiave pubblica del CI usata per verificare i certificati dell'EUM dei server SM-DS e del server SM-DP+.\\
+PK.CI.SIG &  Chiave pubblica del CI usata per verificare i certificati dell'EUM dei server SM-DS e del server SM-DP+.\\
 \hline
-SK.CI.ECDSA & Chiave privata del CI usata per firmare i certificati dell'EUM dei server SM-DS e del server SM-DP+.\\
+SK.CI.SIG & Chiave privata del CI usata per firmare i certificati dell'EUM dei server SM-DS e del server SM-DP+.\\
 \hline
-otPK.EUICC.ECKA & Chiave pubblica one-time dell'eUICC usata per il key agreement.\\
+otPK.EUICC.KA & Chiave pubblica one-time dell'eUICC usata per il key agreement.\\
 \hline
-otSK.EUICC.ECKA & Chiave privata one-time dell'eUICC usata per il key agreement.\\
+otSK.EUICC.KA & Chiave privata one-time dell'eUICC usata per il key agreement.\\
 \hline
-otPK.DP.ECKA & Chiave pubblica one-time del server SM-DP+ usata per il key agreement.\\
+otPK.DP.KA & Chiave pubblica one-time del server SM-DP+ usata per il key agreement.\\
 \hline
-otSK.DP.ECKA & Chiave privata one-time del server SM-DP+ usata per il key agreement.\\
+otSK.DP.KA & Chiave privata one-time del server SM-DP+ usata per il key agreement.\\
 \hline
 PK.DP.TLS & Chiave pubblica del server SM-DP+ usata per verificare le signature TLS del server. È inclusa nel certificato CERT.DP.TLS.\\
 \hline
@@ -286,7 +306,7 @@ SK.DS.TLS & Chiave privata del server SM-DS usata per generare le signature per 
 \end{table}
 
 \subsection{Certificati}
-I certificati propri dei principali componenti che partecipano all'interazione data dal protocollo RSP sono riportate nella tabella \ref{tab:cert} tratta da \cite{GSMA-docs}.
+I certificati propri dei principali componenti che partecipano all'interazione data dal protocollo RSP sono riportate nella tabella \ref{tab:cert} tratta da \cite{GSMA-docs-new}.
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -296,37 +316,45 @@ I certificati propri dei principali componenti che partecipano all'interazione d
 \hline
 \textbf{Nome} & \textbf{Descrizione} & \textbf{Note}\\
 \hline
-CERT.CI.ECDSA & Certificato GSMA CI & Viene firmato e rilasciato dal CI.\\
+CERT.CI.SIG & Certificato GSMA CI & Viene firmato e rilasciato da se stesso.\\
 \hline
-CERT.EUM.ECDSA & Certificato EUM & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{EUM}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+CERT.CISubCA.SIG & Certificato GSMA CI subordinato & Se esistente, viene firmato e rilasciato dal CI root.\\
 \hline
-CERT.DPauth.ECDSA & Certificato SM-DP+ per autenticarsi all'eUICC & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{Sa}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+CERT.EUM.SIG & Certificato EUM & Viene firmato e rilasciato dal CI root. Corrisponde al certificato $Cert_{EUM}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-CERT.DPpb.ECDSA & Certificato SM-DP+ per rilasciare e firmare i profili eSIM & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{Sp}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+CERT.EUMSubCA.SIG & Certificato EUM subordinato & Se esistente, viene firmato e rilasciato dall'EUM root.\\
 \hline
-CERT.DP.TLS & Certificato TLS di SM-DP+ & Viene firmato e rilasciato dal CI. Corrisponde al certificato $Cert_{St}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+CERT.DPSubCA.SIG & Certificato SM-DP+ subordinato & Viene firmato e rilasciato dal CI root.\\
 \hline
-CERT.DSauth.ECDSA & Certificato SM-DS & Viene firmato e rilasciato dal CI.\\
+CERT.DPauth.SIG & Certificato SM-DP+ per autenticarsi all'eUICC & Viene firmato e rilasciato dal SM-DP+ subordinato. Corrisponde al certificato $Cert_{Sa}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-CERT.DS.TLS & Certificato TLS di SM-DS & Viene firmato e rilasciato dal CI.\\
+CERT.DPpb.SIG & Certificato SM-DP+ per rilasciare e firmare i profili eSIM & Viene firmato e rilasciato dal SM-DP+ subordinato. Corrisponde al certificato $Cert_{Sp}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
 \hline
-CERT.EUICC.ECDSA & Certificato eUICC & Viene firmato e rilasciato dall'EUM.\\
+CERT.DP.TLS & Certificato TLS di SM-DP+ & Viene firmato e rilasciato dal SM-DP+ subordinato. Corrisponde al certificato $Cert_{St}$ citato nella sottosezione \ref{sec:RSP-interaction}.\\
+\hline
+CERT.DSSubCA.SIG & Certificato SM-DS subordinato & Viene firmato e rilasciato dal CI root.\\
+\hline
+CERT.DSauth.SIG & Certificato SM-DS & Viene firmato e rilasciato dal SM-DS subordinato.\\
+\hline
+CERT.DS.TLS & Certificato TLS di SM-DS & Viene firmato e rilasciato dal SM-DS subordinato.\\
+\hline
+CERT.EUICC.SIG & Certificato eUICC & Viene firmato e rilasciato dall'EUM root.\\
 \hline
 \end{tabularx}
 \end{center}
 \end{table}
-\\La figura \ref{fig:cert-chain} tratta da \cite{GSMA-docs} definisce uno schema riassuntivo della catena di certificati definita dalla Public Key Infrastructure (PKI) di RSP.
+\\La figura \ref{fig:cert-chain} tratta da \cite{GSMA-docs-new} definisce uno schema riassuntivo della catena di certificati definita dalla Public Key Infrastructure (PKI) di RSP.
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain.png}
 \caption{Catena di certificati definita dalla PKI di RSP.}
 \label{fig:cert-chain}
 \end{figure}
-All'interno della PKI, il Certificate Issuer di GSMA (CI) è la Root Certification Authority del servizio RSP e, di conseguenza, rappresenta il nodo radice della catena. La figura \ref{fig:cert-chain}, inoltre, rimarca bene come tutti i certificati siano rilasciati dal CI, fatta eccezione di CERT.EUICC.ECDSA che, invece, viene rilasciato dall'EUM. Tutti i certificati rilasciati direttamente dal CI possono essere revocati in qualunque momento, in particolar modo se le entità corrispondenti (CI, EUM, SM-DP+, SM-DS) vengono compromesse. D'altra parte, i certificati eUICC (CERT.EUICC.ECDSA) non vengono revocati in modo individuale: di fatto, è difficile che un singolo eUICC venga compromesso. Piuttosto, è più verosimile che un modello eUICC o un intero batch di produzione di eUICC venga dichiarato come compromesso; quando ciò avviene, quello che si fa è revocare direttamente il certificato EUM (CERT.EUM.ECDSA) associato a quel modello o batch di produzione di eUICC \cite{GSMA-docs}.\\
-Il CI fornisce una Certificate Revocation List (CRL), che è la lista dei certificati revocati tra tutti i certificati non scaduti che erano stati rilasciati da quello stesso CI. Ciascun CI, per giunta, deve pubblicare la propria CRL sia periodicamente, sia ogni volta che viene revocato un particolare certificato \cite{GSMA-docs}.\\
+All'interno della PKI, il Certificate Issuer di GSMA (CI) è la Root Certification Authority del servizio RSP e, di conseguenza, rappresenta il nodo radice della catena. La figura \ref{fig:cert-chain}, inoltre, rimarca bene come tutti i certificati siano rilasciati dal CI, fatta eccezione di CERT.EUICC.ECDSA che, invece, viene rilasciato dall'EUM. Tutti i certificati rilasciati direttamente dal CI possono essere revocati in qualunque momento, in particolar modo se le entità corrispondenti (CI, EUM, SM-DP+, SM-DS) vengono compromesse. D'altra parte, i certificati eUICC (CERT.EUICC.ECDSA) non vengono revocati in modo individuale: di fatto, è difficile che un singolo eUICC venga compromesso. Piuttosto, è più verosimile che un modello eUICC o un intero batch di produzione di eUICC venga dichiarato come compromesso; quando ciò avviene, quello che si fa è revocare direttamente il certificato EUM (CERT.EUM.ECDSA) associato a quel modello o batch di produzione di eUICC \cite{GSMA-docs-new}.\\
+Il CI fornisce una Certificate Revocation List (CRL), che è la lista dei certificati revocati tra tutti i certificati non scaduti che erano stati rilasciati da quello stesso CI. Ciascun CI, per giunta, deve pubblicare la propria CRL sia periodicamente, sia ogni volta che viene revocato un particolare certificato \cite{GSMA-docs-new}.\\
 In realtà, i certificati relativi alla PKI di RSP di cui si è discusso finora non sono gli unici certificati utilizzati per effettuare il deployment dei profili eSIM: esiste anche un certificato per firmare l'applicazione LPA e un certificato da inserire in ciascun profilo eSIM da distribuire all'end user. Dove entrano in gioco tali certificati? Con riferimento alla guida di Android per le API e per l'implementazione del deployment dei profili eSIM \cite{Android-docs}, l'interazione tra un'applicazione LPA e l'interfaccia all'eUICC (legata al componente EuiccManager in \cite{Android-docs}) può avvenire solo se l'applicazione dispone dei privilegi dell'operatore. Di norma, tali privilegi sono conferiti all'applicazione se il certificato usato per firmarla coincide col certificato presente nel profilo fornito da SM-DP+.
 
 \section{Ciclo di vita dei profili in SM-DP+}
-La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
+La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs-new}\cite{GSMA-docs-old} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -357,7 +385,7 @@ Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
 \end{tabularx}
 \end{center}
 \end{table}
-\\Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs} sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
+\\Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs-new}\cite{GSMA-docs-old} sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
 \begin{figure}
 \includegraphics[width=\linewidth]{profile-states1}
 \caption{Primo diagramma a stati per i profili eSIM.}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 APR 2023 22:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  26 APR 2023 18:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -569,49 +569,55 @@ File: RSP-functioning.png Graphic file (type png)
 <use RSP-functioning.png>
 Package pdftex.def Info: RSP-functioning.png  used on input line 68.
 (pdftex.def)             Requested size: 426.79135pt x 239.92691pt.
-<RSP-LPAd.png, id=231, 462.528pt x 387.24675pt>
+<RSP-LPAd.png, id=231, 788.9475pt x 463.13025pt>
 File: RSP-LPAd.png Graphic file (type png)
 <use RSP-LPAd.png>
 Package pdftex.def Info: RSP-LPAd.png  used on input line 76.
-(pdftex.def)             Requested size: 426.79135pt x 357.34674pt.
-<RSP-LPAe.png, id=236, 486.01575pt x 392.06474pt>
+(pdftex.def)             Requested size: 426.79135pt x 250.53181pt.
+<RSP-LPAe.png, id=236, 696.80325pt x 465.53925pt>
 File: RSP-LPAe.png Graphic file (type png)
 <use RSP-LPAe.png>
-Package pdftex.def Info: RSP-LPAe.png  used on input line 91.
-(pdftex.def)             Requested size: 426.79135pt x 344.29416pt.
+Package pdftex.def Info: RSP-LPAe.png  used on input line 94.
+(pdftex.def)             Requested size: 426.79135pt x 285.1506pt.
 [8
 
-] [9 <./RSP-functioning.png> <./RSP-LPAd.png>] [10 <./RSP-LPAe.png>]
-Underfull \hbox (badness 1953) in paragraph at lines 142--142
+] [9 <./RSP-functioning.png> <./RSP-LPAd.png>]
+Underfull \hbox (badness 1953) in paragraph at lines 156--156
 \OT1/cmr/m/n/10 sfe-ri-re un Pro-fi-le Pac-ka-ge al-
  []
 
-[11]
-<eUICC-arch.png, id=266, 470.9595pt x 282.45525pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<eUICC-arch.png, id=256, 707.0415pt x 419.166pt>
 File: eUICC-arch.png Graphic file (type png)
 <use eUICC-arch.png>
-Package pdftex.def Info: eUICC-arch.png  used on input line 152.
-(pdftex.def)             Requested size: 426.79135pt x 255.97443pt.
- [12 <./eUICC-arch.png>] [13] [14]
-<default-server.png, id=311, 529.37775pt x 244.5135pt>
+Package pdftex.def Info: eUICC-arch.png  used on input line 166.
+(pdftex.def)             Requested size: 426.79135pt x 253.02377pt.
+[10 <./RSP-LPAe.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11]
+[12 <./eUICC-arch.png>] [13] [14]
+<default-server.png, id=309, 529.37775pt x 244.5135pt>
 File: default-server.png Graphic file (type png)
 <use default-server.png>
-Package pdftex.def Info: default-server.png  used on input line 204.
+Package pdftex.def Info: default-server.png  used on input line 218.
 (pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
-<activation-code.png, id=312, 452.892pt x 227.04825pt>
+<activation-code.png, id=310, 452.892pt x 227.04825pt>
 File: activation-code.png Graphic file (type png)
 <use activation-code.png>
-Package pdftex.def Info: activation-code.png  used on input line 209.
+Package pdftex.def Info: activation-code.png  used on input line 223.
 (pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
-<common-handshake.png, id=313, 647.41875pt x 493.845pt>
+<common-handshake.png, id=311, 647.41875pt x 493.845pt>
 File: common-handshake.png Graphic file (type png)
 <use common-handshake.png>
-Package pdftex.def Info: common-handshake.png  used on input line 214.
+Package pdftex.def Info: common-handshake.png  used on input line 228.
 (pdftex.def)             Requested size: 426.79135pt x 325.55438pt.
-<profile-download.png, id=314, 629.35126pt x 349.90726pt>
+<profile-download.png, id=312, 629.35126pt x 349.90726pt>
 File: profile-download.png Graphic file (type png)
 <use profile-download.png>
-Package pdftex.def Info: profile-download.png  used on input line 219.
+Package pdftex.def Info: profile-download.png  used on input line 233.
 (pdftex.def)             Requested size: 426.79135pt x 237.28773pt.
  [15 <./default-server.png>] [16 <./activation-code.png> <./common-handshake.pn
 g>]
@@ -619,46 +625,65 @@ g>]
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 315--315
+Underfull \hbox (badness 1122) in paragraph at lines 343--343
 []|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
 
-Underfull \hbox (badness 3009) in paragraph at lines 315--315
-\OT1/cmr/m/n/10 CI. Cor-ri-spon-de al cer-ti-fi-ca-to
+Underfull \hbox (badness 1122) in paragraph at lines 343--343
+[]|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
-<cert-chain.png, id=357, 631.158pt x 460.72125pt>
+
+Underfull \hbox (badness 1122) in paragraph at lines 343--343
+[]|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
+ []
+
+
+Underfull \hbox (badness 1122) in paragraph at lines 343--343
+[]|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
+ []
+
+
+Underfull \hbox (badness 1122) in paragraph at lines 343--343
+[]|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
+ []
+
+<cert-chain.png, id=356, 631.158pt x 460.72125pt>
 File: cert-chain.png Graphic file (type png)
 <use cert-chain.png>
-Package pdftex.def Info: cert-chain.png  used on input line 320.
+Package pdftex.def Info: cert-chain.png  used on input line 348.
 (pdftex.def)             Requested size: 426.79135pt x 311.53583pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [17 <./profile-download.png>]
-<profile-states1.png, id=373, 626.34pt x 466.74374pt>
+<profile-states1.png, id=375, 626.34pt x 466.74374pt>
 File: profile-states1.png Graphic file (type png)
 <use profile-states1.png>
-Package pdftex.def Info: profile-states1.png  used on input line 362.
+Package pdftex.def Info: profile-states1.png  used on input line 390.
 (pdftex.def)             Requested size: 426.79135pt x 318.05101pt.
-<profile-states2.png, id=374, 626.34pt x 184.89075pt>
+<profile-states2.png, id=376, 626.34pt x 184.89075pt>
 File: profile-states2.png Graphic file (type png)
 <use profile-states2.png>
-Package pdftex.def Info: profile-states2.png  used on input line 367.
+Package pdftex.def Info: profile-states2.png  used on input line 395.
 (pdftex.def)             Requested size: 426.79135pt x 125.98921pt.
- [18] [19] [20 <./cert-chain.png> <./profile-states1.png>] [21 <./profile-state
-s2.png>]
-Capitolo 3.
-[22
 
-]
-Capitolo 4.
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18]
+[19] [20 <./cert-chain.png>] [21 <./profile-states1.png> <./profile-states2.png
+>] [22]
+Capitolo 3.
 [23
 
 ]
+Capitolo 4.
+[24
+
+]
 Capitolo 5.
-(./Tesi.bbl [24
+(./Tesi.bbl [25
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -672,22 +697,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 10 https : / / corrierecomunicazioni . it / telco /
  []
 
-) [25
+) [26
 
-] [26
+] [27
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: CA57415811CC0A6D1815B21E2C7B8B7F;4729.
  ) 
 Here is how much of TeX's memory you used:
- 13492 strings out of 476024
- 217375 string characters out of 5794016
- 1878382 words of memory out of 5000000
+ 13493 strings out of 476024
+ 217410 string characters out of 5794016
+ 1880382 words of memory out of 5000000
  33657 multiletter control sequences out of 15000+600000
  519059 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,13n,76p,2022b,652s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,13n,76p,1999b,638s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/tex
 live/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
@@ -701,10 +726,10 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (26 pages, 1153793 bytes).
+Output written on Tesi.pdf (27 pages, 1223043 bytes).
 PDF statistics:
- 507 PDF objects out of 1000 (max. 8388607)
- 405 compressed objects within 5 object streams
- 84 named destinations out of 1000 (max. 500000)
+ 514 PDF objects out of 1000 (max. 8388607)
+ 411 compressed objects within 5 object streams
+ 85 named destinations out of 1000 (max. 500000)
  253 words of extra memory for PDF output out of 10000 (max. 10000000)
 
