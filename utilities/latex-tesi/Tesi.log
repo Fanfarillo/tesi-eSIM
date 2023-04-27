@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  26 APR 2023 18:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  27 APR 2023 18:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -343,9 +343,18 @@ Package caption Info: Standard document class detected.
 \c@continuedfloat=\count283
 Package caption Info: hyperref package is loaded.
 )
+(c:/texlive/2022/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip71
+\enit@outerparindent=\dimen171
+\enit@toks=\toks24
+\enit@inbox=\box55
+\enit@count@id=\count284
+\enitdp@description=\count285
+)
 (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2022/04/08 v2.17n AMS math features
-\@mathmargin=\skip71
+\@mathmargin=\skip72
 
 For additional information on amsmath, use the `?' option.
 (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -353,90 +362,90 @@ Package: amstext 2021/08/26 v2.01 AMS text
 
 (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks24
-\ex@=\dimen171
+\@emptytoks=\toks25
+\ex@=\dimen172
 ))
 (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen172
+\pmbraise@=\dimen173
 )
 (c:/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count284
+\inf@bad=\count286
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count285
-\leftroot@=\count286
+\uproot@=\count287
+\leftroot@=\count288
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count287
-\DOTSCASE@=\count288
+\classnum@=\count289
+\DOTSCASE@=\count290
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
-\Mathstrutbox@=\box55
-\strutbox@=\box56
+\Mathstrutbox@=\box56
+\strutbox@=\box57
 LaTeX Info: Redefining \big on input line 722.
 LaTeX Info: Redefining \Big on input line 723.
 LaTeX Info: Redefining \bigg on input line 724.
 LaTeX Info: Redefining \Bigg on input line 725.
-\big@size=\dimen173
+\big@size=\dimen174
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count289
+\macc@depth=\count291
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count290
+\c@MaxMatrixCols=\count292
 \dotsspace@=\muskip17
-\c@parentequation=\count291
-\dspbrk@lvl=\count292
-\tag@help=\toks25
-\row@=\count293
-\column@=\count294
-\maxfields@=\count295
-\andhelp@=\toks26
-\eqnshift@=\dimen174
-\alignsep@=\dimen175
-\tagshift@=\dimen176
-\tagwidth@=\dimen177
-\totwidth@=\dimen178
-\lineht@=\dimen179
-\@envbody=\toks27
-\multlinegap=\skip72
-\multlinetaggap=\skip73
-\mathdisplay@stack=\toks28
+\c@parentequation=\count293
+\dspbrk@lvl=\count294
+\tag@help=\toks26
+\row@=\count295
+\column@=\count296
+\maxfields@=\count297
+\andhelp@=\toks27
+\eqnshift@=\dimen175
+\alignsep@=\dimen176
+\tagshift@=\dimen177
+\tagwidth@=\dimen178
+\totwidth@=\dimen179
+\lineht@=\dimen180
+\@envbody=\toks28
+\multlinegap=\skip73
+\multlinetaggap=\skip74
+\mathdisplay@stack=\toks29
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )
 (c:/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count296
-\l__pdf_internal_box=\box57
+\l__color_backend_stack_int=\count298
+\l__pdf_internal_box=\box58
 )
 (./Tesi.aux)
 \openout1 = `Tesi.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -472,17 +481,17 @@ LaTeX Font Info:    ... okay on input line 23.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \it@ocap on input line 23.
-LaTeX Info: Redefining \it@ccap on input line 23.
+LaTeX Info: Redefining \it@ocap on input line 24.
+LaTeX Info: Redefining \it@ccap on input line 24.
 
 File italian.ldf warning: 
 italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting 
-italian.ldf    on input line 23.
+italian.ldf    on input line 24.
 
-Package hyperref Info: Link coloring OFF on input line 23.
+Package hyperref Info: Link coloring OFF on input line 24.
 (./Tesi.out) (./Tesi.out)
 \@outlinefile=\write4
 \openout4 = `Tesi.out'.
@@ -490,17 +499,17 @@ Package hyperref Info: Link coloring OFF on input line 23.
 
 (c:/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count297
-\scratchdimen=\dimen180
-\scratchbox=\box58
-\nofMPsegments=\count298
-\nofMParguments=\count299
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count300
-\MPscratchDim=\dimen181
-\MPnumerator=\count301
-\makeMPintoPDFobject=\count302
-\everyMPtoPDFconversion=\toks30
+\scratchcounter=\count299
+\scratchdimen=\dimen181
+\scratchbox=\box59
+\nofMPsegments=\count300
+\nofMParguments=\count301
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count302
+\MPscratchDim=\dimen182
+\MPnumerator=\count303
+\makeMPintoPDFobject=\count304
+\everyMPtoPDFconversion=\toks31
 ) (c:/texlive/2022/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 
@@ -520,10 +529,10 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<Tesi-frn.pdf, id=100, 597.50829pt x 845.0471pt>
+<Tesi-frn.pdf, id=108, 597.50829pt x 845.0471pt>
 File: Tesi-frn.pdf Graphic file (type pdf)
 <use Tesi-frn.pdf>
-Package pdftex.def Info: Tesi-frn.pdf  used on input line 24.
+Package pdftex.def Info: Tesi-frn.pdf  used on input line 25.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
  [1
 
@@ -551,12 +560,12 @@ Package pdftex.def Info: Tesi-frn.pdf  used on input line 24.
 ]
 Capitolo 1.
 LaTeX Font Info:    Trying to load font information for OT1+phv on input line 4
-6.
+7.
 (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 4
-6.
+7.
 
 (c:/texlive/2022/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -564,126 +573,149 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 ] [7]
 Capitolo 2.
-<RSP-functioning.png, id=226, 445.665pt x 250.536pt>
+<RSP-functioning.png, id=240, 445.665pt x 250.536pt>
 File: RSP-functioning.png Graphic file (type png)
 <use RSP-functioning.png>
-Package pdftex.def Info: RSP-functioning.png  used on input line 68.
+Package pdftex.def Info: RSP-functioning.png  used on input line 69.
 (pdftex.def)             Requested size: 426.79135pt x 239.92691pt.
-<RSP-LPAd.png, id=231, 788.9475pt x 463.13025pt>
+<RSP-LPAd.png, id=245, 788.9475pt x 463.13025pt>
 File: RSP-LPAd.png Graphic file (type png)
 <use RSP-LPAd.png>
-Package pdftex.def Info: RSP-LPAd.png  used on input line 76.
+Package pdftex.def Info: RSP-LPAd.png  used on input line 77.
 (pdftex.def)             Requested size: 426.79135pt x 250.53181pt.
-<RSP-LPAe.png, id=236, 696.80325pt x 465.53925pt>
+<RSP-LPAe.png, id=250, 696.80325pt x 465.53925pt>
 File: RSP-LPAe.png Graphic file (type png)
 <use RSP-LPAe.png>
-Package pdftex.def Info: RSP-LPAe.png  used on input line 94.
+Package pdftex.def Info: RSP-LPAe.png  used on input line 95.
 (pdftex.def)             Requested size: 426.79135pt x 285.1506pt.
 [8
 
 ] [9 <./RSP-functioning.png> <./RSP-LPAd.png>]
-Underfull \hbox (badness 1953) in paragraph at lines 156--156
+Underfull \hbox (badness 1953) in paragraph at lines 157--157
 \OT1/cmr/m/n/10 sfe-ri-re un Pro-fi-le Pac-ka-ge al-
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<eUICC-arch.png, id=256, 707.0415pt x 419.166pt>
+<eUICC-arch.png, id=270, 707.0415pt x 419.166pt>
 File: eUICC-arch.png Graphic file (type png)
 <use eUICC-arch.png>
-Package pdftex.def Info: eUICC-arch.png  used on input line 166.
+Package pdftex.def Info: eUICC-arch.png  used on input line 167.
 (pdftex.def)             Requested size: 426.79135pt x 253.02377pt.
 [10 <./RSP-LPAe.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [11]
-[12 <./eUICC-arch.png>] [13] [14]
-<default-server.png, id=309, 529.37775pt x 244.5135pt>
-File: default-server.png Graphic file (type png)
-<use default-server.png>
-Package pdftex.def Info: default-server.png  used on input line 218.
-(pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
-<activation-code.png, id=310, 452.892pt x 227.04825pt>
-File: activation-code.png Graphic file (type png)
-<use activation-code.png>
-Package pdftex.def Info: activation-code.png  used on input line 223.
-(pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
-<common-handshake.png, id=311, 647.41875pt x 493.845pt>
-File: common-handshake.png Graphic file (type png)
-<use common-handshake.png>
-Package pdftex.def Info: common-handshake.png  used on input line 228.
-(pdftex.def)             Requested size: 426.79135pt x 325.55438pt.
-<profile-download.png, id=312, 629.35126pt x 349.90726pt>
-File: profile-download.png Graphic file (type png)
-<use profile-download.png>
-Package pdftex.def Info: profile-download.png  used on input line 233.
-(pdftex.def)             Requested size: 426.79135pt x 237.28773pt.
- [15 <./default-server.png>] [16 <./activation-code.png> <./common-handshake.pn
-g>]
+[12 <./eUICC-arch.png>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 343--343
+Underfull \hbox (badness 1122) in paragraph at lines 293--293
 []|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 343--343
+Underfull \hbox (badness 1122) in paragraph at lines 293--293
 []|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 343--343
+Underfull \hbox (badness 1122) in paragraph at lines 293--293
 []|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 343--343
+Underfull \hbox (badness 1122) in paragraph at lines 293--293
 []|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
 
-Underfull \hbox (badness 1122) in paragraph at lines 343--343
+Underfull \hbox (badness 1122) in paragraph at lines 293--293
 []|\OT1/cmr/m/n/10 Viene fir-ma-to e ri-la-scia-to dal
  []
 
-<cert-chain.png, id=356, 631.158pt x 460.72125pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[13]
+Overfull \hbox (3.03253pt too wide) in paragraph at lines 308--309
+[]\OT1/cmr/bx/n/10 Variante O (ori-gi-na-le)\OT1/cmr/m/n/10 : il CI root ri-la-
+scia di-ret-ta-men-te i cer-ti-fi-ca-ti CERT.DPauth.SIG,
+ []
+
+
+Overfull \hbox (21.19087pt too wide) in paragraph at lines 309--310
+\OT1/cmr/m/n/10 me-dia-rio; l'SM-DP+ in-ter-me-dia-rio ri-la-scia i cer-ti-fi-c
+a-ti CERT.DPauth.SIG, CERT.DPpb.SIG;
+ []
+
+[14] [15]
+<cert-chain.png, id=323, 631.158pt x 460.72125pt>
 File: cert-chain.png Graphic file (type png)
 <use cert-chain.png>
-Package pdftex.def Info: cert-chain.png  used on input line 348.
+Package pdftex.def Info: cert-chain.png  used on input line 329.
 (pdftex.def)             Requested size: 426.79135pt x 311.53583pt.
+<cert-chain-new1.png, id=324, 675.7245pt x 554.67226pt>
+File: cert-chain-new1.png Graphic file (type png)
+<use cert-chain-new1.png>
+Package pdftex.def Info: cert-chain-new1.png  used on input line 334.
+(pdftex.def)             Requested size: 426.79135pt x 350.33405pt.
+<cert-chain-new2.png, id=325, 839.5365pt x 484.81125pt>
+File: cert-chain-new2.png Graphic file (type png)
+<use cert-chain-new2.png>
+Package pdftex.def Info: cert-chain-new2.png  used on input line 339.
+(pdftex.def)             Requested size: 426.79135pt x 246.45891pt.
+<cert-chain-new3.png, id=326, 855.79726pt x 492.03825pt>
+File: cert-chain-new3.png Graphic file (type png)
+<use cert-chain-new3.png>
+Package pdftex.def Info: cert-chain-new3.png  used on input line 344.
+(pdftex.def)             Requested size: 426.79135pt x 245.38034pt.
+<cert-chain-new4.png, id=327, 859.41075pt x 491.436pt>
+File: cert-chain-new4.png Graphic file (type png)
+<use cert-chain-new4.png>
+Package pdftex.def Info: cert-chain-new4.png  used on input line 349.
+(pdftex.def)             Requested size: 426.79135pt x 244.04518pt.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Underfull \vbox (badness 5696) has occurred while \output is active []
 
-[17 <./profile-download.png>]
-<profile-states1.png, id=375, 626.34pt x 466.74374pt>
+ [16 <./cert-chain.png>] [17 <./cert-chain-new1.png> <./cert-chain-new2.png>] [
+18 <./cert-chain-new3.png> <./cert-chain-new4.png>] [19]
+<default-server.png, id=369, 529.37775pt x 244.5135pt>
+File: default-server.png Graphic file (type png)
+<use default-server.png>
+Package pdftex.def Info: default-server.png  used on input line 384.
+(pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
+<activation-code.png, id=370, 452.892pt x 227.04825pt>
+File: activation-code.png Graphic file (type png)
+<use activation-code.png>
+Package pdftex.def Info: activation-code.png  used on input line 389.
+(pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
+ [20 <./default-server.png>]
+<profile-states1.png, id=387, 626.34pt x 466.74374pt>
 File: profile-states1.png Graphic file (type png)
 <use profile-states1.png>
-Package pdftex.def Info: profile-states1.png  used on input line 390.
+Package pdftex.def Info: profile-states1.png  used on input line 434.
 (pdftex.def)             Requested size: 426.79135pt x 318.05101pt.
-<profile-states2.png, id=376, 626.34pt x 184.89075pt>
+<profile-states2.png, id=388, 626.34pt x 184.89075pt>
 File: profile-states2.png Graphic file (type png)
 <use profile-states2.png>
-Package pdftex.def Info: profile-states2.png  used on input line 395.
+Package pdftex.def Info: profile-states2.png  used on input line 439.
 (pdftex.def)             Requested size: 426.79135pt x 125.98921pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [18]
-[19] [20 <./cert-chain.png>] [21 <./profile-states1.png> <./profile-states2.png
->] [22]
+[21 <./activation-code.png>] [22 <./profile-states1.png> <./profile-states2.png
+>] [23]
 Capitolo 3.
-[23
-
-]
-Capitolo 4.
 [24
 
 ]
+Capitolo 4.
+[25
+
+]
 Capitolo 5.
-(./Tesi.bbl [25
+(./Tesi.bbl [26
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -697,22 +729,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 10 https : / / corrierecomunicazioni . it / telco /
  []
 
-) [26
+) [27
 
-] [27
+] [28
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: CA57415811CC0A6D1815B21E2C7B8B7F;4729.
+(rerunfilecheck)             Checksum: 1373528FD6BBA92C8470C000D3F9C788;5288.
  ) 
 Here is how much of TeX's memory you used:
- 13493 strings out of 476024
- 217410 string characters out of 5794016
- 1880382 words of memory out of 5000000
- 33657 multiletter control sequences out of 15000+600000
+ 13850 strings out of 476024
+ 223683 string characters out of 5794016
+ 1876382 words of memory out of 5000000
+ 34003 multiletter control sequences out of 15000+600000
  519059 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,13n,76p,1999b,638s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,76p,1382b,702s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/tex
 live/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
@@ -726,10 +758,10 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (27 pages, 1223043 bytes).
+Output written on Tesi.pdf (28 pages, 1351998 bytes).
 PDF statistics:
- 514 PDF objects out of 1000 (max. 8388607)
- 411 compressed objects within 5 object streams
- 85 named destinations out of 1000 (max. 500000)
- 253 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 516 PDF objects out of 1000 (max. 8388607)
+ 424 compressed objects within 5 object streams
+ 90 named destinations out of 1000 (max. 500000)
+ 279 words of extra memory for PDF output out of 10000 (max. 10000000)
 
