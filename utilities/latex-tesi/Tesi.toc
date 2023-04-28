@@ -18,11 +18,13 @@
 \contentsline {subsection}{\numberline {2.4.2}Regole per la comunicazione in RSP}{19}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Step dell'interazione in RSP}{19}{subsection.2.4.3}%
 \contentsline {section}{\numberline {2.5}Dettagli sulla Common Mutual Authentication}{21}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Aggiornamento della chiave pubblica dell'eUICC}{21}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Ciclo di vita dei profili in SM-DP+}{21}{section.2.7}%
-\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{24}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{25}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{25}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Conclusione}{26}{chapter.5}%
+\contentsline {subsection}{\numberline {2.5.1}Condizioni iniziali}{21}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Procedimento}{21}{subsection.2.5.2}%
+\contentsline {section}{\numberline {2.6}Aggiornamento della chiave pubblica dell'eUICC}{23}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Ciclo di vita dei profili in SM-DP+}{23}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{26}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{27}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{27}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{27}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{27}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusione}{28}{chapter.5}%

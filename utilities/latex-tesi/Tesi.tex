@@ -392,7 +392,47 @@ L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro 
 \end{figure}
 
 \section{Dettagli sulla Common Mutual Authentication}\label{sec:mutual-auth}
-[TODO]
+La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste tre entità svolgono durante la procedura di Common Mutual Authentication. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Si osservi che l'intero meccanismo resta valido e invariato se si ha un server SM-DS al posto del server SM-DP+.
+\begin{figure}
+\includegraphics[width=\linewidth]{common-mutual-auth.png}
+\caption{Sequence diagram che descrive la Common Mutual Authentication.}
+\label{fig:common-mutual-auth}
+\end{figure}
+
+\subsection{Condizioni iniziali}
+\begin{itemize}
+\item Il server SM-DP+ è dotato di:
+\begin{itemize}[itemsep=0pt]
+\item certificato CERT.DPauth.SIG;
+\item chiave privata SK.DPauth.SIG;
+\item certificato del CI (CERT.CI.SIG);
+\item certificato TLS CERT.DP.TLS;
+\item chiave privata TLS SK.DP.TLS;
+\item certificati di SM-DP+ intermediari, se esistenti (CERT.DPSubCA.SIG).
+\end{itemize}
+\item L'eUICC, d'altra parte, è dotato di:
+\begin{itemize}[itemsep=0pt]
+\item certificato CERT.EUICC.SIG;
+\item chiave privata SK.EUICC.SIG;
+\item certificato dell'EUM (CERT.EUN.SIG);
+\item certificati di CI subordinati, se esistenti (CERT.CISubCA.SIG);
+\item certificati di EUM subordinati, se esistenti (CERT.EUMSubCA.SIG);
+\item chiave pubblica del CI (PK.CI.SIG).
+\end{itemize}
+\end{itemize}
+
+\subsection{Procedimento}
+\begin{enumerate}
+\item Il primo step, che è opzionale, si articola in tre punti:
+\begin{enumerate}[label=\alph*)]
+\item Se non lo aveva già fatto in un momento precedente, l'LPA richiede le informazioni dell'eUICC (e.g. Specification Version Number, versione del firmware, quantità di memoria non volatile non disponibile, capability dell'eUICC, categoria dell'eUICC) identificate dalla variabile euiccInfo1.
+\item L'eUICC restituisce euiccInfo1 all'LPA.
+\item Se esiste una restrizione sulle chiavi pubbliche dei CI consentite, l'LPA crea una nuova istanza di euiccInfo1 senza le chiavi pubbliche dei CI non compatibili. Se dopo questa operazione rimane una lista vuota di chiavi pubbliche, l'LPA informa l'end user che la procedura di mutua autenticazione deve terminare.
+\end{enumerate}
+\item L'LPA richiede all'eUICC una challenge (euiccChallenge).
+\item L'eUICC genera la challenge che successivamente dovrà essere firmata dal server SM-DP+ per l'autenticazione da parte del server stesso.
+\item L'eUICC restituisce la challenge all'LPA.
+\end{enumerate}
 
 \section{Aggiornamento della chiave pubblica dell'eUICC}
 [TODO]
