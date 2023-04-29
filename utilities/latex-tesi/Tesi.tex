@@ -80,7 +80,7 @@ RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ 
 \end{figure}
 Di seguito è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura di RSP raffigurata in \ref{fig:RSP-LPAd}.
 \begin{itemize}
-\item \textbf{CI} = Certificate Issuer: è un'entità autorizzata a rilasciare certificati digitali.
+\item \textbf{CI} = Certificate Issuer: noto anche come eSIM CA RootCA, è un'entità autorizzata a rilasciare certificati digitali.
 \item \textbf{Device App} = una qualunque applicazione installata nel dispositivo mobile.
 \item \textbf{Enterprise} = impresa (i.e. azienda, organizzazione o entità governativa) che si iscrive ai servizi mobili che devono essere utilizzati dai dipendenti a supporto dell'impresa stessa.
 \item \textbf{EUM} = eUICC Manufacturer: è il fornitore delle eUICC e del software residente (e.g. firmware, sistema operativo); svolge anche il ruolo di certificate authority subordinata al CI e rilascia certificati all'eUICC \cite{Sec-analysis}.
@@ -185,9 +185,10 @@ Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzat
 \subsection{Caratteristiche hardware e software dell'eUICC}
 \begin{enumerate}[itemsep=0pt]
 \item Deve essere resistente al tampering dei componenti hardware.
+\item Contiene un unico ECASD (eUICC Controlling Authority Security Domain), che è un componente responsabile dello storage sicuro di chiavi e certificati.
 \item Supporta SHA-1.
-\item Supporta TUAK, che è un particolare algoritmo crittografico di 3GPP, dove 3GPP (Third Generation Partnership Project) è il consorzio industriale che definisce gli standard per la tecnologia 5G .
-\item Supporta Milenage, che è un set di funzioni 3GPP di autenticazione e di key generation.
+%\item Supporta TUAK, che è un particolare algoritmo crittografico di 3GPP, dove 3GPP (Third Generation Partnership Project) è il consorzio industriale che definisce gli standard per la tecnologia 5G .
+\item Supporta Milenage, che è un set di funzioni di autenticazione e di generazione di chiavi.
 \item Tutte le funzioni crittografiche devono essere resistenti al tampering e agli attacchi side-channel.
 \end{enumerate}
 
@@ -430,12 +431,64 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \item Se esiste una restrizione sulle chiavi pubbliche dei CI consentite, l'LPA crea una nuova istanza di euiccInfo1 senza le chiavi pubbliche dei CI non compatibili. Se dopo questa operazione rimane una lista vuota di chiavi pubbliche, l'LPA informa l'end user che la procedura di mutua autenticazione deve terminare.
 \end{enumerate}
 \item L'LPA richiede all'eUICC una challenge (euiccChallenge).
-\item L'eUICC genera la challenge che successivamente dovrà essere firmata dal server SM-DP+ per l'autenticazione da parte del server stesso.
+\item L'eUICC genera la challenge che successivamente dovrà essere firmata dal server SM-DP+ per l'autenticazione del server stesso.
 \item L'eUICC restituisce la challenge all'LPA.
+\item L'LPA stabilisce una nuova connessione HTTPS col server SM-DP+. Il setup della sessione TLS, poiché non può riutilizzare le chiavi da una sessione precedente, deve prevedere un nuovo key exchange, che avviene nella fase del TLS handshake. Qui il server fornisce all'LPA un certificato CERT.DP.TLS e l'LPA deve verificarne la validità; se l'LPA non riesce a effettuare la verifica, il server deve inviargli un certificato CERT.DP.TLS differente, e così via, fin tanto che l'LPA non sarà riuscito a validare un certificato oppure il numero di tentativi per ritrasmettere il certificato non avrà raggiunto il limite massimo. In questo secondo caso l'LPA interrompe la procedura di Common Mutual Authentication.
+\item L'LPA invoca la funzione \textit{InitiateAuthentication} passandovi come parametri le proprie capability, euiccChallenge, euiccInfo1 e l'indirizzo SM-DP+, il quale viene usato dall'LPA per accedere al server.
+\item Il server SM-DP+ esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Verificare che l'indirizzo SM-DP+ inviato dall'LPA sia valido.
+\item Verificare il contenuto della variabile euiccInfo1, incluse le chiavi pubbliche del CI, tra cui deve essercene almeno una che può essere accettata dal server stesso.
+\end{itemize}
+Se anche solo uno di questi controlli non va a buon fine, il server restituisce una condizione di errore e l'LPA interrompe la procedura di Common Mutual Authentication.
+\item Il server SM-DP+ esegue le seguenti altre operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Generare un ID di transazione che serve per identificare la sessione RSP.
+\item Generare una challenge (serverChallenge) che dovrà essere firmata dall'eUICC per l'autenticazione dell'eUICC stesso.
+\item Generare una struttura dati serverSigned1 a partire dall'ID di transazione, da euiccChallenge, da serverChallenge, dall'indirizzo SM-DP+ e dal contesto di sessione.
+\item Calcolare la serverSignature1 a partire da serverSigned1, utilizzando la chiave privata SK.DPauth.SIG.
+\item Se sia l'eUICC che l'LPA prevedono il crlStaplingV3Support, che è la funzionalità che permette al server di fornire una Certificate Revocation List (CRL), il server deve anche recuperare la CRL per ciascun certificato che abbia l'extension set CRLDistributionPoints, che è un tipo di certificato che dà informazioni su doveè possibile ottenere una CRL.
+\end{itemize}
+\item Il server SM-DP+ restituisce all'LPA alcune informazioni, tra cui l'ID della transazione, serverSigned1, serverSignature1, euiccCIPKToBeUsed (che dovrà corrispondere al certificato root della certificate chain che l'eUICC dovrà comunicare), il certificato CERT.DPauth.SIG, eventuali altri certificati ed eventualmente la CRL.
+\item L'LPA esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Verificare l'OID, che è l'Object Identifier del server SM-DP+.
+\item Verificare che l'indirizzo SM-DP+ restituito dal server matchi con l'indirizzo SM-DP+ che l'LPA aveva inviato allo step (6).
+\item Verificare che la chiave pubblica associata al certificato CERT.DPauth.SIG sia inclusa in euiccInfo1.
+\item Effettuare altre verifiche sui certificati che non verranno approfondite in questa sede.
+\end{itemize}
+Se anche solo uno di questi controlli non va a buon fine, l'LPA interrompe la procedura di Common Mutual Authentication. In caso contrario, procede col generare la struttura dati ctxParams1, che dovrà essere inviata all'eUICC affinché venga poi inclusa tra i dati firmati.
+\item L'LPA invoca la funzione \textit{AuthenticateServer} passandovi come parametri serverSigned1, serverSignature1, euiccCiIdToBeUsed, il certificato CERT.DPauth.SIG, eventuali altri certificati, ctxParams1 ed eventualmente la CRL.
+\item L'eUICC esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Verificare il certificato CERT.DPauth.SIG e altri eventuali certificati nella catena.
+\item Verificare serverSignature1.
+\item Verificare che l'euiccChallenge contentua in serverSigned1 matchi con la challenge generata dall'eUICC stessa allo step (3).
+\item Verificare che la chiave pubblica del CI sia effettivamente supportata.
+\item Se il contesto di sessione prevede il crlStaplingV3Support, l'eUICC deve anche verificare la validità della CRL e assicurarsi che nessun certificato all'interno della certificate chain sia stato revocato.
+\end{itemize}
+Se anche solo uno di questi controlli non va a buon fine, la procedura di Common Mutual Authentication deve essere interrotta. In caso contrario, il server SM-DP+ risulta autenticato all'eUICC.
+\item L'eUICC esegue le seguenti altre operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Generare la struttura dati euiccSigned1.
+\item Calcolare la euiccSignature1 a partire da euiccSigned1, utilizzando la chiave privata SK.EUICC.SIG.
+\end{itemize}
+\item L'eUICC restituisce all'LPA alcune informazioni, tra cui euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
+\item L'LPA invoca la funzione \textit{AuthenticateClient} passandovi come parametri euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
+\item Il server SM-DP+ esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Verificare che il certificato root della certificate chain comunicata dall'eUICC corrisponda con quella selezionata dal server stesso durante l'esecuzione della funzione \textit{InitiateAuthentication}.
+\item Verificare che la certificate chain dell'eUICC sia valida.
+\item Verificare euiccSignature1.
+\item Verificare che la serverChallenge contenuta in euiccSigned1 matchi con la challenge generta dal server stesso allo step (7).
+\item Verificare che le capability RSP dell'eUICC e dell'LPA corrispondano a quelle ricevute nella chiamata alla funzione \textit{InitiateAuthentication}.
+\end{itemize}
+Se anche solo uno di questi controlli non va a buon fine, il server restituisce una condizione di errore e l'LPA interrompe la procedura di Common Mutual Authentication.
 \end{enumerate}
+In definitiva, in questa sezione è emerso come l'LPA svolga sì il ruolo di relay nell'interazione tra server SM-DP+ ed eUICC, ma svolge anche delle importanti funzioni di sicurezza. Infatti, com'è stato già menzionato, si occupa anzitutto di verificare che il certificato CERT.DP.TLS sia valido e, in un secondo momento, effettua altri controlli sull'OID, sull'indirizzo del server SM-DP+, sulla chiave pubblica associata al certificato CERT.DPauth.SIG e sulla certificate chain del server nello specifico. Tale caratteristica implica la necessità di considerare l'applicazione LPA come un'entità trusted, il che non è fortemente indicato dal punto di vista della sicurezza.
 
-\section{Aggiornamento della chiave pubblica dell'eUICC}
-[TODO]
+\section{Aggiornamento delle chiavi pubbliche nell'eUICC}
+L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, nei capitoli successivi potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
 
 \section{Ciclo di vita dei profili in SM-DP+}
 La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs-new}\cite{GSMA-docs-old} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
