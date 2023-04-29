@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  29 APR 2023 20:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  29 APR 2023 22:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -529,7 +529,7 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<Tesi-frn.pdf, id=116, 597.50829pt x 845.0471pt>
+<Tesi-frn.pdf, id=124, 597.50829pt x 845.0471pt>
 File: Tesi-frn.pdf Graphic file (type pdf)
 <use Tesi-frn.pdf>
 Package pdftex.def Info: Tesi-frn.pdf  used on input line 25.
@@ -573,12 +573,12 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 ] [7]
 Capitolo 2.
-<RSP-functioning.png, id=252, 445.665pt x 250.536pt>
+<RSP-functioning.png, id=262, 445.665pt x 250.536pt>
 File: RSP-functioning.png Graphic file (type png)
 <use RSP-functioning.png>
 Package pdftex.def Info: RSP-functioning.png  used on input line 69.
 (pdftex.def)             Requested size: 426.79135pt x 239.92691pt.
-<RSP-LPAd.png, id=257, 788.9475pt x 463.13025pt>
+<RSP-LPAd.png, id=267, 788.9475pt x 463.13025pt>
 File: RSP-LPAd.png Graphic file (type png)
 <use RSP-LPAd.png>
 Package pdftex.def Info: RSP-LPAd.png  used on input line 77.
@@ -586,7 +586,7 @@ Package pdftex.def Info: RSP-LPAd.png  used on input line 77.
 [8
 
 ] [9 <./RSP-functioning.png> <./RSP-LPAd.png>]
-<RSP-LPAe.png, id=276, 696.80325pt x 465.53925pt>
+<RSP-LPAe.png, id=286, 696.80325pt x 465.53925pt>
 File: RSP-LPAe.png Graphic file (type png)
 <use RSP-LPAe.png>
 Package pdftex.def Info: RSP-LPAe.png  used on input line 95.
@@ -599,7 +599,7 @@ Underfull \hbox (badness 1953) in paragraph at lines 157--157
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<eUICC-arch.png, id=282, 707.0415pt x 419.166pt>
+<eUICC-arch.png, id=292, 707.0415pt x 419.166pt>
 File: eUICC-arch.png Graphic file (type png)
 <use eUICC-arch.png>
 Package pdftex.def Info: eUICC-arch.png  used on input line 167.
@@ -653,27 +653,27 @@ a-ti CERT.DPauth.SIG, CERT.DPpb.SIG;
  []
 
 [14] [15]
-<cert-chain.png, id=335, 631.158pt x 460.72125pt>
+<cert-chain.png, id=345, 631.158pt x 460.72125pt>
 File: cert-chain.png Graphic file (type png)
 <use cert-chain.png>
 Package pdftex.def Info: cert-chain.png  used on input line 330.
 (pdftex.def)             Requested size: 426.79135pt x 311.53583pt.
-<cert-chain-new1.png, id=336, 675.7245pt x 554.67226pt>
+<cert-chain-new1.png, id=346, 675.7245pt x 554.67226pt>
 File: cert-chain-new1.png Graphic file (type png)
 <use cert-chain-new1.png>
 Package pdftex.def Info: cert-chain-new1.png  used on input line 335.
 (pdftex.def)             Requested size: 426.79135pt x 350.33405pt.
-<cert-chain-new2.png, id=337, 839.5365pt x 484.81125pt>
+<cert-chain-new2.png, id=347, 839.5365pt x 484.81125pt>
 File: cert-chain-new2.png Graphic file (type png)
 <use cert-chain-new2.png>
 Package pdftex.def Info: cert-chain-new2.png  used on input line 340.
 (pdftex.def)             Requested size: 426.79135pt x 246.45891pt.
-<cert-chain-new3.png, id=338, 855.79726pt x 492.03825pt>
+<cert-chain-new3.png, id=348, 855.79726pt x 492.03825pt>
 File: cert-chain-new3.png Graphic file (type png)
 <use cert-chain-new3.png>
 Package pdftex.def Info: cert-chain-new3.png  used on input line 345.
 (pdftex.def)             Requested size: 426.79135pt x 245.38034pt.
-<cert-chain-new4.png, id=339, 859.41075pt x 491.436pt>
+<cert-chain-new4.png, id=349, 859.41075pt x 491.436pt>
 File: cert-chain-new4.png Graphic file (type png)
 <use cert-chain-new4.png>
 Package pdftex.def Info: cert-chain-new4.png  used on input line 350.
@@ -683,32 +683,32 @@ Underfull \vbox (badness 5696) has occurred while \output is active []
 
  [16 <./cert-chain.png>] [17 <./cert-chain-new1.png> <./cert-chain-new2.png>] [
 18 <./cert-chain-new3.png> <./cert-chain-new4.png>] [19]
-<default-server.png, id=381, 529.37775pt x 244.5135pt>
+<default-server.png, id=391, 529.37775pt x 244.5135pt>
 File: default-server.png Graphic file (type png)
 <use default-server.png>
 Package pdftex.def Info: default-server.png  used on input line 385.
 (pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
-<activation-code.png, id=382, 452.892pt x 227.04825pt>
+<activation-code.png, id=392, 452.892pt x 227.04825pt>
 File: activation-code.png Graphic file (type png)
 <use activation-code.png>
 Package pdftex.def Info: activation-code.png  used on input line 390.
 (pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
-<common-mutual-auth.png, id=386, 361.35pt x 548.0475pt>
+<common-mutual-auth.png, id=396, 361.35pt x 548.0475pt>
 File: common-mutual-auth.png Graphic file (type png)
 <use common-mutual-auth.png>
 Package pdftex.def Info: common-mutual-auth.png  used on input line 398.
 (pdftex.def)             Requested size: 426.79135pt x 647.30927pt.
  [20 <./default-server.png>]
 [21 <./activation-code.png>] [22 <./common-mutual-auth.png>] [23] [24]
-<profile-states1.png, id=442, 626.34pt x 466.74374pt>
+<profile-states1.png, id=454, 626.34pt x 466.74374pt>
 File: profile-states1.png Graphic file (type png)
 <use profile-states1.png>
-Package pdftex.def Info: profile-states1.png  used on input line 527.
+Package pdftex.def Info: profile-states1.png  used on input line 544.
 (pdftex.def)             Requested size: 426.79135pt x 318.05101pt.
-<profile-states2.png, id=443, 626.34pt x 184.89075pt>
+<profile-states2.png, id=455, 626.34pt x 184.89075pt>
 File: profile-states2.png Graphic file (type png)
 <use profile-states2.png>
-Package pdftex.def Info: profile-states2.png  used on input line 532.
+Package pdftex.def Info: profile-states2.png  used on input line 549.
 (pdftex.def)             Requested size: 426.79135pt x 125.98921pt.
  [25]
 [26 <./profile-states1.png> <./profile-states2.png>] [27]
@@ -741,13 +741,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 38F4359DAD8BA443AE448CA86916451D;5575.
+(rerunfilecheck)             Checksum: 7D4B369F344B12081BD3DE8E251D7D44;6029.
  ) 
 Here is how much of TeX's memory you used:
- 13887 strings out of 476024
- 224166 string characters out of 5794016
+ 13891 strings out of 476024
+ 224234 string characters out of 5794016
  1877382 words of memory out of 5000000
- 34013 multiletter control sequences out of 15000+600000
+ 34015 multiletter control sequences out of 15000+600000
  519059 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,76p,1382b,723s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -764,10 +764,10 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (32 pages, 1496832 bytes).
+Output written on Tesi.pdf (32 pages, 1498423 bytes).
 PDF statistics:
- 576 PDF objects out of 1000 (max. 8388607)
- 478 compressed objects within 5 object streams
- 116 named destinations out of 1000 (max. 500000)
- 300 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 588 PDF objects out of 1000 (max. 8388607)
+ 490 compressed objects within 5 object streams
+ 118 named destinations out of 1000 (max. 500000)
+ 316 words of extra memory for PDF output out of 10000 (max. 10000000)
 

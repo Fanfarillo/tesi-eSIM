@@ -488,7 +488,24 @@ Se anche solo uno di questi controlli non va a buon fine, il server restituisce 
 In definitiva, in questa sezione è emerso come l'LPA svolga sì il ruolo di relay nell'interazione tra server SM-DP+ ed eUICC, ma svolge anche delle importanti funzioni di sicurezza. Infatti, com'è stato già menzionato, si occupa anzitutto di verificare che il certificato CERT.DP.TLS sia valido e, in un secondo momento, effettua altri controlli sull'OID, sull'indirizzo del server SM-DP+, sulla chiave pubblica associata al certificato CERT.DPauth.SIG e sulla certificate chain del server nello specifico. Tale caratteristica implica la necessità di considerare l'applicazione LPA come un'entità trusted, il che non è fortemente indicato dal punto di vista della sicurezza.
 
 \section{Aggiornamento delle chiavi pubbliche nell'eUICC}
-L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, nei capitoli successivi potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
+L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata all'EUM o al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, nei capitoli successivi potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
+
+\subsection{Contenuto dell'ECASD}
+Tutti gli eUICC devono avere un ECASD che contenga \cite{GSMA-docs-new}:
+\begin{itemize}[itemsep=0pt]
+\item la chiave privata dell'eUICC (SK.EUICC.SIG);
+\item il certificato dell'eUICC (CERT.EUICC.SIG) contenente la chiave PK.EUICC.SIG, che è la chiave pubblica dell'eUICC;
+\item la chiave pubblica del CI root (PK.CI.SIG);
+\item il certificato dell'EUM (CERT.EUM.SIG) e, opzionalmente, il certificato degli EUM subordinati (CERT.EUMSubCA.SIG);
+\item un keyset dell'EUM per il rinnovo di chiavi e certificati.
+\end{itemize}
+
+\subsection{Quando avviene l'aggiornamento delle chiavi}
+La necessità di rinnovare le chiavi contenute nell'ECASD può presentarsi in due casi \cite{GSMA-docs-new}.
+\begin{itemize}
+\item L'applicazione LPA ha determinato che il Public Key indicator (i.e. la rappresentazione in esadecimale dell'identificatore della chiave pubblica) del CI non è supportato dall'eUICC.
+\item Durante la procedura di Common Mutual Authentication, il server SM-DP+ ha restituito un certificato CERT.DPauth.SIG che ha come parent un Root Certificate non supportato dall'eUICC.
+\end{itemize}
 
 \section{Ciclo di vita dei profili in SM-DP+}
 La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs-new}\cite{GSMA-docs-old} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
