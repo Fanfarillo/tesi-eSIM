@@ -426,7 +426,7 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \begin{enumerate}
 \item Il primo step, che è opzionale, si articola in tre punti:
 \begin{enumerate}[label=\alph*)]
-\item Se non lo aveva già fatto in un momento precedente, l'LPA richiede le informazioni dell'eUICC (e.g. Specification Version Number, versione del firmware, quantità di memoria non volatile non disponibile, capability dell'eUICC, categoria dell'eUICC) identificate dalla variabile euiccInfo1.
+\item Se non lo aveva già fatto in un momento precedente, l'LPA richiede le informazioni dell'eUICC (e.g. Specification Version Number, versione del firmware, quantità di memoria non volatile disponibile, capability dell'eUICC, categoria dell'eUICC) identificate dalla variabile euiccInfo1.
 \item L'eUICC restituisce euiccInfo1 all'LPA.
 \item Se esiste una restrizione sulle chiavi pubbliche dei CI consentite, l'LPA crea una nuova istanza di euiccInfo1 senza le chiavi pubbliche dei CI non compatibili. Se dopo questa operazione rimane una lista vuota di chiavi pubbliche, l'LPA informa l'end user che la procedura di mutua autenticazione deve terminare.
 \end{enumerate}
@@ -447,7 +447,7 @@ Se anche solo uno di questi controlli non va a buon fine, il server restituisce 
 \item Generare una challenge (serverChallenge) che dovrà essere firmata dall'eUICC per l'autenticazione dell'eUICC stesso.
 \item Generare una struttura dati serverSigned1 a partire dall'ID di transazione, da euiccChallenge, da serverChallenge, dall'indirizzo SM-DP+ e dal contesto di sessione.
 \item Calcolare la serverSignature1 a partire da serverSigned1, utilizzando la chiave privata SK.DPauth.SIG.
-\item Se sia l'eUICC che l'LPA prevedono il crlStaplingV3Support, che è la funzionalità che permette al server di fornire una Certificate Revocation List (CRL), il server deve anche recuperare la CRL per ciascun certificato che abbia l'extension set CRLDistributionPoints, che è un tipo di certificato che dà informazioni su doveè possibile ottenere una CRL.
+\item Se sia l'eUICC che l'LPA prevedono il crlStaplingV3Support, che è la funzionalità che permette al server di fornire una Certificate Revocation List (CRL), il server deve anche recuperare la CRL per ciascun certificato che abbia l'extension set CRLDistributionPoints, che è un tipo di certificato che dà informazioni su dove è possibile ottenere una CRL.
 \end{itemize}
 \item Il server SM-DP+ restituisce all'LPA alcune informazioni, tra cui l'ID della transazione, serverSigned1, serverSignature1, euiccCIPKToBeUsed (che dovrà corrispondere al certificato root della certificate chain che l'eUICC dovrà comunicare), il certificato CERT.DPauth.SIG, eventuali altri certificati ed eventualmente la CRL.
 \item L'LPA esegue le seguenti operazioni:
@@ -463,14 +463,14 @@ Se anche solo uno di questi controlli non va a buon fine, l'LPA interrompe la pr
 \begin{itemize}[itemsep=0pt]
 \item Verificare il certificato CERT.DPauth.SIG e altri eventuali certificati nella catena.
 \item Verificare serverSignature1.
-\item Verificare che l'euiccChallenge contentua in serverSigned1 matchi con la challenge generata dall'eUICC stessa allo step (3).
+\item Verificare che l'euiccChallenge contenuta in serverSigned1 matchi con la challenge generata dall'eUICC stessa allo step (3).
 \item Verificare che la chiave pubblica del CI sia effettivamente supportata.
 \item Se il contesto di sessione prevede il crlStaplingV3Support, l'eUICC deve anche verificare la validità della CRL e assicurarsi che nessun certificato all'interno della certificate chain sia stato revocato.
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, la procedura di Common Mutual Authentication deve essere interrotta. In caso contrario, il server SM-DP+ risulta autenticato all'eUICC.
 \item L'eUICC esegue le seguenti altre operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Generare la struttura dati euiccSigned1.
+\item Generare la struttura dati euiccSigned1 a partire dall'ID di transazione, da serverChallenge, da euiccInfo2 e da ctxParams1.
 \item Calcolare la euiccSignature1 a partire da euiccSigned1, utilizzando la chiave privata SK.EUICC.SIG.
 \end{itemize}
 \item L'eUICC restituisce all'LPA alcune informazioni, tra cui euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
@@ -480,10 +480,10 @@ Se anche solo uno di questi controlli non va a buon fine, la procedura di Common
 \item Verificare che il certificato root della certificate chain comunicata dall'eUICC corrisponda con quella selezionata dal server stesso durante l'esecuzione della funzione \textit{InitiateAuthentication}.
 \item Verificare che la certificate chain dell'eUICC sia valida.
 \item Verificare euiccSignature1.
-\item Verificare che la serverChallenge contenuta in euiccSigned1 matchi con la challenge generta dal server stesso allo step (7).
+\item Verificare che la serverChallenge contenuta in euiccSigned1 matchi con la challenge generata dal server stesso allo step (7).
 \item Verificare che le capability RSP dell'eUICC e dell'LPA corrispondano a quelle ricevute nella chiamata alla funzione \textit{InitiateAuthentication}.
 \end{itemize}
-Se anche solo uno di questi controlli non va a buon fine, il server restituisce una condizione di errore e l'LPA interrompe la procedura di Common Mutual Authentication.
+Se anche solo uno di questi controlli non va a buon fine, il server restituisce una condizione di errore e l'LPA interrompe la procedura di Common Mutual Authentication. In caso contrario, l'eUICC risulta autenticato al server SM-DP+.
 \end{enumerate}
 In definitiva, in questa sezione è emerso come l'LPA svolga sì il ruolo di relay nell'interazione tra server SM-DP+ ed eUICC, ma svolge anche delle importanti funzioni di sicurezza. Infatti, com'è stato già menzionato, si occupa anzitutto di verificare che il certificato CERT.DP.TLS sia valido e, in un secondo momento, effettua altri controlli sull'OID, sull'indirizzo del server SM-DP+, sulla chiave pubblica associata al certificato CERT.DPauth.SIG e sulla certificate chain del server nello specifico. Tale caratteristica implica la necessità di considerare l'applicazione LPA come un'entità trusted, il che non è fortemente indicato dal punto di vista della sicurezza.
 
