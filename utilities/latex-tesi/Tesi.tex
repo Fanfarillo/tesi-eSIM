@@ -470,7 +470,7 @@ Se anche solo uno di questi controlli non va a buon fine, l'LPA interrompe la pr
 Se anche solo uno di questi controlli non va a buon fine, la procedura di Common Mutual Authentication deve essere interrotta. In caso contrario, il server SM-DP+ risulta autenticato all'eUICC.
 \item L'eUICC esegue le seguenti altre operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Generare la struttura dati euiccSigned1 a partire dall'ID di transazione, da serverChallenge, da euiccInfo2 e da ctxParams1.
+\item Generare la struttura dati euiccSigned1 a partire dall'ID di transazione, da serverChallenge, da euiccInfo2 e da ctxParams1, dove euiccInfo2 è un  sovrainsieme di euiccInfo1 e comprende le informazioni complete dell'eUICC. Si noti che euiccChallenge non è incluso in euiccSigned1.
 \item Calcolare la euiccSignature1 a partire da euiccSigned1, utilizzando la chiave privata SK.EUICC.SIG.
 \end{itemize}
 \item L'eUICC restituisce all'LPA alcune informazioni, tra cui euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
