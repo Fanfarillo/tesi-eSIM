@@ -598,6 +598,32 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \label{fig:device-change}
 \end{figure}
 
+\subsection{Condizioni iniziali}
+\begin{itemize}
+\item Il Service Provider ha fornito al server SM-DP+ la configurazione e altre informazioni rilevanti per il cambio di dispositivo. Tutti questi dati devono essere contenuti anche nel profilo all'interno del vecchio dispositivo.
+\item L'end user possiede sia un vecchio dispositivo contenente un profilo, sia un nuovo dispositivo.
+\item L'eUICC e l'LPA del vecchio dispositivo supportano il cambio di dispositivo.
+\end{itemize}
+
+\subsection{Procedimento}
+\begin{enumerate}
+\item L'end user dà inizio all'operazione di cambio di dispositivo a partire dall'LPA del vecchio dispositivo e seleziona il profilo da installare nel nuovo dispositivo.
+\item L'LPA del vecchio dispositivo recupera DeviceChangeConfiguration dai metadati del profilo. Se DeviceChangeConfiguration indica requestToDp, allora si passa allo step (3); se invece DeviceChangeConfiguration indica usingStoredAc, allora si passa allo step (17).
+\item L'LPA del vecchio dispositivo determina l'indirizzo del server SM-DP+ a partire da DeviceChangeConfiguration.
+\item Se DeviceChangeConfiguration indica che è richiesto l'EID e/o la TAC (Type Allocation Code, che è un codice a 8 cifre univoco per il dispositivo) del nuovo dispositivo, allora l'LPA del vecchio dispositivo recupera l'EID e/o la TAC dal nuovo dispositivo.
+\item L'LPA del vecchio dispositivo dà inizio alla procedura di Common Mutual Authentication definita nella sezione \ref{sec:mutual-auth}.
+\item Se la funzione handleDeviceChangeRequest() è configurata nel Service Provider, allora il server SM-DP+ la invoca passandovi come parametri l'ICCID (Integrated Circuit Card ID, che è l'identificativo del profilo) ed eventualmente l'EID e la TAC del nuovo dispositivo. D'altro canto, però, se il server SM-DP+ non supporta il cambio di dispositivo o il cambio di dispositivo non è consentito per il profilo, allora il server risponde con un messaggio di errore e la procedura termina.
+\item Il Service Provider risponde al server SM-DP+ col booleano isNewProfileRequired e opzionalmente un messaggio di Service Provider per il cambio di dispositivo e un codice di conferma.
+\item Se la funzione handleNotification() è configurata nel Service Provider, il server SM-DP+ la invoca per notificare il Service Provider riguardo la richiesta del cambio di dispositivo.
+\item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta ad authenticateClient() che comprende transactionId (l'identificativo della transazione), smdpSigned4 (informazioni del server SM-DP+), smdpSignature4 (signature di smdpSigned4) ed eventualmente il messaggio di Service Provider per il cambio di dispositivo.
+\item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il Service Provider esegue il Download Preparation Process (processo di preparazione del download) e opzionalmente il Subscription Activation Process (processo di attivazione della sottoscrizione al profilo).
+\item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7).
+\item L'LPA del vecchio dispositivo invoca la funzione prepareDeviceChange() passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(ConfirmationCode) | transactionID).
+\item L'LPA del vecchio dispositivo invoca la funzione confirmDeviceChange() passandovi come parametri transactionID e prepareDeviceChangeResponse.
+\item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il server SM-DP+ invoca la funzione handleDeviceChangeRequest() per notificare il Service Provider riguardo l'esito della conferma del cambio di dispositivo da parte dell'end user. Se l'end user ha accettato il cambio di dispositivo, allora si passa allo step (15); altrimenti, si passa allo step (16).
+\item TODO 15
+\end{enumerate}
+
 \chapter{Sicurezza dell'eSIM a run-time}
 [TODO]
 
