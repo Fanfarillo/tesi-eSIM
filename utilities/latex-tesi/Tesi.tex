@@ -590,6 +590,14 @@ A partire dallo stato Error:
 \item Si passa allo stato Unavailable in modo automatico oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
 \end{itemize}
 
+\section{Dettagli sul cambio di dispositivo}
+La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
+\begin{figure}
+\includegraphics[width=\linewidth]{device-change.png}
+\caption{Sequence diagram che descrive il trasferimento di un profilo.}
+\label{fig:device-change}
+\end{figure}
+
 \chapter{Sicurezza dell'eSIM a run-time}
 [TODO]
 

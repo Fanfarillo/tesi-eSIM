@@ -24,9 +24,10 @@
 \contentsline {subsection}{\numberline {2.6.1}Contenuto dell'ECASD}{25}{subsection.2.6.1}%
 \contentsline {subsection}{\numberline {2.6.2}Quando avviene l'aggiornamento delle chiavi}{25}{subsection.2.6.2}%
 \contentsline {section}{\numberline {2.7}Ciclo di vita dei profili in SM-DP+}{25}{section.2.7}%
-\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{28}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{29}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{29}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{29}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{29}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Conclusione}{30}{chapter.5}%
+\contentsline {section}{\numberline {2.8}Dettagli sul cambio di dispositivo}{27}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{29}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{30}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{30}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{30}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{30}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusione}{31}{chapter.5}%
