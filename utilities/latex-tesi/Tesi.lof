@@ -16,7 +16,8 @@
 \contentsline {figure}{\numberline {2.12}{\ignorespaces Sequence diagram che descrive la Common Mutual Authentication.\relax }}{22}{figure.caption.15}%
 \contentsline {figure}{\numberline {2.13}{\ignorespaces Primo diagramma a stati per i profili eSIM.\relax }}{26}{figure.caption.17}%
 \contentsline {figure}{\numberline {2.14}{\ignorespaces Secondo diagramma a stati per i profili eSIM.\relax }}{26}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.15}{\ignorespaces Sequence diagram che descrive il trasferimento di un profilo.\relax }}{28}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Sequence diagram che descrive il download e l'installazione dei profili.\relax }}{28}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Sequence diagram che descrive il trasferimento di un profilo.\relax }}{29}{figure.caption.20}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

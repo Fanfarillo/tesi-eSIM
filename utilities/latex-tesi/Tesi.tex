@@ -590,6 +590,25 @@ A partire dallo stato Error:
 \item Si passa allo stato Unavailable in modo automatico oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
 \end{itemize}
 
+\section{Dettagli su download e installazione dei profili}\label{sec:down-install}
+La figura \ref{fig:download-install} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la procedura di download e installazione dei profili. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Anche qui l'intero meccanismo resta valido se si ha un server SM-DS al posto del server SM-DP+, a meno di variazioni di poco conto.
+\begin{figure}
+\includegraphics[width=\linewidth]{download-install.png}
+\caption{Sequence diagram che descrive il download e l'installazione dei profili.}
+\label{fig:download-install}
+\end{figure}
+
+\subsection{Condizioni iniziali}
+\begin{itemize}
+\item L'applicazione LPA ha recuperato l'indirizzo del server SM-DP+ e opzionalmente l'identificativo della chiave pubblica del CI consentita; se tale identificativo viene effettivamente recuperato dall'eUICC, allora l'LPA deve restringere l'insieme degli identificativi delle chiavi pubbliche dei CI compatibili a quel valore.
+\item Per ogni profilo nello stato Released il server SM-DP+ mantiene un contatore dei tentativi di download di quel profilo e un contatore dei tentativi di immissione del codice di conferma. Di fatto, il server deve limitare il valore di questi due contatori.
+\end{itemize}
+
+\subsection{Procedimento}
+\begin{enumerate}
+\item TODO PAG 99
+\end{enumerate}
+
 \section{Dettagli sul cambio di dispositivo}
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
 \begin{figure}
@@ -620,8 +639,13 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7).
 \item L'LPA del vecchio dispositivo invoca la funzione prepareDeviceChange() passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(ConfirmationCode) | transactionID).
 \item L'LPA del vecchio dispositivo invoca la funzione confirmDeviceChange() passandovi come parametri transactionID e prepareDeviceChangeResponse.
-\item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il server SM-DP+ invoca la funzione handleDeviceChangeRequest() per notificare il Service Provider riguardo l'esito della conferma del cambio di dispositivo da parte dell'end user. Se l'end user ha accettato il cambio di dispositivo, allora si passa allo step (15); altrimenti, si passa allo step (16).
-\item TODO 15
+\item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il server SM-DP+ invoca la funzione handleNotification() per notificare il Service Provider riguardo l'esito della conferma del cambio di dispositivo da parte dell'end user. Se l'end user ha accettato il cambio di dispositivo, allora si passa allo step (15); altrimenti la procedura termina.
+\item Se il booleano isNewProfileRequired vale FALSE, allora il server SM-DP+ prepara il profilo per il download. Inoltre, se nello step (5) è stato fornito un EID, allora il server lo collega col download del profilo preparato. Infine, il server invoca la funzione handleNotification() per notificare il Service Provider riguardo l'esito della preparazione del profilo.
+\item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta a confirmDeviceChange() che comprende l'esito del cambio di dispositivo. Se tale risposta contiene encryptedDeviceChangeData, l'LPA del vecchio dispositivo disabilita il profilo target. Dopodiché l'LPA verifica la signature del server SM-DP+ invocando la funzione verifyDeviceChange().
+\item Se l'esito del cambio di dispositivo lo prevede, l'LPA del vecchio dispositivo deve eliminare il profilo target dall'eUICC del vecchio dispositivo. Inoltre, DeviceChangeConfiguration indica requestToDp e il server SM-DP+ nello step (16) ha indicato di supportare il recovery dei profili eliminati, allora l'LPA del vecchio dispositivo dovrebbe memorizzare alcune informazioni del profilo eliminato, come l'ICCID. Se invece l'eliminazione del profilo non è riciesta, si passa direttamente allo step (19).
+\item L'LPA del vecchio dispositivo invia al server SM-DP+ la notifica di eliminazione del profilo. Se l'invio della notifica fallisce, la procedura termina.
+\item L'LPA del vecchio dispositivo genera il codice di attivazione (Activation Code) e lo fornisce all'LPA del nuovo dispositivo. Inoltre, dovrebbe fornire al nuovo dispositivo lo stato attuale del profilo in modo tale da consentire all'LPA del nuovo dispositivo di ripristinare correttamente tale stato.
+\item Il profilo viene scaricato nel nuovo dispositivo a partire dal server SM-DP+ mediante la procedura di download e installazione dei profili, che è stata definita nella sezione \ref{sec:down-install}.
 \end{enumerate}
 
 \chapter{Sicurezza dell'eSIM a run-time}
