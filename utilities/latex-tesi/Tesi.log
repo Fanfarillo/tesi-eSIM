@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  14 MAY 2023 19:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  14 MAY 2023 19:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -749,26 +749,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 
 ) [36
 
-]
-
-Package frontespizio Warning: Remember to compile Tesi-frn with
-(frontespizio)                pdflatex Tesi-frn
-(frontespizio)                and then rerun pdflatex.
-
-[37
+] [37
 
 ] (./Tesi.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `Tesi.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Tesi.out':
-(rerunfilecheck)             Before: 2DC948A621E4C770D86295E83C6C20B1;7179
-(rerunfilecheck)             After:  8F29397C8EDDAC4EFD91CF51D843049A;7143.
+Package rerunfilecheck Info: File `Tesi.out' has not changed.
+(rerunfilecheck)             Checksum: 8F29397C8EDDAC4EFD91CF51D843049A;7143.
  ) 
 Here is how much of TeX's memory you used:
  13955 strings out of 476024
@@ -791,7 +776,7 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (37 pages, 1583757 bytes).
+Output written on Tesi.pdf (37 pages, 1583836 bytes).
 PDF statistics:
  695 PDF objects out of 1000 (max. 8388607)
  587 compressed objects within 6 object streams
