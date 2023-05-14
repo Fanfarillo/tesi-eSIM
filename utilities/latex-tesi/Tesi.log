@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  13 MAY 2023 19:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  14 MAY 2023 19:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -718,22 +718,22 @@ File: download-install.png Graphic file (type png)
 Package pdftex.def Info: download-install.png  used on input line 596.
 (pdftex.def)             Requested size: 426.79135pt x 627.64944pt.
  [27] [28 <./download-install.png>]
-<device-change.png, id=519, 525.76425pt x 542.025pt>
+<device-change.png, id=520, 525.76425pt x 542.025pt>
 File: device-change.png Graphic file (type png)
 <use device-change.png>
-Package pdftex.def Info: device-change.png  used on input line 615.
+Package pdftex.def Info: device-change.png  used on input line 643.
 (pdftex.def)             Requested size: 426.79135pt x 439.99724pt.
- [29 <./device-change.png>] [30] [31]
+ [29] [30 <./device-change.png>] [31] [32]
 Capitolo 3.
-[32
-
-]
-Capitolo 4.
 [33
 
 ]
+Capitolo 4.
+[34
+
+]
 Capitolo 5.
-(./Tesi.bbl [34
+(./Tesi.bbl [35
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -747,17 +747,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--14
 10 https : / / corrierecomunicazioni . it / telco /
  []
 
-) [35
+) [36
 
-] [36
+]
+
+Package frontespizio Warning: Remember to compile Tesi-frn with
+(frontespizio)                pdflatex Tesi-frn
+(frontespizio)                and then rerun pdflatex.
+
+[37
 
 ] (./Tesi.aux)
-Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 8F29397C8EDDAC4EFD91CF51D843049A;7143.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `Tesi.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Tesi.out':
+(rerunfilecheck)             Before: 2DC948A621E4C770D86295E83C6C20B1;7179
+(rerunfilecheck)             After:  8F29397C8EDDAC4EFD91CF51D843049A;7143.
  ) 
 Here is how much of TeX's memory you used:
- 13947 strings out of 476024
- 225007 string characters out of 5794016
+ 13955 strings out of 476024
+ 225063 string characters out of 5794016
  1877382 words of memory out of 5000000
  34036 multiletter control sequences out of 15000+600000
  519059 words of font info for 48 fonts, out of 8000000 for 9000
@@ -776,10 +791,10 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (36 pages, 1580017 bytes).
+Output written on Tesi.pdf (37 pages, 1583757 bytes).
 PDF statistics:
- 679 PDF objects out of 1000 (max. 8388607)
- 572 compressed objects within 6 object streams
- 151 named destinations out of 1000 (max. 500000)
+ 695 PDF objects out of 1000 (max. 8388607)
+ 587 compressed objects within 6 object streams
+ 159 named destinations out of 1000 (max. 500000)
  374 words of extra memory for PDF output out of 10000 (max. 10000000)
 
