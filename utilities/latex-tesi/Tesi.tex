@@ -619,7 +619,7 @@ Se anche solo uno di questi controlli non va a buon fine, la procedura di downlo
 \item Incrementare il contatore dei tentativi di download del profilo target. Se il numero massimo di tentativi viene sforato, il server deve notificare l'operatore del fallimento del download e l'intera procedura deve terminare.
 \item Effettuare i check di idoneità opportuni.
 \end{itemize}
-\item Il server SM-DP+ notifica l'operatore con l'esito dei check di validità mediante la funzione \textit{handleNotification} (step opzionale).
+\item Il server SM-DP+ notifica l'operatore con l'esito dei check di validità mediante la funzione \textit{handleNotification} (step opzionale). La comunicazione tra server e operatore è protetta dall'uso di un pairwise secure channel, come nell'interazione tra eUICC e LPA; anche qui il protocollo più utilizzato è TLS ma non viene imposto dallo standard di GSMA. Di conseguenza, potrebbe essere nuovamente utile stabilire empiricamente se nel canale di comunicazione tra swerver SM-DP+ e operatore viene utilizzato TLS o meno.
 \item Se i check di idoneità falliscono, allora il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Portare il profilo target allo stato Error.
@@ -636,6 +636,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \item L'LPA verifica se il profilo può essere effettivamente installato. Per far ciò, deve ricorrere a un'apposita struttura dati detta Rules Authorisation Table (RAT) e/o alla lista dei profili installati. Se non dispone già di queste informazioni, deve richiederle all'eUICC invocando le funzioni \textit{getRAT} e/o \textit{getProfilesInfo}.
 \item Se richiesto, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come 'Yes', 'No', 'Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione; altrimenti, l'installazione del profilo può completarsi con successo.
 \end{enumerate}
+In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
 \section{Dettagli sul cambio di dispositivo}
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (qui indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
