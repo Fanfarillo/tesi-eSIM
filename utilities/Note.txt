@@ -18,3 +18,12 @@ e) Se si hanno due server SM-DP+ (S, S'), tra cui S' è compromesso, e non c'è 
 f) Se si hanno sue eUICC (U, U'), tra cui U' è compromesso, e non c'è TLS tra LPA e SM-DP+, allora l'attaccante può intercettare l'autenticazione tra U e il server SM-DP+, in modo tale che U creda di aver autenticato il server e il server creda di aver autenticato U'. La vulnerabilità potrebbe essere dovuta al fatto che, apparentemente, l'EID non viene incluso nei messaggi iniziali della Common Mutual Authentication.
 g) Se non c'è TLS tra LPA e SM-DP+ e si ricorre all'approccio activation code, allora, anche senza componenti compromessi, potrebbero rimanere dei leak di informazione riguardanti l'activation code.
 Badiamo che tutti i punti eccetto (c), (d) fanno riferimento a vulnerabilità che occorrebbero nel caso in cui non si avesse TLS tra LPA e SM-DP+. D'altro canto, solo i punti (e), (f) fanno riferimento alla Common Mutual Authentication in senso stretto e non al download dei profili.
+
+NOTA 4
+TARIFFE DOWNLOAD PROFILI eSIM
+Iliad: l'attivazione costa 10€ e l'offerta più scrausa è a 4,99€/mese.
+Spusu: l'attivazione è gratuita e l'offerta più scrausa è a 3,99€/mese.
+TIM: l'attivazione costa 10€, la sostituzione costa 15€ e l'offerta più scrausa è a 7,99€/mese.
+Very Mobile: l'attivazione è gratuita e l'offerta più scrausa è a 4,99€/mese.
+Vodafone: l'attivazione costa 1€, la sostituzione costa 10€ e l'offerta più scrausa è a 14,99€/mese.
+WindTre: l'attivazione costa 10€, la sostituzione costa 15€ e l'offerta più scrausa è a 12,99€/mese.
