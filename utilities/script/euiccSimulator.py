@@ -37,6 +37,7 @@ def open_connection(hostname, portnum):
 
 
 def send_msg1(conn):
+
   #crea un'istanza dell'oggetto EUICCInfo1
   euiccInfo1_asn = EUICCInfo1().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 32))
   #imposta i valori dei campi [SET]
@@ -72,20 +73,22 @@ def send_msg1(conn):
   msg1 = json.dumps(dict_msg1)
   print("[initiateAuthentication - SENT]")
   print(msg1, "\n")
-
   #definition of header HTTPS [SET]
   hdr1 = {'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'gsma-rsp-com.truphone.lpad', 'X-Admin-Protocol': 'gsma/rsp/v2.2.0', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip'}
 
   #sending message to the server
   conn.request('POST', '/', msg1, hdr1)
   #receiving response from the server
-  response1 = conn.getresponse().read().decode()
+  response1 = conn.getresponse()
 
-  #TODO: estrarre il corpo del messaggio di risposta del server (il json); è lui che dovrà essere stampato e restituito al chiamante
-  json_response1 = response1
+  #extracting header of server response
+  hdr_response1 = response1.getheaders()
   print("[initiateAuthenticationResponse - RECEIVED]")
-  print(json_response1)
+  print(hdr_response1, "\n")
 
+  #extracting body message of server response
+  json_response1 = response1.read().decode()
+  print(json_response1)
   return json_response1
 
 
@@ -96,4 +99,4 @@ if __name__ == "__main__":
   portnum = 443
 
   conn = open_connection(hostname, portnum)   #apertura della connessione TLS con il server
-  response1 = send_msg1(conn)                 #preparazione e invio del messaggio initiateAuthentication
+  json_response1 = send_msg1(conn)            #preparazione e invio del messaggio initiateAuthentication
