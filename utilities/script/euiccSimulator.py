@@ -1,7 +1,9 @@
-import base64, json, socket, ssl
+import base64, json, ssl
 
+from http import client
 from pyasn1.codec.der import decoder, encoder
 from pyasn1.type import namedtype, tag, univ
+
 
 
 #DEFINIZIONE DI CLASSI PYTHON PER I CAMPI ASN.1 DEI MESSAGGI
@@ -26,26 +28,15 @@ class EUICCInfo1(univ.Sequence):
     )
 
 
+
 def open_connection(hostname, portnum):
-    #TCP socket creation
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #enabling TLS on the connection
-    context = ssl.create_default_context()
-
-    try:
-        tls_socket = context.wrap_socket(sock, server_hostname=hostname)
-        tls_socket.connect((hostname, portnum))
-        return tls_socket
-
-    except ssl.SSLError as e:
-        print("Errore durante la connessione TLS: ", e)
-        return None
-    except socket.error as e:
-        print("Errore durante la connessione al server: ", e)
-        return None
+  context = ssl.create_default_context()
+  conn = client.HTTPSConnection(hostname, portnum, context=context)
+  return conn
 
 
-def send_msg_1(tls_socket, recv_buf_size):
+
+def send_msg1(conn):
   #crea un'istanza dell'oggetto EUICCInfo1
   euiccInfo1_asn = EUICCInfo1().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 32))
   #imposta i valori dei campi [SET]
@@ -80,17 +71,29 @@ def send_msg_1(tls_socket, recv_buf_size):
   #convert into json for msg 1
   msg1 = json.dumps(dict_msg1)
   print("[initiateAuthentication - SENT]")
-  print(msg1)
+  print(msg1, "\n")
 
-  #TODO: incapsulare il json in un messaggio HTTPS che contenga anche un header opportuno; dopodiché, inviare il pacchetto e restituire la risposta del server
-  return None
+  #definition of header HTTPS [SET]
+  hdr1 = {'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'gsma-rsp-com.truphone.lpad', 'X-Admin-Protocol': 'gsma/rsp/v2.2.0', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip'}
+
+  #sending message to the server
+  conn.request('POST', '/', msg1, hdr1)
+  #receiving response from the server
+  response1 = conn.getresponse().read().decode()
+
+  #TODO: estrarre il corpo del messaggio di risposta del server (il json); è lui che dovrà essere stampato e restituito al chiamante
+  json_response1 = response1
+  print("[initiateAuthenticationResponse - RECEIVED]")
+  print(json_response1)
+
+  return json_response1
+
 
 
 if __name__ == "__main__":
   #inizializzazione variabili per la connessione col server [SET]
   hostname = "www.repubblica.it"
   portnum = 443
-  recv_buf_size = 65536   #dimensione dei buffer di output in cui verranno riportate le risposte del server
 
-  tls_socket = open_connection(hostname, portnum)
-  server_response = send_msg_1(tls_socket, recv_buf_size)   #preparazione e invio del messaggio initiateAuthentication
+  conn = open_connection(hostname, portnum)   #apertura della connessione TLS con il server
+  response1 = send_msg1(conn)                 #preparazione e invio del messaggio initiateAuthentication
