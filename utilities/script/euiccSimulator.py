@@ -98,7 +98,7 @@ def send_msg1(conn):
 
   #extracting body message of server response
   json_response1 = response1.read().decode()
-  print(json_response1)
+  print(json_response1, "\n")
   return json_response1
 
 
@@ -108,6 +108,6 @@ if __name__ == "__main__":
   hostname = "sys.prod.ondemandconnectivity.com"
   portnum = 443
 
-  sslkeylog.set_keylog("my_log.log")
+  sslkeylog.set_keylog("keylog.log")
   conn = open_connection(hostname, portnum)   #apertura della connessione TLS con il server
   json_response1 = send_msg1(conn)            #preparazione e invio del messaggio initiateAuthentication
