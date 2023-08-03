@@ -30,7 +30,11 @@ class EUICCInfo1(univ.Sequence):
 
 
 def open_connection(hostname, portnum):
-  context = ssl.create_default_context()
+  #path_to_certfile = "/etc/ssl/certs/CA_Disig_Root_R2.pem"
+
+  context = ssl.create_default_context()    #ssl.Purpose.SERVER_AUTH, cafile=path_to_certfile
+  context.check_hostname = False
+  context.verify_mode = ssl.CERT_NONE
   conn = client.HTTPSConnection(hostname, portnum, context=context)
   return conn
 
@@ -95,7 +99,7 @@ def send_msg1(conn):
 
 if __name__ == "__main__":
   #inizializzazione variabili per la connessione col server [SET]
-  hostname = "www.repubblica.it"
+  hostname = "sys.prod.ondemandconnectivity.com"
   portnum = 443
 
   conn = open_connection(hostname, portnum)   #apertura della connessione TLS con il server
