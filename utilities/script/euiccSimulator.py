@@ -1,4 +1,4 @@
-import base64, json, ssl
+import base64, json, socket, ssl, sslkeylog
 
 from http import client
 from pyasn1.codec.der import decoder, encoder
@@ -30,12 +30,18 @@ class EUICCInfo1(univ.Sequence):
 
 
 def open_connection(hostname, portnum):
-  #path_to_certfile = "/etc/ssl/certs/CA_Disig_Root_R2.pem"
+  #TCP socket creation
+  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-  context = ssl.create_default_context()    #ssl.Purpose.SERVER_AUTH, cafile=path_to_certfile
+  context = ssl.create_default_context()
   context.check_hostname = False
   context.verify_mode = ssl.CERT_NONE
   conn = client.HTTPSConnection(hostname, portnum, context=context)
+
+  #esecuzione dell'handshake TLS "mano a mano"
+  tls_socket = context.wrap_socket(sock, server_hostname=hostname)
+  tls_socket.connect((hostname, portnum))
+  conn.sock = tls_socket
   return conn
 
 
@@ -81,7 +87,7 @@ def send_msg1(conn):
   hdr1 = {'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'gsma-rsp-com.truphone.lpad', 'X-Admin-Protocol': 'gsma/rsp/v2.2.0', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip'}
 
   #sending message to the server
-  conn.request('POST', '/', msg1, hdr1)
+  conn.request('POST', '/gsma/rsp2/es9plus/initiateAuthentication', msg1, hdr1)
   #receiving response from the server
   response1 = conn.getresponse()
 
@@ -102,5 +108,6 @@ if __name__ == "__main__":
   hostname = "sys.prod.ondemandconnectivity.com"
   portnum = 443
 
+  sslkeylog.set_keylog("my_log.log")
   conn = open_connection(hostname, portnum)   #apertura della connessione TLS con il server
   json_response1 = send_msg1(conn)            #preparazione e invio del messaggio initiateAuthentication
