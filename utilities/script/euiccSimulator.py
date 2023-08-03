@@ -47,7 +47,6 @@ def open_connection(hostname, portnum):
 
 
 def send_msg1(conn):
-
   #crea un'istanza dell'oggetto EUICCInfo1
   euiccInfo1_asn = EUICCInfo1().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatConstructed, 32))
   #imposta i valori dei campi [SET]
@@ -78,11 +77,11 @@ def send_msg1(conn):
     "smdpAddress": smdpAddress,
     "euiccChallenge": euiccChallenge
   }
+  print("[initiateAuthentication - SENT]")
+  print(dict_msg1, "\n")
 
   #convert into json for msg 1
   msg1 = json.dumps(dict_msg1)
-  print("[initiateAuthentication - SENT]")
-  print(msg1, "\n")
   #definition of header HTTPS [SET]
   hdr1 = {'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'gsma-rsp-com.truphone.lpad', 'X-Admin-Protocol': 'gsma/rsp/v2.2.0', 'Connection': 'Keep-Alive', 'Accept-Encoding': 'gzip'}
 
@@ -97,17 +96,32 @@ def send_msg1(conn):
   print(hdr_response1, "\n")
 
   #extracting body message of server response
-  json_response1 = response1.read().decode()
-  print(json_response1, "\n")
-  return json_response1
+  str_response1 = response1.read().decode()
+  #converting body message in json
+  dict_response1 = json.loads(str_response1)
+  print(dict_response1, "\n")
+  return dict_response1
+
+
+
+def send_msg2(conn, dict_response1):
+  #estrazione dei singoli campi dalla risposta del server al messaggio precedente
+  transactionId = dict_response1['transactionId']
+  serverSigned1 = dict_response1['serverSigned1']
+  serverSignature1 = dict_response1['serverSignature1']
+  euiccCiPKIdToBeUsed = dict_response1['euiccCiPKIdToBeUsed']
+  serverCertificate = dict_response1['serverCertificate']
+
+  return None
 
 
 
 if __name__ == "__main__":
-  #inizializzazione variabili per la connessione col server [SET]
+  #inizializzazione delle variabili per la connessione col server [SET]
   hostname = "sys.prod.ondemandconnectivity.com"
   portnum = 443
 
-  sslkeylog.set_keylog("keylog.log")
-  conn = open_connection(hostname, portnum)   #apertura della connessione TLS con il server
-  json_response1 = send_msg1(conn)            #preparazione e invio del messaggio initiateAuthentication
+  sslkeylog.set_keylog("keylog.log")                #creazione del file di log che manterrà le informazioni sulla master key di TLS
+  conn = open_connection(hostname, portnum)         #apertura della connessione TLS con il server
+  dict_response1 = send_msg1(conn)                  #preparazione e invio del messaggio initiateAuthentication
+  dict_response2 = send_msg2(conn, dict_response1)  #parsing della risposta del server e preparazione e invio del messaggio authenticateClient
