@@ -7,25 +7,101 @@ from pyasn1.type import namedtype, tag, univ
 
 
 #DEFINIZIONE DI CLASSI PYTHON PER I CAMPI ASN.1 DEI MESSAGGI
+
 """
 EUICCInfo1 ::= [32] SEQUENCE {                                                          --tag BF20 
-  svn [2] VersionType (maybe 3 bytes),                                                  --tag 82
+  svn [2] VersionType (3 bytes OctetString),                                            --tag 82
   euiccCiPKIdListForVerification [9] SEQUENCE OF SubjectKeyIdentifier (OctetString),    --tag A9
   euiccCiPKIdListForSigning [10] SEQUENCE OF SubjectKeyIdentifier (OctetString)         --tag AA
 }
 """
+
 class VersionType(univ.OctetString):    #it must be three bytes
-    pass    #pass = non sto aggiungendo nulla rispetto alla classe parent (univ.Integer)
+  pass    #pass = non sto aggiungendo nulla rispetto alla classe parent (univ.Integer)
 
 class SubjectKeyIdentifier(univ.OctetString):
-    pass    #pass = non sto aggiungendo nulla rispetto alla classe parent (univ.OctetString)
+  pass    #pass = non sto aggiungendo nulla rispetto alla classe parent (univ.OctetString)
 
 class EUICCInfo1(univ.Sequence):
-    componentType = namedtype.NamedTypes(
-        namedtype.NamedType('svn', VersionType().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2))),
-        namedtype.NamedType('euiccCiPKIdListForVerification', univ.SequenceOf(componentType=SubjectKeyIdentifier()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 9))),
-        namedtype.NamedType('euiccCiPKIdListForSigning', univ.SequenceOf(componentType=SubjectKeyIdentifier()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10)))
-    )
+  componentType = namedtype.NamedTypes(
+    namedtype.NamedType('svn', VersionType().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 2))),
+    namedtype.NamedType('euiccCiPKIdListForVerification', univ.SequenceOf(componentType=SubjectKeyIdentifier()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 9))),
+    namedtype.NamedType('euiccCiPKIdListForSigning', univ.SequenceOf(componentType=SubjectKeyIdentifier()).subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 10)))
+  )
+
+
+
+"""
+ServerSigned1 ::= SEQUENCE {                        --tag 30
+  transactionId [0] TransactionId (OctetString),    --tag 80
+  euiccChallenge [1] Octet16 (16 bytes Integer),    --tag 81
+  serverAddress [3] UTF8String,                     --tag 83
+  serverChallenge [4] Octet16 (16 bytes Integer)    --tag 84
+}
+"""
+
+class TransactionId(univ.OctetString):
+  pass
+
+class ServerSigned1(univ.Sequence):
+  componentType = namedtype.NamedTypes(
+    namedtype.NamedType('transactionId', TransactionId().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 0))),
+    namedtype.NamedType('euiccChallenge', univ.Integer().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 1))),
+    namedtype.NamedType('serverAddress', univ.OctetString().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 3))),
+    namedtype.NamedType('serverChallenge', univ.Integer().subtype(implicitTag=tag.Tag(tag.tagClassContext, tag.tagFormatSimple, 4)))
+  )
+
+
+
+"""
+AuthenticateServerResponse ::= [56] CHOICE {            --tag BF38
+  authenticateResponseOk AuthenticateResponseOk,
+  authenticateResponseError AuthenticateResponseError
+}
+
+AuthenticateResponseOk ::= SEQUENCE {                   --tag 30
+  euiccSigned1 EuiccSigned1,
+  euiccSignature1 [APPLICATION 55] OCTET STRING,        --tag 5F37
+  euiccCertificate Certificate,
+  eumCertificate Certificate
+}
+
+AuthenticateResponseError ::= SEQUENCE {                --tag 30
+  transactionId [0] TransactionId,                      --tag 80
+  authenticateErrorCode AuthenticateErrorCode
+}
+
+EuiccSigned1 ::= SEQUENCE {                             --tag 30
+  transactionId [0] TransactionId,
+  serverAddress [3] UTF8String,
+  serverChallenge [4] Octet16 (16 bytes Integer),
+  euiccInfo2 [34] EuiccInfo2,
+  ctxParams1 CtxParams1
+}
+"""
+
+
+
+#questa è una funzione ausiliaria che serve a estrarre il campo VALUE da una tripla <TYPE, LENGTH, VALUE> di un elemento ASN.1.
+def extract_asn_value(tlv, lentag=1):
+  tagdigits = 2*lentag                        #ciascun byte viene chiaramente espresso con due cifre
+
+  length_hex = tlv[tagdigits : tagdigits+2]   #primo byte subito dopo il TAG
+  length = int(length_hex, base=16)           #valore del primo byte subito dopo il TAG
+  lenlen = length - 128
+  #caso in cui il primo byte subito dopo il TAG vale più di 128 (0x80) --> LENGTH è composto da 1 byte indicante il numero di byte usati per esprimere la lunghezza di VALUE + i byte usati per esprimere la lunghezza di VALUE
+  if lenlen > 0:
+    length_hex = tlv[2+tagdigits : 2+tagdigits+(2*lenlen)]  #2+tagdigits == byte successivo a lenlen; 2+tagdigits+(2*lenlen) == byte successivo a LENGTH
+    length = int(length_hex, base=16)
+  #caso in cui il primo byte subito dopo il TAG vale al più (0x80) --> LENGTH è composto da 1 unico byte indicante la lunghezza di VALUE
+  else:
+    lenlen = 0
+
+  lendigits = 2*length
+  lenlendigits = 2*lenlen
+
+  value = tlv[2+tagdigits+lenlendigits : 2+tagdigits+lenlendigits+lendigits]  #2+tagdigits+lenlendigits == byte successivo a LENGTH; 2+tagdigits+lenlendigits+lendigits == fine stringa
+  return value
 
 
 
@@ -105,12 +181,33 @@ def send_msg1(conn):
 
 
 def send_msg2(conn, dict_response1):
-  #estrazione dei singoli campi dalla risposta del server al messaggio precedente
+  #transactionId: è sufficiente estrarlo dalla risposta del server al messaggio precedente.
   transactionId = dict_response1['transactionId']
+
+  #serverSigned1: è necessario estrarlo dalla risposta del server e convertirlo in ASN.1 per ottenere i relativi campi.
   serverSigned1 = dict_response1['serverSigned1']
-  serverSignature1 = dict_response1['serverSignature1']
+  serverSigned1_der = base64.b64decode(serverSigned1)                                 #decodifica l'oggetto base64 in DER
+  serverSigned1_asn = decoder.decode(serverSigned1_der, asn1Spec=ServerSigned1())     #decodifica l'oggetto DER in ASN.1
+  #di serverSigned1_asn servono i campi transactionId, serverAddress e serverChallenge
+  serverSigned1_transactionId_der = encoder.encode(serverSigned1_asn[0][0])           #qui si ha la tripla <TYPE, LENGTH, VALUE> - bisogna estrarre VALUE e portarlo in uppercase
+  serverSigned1_transactionId = extract_asn_value(serverSigned1_transactionId_der.hex()).upper()
+  serverSigned1_serverAddress = serverSigned1_asn[0][2]
+  serverSigned1_serverChallenge = serverSigned1_asn[0][3]
+
+  #euiccCiPKIdToBeUsed: è necessario estrarlo dalla risposta del server e convertirlo in ASN.1 per ottenere l'id della chiave pubblica che deve essere utilizzata.
   euiccCiPKIdToBeUsed = dict_response1['euiccCiPKIdToBeUsed']
-  serverCertificate = dict_response1['serverCertificate']
+  euiccCiPKIdToBeUsed_der = base64.b64decode(euiccCiPKIdToBeUsed)   #decodifica l'oggetto base64 in DER - bisogna estrarre VALUE e portarlo in uppercase
+  euiccCiPKIdToBeUsed_field = extract_asn_value(euiccCiPKIdToBeUsed_der.hex()).upper()
+
+  #serverSignature1 e serverCertificate non servono per costruire il messaggio successivo da inviare al server, bensì solo per autenticare il server (passaggio omesso).
+
+  print("transactionId = ", transactionId)
+  print("serverSigned1_transactionId = ", serverSigned1_transactionId)
+  print("serverSigned1_serverAddress = ", serverSigned1_serverAddress)
+  print("serverSigned1_serverChallenge = ", serverSigned1_serverChallenge)
+  print("euiccCiPKIdToBeUsed_field = ", euiccCiPKIdToBeUsed_field)
+
+  #TODO: costruire la specifica ASN.1 del campo authenticateServerResponse del nuovo messaggio da inviare al server. Poi generare i certificati che inizializzeranno alcune sottosezioni di authenticateServerResponse.
 
   return None
 
