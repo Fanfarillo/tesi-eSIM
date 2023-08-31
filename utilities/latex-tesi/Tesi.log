@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  6 JUN 2023 17:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  31 AUG 2023 17:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -698,30 +698,34 @@ File: common-mutual-auth.png Graphic file (type png)
 <use common-mutual-auth.png>
 Package pdftex.def Info: common-mutual-auth.png  used on input line 398.
 (pdftex.def)             Requested size: 426.79135pt x 647.30927pt.
- [20 <./default-server.png>]
-[21 <./activation-code.png>] [22 <./common-mutual-auth.png>] [23] [24]
+
+Underfull \vbox (badness 2644) has occurred while \output is active []
+
+ [20 <./default-server.png>] [21 <./activation-code.png>] [22 <./common-mutual-
+auth.png>]
+[23] [24]
 <profile-states1.png, id=488, 626.34pt x 466.74374pt>
 File: profile-states1.png Graphic file (type png)
 <use profile-states1.png>
-Package pdftex.def Info: profile-states1.png  used on input line 544.
+Package pdftex.def Info: profile-states1.png  used on input line 543.
 (pdftex.def)             Requested size: 426.79135pt x 318.05101pt.
 <profile-states2.png, id=489, 626.34pt x 184.89075pt>
 File: profile-states2.png Graphic file (type png)
 <use profile-states2.png>
-Package pdftex.def Info: profile-states2.png  used on input line 549.
+Package pdftex.def Info: profile-states2.png  used on input line 548.
 (pdftex.def)             Requested size: 426.79135pt x 125.98921pt.
- [25]
-[26 <./profile-states1.png> <./profile-states2.png>]
+ [25] [26 <./profile-states1.png> <./profile-states2.png>]
 <download-install.png, id=506, 368.577pt x 542.025pt>
 File: download-install.png Graphic file (type png)
 <use download-install.png>
-Package pdftex.def Info: download-install.png  used on input line 596.
+Package pdftex.def Info: download-install.png  used on input line 595.
 (pdftex.def)             Requested size: 426.79135pt x 627.64944pt.
- [27] [28 <./download-install.png>] [29]
+ [27]
+[28 <./download-install.png>] [29]
 <device-change.png, id=532, 525.76425pt x 542.025pt>
 File: device-change.png Graphic file (type png)
 <use device-change.png>
-Package pdftex.def Info: device-change.png  used on input line 644.
+Package pdftex.def Info: device-change.png  used on input line 643.
 (pdftex.def)             Requested size: 426.79135pt x 439.99724pt.
  [30 <./device-change.png>] [31] [32]
 Capitolo 3.
@@ -776,7 +780,7 @@ fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
 r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (37 pages, 1584328 bytes).
+Output written on Tesi.pdf (37 pages, 1584281 bytes).
 PDF statistics:
  695 PDF objects out of 1000 (max. 8388607)
  587 compressed objects within 6 object streams
