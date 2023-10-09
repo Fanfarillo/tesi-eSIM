@@ -45,3 +45,12 @@ b) Per quanto riguarda l'ambiente di test per l'eUICC, quest'ultimo deve support
 c) Per quanto riguarda l'ambiente di test per il server, deve essere fornita una definizione della configurazione TLS e devono essere utilizzati dei dati in formato JSON e ASN.1.
 d) Per quanto riguarda l'ambiente di test per l'LPA, il dispositivo deve contenere un eUICC (fisso o removibile) configurato con dei certificati e delle chiavi di test; l'eUICC non deve supportare LPAe e il certificato root di test deve essere configurato nel dispositivo.
 e) Si parla di un companion device (contenente l'eUICC di test e l'LPAd) direttamente connesso a un primary device.
+In definitiva, almeno per quanto concerne eUICC e LPA, sembra che si parli di un ambiente di testing composto rispettivamente da un eUICC reale e da una LPA installata in un apposito dispositivo (contesto reale).
+D'altra parte, nel video https://www.youtube.com/watch?v=5oecn43xsDg, emerge che alcuni pc con Windows 10 supportano direttamente la eSIM (io con Windows 11 non ho questa feature).
+
+NOTA 6
+Il video menzionato nella nota 5 (https://www.youtube.com/watch?v=5oecn43xsDg) parla di possibili aspetti di sicurezza concernenti le eSIM che possono essere affrontati, come:
+a) Come deployare un profilo definito direttamente da noi.
+b) Come installare applicazioni custom nell'eUICC.
+c) Trovare qualche vulnerabilità dell'eUICC (utilizzo di toolkit per catturare info, esecuzione di comandi su una macchina vittima mediante una connessione definita da noi, ecc.).
+Comunque sia, chi ha condotto questo talk non ha trovato problemi o vulnerabilità nel protocollo in sé.
