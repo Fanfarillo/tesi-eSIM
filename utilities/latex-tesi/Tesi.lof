@@ -11,13 +11,14 @@
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Seconda porzione dell'attuale catena di certificati definita dalla PKI di RSP.\relax }}{17}{figure.caption.10}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Terza porzione dell'attuale catena di certificati definita dalla PKI di RSP.\relax }}{18}{figure.caption.11}%
 \contentsline {figure}{\numberline {2.9}{\ignorespaces Quarta porzione dell'attuale catena di certificati definita dalla PKI di RSP.\relax }}{18}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Approccio default server per le fasi di profile ordering e download initialization.\relax }}{20}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Approccio activation code per le fasi di profile ordering e download initialization.\relax }}{21}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Sequence diagram che descrive la Common Mutual Authentication.\relax }}{22}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Primo diagramma a stati per i profili eSIM.\relax }}{26}{figure.caption.17}%
-\contentsline {figure}{\numberline {2.14}{\ignorespaces Secondo diagramma a stati per i profili eSIM.\relax }}{26}{figure.caption.18}%
-\contentsline {figure}{\numberline {2.15}{\ignorespaces Sequence diagram che descrive il download e l'installazione dei profili.\relax }}{28}{figure.caption.19}%
-\contentsline {figure}{\numberline {2.16}{\ignorespaces Sequence diagram che descrive il trasferimento di un profilo.\relax }}{30}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Approccio default server per le fasi di profile ordering e download initialization.\relax }}{21}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Approccio activation code per le fasi di profile ordering e download initialization.\relax }}{21}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Primo diagramma a stati per i profili eSIM.\relax }}{22}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Secondo diagramma a stati per i profili eSIM.\relax }}{22}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Sequence diagram che descrive la Common Mutual Authentication.\relax }}{25}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Sequence diagram che descrive il download e l'installazione dei profili.\relax }}{28}{figure.caption.23}%
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Sequence diagram che descrive il trasferimento di un profilo.\relax }}{30}{figure.caption.26}%
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -215,7 +215,7 @@ PK.EUICC.SIG & Chiave pubblica dell'eUICC usata per verificare le signature dell
 \hline
 SK.EUICC.SIG & Chiave privata dell'eUICC usata per generare le signature.\\
 \hline
-PK.DPauth.SIG & Chiave pubblica del server SM-DP+ usata per verificare le signature del server. È inclusa nel certificato CERT.DPauth.SIG.\\
+PK.DPauth.SIG & Chiave pubblica del server SM-DP+ usata per verificare le signature del server in fase di autenticazione. È inclusa nel certificato CERT.DPauth.SIG.\\
 \hline
 SK.DPauth.SIG & Chiave privata del server SM-DP+ usata per generare le signature per autenticarsi all'eUICC.\\
 \hline
@@ -223,7 +223,7 @@ PK.DPpb.SIG & Chiave pubblica del server SM-DP+ usata per verificare le signatur
 \hline
 SK.DPpb.SIG & Chiave privata del server SM-DP+ usata per generare le signature per il binding dei profili.\\
 \hline
-PK.DSauth.SIG & Chiave pubblica del server SM-DS usata per verificare le signature di SM-DS. È inclusa nel certificato CERT.DSauth.SIG.\\
+PK.DSauth.SIG & Chiave pubblica del server SM-DS usata per verificare le signature di SM-DS in fase di autenticazione. È inclusa nel certificato CERT.DSauth.SIG.\\
 \hline
 SK.DSauth.SIG & Chiave privata del server SM-DS usata per generare le signature per autenticarsi all'eUICC.\\
 \hline
@@ -231,9 +231,9 @@ PK.EUM.SIG & Chiave pubblica dell'EUM usata per verificare i certificati degli e
 \hline
 SK.EUM.SIG & Chiave privata dell'EUM usata per firmare i certificati degli eUICC.\\
 \hline
-PK.CI.SIG &  Chiave pubblica del CI usata per verificare i certificati dell'EUM dei server SM-DS e del server SM-DP+.\\
+PK.CI.SIG &  Chiave pubblica del CI usata per verificare i certificati dell'EUM, dei server SM-DS e del server SM-DP+.\\
 \hline
-SK.CI.SIG & Chiave privata del CI usata per firmare i certificati dell'EUM dei server SM-DS e del server SM-DP+.\\
+SK.CI.SIG & Chiave privata del CI usata per firmare i certificati dell'EUM, dei server SM-DS e del server SM-DP+.\\
 \hline
 otPK.EUICC.KA & Chiave pubblica one-time dell'eUICC usata per il key agreement.\\
 \hline
@@ -245,11 +245,11 @@ otSK.DP.KA & Chiave privata one-time del server SM-DP+ usata per il key agreemen
 \hline
 PK.DP.TLS & Chiave pubblica del server SM-DP+ usata per verificare le signature TLS del server. È inclusa nel certificato CERT.DP.TLS.\\
 \hline
-SK.DP.TLS & Chiave privata del server SM-DP+ usata per generare le signature per autenticarsi all'LPA.\\
+SK.DP.TLS & Chiave privata del server SM-DP+ usata per generare le signature TLS per autenticarsi all'LPA.\\
 \hline
 PK.DS.TLS & Chiave pubblica del server SM-DS usata per verificare le signature TLS di SM-DS. È inclusa nel certificato CERT.DS.TLS.\\
 \hline
-SK.DS.TLS & Chiave privata del server SM-DS usata per generare le signature per autenticarsi all'LPA.\\
+SK.DS.TLS & Chiave privata del server SM-DS usata per generare le signature TLS per autenticarsi all'LPA.\\
 \hline
 \end{tabularx}
 \end{center}
@@ -268,11 +268,11 @@ I certificati propri dei principali componenti che partecipano all'interazione d
 \hline
 CERT.CI.SIG & Certificato GSMA CI & Viene firmato e rilasciato da se stesso.\\
 \hline
-CERT.CISubCA.SIG & Certificato GSMA CI subordinato & Se esistente, viene firmato e rilasciato dal CI root.\\
+CERT.CISubCA.SIG & Certificato GSMA CI subordinato & Se esiste, viene firmato e rilasciato dal CI root.\\
 \hline
 CERT.EUM.SIG & Certificato EUM & Viene firmato e rilasciato dal CI (root o subordinato).\\
 \hline
-CERT.EUMSubCA.SIG & Certificato EUM subordinato & Se esistente, viene firmato e rilasciato dall'EUM root.\\
+CERT.EUMSubCA.SIG & Certificato EUM subordinato & Se esiste, viene firmato e rilasciato dall'EUM root.\\
 \hline
 CERT.DPSubCA.SIG & Certificato SM-DP+ intermediario & Viene firmato e rilasciato dal CI (root o subordinato).\\
 \hline
@@ -356,6 +356,26 @@ All'interno della PKI, il Certificate Issuer di GSMA (CI) è la Root Certificati
 Il CI fornisce una Certificate Revocation List (CRL), che è la lista dei certificati revocati tra tutti i certificati non scaduti che erano stati rilasciati da quello stesso CI. Ciascun CI, per giunta, deve pubblicare la propria CRL sia periodicamente, sia ogni volta che viene revocato un particolare certificato \cite{GSMA-docs-new}.\\
 In realtà, i certificati relativi alla PKI di RSP di cui si è discusso finora non sono gli unici certificati utilizzati per effettuare il deployment dei profili eSIM: esiste anche un certificato per firmare l'applicazione LPA e un certificato da inserire in ciascun profilo eSIM da distribuire all'end user. Dove entrano in gioco tali certificati? Con riferimento alla guida di Android per le API e per l'implementazione del deployment dei profili eSIM \cite{Android-docs}, l'interazione tra un'applicazione LPA e l'interfaccia all'eUICC (legata al componente EuiccManager in \cite{Android-docs}) può avvenire solo se l'applicazione dispone dei privilegi dell'operatore. Di norma, tali privilegi sono conferiti all'applicazione se il certificato usato per firmarla coincide col certificato presente nel profilo fornito da SM-DP+.
 
+\subsection{Aggiornamento delle chiavi pubbliche nell'eUICC}
+L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata all'EUM o al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, nei capitoli successivi potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
+
+\subsubsection{Contenuto dell'ECASD}
+Tutti gli eUICC devono avere un ECASD che contenga \cite{GSMA-docs-new}:
+\begin{itemize}[itemsep=0pt]
+\item la chiave privata dell'eUICC (SK.EUICC.SIG);
+\item il certificato dell'eUICC (CERT.EUICC.SIG) contenente la chiave PK.EUICC.SIG, che è la chiave pubblica dell'eUICC;
+\item la chiave pubblica del CI root (PK.CI.SIG);
+\item il certificato dell'EUM (CERT.EUM.SIG) e, opzionalmente, il certificato degli EUM subordinati (CERT.EUMSubCA.SIG);
+\item un keyset dell'EUM per il rinnovo di chiavi e certificati.
+\end{itemize}
+
+\subsubsection{Quando avviene l'aggiornamento delle chiavi?}
+La necessità di rinnovare le chiavi contenute nell'ECASD può presentarsi in due casi \cite{GSMA-docs-new}.
+\begin{itemize}
+\item L'applicazione LPA ha determinato che il Public Key identificator (i.e. la rappresentazione in esadecimale dell'identificatore della chiave pubblica) del CI non è supportato dall'eUICC.
+\item Durante la procedura di Common Mutual Authentication, il server SM-DP+ ha restituito un certificato CERT.DPauth.SIG che ha come parent un Root Certificate non supportato dall'eUICC.
+\end{itemize}
+
 \section{Interazione tra eUICC, LPA, SM-DP+ e operatore}
 \subsection{Sicurezza TLS}
 Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA), dove è prevista la mutua autenticazione tra le parti. La documentazione di GSMA di riferimento \cite{GSMA-docs-new} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, introduce anche la possibilità (e suggerisce) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui nei capitoli successivi potrebbe essere necessario verificare a livello pratico qual è la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
@@ -373,14 +393,14 @@ Qualunque comunicazione remota definita per RSP deve far fede alle regole riport
 \subsection{Step dell'interazione in RSP}
 L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro fasi distinte: profile ordering, download initialization, common handshake e profile download \cite{Sec-analysis}.
 \begin{itemize}
-\item \textbf{Profile ordering \& download initialization}: nella prima fase, l'operatore richiede al server SM-DP+ di preparare un profilo eSIM, e il server gli restituisce dei download initialization pointer (che possono essere rappresentati ad esempio da un codice di attivazione). Nella seconda fase, invece, l'operatore consegna i download initialization pointer all'LPA in modo tale che poi sia possibile effettuare il download vero e proprio del profilo. Per questi primi due step, si possono seguire tre tipi di approcci differenti:
+\item \textbf{Profile ordering \& download initialization}: nella prima fase, l'operatore richiede al server SM-DP+ di preparare un profilo eSIM, e il server gli restituisce dei download initialization pointer (che possono essere rappresentati ad esempio da un codice di attivazione). Nella seconda fase, l'operatore consegna i download initialization pointer all'LPA in modo tale che poi sia possibile effettuare il download vero e proprio del profilo. Per questi primi due step, si possono seguire tre tipi di approcci differenti:
 \begin{enumerate}
 \item \underline{Default server approach}: la figura \ref{fig:default-server} tratta da \cite{Sec-analysis} mostra questo approccio. L'operatore (indicato con MNO - Mobile Network Operator) pre-condivide con l'eUICC l'indirizzo S del server. Quando vuole effettuare una nuova sottoscrizione e ottenere così un nuovo profilo, l'end user contatta l'operatore (messaggio 0), il quale ordina al server SM-DP+ il profilo per l'identificatore U dell'eUICC target (messaggio 1). Il server crea il nuovo profilo e lo invia all'operatore (messaggio 2), il quale notifica l'utente (messaggio 3). A tal punto, l'applicazione LPA viene avviata e, tramite un'operazione di get, recupera S dall'eUICC.
 \item \underline{Activation code approach}: la figura \ref{fig:activation-code} tratta da \cite{Sec-analysis} mostra questo secondo approccio. L'operatore ordina al server SM-DP+ dei profili (messaggio 1), e il server li rende disponibili con un codice di attivazione (tipicamente un codice QR) e li restituisce all'operatore (messaggio 2). Il codice di attivazione include l'indirizzo S del server, l'identificatore $I_{ac}$ del profilo e, opzionalmente, l'OID, ovvero l'identificatore del server SM-DP+. Quando l'end user vuole effettuare una nuova sottoscrizione e ottenere così un nuovo profilo, contatta l'operatore (messaggio 0, che può essere inviato sia prima che dopo l'interazione tra operatore e SM-DP+ server appena descritta), il quale restituisce il codice di attivazione opportuno (messaggio 3).
 \item \underline{SM-DS assisted approach}: è un approccio analogo all'activation code, con la differenza che SM-DP+ si appoggia sui server SM-DS per comunicare con l'eUICC.
 \end{enumerate}
 \item \textbf{Common handshake}: questa fase, nota anche come Common Mutual Authentication, coinvolge tre attori fondamentali: il server SM-DP+, l'applicazione LPA e l'eUICC. I relativi dettagli sono riportati nella sezione \ref{sec:mutual-auth}.
-\item \textbf{Profile download}: quest'ultima fase non è altro che una continuazione della common handshake. Viene calcolato uno shared secret da cui, mediante una key derivation function (KDF), saranno derivate le chiavi di sessione k (per la cifratura) e k' (per l'integrità dei dati). Nel frattempo, avviene il download del profilo eSIM, in cui il server SM-DP+ invia all'LPA il profilo cifrato con la chiave k e l'identificatore dell'operatore di riferimento, dove entrambe le informazioni sono firmate singolarmente con la chiave k' mediante il meccanismo di message authentication code (MAC). Dopodiché, l'LPA mostra l'identificatore dell'operatore all'utente, che dovrà stabilire se fa riferimento all'operatore giusto: se sì, l'LPA inoltra tutte le informazioni all'eUICC il quale, dopo aver derivato a sua volta le chiavi di sessione k, k', dovrà decriptare il profilo P, che risulterà finalmente essere utilizzabile.
+\item \textbf{Profile download}: in quest'ultima fase, i cui dettagli sono riportati nella sezione \ref{sec:down-install}, viene calcolato uno shared secret da cui, mediante una key derivation function (KDF), saranno derivate le chiavi di sessione k (per la cifratura) e k' (per l'integrità dei dati). Avviene poi il download del profilo eSIM, in cui il server SM-DP+ invia all'LPA il profilo cifrato con la chiave k e l'operatore di riferimento, dove entrambe le informazioni sono firmate singolarmente con la chiave k' mediante il meccanismo di message authentication code (MAC). Dopodiché, l'LPA mostra l'operatore all'utente, che dovrà stabilire se è corretto: se sì, l'LPA inoltra tutte le informazioni all'eUICC il quale, dopo aver derivato a sua volta le chiavi di sessione k, k', dovrà decriptare il profilo P, che risulterà finalmente essere utilizzabile.
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{default-server.png}
@@ -393,7 +413,92 @@ L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro 
 \label{fig:activation-code}
 \end{figure}
 
-\section{Dettagli sulla Common Mutual Authentication}\label{sec:mutual-auth}
+\subsection{Ciclo di vita dei profili in SM-DP+}
+Prima di approfondire più nel dettaglio l'interazione in RSP, è bene illustrare il ciclo di vita dei profili eSIM.\\
+La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs-new}\cite{GSMA-docs-old} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Stati dei profili eSIM}
+\label{tab:profile-states}
+\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+\textbf{Nome} & \textbf{Descrizione}\\
+\hline
+Available & Il profilo è disponibile nell’inventory del server SM-DP+.\\
+\hline
+Allocated & Il profilo è riservato per il download senza essere linkato a un EID (eUICC ID).\\
+\hline
+Linked & Il profilo è riservato per il download ed è linkato a un EID.\\
+\hline
+Confirmed & Il profilo è riservato per il download (che sia esso linkato o non linkato a un EID) col matching ID (i.e. il codice che identifica la transazione di download) e il codice di conferma (i.e. il codice che deve essere inserito dall'end user), se richiesti.\\
+\hline
+Released & Il profilo è pronto per il download e l’installazione dopo che l’operatore ha effettuato la configurazione di rete.\\
+\hline
+Downloaded & Il profilo è stato consegnato all’LPA (i.e. è stato scaricato).\\
+\hline
+Installed & Il profilo è stato installato sull’eUICC con successo.\\
+\hline
+Error & Il profilo non è stato installato a causa di una condizione di errore.\\
+\hline
+Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs-new}\cite{GSMA-docs-old}, invece, sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
+\begin{figure}
+\includegraphics[width=\linewidth]{profile-states1.png}
+\caption{Primo diagramma a stati per i profili eSIM.}
+\label{fig:profile-states1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{profile-states2.png}
+\caption{Secondo diagramma a stati per i profili eSIM.}
+\label{fig:profile-states2}
+\end{figure}
+\\
+\\Con riferimento alla figura \ref{fig:profile-states1}, a partire dallo stato Available:
+\begin{itemize}
+\item Si passa allo stato Allocated se si effettua l'ordine di download senza specificare l'EID.
+\item Si passa allo stato Linked se si effettua l'ordine di download specificando l'EID.
+\end{itemize}
+A partire dallo stato Allocated:
+\begin{itemize}
+\item Si passa allo stato Confirmed se si conferma l'ordine di download con releaseFlag=false.
+\item Si passa allo stato Released se si conferma l'ordine di download con releaseFlag=true.
+\end{itemize}
+A partire dallo stato Linked:
+\begin{itemize}
+\item Si passa allo stato Confirmed se si conferma l'ordine di download con releaseFlag=false.
+\item Si passa allo stato Released se si conferma l'ordine di download con releaseFlag=true.
+\end{itemize}
+A partire dallo stato Confirmed:
+\begin{itemize}
+\item Si passa allo stato Released se si effettua il rilascio del profilo in modo tale che sia effettivamente pronto per il download e l'installazione.
+\end{itemize}
+A partire dallo stato Released:
+\begin{itemize}
+\item Si passa allo stato Downloaded se il profilo viene consegnato all'LPA con successo.
+\item Si passa allo stato Error se si ha un errore nel consegnare il profilo all'LPA.
+\end{itemize}
+A partire dallo stato Downloaded:
+\begin{itemize}
+\item Si passa allo stato Installed se il profilo viene installato sull'eUICC con successo.
+\item Si passa allo stato Error se si ha un errore nell'installare il profilo sull'eUICC.
+\end{itemize}
+Con riferimento alla figura \ref{fig:profile-states2}, a partire dagli stati Allocated / Linked / Confirmed / Released:
+\begin{itemize}
+\item Si torna allo stato Available se l'ordine di download viene annullato con finalProfileStatusIndicator=Available.
+\item Si passa allo stato Unavailable se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
+\end{itemize}
+A partire dallo stato Error:
+\begin{itemize}
+\item Si torna allo stato Available con una transizione automatica oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Available.
+\item Si passa allo stato Unavailable con una transizione automatica oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
+\end{itemize}
+
+\subsection{Dettagli sulla Common Mutual Authentication}\label{sec:mutual-auth}
 La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste tre entità svolgono durante la procedura di Common Mutual Authentication. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Si osservi che l'intero meccanismo resta valido e invariato se si ha un server SM-DS al posto del server SM-DP+.
 \begin{figure}
 \includegraphics[width=\linewidth]{common-mutual-auth.png}
@@ -401,7 +506,7 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \label{fig:common-mutual-auth}
 \end{figure}
 
-\subsection{Condizioni iniziali}
+\subsubsection{Condizioni iniziali}
 \begin{itemize}
 \item Il server SM-DP+ è dotato di:
 \begin{itemize}[itemsep=0pt]
@@ -423,7 +528,7 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \end{itemize}
 \end{itemize}
 
-\subsection{Procedimento}
+\subsubsection{Procedimento}
 \begin{enumerate}
 \item Il primo step, che è opzionale, si articola in tre punti:
 \begin{enumerate}[label=\alph*)]
@@ -487,110 +592,7 @@ Se anche solo uno di questi controlli non va a buon fine, il server restituisce 
 \end{enumerate}
 In definitiva, in questa sezione è emerso come l'LPA svolga sì il ruolo di relay nell'interazione tra server SM-DP+ ed eUICC, ma svolge anche delle importanti funzioni di sicurezza. Infatti, com'è stato già menzionato, si occupa anzitutto di verificare che il certificato CERT.DP.TLS sia valido e, in un secondo momento, effettua altri controlli sull'OID, sull'indirizzo del server SM-DP+, sulla chiave pubblica associata al certificato CERT.DPauth.SIG e sulla certificate chain del server nello specifico. Tale caratteristica implica la necessità di considerare l'applicazione LPA come un'entità trusted, il che non è fortemente indicato dal punto di vista della sicurezza.
 
-\section{Aggiornamento delle chiavi pubbliche nell'eUICC}
-L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata all'EUM o al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, nei capitoli successivi potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
-
-\subsection{Contenuto dell'ECASD}
-Tutti gli eUICC devono avere un ECASD che contenga \cite{GSMA-docs-new}:
-\begin{itemize}[itemsep=0pt]
-\item la chiave privata dell'eUICC (SK.EUICC.SIG);
-\item il certificato dell'eUICC (CERT.EUICC.SIG) contenente la chiave PK.EUICC.SIG, che è la chiave pubblica dell'eUICC;
-\item la chiave pubblica del CI root (PK.CI.SIG);
-\item il certificato dell'EUM (CERT.EUM.SIG) e, opzionalmente, il certificato degli EUM subordinati (CERT.EUMSubCA.SIG);
-\item un keyset dell'EUM per il rinnovo di chiavi e certificati.
-\end{itemize}
-
-\subsection{Quando avviene l'aggiornamento delle chiavi}
-La necessità di rinnovare le chiavi contenute nell'ECASD può presentarsi in due casi \cite{GSMA-docs-new}.
-\begin{itemize}
-\item L'applicazione LPA ha determinato che il Public Key indicator (i.e. la rappresentazione in esadecimale dell'identificatore della chiave pubblica) del CI non è supportato dall'eUICC.
-\item Durante la procedura di Common Mutual Authentication, il server SM-DP+ ha restituito un certificato CERT.DPauth.SIG che ha come parent un Root Certificate non supportato dall'eUICC.
-\end{itemize}
-
-\section{Ciclo di vita dei profili in SM-DP+}
-La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs-new}\cite{GSMA-docs-old} fornisce un elenco degli stati in cui ciascun profilo eSIM può trovarsi nell'arco della sua esistenza.
-\begin{table}[h!]
-\begin{center}
-\captionsetup{skip=4pt}
-\caption{Stati dei profili eSIM}
-\label{tab:profile-states}
-\begin{tabularx}{\textwidth}{|c|X|}
-\hline
-\textbf{Nome} & \textbf{Descrizione}\\
-\hline
-Available & Il profilo è disponibile nell’inventory del server SM-DP+.\\
-\hline
-Allocated & Il profilo è riservato per il download senza essere linkato a un EID (eUICC ID).\\
-\hline
-Linked & Il profilo è riservato per il download ed è linkato a un EID.\\
-\hline
-Confirmed & Il profilo è riservato per il download (che sia esso linkato o non linkato a un EID) col matching ID (i.e. il codice che identifica la transazione di download) e il codice di conferma (i.e. il codice che deve essere inserito dall'end user), se richiesti.\\
-\hline
-Released & Il profilo è pronto per il download e l’installazione dopo che l’operatore ha effettuato la configurazione di rete.\\
-\hline
-Downloaded & Il profilo è stato consegnato all’LPA (i.e. è stato scaricato).\\
-\hline
-Installed & Il profilo è stato installato sull’eUICC con successo.\\
-\hline
-Error & Il profilo non è stato installato a causa di una condizione di errore.\\
-\hline
-Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
-\hline
-\end{tabularx}
-\end{center}
-\end{table}
-\\Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs-new}\cite{GSMA-docs-old} sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
-\begin{figure}
-\includegraphics[width=\linewidth]{profile-states1.png}
-\caption{Primo diagramma a stati per i profili eSIM.}
-\label{fig:profile-states1}
-\end{figure}
-\begin{figure}
-\includegraphics[width=\linewidth]{profile-states2.png}
-\caption{Secondo diagramma a stati per i profili eSIM.}
-\label{fig:profile-states2}
-\end{figure}
-\\Con riferimento alla figura \ref{fig:profile-states1}, a partire dallo stato Available:
-\begin{itemize}
-\item Si passa allo stato Allocated se si effettua l'ordine di download senza specificare l'EID.
-\item Si passa allo stato Linked se si effettua l'ordine di download specificando l'EID.
-\end{itemize}
-A partire dallo stato Allocated:
-\begin{itemize}
-\item Si passa allo stato Confirmed se si conferma l'ordine di download con releaseFlag=false.
-\item Si passa allo stato Released se si conferma l'ordine di download con releaseFlag=true.
-\end{itemize}
-A partire dallo stato Linked:
-\begin{itemize}
-\item Si passa allo stato Confirmed se si conferma l'ordine di download con releaseFlag=false.
-\item Si passa allo stato Released se si conferma l'ordine di download con releaseFlag=true.
-\end{itemize}
-A partire dallo stato Confirmed:
-\begin{itemize}
-\item Si passa allo stato Released se si effettua il rilascio del profilo in modo tale che sia effettivamente pronto per il download e l'installazione.
-\end{itemize}
-A partire dallo stato Released:
-\begin{itemize}
-\item Si passa allo stato Downloaded se il profilo viene consegnato all'LPA con successo.
-\item Si passa allo stato Error se si ha un errore nel consegnare il profilo all'LPA.
-\end{itemize}
-A partire dallo stato Downloaded:
-\begin{itemize}
-\item Si passa allo stato Installed se il profilo viene installato sull'eUICC con successo.
-\item Si passa allo stato Error se si ha un errore nell'installare il profilo sull'eUICC.
-\end{itemize}
-Con riferimento alla figura \ref{fig:profile-states2}, a partire dagli stati Allocated / Linked / Confirmed / Released:
-\begin{itemize}
-\item Si torna allo stato Available se l'ordine di download viene annullato con finalProfileStatusIndicator=Available.
-\item Si passa allo stato Unavailable se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
-\end{itemize}
-A partire dallo stato Error:
-\begin{itemize}
-\item Si torna allo stato Available in modo automatico oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Available.
-\item Si passa allo stato Unavailable in modo automatico oppure se l'ordine di download viene annullato con finalProfileStatusIndicator=Unavailable.
-\end{itemize}
-
-\section{Dettagli su download e installazione dei profili}\label{sec:down-install}
+\subsection{Dettagli su download e installazione dei profili}\label{sec:down-install}
 La figura \ref{fig:download-install} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la procedura di download e installazione dei profili. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Anche qui l'intero meccanismo resta valido se si ha un server SM-DS al posto del server SM-DP+, a meno di variazioni di poco conto.
 \begin{figure}
 \includegraphics[width=\linewidth]{download-install.png}
@@ -598,13 +600,13 @@ La figura \ref{fig:download-install} ripresa da \cite{GSMA-docs-new} illustra tu
 \label{fig:download-install}
 \end{figure}
 
-\subsection{Condizioni iniziali}
+\subsubsection{Condizioni iniziali}
 \begin{itemize}
 \item L'applicazione LPA potrebbe aver recuperato l'indirizzo del server SM-DP+ e l'identificativo della chiave pubblica del CI Root consentita; se tale identificativo viene effettivamente recuperato a partire dall'eUICC, allora l'LPA deve restringere l'insieme degli identificativi delle chiavi pubbliche dei CI Root compatibili a quel valore.
 \item Per ogni profilo nello stato Released il server SM-DP+ mantiene un contatore dei tentativi di download di quel profilo e un contatore dei tentativi di immissione del codice di conferma. Di fatto, il server deve limitare il valore di questi due contatori.
 \end{itemize}
 
-\subsection{Procedimento}
+\subsubsection{Procedimento}
 \begin{enumerate}
 \item Se non lo ha già fatto in precedenza, l'applicazione LPA ottiene l'indirizzo del server SM-DP+ e, opzionalmente, l'OID del server SM-DP+ e l'identificativo della chiave pubblica del CI Root.
 \item Viene eseguita la procedura di Common Mutual Authentication definita nella sezione \ref{sec:mutual-auth}.
@@ -638,7 +640,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \end{enumerate}
 In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
-\section{Dettagli sul cambio di dispositivo}
+\subsection{Cambio di dispositivo}
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (qui indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
 \begin{figure}
 \includegraphics[width=\linewidth]{device-change.png}
@@ -646,14 +648,14 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \label{fig:device-change}
 \end{figure}
 
-\subsection{Condizioni iniziali}
+\subsubsection{Condizioni iniziali}
 \begin{itemize}
 \item Il Service Provider ha fornito al server SM-DP+ la configurazione e altre informazioni rilevanti per il cambio di dispositivo. Tutti questi dati devono essere contenuti anche nel profilo all'interno del vecchio dispositivo.
 \item L'end user possiede sia un vecchio dispositivo contenente un profilo, sia un nuovo dispositivo.
 \item L'eUICC e l'LPA del vecchio dispositivo supportano il cambio di dispositivo.
 \end{itemize}
 
-\subsection{Procedimento}
+\subsubsection{Procedimento}
 \begin{enumerate}
 \item L'end user dà inizio all'operazione di cambio di dispositivo a partire dall'LPA del vecchio dispositivo e seleziona il profilo da installare nel nuovo dispositivo.
 \item L'LPA del vecchio dispositivo recupera DeviceChangeConfiguration dai metadati del profilo. Se DeviceChangeConfiguration indica requestToDp, allora si passa allo step (3); se invece DeviceChangeConfiguration indica usingStoredAc, allora si passa allo step (17).
@@ -688,6 +690,9 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 [TODO]
 
 \section{Prove sperimentali}
+[TODO]
+
+\chapter{Risultati ottenuti}
 [TODO]
 
 \chapter{Conclusione}
