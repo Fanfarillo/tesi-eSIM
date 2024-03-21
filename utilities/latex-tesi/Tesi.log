@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  21 MAR 2024 13:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  21 MAR 2024 16:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -692,108 +692,16 @@ Underfull \vbox (badness 5696) has occurred while \output is active []
 
  [16 <./images//cert-chain.png>] [17 <./images//cert-chain-new1.png> <./images/
 /cert-chain-new2.png>] [18 <./images//cert-chain-new3.png> <./images//cert-chai
-n-new4.png>] [19]
-<images//default-server.png, id=426, 529.37775pt x 244.5135pt>
+n-new4.png>] [19] [20]
+<images//default-server.png, id=440, 529.37775pt x 244.5135pt>
 File: images//default-server.png Graphic file (type png)
 <use images//default-server.png>
-Package pdftex.def Info: images//default-server.png  used on input line 386.
+Package pdftex.def Info: images//default-server.png  used on input line 406.
 (pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
-<images//activation-code.png, id=427, 452.892pt x 227.04825pt>
+<images//activation-code.png, id=441, 452.892pt x 227.04825pt>
 File: images//activation-code.png Graphic file (type png)
 <use images//activation-code.png>
-Package pdftex.def Info: images//activation-code.png  used on input line 391.
+Package pdftex.def Info: images//activation-code.png  used on input line 411.
 (pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
-<images//common-mutual-auth.png, id=431, 361.35pt x 548.0475pt>
-File: images//common-mutual-auth.png Graphic file (type png)
-<use images//common-mutual-auth.png>
-Package pdftex.def Info: images//common-mutual-auth.png  used on input line 399
-.
-(pdftex.def)             Requested size: 426.79135pt x 647.30927pt.
-
-Underfull \vbox (badness 2644) has occurred while \output is active []
-
- [20 <./images//default-server.png>] [21 <./images//activation-code.png>] [22 <
-./images//common-mutual-auth.png>] [23] [24]
-<images//profile-states1.png, id=489, 626.34pt x 466.74374pt>
-File: images//profile-states1.png Graphic file (type png)
-<use images//profile-states1.png>
-Package pdftex.def Info: images//profile-states1.png  used on input line 544.
-(pdftex.def)             Requested size: 426.79135pt x 318.05101pt.
-<images//profile-states2.png, id=490, 626.34pt x 184.89075pt>
-File: images//profile-states2.png Graphic file (type png)
-<use images//profile-states2.png>
-Package pdftex.def Info: images//profile-states2.png  used on input line 549.
-(pdftex.def)             Requested size: 426.79135pt x 125.98921pt.
- [25] [26 <./images//profile-states1.png> <./images//profile-states2.png>]
-<images//download-install.png, id=507, 368.577pt x 542.025pt>
-File: images//download-install.png Graphic file (type png)
-<use images//download-install.png>
-Package pdftex.def Info: images//download-install.png  used on input line 596.
-(pdftex.def)             Requested size: 426.79135pt x 627.64944pt.
- [27] [28 <./images//download-install.png>] [29]
-<images//device-change.png, id=533, 525.76425pt x 542.025pt>
-File: images//device-change.png Graphic file (type png)
-<use images//device-change.png>
-Package pdftex.def Info: images//device-change.png  used on input line 644.
-(pdftex.def)             Requested size: 426.79135pt x 439.99724pt.
-
-[30 <./images//device-change.png>] [31] [32]
-Capitolo 3.
-[33
-
-]
-Capitolo 4.
-[34
-
-]
-Capitolo 5.
-(./Tesi.bbl [35
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 9--14
-[]\OT1/cmr/m/n/10 Corcom.  \OT1/cmr/m/it/10 "Te-le-fo-nia mo-bi-le, co-sa so-no
- le eSim? E perch^^Se so-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 9--14
-\OT1/cmr/m/it/10 no pi^^Ru si-cu-re?"\OT1/cmr/m/n/10 , 2023.  []$\OT1/cmtt/m/n/
-10 https : / / corrierecomunicazioni . it / telco /
- []
-
-) [36
-
-] [37
-
-] (./Tesi.aux)
-Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 8F29397C8EDDAC4EFD91CF51D843049A;7143.
- ) 
-Here is how much of TeX's memory you used:
- 13982 strings out of 476024
- 226439 string characters out of 5794016
- 1876382 words of memory out of 5000000
- 34060 multiletter control sequences out of 15000+600000
- 519059 words of font info for 48 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 75i,12n,76p,1302b,723s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/tex
-live/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmbx9.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pf
-b><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texl
-ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2022/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2022/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
-/cm-super/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhv
-r8a.pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (37 pages, 1584469 bytes).
-PDF statistics:
- 696 PDF objects out of 1000 (max. 8388607)
- 588 compressed objects within 6 object streams
- 159 named destinations out of 1000 (max. 500000)
- 374 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+<images//profile-states1.png, id=449, 626.34pt x 466.74374pt>
+File: images//profile-states1.png Graphic file (ty
