@@ -3,8 +3,8 @@
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
-\usepackage[style=numeric, sorting=none]{biblatex}
-%\usepackage{cite}
+\usepackage{cite}
+\usepackage[numbers, sort&compress]{natbib}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
@@ -19,8 +19,7 @@
 \fancyhead{}
 \fancyhead[LE]{\nouppercase{\leftmark}}
 \fancyhead[RO]{\nouppercase{\rightmark}}
-\addbibresource{Bibliography.bib}
-\graphicspath{{images/}} %Directory delle immagini
+\bibliographystyle{unsrtnat} %Ordine dei riferimenti bibliografici = ordine con cui le citazioni compaiono nel testo.
 
 \begin{document}
 \begin{frontespizio}
@@ -47,7 +46,7 @@
 
 \chapter{Introduzione}
 \section{Panoramica sull'eSIM}
-L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research del 2023 stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni attuali ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
+L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni attuali ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
 
 \section{Obiettivo del lavoro}
 La presente trattazione si propone di effettuare un'analisi di sicurezza e delle vulnerabilità dell'eSIM e del suo funzionamento e, successivamente, di tentare di sfruttare, anche con delle attività di laboratorio, le eventuali vulnerabilità trovate.
@@ -60,12 +59,12 @@ La presente trattazione si propone di effettuare un'analisi di sicurezza e delle
 \end{itemize}
 
 \section{Panoramica sui capitoli successivi}
-Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura dell'eSIM e sul protocollo di comunicazione tra eUICC, LPA e server SM-DP+, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà effettuata un'analisi della sicurezza dell'eSIM a run-time, mentre nel capitolo 4 si procederà con l'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Nel capitolo 5 verranno mostrati i risultati ottenuti. Infine, nel capitolo 6 verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
+Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura e sulle interfacce dell'eSIM, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà effettuata un'analisi della sicurezza dell'eSIM a run-time, mentre nel capitolo 4 si procederà con l'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Infine, nel capitolo 5 verranno mostrati i risultati finali, verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
 
 \chapter{Interfacce e funzionamento dell'eSIM}
 \section{Architettura di RSP}
-Per comprendere appieno come funziona e come si interfaccia l'eSIM all'interno dei dispositivi mobili, è necessario introdurre il protocollo \textbf{RSP}, anche perché l'eSIM si colloca proprio all'interno dell'architettura di RSP.\\
-RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ per gestire la comunicazione tra il server SM-DP+ e la scheda eSIM del dispositivo mobile (i.e. l'eUICC). In particolare, definisce le operazioni di provisioning specifiche per la comunicazione dell'eUICC. Quest'ultimo comprende i dati sia dell'operatore che dell'utente che, nel caso delle SIM tradizionali, verrebbero memorizzati su una SIM card fisica. L'end user che vuole ottenere un profilo eSIM offerto da un particolare operatore (nel quale viene definito un piano tariffario) deve pagare l'operatore affinché esso gli fornisca un codice QR. Dopodiché, deve effettuare la scansione del codice QR per avviare lo scaricamento (operazione di Download) e l'installazione (operazione di Install) del profilo eSIM: a questo punto, la connessione tra end user (col relativo profilo eSIM) e operatore è completata. Se in un secondo momento l'end user ha la necessità di ottenere un secondo profilo eSIM, gli è sufficiente ripetere i medesimi passaggi appena descritti, e questo secondo profilo può essere installato all'interno del medesimo eUICC che ospita già il primo profilo. Tale meccanismo è illustrato nella figura \ref{fig:RSP-functioning} tratta da \cite{GSMA-whitepaper}.
+Per comprendere appieno come funziona e come si interfaccia l'eSIM all'interno dei dispositivi mobili, è necessario introdurre il protocollo RSP, anche perché l'eSIM si colloca proprio all'interno dell'architettura di RSP.\\
+RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ per gestire la comunicazione tra il server SM-DP+ e la scheda eSIM del dispositivo mobile (i.e. l'eUICC). In particolare, definisce le operazioni di provisioning specifiche per la comunicazione dell'eUICC. Quest'ultimo comprende i dati sia dell'operatore che dell'utente che, nel caso delle SIM tradizionali, verrebbero appunto memorizzati su una SIM card fisica. Entrando più nel dettaglio sul funzionamento di RSP, l'end user che vuole ottenere un profilo eSIM offerto da un particolare operatore (nel quale viene definito un piano tariffario), deve pagare l'operatore affinché esso gli fornisca un codice QR. Dopodiché, deve effettuare la scansione di tale codice QR per avviare lo scaricamento (operazione di Download) e l'installazione (operazione di Install) del profilo eSIM: a questo punto, la connessione tra end user (col relativo profilo eSIM) e operatore è completata. Se in un secondo momento l'end user ha la necessità di ottenere e utilizzare un secondo profilo eSIM, gli è sufficiente ripetere i medesimi passaggi appena descritti, e questo secondo profilo può essere installato all'interno del medesimo eUICC che ospita già il primo profilo. Tale meccanismo è illustrato nella figura \ref{fig:RSP-functioning} tratta da \cite{GSMA-whitepaper}.
 \begin{figure}
 \includegraphics[width=\linewidth]{RSP-functioning.png}
 \caption{Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.}
@@ -81,15 +80,15 @@ RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ 
 \end{figure}
 Di seguito è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura di RSP raffigurata in \ref{fig:RSP-LPAd}.
 \begin{itemize}
-\item \textbf{CI} = Certificate Issuer: nota anche come eSIM CA RootCA, è un'entità autorizzata a rilasciare certificati digitali.
+\item \textbf{CI} = Certificate Issuer: noto anche come eSIM CA RootCA, è un'entità autorizzata a rilasciare certificati digitali.
 \item \textbf{Device App} = una qualunque applicazione installata nel dispositivo mobile.
 \item \textbf{Enterprise} = impresa (i.e. azienda, organizzazione o entità governativa) che si iscrive ai servizi mobili che devono essere utilizzati dai dipendenti a supporto dell'impresa stessa.
-\item \textbf{EUM} = eUICC Manufacturer: è il fornitore delle eUICC e del software residente (e.g. firmware, sistema operativo); svolge anche il ruolo di certificate authority subordinata al CI e rilascia certificati all'eUICC \cite{GSMA-docs-new}\cite{Sec-analysis}.
+\item \textbf{EUM} = eUICC Manufacturer: è il fornitore delle eUICC e del software residente (e.g. firmware, sistema operativo); svolge anche il ruolo di certificate authority subordinata al CI e rilascia certificati all'eUICC \cite{Sec-analysis}.
 \item \textbf{HRI Server} = server che fornisce le High Resolution Icon, che sono icone che vengono create per essere visualizzate in alta risoluzione.
 \item \textbf{LDSd} = Local Discovery Service (quando LPA non è nell'eUICC).
 \item \textbf{LPDd} = Local Profile Download (quando LPA non è nell'eUICC).
 \item \textbf{LUId} = Local User Interface (quando LPA non è nell'eUICC).
-\item \textbf{SM-DS} = Subscription Manager Discovery Server: è il componente che consente a SM-DP+ di raggiungere l'eUICC senza dover sapere a quale rete il dispositivo è connesso.
+\item \textbf{SM-DS} = Subscription Manager Discovery Server: è il componente che fornisce un mezzo a SM-DP+ per raggiungere l'eUICC senza dover sapere a quale rete il dispositivo è connesso.
 \end{itemize}
 \item \textbf{LPA embeddato all'interno dell'eUICC (LPAe)}: sono necessarie solo delle interfacce tra l'eUICC e SM-DP+, come mostrato nella figura \ref{fig:RSP-LPAe} tratta da \cite{GSMA-docs-new}.
 \begin{figure}
@@ -158,8 +157,8 @@ ESapp & Operatore & Device App & È un'interfaccia che prescinde dagli scopi del
 \end{tabularx}
 \end{center}
 \end{table}
-\\\textit{*Un Profile Package è un pacchetto di dati associato a un profilo che contiene le informazioni di configurazione necessarie per attivare e utilizzare quel profilo all'interno di una scheda eSIM. Esistono diversi tipi di Profile Package: l'Unprotected Profile Package (UPP) è un pacchetto di dati non protetto da alcun meccanismo di sicurezza; il Protected Profile Package (PPP) è un pacchetto di dati protetto da alcuni meccanismi di sicurezza, come l'autenticazione e/o la crittografia; il Bound Profile Package (BPP) è un pacchetto di dati legato a un particolare dispositivo o a una piattaforma di servizi; il Segmented Bound Profile Package (SBPP), infine, non è altro che un BPP suddiviso in molteplici segmenti che possono essere utilizzati in modo indipendente e separato.}\\ \\
-\textit{**ISD-P (Issuer Security Domain Profile) è un contenitore sicuro che ospita un unico profilo.}\\ \\
+\\\textit{*Un Profile Package è un pacchetto di dati associato a un profilo che contiene le informazioni di configurazione necessarie per attivare e utilizzare quel profilo all'interno di una scheda eSIM. Esistono diversi tipi di Profile Package: l'Unprotected Profile Package (UPP) è un pacchetto di dati non protetto da alcun meccanismo di sicurezza, come l'autenticazione o la crittografia; il Protected Profile Package (PPP) è un pacchetto di dati protetto da alcuni meccanismi di sicurezza; il Bound Profile Package (BPP) è un pacchetto di dati legato a un particolare dispositivo o a una piattaforma di servizi; il Segmented Bound Profile Package (SBPP), infine, non è altro che un BPP suddiviso in molteplici segmenti che possono essere utilizzati in modo indipendente e separato.}\\
+\textit{**ISD-P (Issuer Security Domain Profile) è un contenitore sicuro che ospita un unico profilo.}\\
 \textit{***Root SM-DS è il server primario utilizzato da un operatore di rete mobile per gestire le attivazioni e le disattivazioni delle sottoscrizioni e per gestire funzionalità come l'autenticazione e l'autorizzazione degli utenti. D'altra parte, si hanno gli Alternative SM-DS, che sono server di backup a cui si ricorre quando il Root SM-DS non è disponibile.}
 
 \section{Architettura dell'eUICC}
@@ -171,7 +170,7 @@ Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzat
 \end{figure}
 \\Di seguito, invece, è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura dell'eUICC raffigurata in \ref{fig:eUICC-arch}.
 \begin{itemize}
-\item \textbf{CASD} = Controller Authority Security Domain: è un'area di storage sicura all'interno dell'ISD-P in cui vengono memorizzate le credenziali richieste (i.e. chiavi, certificati) per supportare le funzionalità di sicurezza sensibili.
+\item \textbf{CASD} = Controller Authority Security Domain: è un'area di storage sicura all'interno dell'ISD-P in cui vengono memorizzate le credenziali richieste per supportare le funzionalità di sicurezza sensibili.
 \item \textbf{ECASD} = Embedded Controller Authority Security Domain: è il componente CASD direttamente incapsulato all'interno dell'eUICC.
 \item \textbf{ISD-R} = Issuer Security Domain Root: è il componente responsabile della creazione di nuovi ISD-P e della gestione del loro ciclo di vita.
 \item \textbf{LPA Services} = i seguenti quattro servizi: trasferimento del Bound Profile Package da LPAd all'ISD-P; ottenimento della lista dei profili installati; recupero dell'EID (eUICC ID); ottenimento delle operazioni di gestione del profilo locale (Local Profile Management Operations).
@@ -186,7 +185,7 @@ Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzat
 \subsection{Caratteristiche hardware e software dell'eUICC}
 \begin{enumerate}[itemsep=0pt]
 \item Deve essere resistente al tampering dei componenti hardware.
-\item Contiene un unico ECASD (eUICC Controlling Authority Security Domain).
+\item Contiene un unico ECASD (eUICC Controlling Authority Security Domain), che è un componente responsabile dello storage sicuro di chiavi e certificati.
 \item Supporta SHA-1.
 %\item Supporta TUAK, che è un particolare algoritmo crittografico di 3GPP, dove 3GPP (Third Generation Partnership Project) è il consorzio industriale che definisce gli standard per la tecnologia 5G .
 \item Supporta Milenage, che è un set di funzioni di autenticazione e di generazione di chiavi.
@@ -541,12 +540,12 @@ Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
 \end{table}
 \\Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs-new}\cite{GSMA-docs-old} sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
 \begin{figure}
-\includegraphics[width=\linewidth]{profile-states1.png}
+\includegraphics[width=\linewidth]{profile-states1}
 \caption{Primo diagramma a stati per i profili eSIM.}
 \label{fig:profile-states1}
 \end{figure}
 \begin{figure}
-\includegraphics[width=\linewidth]{profile-states2.png}
+\includegraphics[width=\linewidth]{profile-states2}
 \caption{Secondo diagramma a stati per i profili eSIM.}
 \label{fig:profile-states2}
 \end{figure}
@@ -693,7 +692,7 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \chapter{Conclusione}
 [TODO]
 
-\printbibliography
+\bibliography{Bibliography}
 
 \chapter*{Ringraziamenti}
 [TODO]
