@@ -534,7 +534,7 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \begin{enumerate}[label=\alph*)]
 \item Se non lo aveva già fatto in un momento precedente, l'LPA richiede le informazioni dell'eUICC (i.e. Specification Version Number e identificatori delle chiavi pubbliche del CI che possono essere utilizzate per autenticare il server e per firmare i propri dati) identificate dalla variabile euiccInfo1.
 \item L'eUICC restituisce euiccInfo1 all'LPA.
-\item Se esiste una restrizione sulle chiavi pubbliche dei CI consentite, l'LPA crea una nuova istanza di euiccInfo1 senza le chiavi pubbliche dei CI non compatibili. Se dopo questa operazione rimane una lista vuota di chiavi pubbliche, l'LPA informa l'end user che la procedura di mutua autenticazione deve terminare.
+\item Se esiste una restrizione sulle chiavi pubbliche consentite del CI, l'LPA crea una nuova istanza di euiccInfo1 senza le chiavi pubbliche non compatibili del CI. Se dopo questa operazione rimane una lista vuota di chiavi pubbliche, l'LPA informa l'end user che la procedura di mutua autenticazione deve terminare.
 \end{enumerate}
 \item L'LPA richiede all'eUICC una challenge (euiccChallenge).
 \item L'eUICC genera la challenge che successivamente dovrà essere firmata dal server SM-DP+ per l'autenticazione del server stesso.
@@ -553,12 +553,12 @@ Se anche solo uno di questi controlli non va a buon fine, il server restituisce 
 \item Generare una challenge (serverChallenge) che dovrà essere firmata dall'eUICC per l'autenticazione dell'eUICC stesso.
 \item Generare una struttura dati serverSigned1 a partire dall'ID di transazione, da euiccChallenge, da serverChallenge, dall'indirizzo SM-DP+ ed eventualmente dal contesto di sessione.
 \item Calcolare la serverSignature1 a partire da serverSigned1, utilizzando la chiave privata SK.DPauth.SIG.
-\item Se sia l'eUICC che l'LPA prevedono il crlStaplingV3Support, che è la funzionalità che permette al server di fornire una Certificate Revocation List (CRL), il server deve anche recuperare la CRL per ciascun certificato che abbia l'extension set CRLDistributionPoints, che è un tipo di certificato che dà informazioni su dove è possibile ottenere una CRL.
+\item Se sia l'eUICC che l'LPA prevedono il crlStaplingV3Support, che è la funzionalità che permette al server di fornire una Certificate Revocation List (CRL), il server deve anche recuperare la CRL per ciascun certificato che abbia l'estensione CRLDistributionPoints (i.e. per ciascun certificato che dà informazioni su dove è possibile ottenere una CRL).
 \end{itemize}
-\item Il server SM-DP+ restituisce all'LPA alcune informazioni, tra cui l'ID della transazione, serverSigned1, serverSignature1, euiccCIPKToBeUsed (che dovrà corrispondere al certificato root della certificate chain che l'eUICC dovrà comunicare), il certificato CERT.DPauth.SIG, eventuali altri certificati ed eventualmente la CRL.
+\item Il server SM-DP+ restituisce all'LPA alcune informazioni, tra cui l'ID della transazione, serverSigned1, serverSignature1, euiccCIPKToBeUsed (che dovrà corrispondere alla chiave pubblica del CI accettata tra quelle proposte dall'eUICC), il certificato CERT.DPauth.SIG, eventuali altri certificati ed eventualmente la CRL.
 \item L'LPA esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Verificare l'OID, che è l'Object Identifier del server SM-DP+.
+\item Verificare l'OID, che è l'Object Identifier del server SM-DP+ (se fornito in precedenza).
 \item Verificare che l'indirizzo SM-DP+ restituito dal server (incapsulato in serverSigned1) matchi con l'indirizzo SM-DP+ che l'LPA aveva inviato allo step (6).
 \item Verificare che la chiave pubblica associata al certificato CERT.DPauth.SIG sia inclusa in euiccInfo1.
 \item Effettuare altre verifiche sui certificati che non verranno approfondite in questa sede.
@@ -583,10 +583,11 @@ Se anche solo uno di questi controlli non va a buon fine, la procedura di Common
 \item L'LPA invoca la funzione \textit{AuthenticateClient} passandovi come parametri euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Verificare che il certificato root della certificate chain comunicata dall'eUICC corrisponda con quella selezionata dal server stesso durante l'esecuzione della funzione \textit{InitiateAuthentication}.
+\item Verificare che l'ID di transazione contenuto in euiccSigned1 corrisponda a quello comunicato dal server stesso allo step (9).
+\item Verificare che il certificato root della certificate chain comunicata dall'eUICC corrisponda con quella selezionata dal server stesso (euiccCIPKToBeUsed) durante l'esecuzione della funzione \textit{InitiateAuthentication}.
 \item Verificare che la certificate chain dell'eUICC sia valida.
 \item Verificare euiccSignature1.
-\item Verificare che la serverChallenge contenuta in euiccSigned1 matchi con la challenge generata dal server stesso allo step (7).
+\item Verificare che la serverChallenge contenuta in euiccSigned1 matchi con la challenge generata dal server stesso allo step (8).
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, il server restituisce una condizione di errore e l'LPA interrompe la procedura di Common Mutual Authentication. In caso contrario, l'eUICC risulta autenticato al server SM-DP+.
 \end{enumerate}
@@ -638,7 +639,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \item L'LPA verifica se il profilo può essere effettivamente installato. Per far ciò, deve ricorrere a un'apposita struttura dati detta Rules Authorisation Table (RAT) e/o alla lista dei profili installati. Se non dispone già di queste informazioni, deve richiederle all'eUICC invocando le funzioni \textit{getRAT} e/o \textit{getProfilesInfo}.
 \item Se richiesto, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come 'Yes', 'No', 'Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione; altrimenti, l'installazione del profilo può completarsi con successo.
 \end{enumerate}
-In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
+%In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
 \subsection{Cambio di dispositivo}
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (qui indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
