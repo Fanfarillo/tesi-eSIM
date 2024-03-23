@@ -27,13 +27,16 @@
 \contentsline {subsection}{\numberline {2.4.6}Dettagli su download e installazione dei profili}{27}{subsection.2.4.6}%
 \contentsline {subsubsection}{Condizioni iniziali}{27}{section*.24}%
 \contentsline {subsubsection}{Procedimento}{29}{section*.25}%
-\contentsline {subsection}{\numberline {2.4.7}Cambio di dispositivo}{30}{subsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.4.7}Sotto-procedura di Download Confirmation}{30}{subsection.2.4.7}%
 \contentsline {subsubsection}{Condizioni iniziali}{30}{section*.27}%
-\contentsline {subsubsection}{Procedimento}{31}{section*.28}%
-\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{33}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{34}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{34}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{34}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{34}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Risultati ottenuti}{35}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{36}{chapter.6}%
+\contentsline {subsubsection}{Procedimento}{30}{section*.28}%
+\contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{32}{subsection.2.4.8}%
+\contentsline {subsubsection}{Condizioni iniziali}{32}{section*.30}%
+\contentsline {subsubsection}{Procedimento}{32}{section*.31}%
+\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{35}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{36}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{36}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{36}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{36}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Risultati ottenuti}{37}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{38}{chapter.6}%
