@@ -638,7 +638,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \end{itemize}
 \item Il server SM-DP+ fornisce all'LPA la risposta ad \textit{authenticateClient} (funzione invocata durante la procedura di Common Mutual Authentication), che comprende transactionId, i metadati del profilo, smdpSigned2, smdpSignature2 e CERT.DPpb.SIG.
 \item L'LPA verifica se il profilo può essere effettivamente installato. Per far ciò, deve ricorrere a un'apposita struttura dati detta Rules Authorisation Table (RAT) e/o alla lista dei profili installati. Se non dispone già di queste informazioni, deve richiederle all'eUICC invocando le funzioni \textit{getRAT} e/o \textit{getProfilesInfo}.
-\item Se richiesto, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come 'Yes', 'No', 'Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione (Common Cancel Session Procedure); altrimenti, l'installazione del profilo può completarsi con successo mediante la sotto-procedura di Download Confirmation, che verrà illustrata qui di seguito.
+\item Se necessario, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come 'Yes', 'No', 'Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione (Common Cancel Session Procedure, i cui dettagli sono riportati nella sezione \ref{sec:common-cancel-session}); altrimenti, l'installazione del profilo può completarsi con successo mediante la sotto-procedura di Download Confirmation, che verrà illustrata qui di seguito.
 \end{enumerate}
 %In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
@@ -684,6 +684,21 @@ Se anche solo uno di questi controlli non va a buon fine, l'eUICC deve restituir
 Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve restituire uno stato di errore e la procedura di download e installazione del profilo deve essere interrotta. Più precisamente, se fallisce il controllo sul contatore dei tentativi di immissione del codice di attivazione, è necessario anche impostare il profilo target nello stato Error e passare allo step (8) prima di interrompere la procedura. Se invece i controlli vanno tutti a buon fine, si passa allo step (9).
 \item Se il numero di tentativi di immissione del codice di attivazione supera il massimo stabilito, il server SM-DP+ informa l'operatore del fallimento mediante la funzione \textit{handleNotification}; dopodiché, la procedura di download e installazione del profilo viene interrotta.
 \item Il server SM-DP+ genera un Bound Profile Package.
+\item Il server SM-DP+ può opzionalmente notificare l'operatore del completamento del download del profilo mediante la funzione \textit{handleNotification}.
+\item Il server SM-DP+ invia all'LPA la risposta a \textit{getBoundProfilePackage} e imposta lo stato del profilo target a Downloaded.
+\item Se l'LPA ha già trattato la struttura dati Profile Metadata in precedenza, allora deve assicurarsi che le informazioni contenute nel Bound Profile Package (BPP) appena ricevuto le informazioni relative ai metadati del profilo siano rimaste coerenti; se non dovessero esserlo, deve avviare la Common Cancel Session Procedure (\ref{sec:common-cancel-session}) per cancellare la sessione corrente.
+\item L'LPA e l'eUICC si scambiano una serie di messaggi per effettuare opportuni controlli e per portare a termine l'installazione del profilo all'interno dell'eUICC.
+\item L'LPA invoca la funzione \textit{handleNotification} con lo scopo di consegnare il risultato dell'installazione del profilo al server SM-DP+, il quale risponderà con un semplice acknowledgement.
+\item Il server SM-DP+ esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Recuperare l'ordinazione di download del profilo target identificata dall'ID di transazione. Se viene ricevuto un ID di transazione ignoto, bisogna interrompere la procedura.
+\item Chiudere l'ordinazione di download del profilo target e impostare il relativo stato a Installed o Error in base a quanto indicato dal risultato dell'installazione del profilo.
+\end{itemize}
+\item Eventualmente il server SM-DP+ invoca ancora una volta la funzione \textit{handleNotification} specificando l'esito dell'installazione del profilo sull'eUICC.
+\item Se oltre al server SM-DP+ è coinvolto anche un SM-DS, allora il server SM-DP+ esegue la procedura di eliminazione dell'evento dall'SM-DS.
+\item Alla ricezione dell'acknowledgement da parte del server SM-DP+, l'LPA invoca la funzione \textit{removeNotificationFromList} sull'eUICC.
+\item L'eUICC cancella il risultato dell'installazione del profilo dalla propria memoria non volatile.
+\item Se l'LPA aveva ricevuto rpmPending nel messaggio di risposta ad \textit{authenticateClient}, allora dovrebbe iniziare a una sessione RSP aggiuntiva col server SM-DP+, settando l'operationType a RPM (Remote Profile Management).
 \end{enumerate}
 
 \subsection{Cambio di dispositivo}
@@ -713,7 +728,7 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item Se la funzione \textit{handleNotification} è configurata nel Service Provider, il server SM-DP+ la invoca per notificare il Service Provider riguardo la richiesta del cambio di dispositivo.
 \item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta ad \textit{authenticateClient} che comprende transactionId (l'identificativo della transazione), smdpSigned4 (informazioni del server SM-DP+), smdpSignature4 (signature di smdpSigned4) ed eventualmente il messaggio di Service Provider per il cambio di dispositivo.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il Service Provider esegue il Download Preparation Process (processo di preparazione del download) e opzionalmente il Subscription Activation Process (processo di attivazione della sottoscrizione al profilo).
-\item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7). Se l'end user non inserisce correttamente il codice di conferma entro un timeout prestabilito, si procede con la cancellazione della sessione (Common Cancel Session Procedure).
+\item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7). Se l'end user non inserisce correttamente il codice di conferma entro un timeout prestabilito, si procede con la cancellazione della sessione (Common Cancel Session Procedure, \ref{sec:common-cancel-session}).
 \item L'LPA del vecchio dispositivo invoca la funzione \textit{prepareDeviceChange} passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(ConfirmationCode) | transactionID).
 \item L'LPA del vecchio dispositivo invoca la funzione \textit{confirmDeviceChange} passandovi come parametri transactionId e prepareDeviceChangeResponse.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il server SM-DP+ invoca la funzione \textit{handleNotification} per notificare il Service Provider riguardo l'esito della conferma del cambio di dispositivo da parte dell'end user. Se l'end user ha accettato il cambio di dispositivo, allora si passa allo step (15); altrimenti la procedura termina.
@@ -723,6 +738,37 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item L'LPA del vecchio dispositivo invia al server SM-DP+ la notifica di eliminazione del profilo. Se l'invio della notifica fallisce, la procedura termina.
 \item L'LPA del vecchio dispositivo genera il codice di attivazione (Activation Code) e lo fornisce all'LPA del nuovo dispositivo. Inoltre, dovrebbe fornire al nuovo dispositivo lo stato attuale del profilo in modo tale da consentire all'LPA del nuovo dispositivo di ripristinare correttamente tale stato.
 \item Il profilo viene scaricato nel nuovo dispositivo a partire dal server SM-DP+ mediante la procedura di download e installazione del profilo, che è stata definita nella sezione \ref{sec:down-install}.
+\end{enumerate}
+
+\subsection{Dettagli sulla Common Cancel Session Procedure}\label{sec:common-cancel-session}
+La figura  \ref{fig:common-cancel-session} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la Common Cancel Session Procedure, che è una particolare procedura avviata dall'LPA con lo scopo di interrompere la sessione RSP corrente a seguito di una condizione di errore riscontrata dall'LPA stessa. Tutti i dettagli sul procedimento \cite{GSMA-docs-new} sono spiegati nella sottosezione successiva.
+\begin{figure}
+\includegraphics[width=\linewidth]{common-cancel-session.png}
+\caption{Sequence diagram che descrive la Common Cancel Session Procedure.}
+\label{fig:common-cancel-session}
+\end{figure}
+
+\subsubsection{Procedimento}
+\begin{enumerate}
+\item L'LPA invoca la funzione \textit{cancelSession} sull'eUICC, passandovi come parametri l'ID di transazione e la reason, ovvero il motivo per cui è stata avviata la Common Cancel Session Procedure.
+\item L'eUICC esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Generare la struttura dati euiccCancelSessionSigned che comprende l'ID di transazione e la reason, entrambi forniti dall'LPA.
+\item Calcolare euiccCancelSessionSignature a partire da euiccCancelSessionSigned utilizzando la chiave privata SK.EUICC.SIG associata all'euiccCiPKIdToBeUsed ricevuto all'inizio della procedura di Common Mutual Authentication.
+\end{itemize}
+\item L'eUICC restituisce euiccCancelSessionSigned ed euiccCancelSessionSignature all'LPA. Se la reason è sessionAborted, allora l'LPA dovrà ignorare tale messaggio di risposta e interrompere la procedura.
+\item Se la connessione HTTPS tra LPA e server SM-DP+ non è più attiva, allora l'LPA stabilisce una nuova connessione HTTPS col server come descritto nella procedura di Common Mutual Authentication.
+\item L'LPA invoca la funzione \textit{cancelSession} anche sul server SM-DP+, passandovi come parametri l'ID della transazione, euiccCancelSessionSigned ed euiccCancelSessionSignature.
+\item Il server SM-DP+ esegue le seguenti operazioni:
+\begin{itemize}[itemsep=0pt]
+\item Recuperare la sessione RSP corrente identificata dall'ID di transazione appena ricevuto.
+\item Verificare euiccCancelSessionSignature.
+\item Verificare che l'OID ricevuto sia uguale a quello contenuto in CERT.DPauth.SIG durante la procedura di Common Mutual Authentication.
+\end{itemize}
+Se anche solo uno di questi controlli non va a buon fine, o se l'ID di transazione ricevuto è ignoto, il server SM-DP+ deve restituire uno stato di errore e la procedura di Common Cancel Session deve essere interrotta. Inoltre, se la reason è postponed o timeout, allora il server deve mantenere l'ordinazione di download del profilo disponibile per ulteriori tentativi e passare allo step (9); in caso contrario, si procede con lo step successivo.
+\item Il server SM-DP+ imposta il profilo allo stato Error. Inoltre, se un SM-DS è coinvolto nella sessione RSP, allora il server deve anche eliminare l'evento corrispondente dall'SM-DS.
+\item Il server SM-DP+ può opzionalmente notificare l'operatore del fallimento del download del profilo mediante la funzione \textit{handleNotification}.
+\item Il server SM-DP+ restituisce un acknowledgement all'LPA. A questo punto, la procedura termina.
 \end{enumerate}
 
 \chapter{Sicurezza dell'eSIM a run-time}

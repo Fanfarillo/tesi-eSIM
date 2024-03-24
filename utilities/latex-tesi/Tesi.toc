@@ -31,12 +31,14 @@
 \contentsline {subsubsection}{Condizioni iniziali}{30}{section*.27}%
 \contentsline {subsubsection}{Procedimento}{30}{section*.28}%
 \contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{32}{subsection.2.4.8}%
-\contentsline {subsubsection}{Condizioni iniziali}{32}{section*.30}%
-\contentsline {subsubsection}{Procedimento}{32}{section*.31}%
-\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{35}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{36}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{36}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{36}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{36}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Risultati ottenuti}{37}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{38}{chapter.6}%
+\contentsline {subsubsection}{Condizioni iniziali}{34}{section*.30}%
+\contentsline {subsubsection}{Procedimento}{34}{section*.31}%
+\contentsline {subsection}{\numberline {2.4.9}Dettagli sulla Common Cancel Session Procedure}{35}{subsection.2.4.9}%
+\contentsline {subsubsection}{Procedimento}{35}{section*.33}%
+\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{38}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{39}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{39}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{39}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{39}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Risultati ottenuti}{40}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{41}{chapter.6}%
