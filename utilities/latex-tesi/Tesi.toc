@@ -35,10 +35,15 @@
 \contentsline {subsubsection}{Procedimento}{34}{section*.31}%
 \contentsline {subsection}{\numberline {2.4.9}Dettagli sulla Common Cancel Session Procedure}{35}{subsection.2.4.9}%
 \contentsline {subsubsection}{Procedimento}{35}{section*.33}%
-\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{38}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{39}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{39}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{39}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Prove sperimentali}{39}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Risultati ottenuti}{40}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{41}{chapter.6}%
+\contentsline {section}{\numberline {2.5}Policy dei profili}{37}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Rules Authorisation Table}{37}{subsection.2.5.1}%
+\contentsline {subsubsection}{Primo esempio di RAT}{38}{section*.34}%
+\contentsline {subsubsection}{Secondo esempio di RAT}{38}{section*.36}%
+\contentsline {subsubsection}{Terzo esempio di RAT}{38}{section*.38}%
+\contentsline {chapter}{\numberline {3}Sicurezza dell'eSIM a run-time}{39}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Sicurezza dell'eSIM a boot-time}{40}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Funzionamento del boot dell'eSIM}{40}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Potenziali vulnerabilità}{40}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Prove sperimentali}{40}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Risultati ottenuti}{41}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{42}{chapter.6}%

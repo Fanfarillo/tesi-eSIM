@@ -52,4 +52,10 @@ IETF.
   2018.
 \newblock \url{https://rfc-editor.org/rfc/rfc8446}.
 
+\bibitem[AJ~ONeal(2018)]{ASN1}
+AJ~ONeal.
+\newblock \emph{"ASN.1 for Dummies"},
+  2018.
+\newblock \url{https://coolaj86.com/articles/asn1-for-dummies/}.
+
 \end{thebibliography}
