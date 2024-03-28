@@ -1,4 +1,4 @@
-\documentclass[10pt, twoside, openany]{book}
+\documentclass[10pt, oneside]{book}
 
 \usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
 \usepackage[utf8]{inputenc}
@@ -60,7 +60,7 @@ La presente trattazione si propone di effettuare un'analisi di sicurezza e delle
 \end{itemize}
 
 \section{Panoramica sui capitoli successivi}
-Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura dell'eSIM e sul protocollo di comunicazione tra eUICC, LPA e server SM-DP+, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà effettuata un'analisi della sicurezza dell'eSIM a run-time, mentre nel capitolo 4 si procederà con l'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Nel capitolo 5 verranno mostrati i risultati ottenuti. Infine, nel capitolo 6 verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
+Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura dell'eSIM e sul protocollo di comunicazione tra eUICC, LPA e server SM-DP+, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà effettuata un'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Nel capitolo 4 verranno mostrati i risultati ottenuti. Infine, nel capitolo 5 verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
 
 \chapter{Interfacce e funzionamento dell'eSIM}
 \section{Architettura di RSP}
@@ -677,7 +677,7 @@ Se anche solo uno di questi controlli non va a buon fine, l'eUICC deve restituir
 \item Il server SM-DP+ verifica euiccSignature2 e stabilisce se è richiesto il codice di conferma: se sì, si procede con lo step (7), altrimenti si passa allo step (9).
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Recuperare l'hash del Confirmation Code ottenuto dalla funzione \textit{confirmOrder} relativa alle fasi di profile ordering \& download initialization, e calcolarne il valore atteso come SHA256(hash del Confirmation Code | TransactionID).
+\item Recuperare l'hash del Confirmation Code ottenuto dalla funzione \textit{confirmOrder} relativa alle fasi di profile ordering \& download initialization, e calcolarne il valore atteso come SHA256(SHA256(Confirmation Code) | transactionID).
 \item Verificare che l'hash del Confirmation Code ricevuto all'interno di euiccSigned2 corrisponda col valore hash atteso.
 \item Se la verifica dell'hash del Confirmation Code fallisce, incrementare di un'unità il contatore dei tentativi di immissione del codice di attivazione e verificare che tale contatore non sfori il numero massimo ammissibile.
 \end{itemize}
@@ -729,7 +729,7 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta ad \textit{authenticateClient} che comprende transactionId (l'identificativo della transazione), smdpSigned4 (informazioni del server SM-DP+), smdpSignature4 (signature di smdpSigned4) ed eventualmente il messaggio di Service Provider per il cambio di dispositivo.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il Service Provider esegue il Download Preparation Process (processo di preparazione del download) e opzionalmente il Subscription Activation Process (processo di attivazione della sottoscrizione al profilo).
 \item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7). Se l'end user non inserisce correttamente il codice di conferma entro un timeout prestabilito, si procede con la cancellazione della sessione (Common Cancel Session Procedure, \ref{sec:common-cancel-session}).
-\item L'LPA del vecchio dispositivo invoca la funzione \textit{prepareDeviceChange} passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(ConfirmationCode) | transactionID).
+\item L'LPA del vecchio dispositivo invoca la funzione \textit{prepareDeviceChange} passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(Confirmation Code) | transactionID).
 \item L'LPA del vecchio dispositivo invoca la funzione \textit{confirmDeviceChange} passandovi come parametri transactionId e prepareDeviceChangeResponse.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il server SM-DP+ invoca la funzione \textit{handleNotification} per notificare il Service Provider riguardo l'esito della conferma del cambio di dispositivo da parte dell'end user. Se l'end user ha accettato il cambio di dispositivo, allora si passa allo step (15); altrimenti la procedura termina.
 \item Se il booleano isNewProfileRequired vale FALSE, allora il server SM-DP+ prepara il profilo per il download e il Matching ID associato al profilo. Inoltre, se nello step (5) è stato fornito un EID, allora il server lo collega al download del profilo preparato. Infine, il server invoca la funzione \textit{handleNotification} per notificare il Service Provider riguardo l'esito della preparazione del profilo.
@@ -848,17 +848,19 @@ Secondo la RAT rappresentata in \ref{tab:rat2}, tutti gli operatori possono usar
 \subsubsection{Terzo esempio di RAT}
 Un terzo esempio classico è dato dalla tabella RAT vuota, secondo cui nessun operatore può usare alcuna PPR.
 
-\chapter{Sicurezza dell'eSIM a run-time}
-[TODO]
+\chapter{Analisi di sicurezza dell'eSIM}
+\section{Intento dell'analisi}
+L'obiettivo che è stato inizialmente fissato per la fase operativa del presente lavoro è quello di costruire un simulatore sia per il client (composto da eUICC e LPA) sia per il server SM-DP+, in modo tale da:
+\begin{itemize}
+\item creare un ecosistema simulato che funzioni secondo le specifiche della GSMA;
+\item far comunicare ciascun simulatore rispettivamente con server SM-DP+ reali e con eUICC + LPA reali, con l'idea di verificare come questi rispondono se vengono sollecitati in modo diverso. In tal modo, con test opportuni, è possibile mettere alla prova le entità reali per stabilire se è possibile ricavare qualche informazione in più o qualche vulnerabilità e se implementano ogni controllo e ogni messaggio secondo le specifiche della GSMA oppure accettano una qualche signature o certificato non valido.
+\end{itemize}
+Per aiutarsi con l'implementazione dei simulatori, è utile avere a disposizione una traccia che rappresenta un reale scambio di messaggi tra un'applicazione LPA e un server SM-DP+. Questa, assieme alla documentazione, può rappresentare il punto di riferimento a cui affidarsi per implementare nel modo più preciso possibile lo scambio di messaggi e i check effettuati dalle due parti.
 
-\chapter{Sicurezza dell'eSIM a boot-time}
-\section{Funzionamento del boot dell'eSIM}
-[TODO]
+\section{Ottenimento delle catture su Wireshark}
+È stato effettuato il download di un nuovo profilo (i.e. piano tariffario) di Very Mobile su un apposito dispositivo mobile che supporta le eSIM. Lo scambio di messaggi che ha coinvolto l'LPA del dispositivo mobile e il server SM-DP+ di Very Mobile è stato salvato su una traccia PCAP con l'aiuto di un'apposita applicazione di cattura di pacchetti di rete. Com'è stato già detto, il traffico tra LPA e server è traffico https per cui, di base, la traccia che si ottiene mostra dei pacchetti protetti dal protocollo TLS, offuscando il contenuto dei messaggi previsti dalle specifiche di GSMA, di cui si è parlato nel capitolo precedente. Per questo motivo, durante la fase di cattura, è stato sfruttato un proxy relay che ha il compito di interporsi tra l'LPA e il server SM-DP+ e provare a decriptare il traffico TLS mediante un Man In The Middle Attack. In tal modo, si è riusciti a ottenere una traccia (più precisamente tre tracce, ma ne è stata presa in considerazione una in particolare) che ha superato le protezioni di TLS e contiene uno scambio di pacchetti in chiaro dal punto di vista di TLS: è perciò possibile accedere direttamente al contenuto dei messaggi dati dal protocollo RSP.
 
-\section{Potenziali vulnerabilità}
-[TODO]
-
-\section{Prove sperimentali}
+\section{Analisi dei messaggi catturati}
 [TODO]
 
 \chapter{Risultati ottenuti}

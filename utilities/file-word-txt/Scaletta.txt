@@ -1,0 +1,18 @@
+ANALISI DI SICUREZZA DELL'ESIM
+
+1) Obiettivo: costruire un simulatore dell'eUICC e un simulatore del server SM-DP+ in modo tale da:
+	-> creare un ecosistema simulato funzionante secondo le specifiche della GSMA;
+	-> far comunicare ogni simulatore rispettivamente con server SM-DP+ reali e con eUICC/LPA reali in modo da verificare come questi rispondono se vengono sollecitati in modo diverso.
+
+2) Catture su Wireshark con decrittazione TLS col proxy relay.
+
+3) Analisi del formato dei messaggi --> ASN.1.
+
+4) Implementazione dei simulatori:
+	-> librerie utilizzate per la connessione, per la conversione dei dati in ASN.1, e così via;
+	-> confronto tra ciò che è stato effettivamente implementato e le specifiche.
+
+
+
+RISULTATI
+1) Primissimi risultati sulle risposte dei server non avendo una certificate chain valida.
