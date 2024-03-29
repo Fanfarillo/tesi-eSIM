@@ -47,10 +47,15 @@
 
 \chapter{Introduzione}
 \section{Panoramica sull'eSIM}
-L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research del 2023 stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni attuali ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
+L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research del 2023 stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni del 2023 ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
 
 \section{Obiettivo del lavoro}
-La presente trattazione si propone di effettuare un'analisi di sicurezza e delle vulnerabilità dell'eSIM e del suo funzionamento e, successivamente, di tentare di sfruttare, anche con delle attività di laboratorio, le eventuali vulnerabilità trovate.
+La presente trattazione si propone di:
+\begin{itemize}
+\item introdurre una panoramica sul mondo dell'e-SIM, descrivendo tutti i dettagli architetturali e protocollari necessari;
+\item effettuare un'analisi di sicurezza e delle vulnerabilità dell'eSIM e del suo funzionamento;
+\item se possibile, tentare di sfruttare, anche con delle attività di laboratorio, le eventuali vulnerabilità trovate.
+\end{itemize}
 
 \section{Definizioni preliminari}
 \begin{itemize}
@@ -642,7 +647,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \end{enumerate}
 %In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
-\subsection{Sotto-procedura di Download Confirmation}
+\subsection{Sotto-procedura di Download Confirmation}\label{sec:down-confirm}
 La figura \ref{fig:download-confirmation} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la sotto-procedura di Download Confirmation, che conclude la procedura di download e installazione dei profili introdotta poc'anzi. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Ancora una volta i passaggi rimangono gli stessi se si ha un server SM-DS al posto del server SM-DP+.
 \begin{figure}
 \includegraphics[width=\linewidth]{download-confirmation.png}
@@ -851,17 +856,82 @@ Un terzo esempio classico è dato dalla tabella RAT vuota, secondo cui nessun op
 \chapter{Analisi di sicurezza dell'eSIM}
 \section{Intento dell'analisi}
 L'obiettivo che è stato inizialmente fissato per la fase operativa del presente lavoro è quello di costruire un simulatore sia per il client (composto da eUICC e LPA) sia per il server SM-DP+, in modo tale da:
-\begin{itemize}
+\begin{enumerate}
 \item creare un ecosistema simulato che funzioni secondo le specifiche della GSMA;
-\item far comunicare ciascun simulatore rispettivamente con server SM-DP+ reali e con eUICC + LPA reali, con l'idea di verificare come questi rispondono se vengono sollecitati in modo diverso. In tal modo, con test opportuni, è possibile mettere alla prova le entità reali per stabilire se è possibile ricavare qualche informazione in più o qualche vulnerabilità e se implementano ogni controllo e ogni messaggio secondo le specifiche della GSMA oppure accettano una qualche signature o certificato non valido.
+\item far comunicare ciascun simulatore rispettivamente con server SM-DP+ reali e con eUICC + LPA reali, con l'idea di verificare come questi rispondono se vengono sollecitati in modo diverso. In tal modo, con test opportuni, è possibile mettere alla prova le entità reali per stabilire se:
+\begin{itemize}[itemsep=0pt]
+\item è possibile ricavare qualche informazione in più o qualche vulnerabilità;
+\item implementano ogni controllo e ogni messaggio secondo le specifiche della GSMA oppure accettano un qualche pacchetto non conforme (e.g. contenente una signature o un certificato non valido).
 \end{itemize}
-Per aiutarsi con l'implementazione dei simulatori, è utile avere a disposizione una traccia che rappresenta un reale scambio di messaggi tra un'applicazione LPA e un server SM-DP+. Questa, assieme alla documentazione, può rappresentare il punto di riferimento a cui affidarsi per implementare nel modo più preciso possibile lo scambio di messaggi e i check effettuati dalle due parti.
+\end{enumerate}
+Per aiutarsi con l'implementazione dei simulatori, è utile avere a disposizione una traccia che rappresenti un reale scambio di messaggi tra un'applicazione LPA e un server SM-DP+. Questa, assieme alla documentazione, può rappresentare il punto di riferimento a cui affidarsi per implementare nel modo più preciso e fedele possibile lo scambio di messaggi e i check effettuati dalle due controparti.
 
 \section{Ottenimento delle catture su Wireshark}
-È stato effettuato il download di un nuovo profilo (i.e. piano tariffario) di Very Mobile su un apposito dispositivo mobile che supporta le eSIM. Lo scambio di messaggi che ha coinvolto l'LPA del dispositivo mobile e il server SM-DP+ di Very Mobile è stato salvato su una traccia PCAP con l'aiuto di un'apposita applicazione di cattura di pacchetti di rete. Com'è stato già detto, il traffico tra LPA e server è traffico https per cui, di base, la traccia che si ottiene mostra dei pacchetti protetti dal protocollo TLS, offuscando il contenuto dei messaggi previsti dalle specifiche di GSMA, di cui si è parlato nel capitolo precedente. Per questo motivo, durante la fase di cattura, è stato sfruttato un proxy relay che ha il compito di interporsi tra l'LPA e il server SM-DP+ e provare a decriptare il traffico TLS mediante un Man In The Middle Attack. In tal modo, si è riusciti a ottenere una traccia (più precisamente tre tracce, ma ne è stata presa in considerazione una in particolare) che ha superato le protezioni di TLS e contiene uno scambio di pacchetti in chiaro dal punto di vista di TLS: è perciò possibile accedere direttamente al contenuto dei messaggi dati dal protocollo RSP.
+È stato effettuato il download di un nuovo profilo (i.e. piano tariffario) reale di Very Mobile su un apposito dispositivo mobile che supporta le eSIM. Lo scambio di messaggi che ha coinvolto l'LPA del dispositivo mobile e il server SM-DP+ di Very Mobile è stato salvato su una traccia PCAP con l'ausilio di un'apposita applicazione di cattura di pacchetti di rete. Com'è stato già detto, il traffico tra LPA e server è traffico HTTPS per cui, di base, la traccia che si ottiene mostra dei pacchetti protetti dal protocollo TLS, offuscando il contenuto dei messaggi previsti dalle specifiche di GSMA di cui si è parlato nel capitolo precedente.\\
+Per questo motivo, durante la fase di cattura, è stato sfruttato un proxy relay che ha il compito di interporsi tra l'LPA e il server SM-DP+ e provare a decriptare il traffico TLS mediante un attacco di tipo Man In The Middle (MITM). In tal modo, si è riusciti a ottenere una traccia (più precisamente tre tracce, ma ne è stata presa in considerazione una in particolare) in cui sono state superate le protezioni di TLS e che, quindi, contiene uno scambio di pacchetti dei quali è possibile accedere al payload, ovvero al contenuto dei messaggi dati dal protocollo RSP.\\
+Si potrebbe pensare che, in questo caso specifico, il traffico sull'interfaccia ES9+ (tra SM-DP+ e LPA) sia verosimilmente protetto da TLS v1.2, sul quale dovrebbe risultare più facile performare un attacco MITM mediante un proxy relay rispetto alla versione 1.3 di TLS che invece è più sicura e risolve le vulnerabilità più evidenti che caratterizzano la versione 1.2.\\
+Il file PCAP contenente la traccia così ottenuta è stato analizzato tramite Wireshark, che è un analizzatore di rete, e consente sia di mostrare tutti i dettagli relativi a uno scambio di pacchetti già salvato, sia di catturare a sua volta una traccia, almeno nel caso in cui il traffico di interesse coinvolga il sistema su cui il tool è installato.
 
 \section{Analisi dei messaggi catturati}
-[TODO]
+Wireshark risulta fondamentale per individuare il formato esatto di ciascun pacchetto catturato all'interno della traccia. Innanzitutto è necessario stabilire quali sono i messaggi presenti all'interno del file PCAP per stabilire quale corrispondenza ci sia tra la comunicazione di riferimento tra l'LPA del dispositivo mobile e il server SM-DP+ di Very Mobile. In figura \ref{fig:all-msgs-pcap} è rappresentata la schermata di Wireshark che mostra la successione dei messaggi che sono stati scambiati durante la cattura.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{all-msgs-pcap.png}
+\caption{Lista di pacchetti catturati.}
+\label{fig:all-msgs-pcap}
+\end{figure}
+Com'è possibile vedere, in mezzo a dei normalissimi pacchetti TCP, spiccano alcuni pacchetti contrassegnati dal protocollo HTTP/JSON, che sono relativi proprio ai messaggi che compongono la comunicazione tra l'LPA e il server SM-DP+. In particolare, ve ne sono tre inviati al server da parte del client, mentre gli altri tre non sono altro che le rispettive risposte del server. I tre messaggi inviati dal client sono elencati qui di seguito:
+\begin{enumerate}
+\item \textbf{initiateAuthentication}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth} del capitolo precedente).
+\item \textbf{authenticateClient}, che corrisponde al secondo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth} del capitolo precedente).
+\item \textbf{getBoundProfilePackage}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm} del capitolo precedente).
+\end{enumerate}
+È chiaro che le risposte del server all'interno del file PCAP, nell'ordine, siano relative ai seguenti altri messaggi:
+\begin{enumerate}
+\item \textbf{initiateAuthenticationResponse}: corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (9) della procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth} del capitolo precedente).
+\item \textbf{authenticateClientResponse}, che corrisponde all'unico messaggio inviato all'LPA da parte del server SM-DP+ allo step (6) della procedura di download e installazione dei profili (sezione \ref{sec:down-install} del capitolo precedente).
+\item \textbf{getBoundProfilePackageResponse}, che corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (11) della sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm} del capitolo precedente).
+\end{enumerate}
+In realtà, le altre due tracce che sono state prese, oltre a questi sei pacchetti HTTP/JSON, riportano ulteriori messaggi contrassegnati dal medesimo protocollo, e sembrano corrispondere tutti a un \textbf{handleNotification} inviato al server SM-DP+ da parte dell'LPA in modo periodico: tale handleNotification è relativo all'ultimo messaggio ricevuto dal server durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm} del capitolo precedente).\\
+In definitiva, è possibile apprezzare un matching perfetto tra i pacchetti catturati nelle tracce PCAP e i messaggi previsti dalla documentazione di GSMA \cite{GSMA-docs-new} nel momento in cui si considerano in sequenza la procedura di Common Mutual Authentication e la procedura di download e installazione dei profili (inclusa la sotto-procedura di Download Confirmation).\\
+Per comprendere appieno la struttura e il formato dei messaggi scambiati tra LPA e server SM-DP+, è certamente sufficiente effettuare un'analisi dettagliata del primo messaggio inviato dal client durante la procedura di Common Mutual Authentication (initiateAuthentication) e della relativa risposta del server (initiateAuthenticationResponse). Tuttavia, nella presente trattazione si intende effettuare un'analisi completa di tutti i pacchetti scambiati dalle controparti con lo scopo di acquisire più informazioni possibili sui messaggi scambiati ed, eventualmente, sul server SM-DP+ di Very Mobile e/o sul profilo installato nell'eUICC del dispositivo mobile.
+
+\subsection{Analisi di initiateAuthentication}
+Da Wireshark è possibile osservare il contenuto del messaggio initiateAuthentication all'interno della comunicazione reale tra LPA del dispositivo mobile e server SM-DP+ di Very Mobile. La figura \ref{fig:msg1-stream-pcap} ne mostra un estratto.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg1-stream-pcap.png}
+\caption{Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.}
+\label{fig:msg1-stream-pcap}
+\end{figure}
+L'header HTTP riporta alcune informazioni interessanti:
+\begin{itemize}
+\item il metodo HTTP utilizzato dall'LPA è POST;
+\item la versione HTTP utilizzata è la 1.1;
+\item il protocollo seguito per l'interazione tra LPA e server è la versione 2.2.0 di GSMA-RSP;
+\item l'hostname del server SM-DP+ di Very Mobile è sys.prod.ondemandconnectivity.com;
+\item l'LPA in questione accetta anche messaggi di risposta il cui payload è stato compresso tramite gzip.
+\end{itemize}
+Per quanto invece concerne il payload del messaggio, è possibile osservare che ha una struttura JSON con tre coppie chiave-valore. In particolare, i primi due campi, che sono euiccChallenge ed euiccInfo1, assumono dei valori rappresentati nella codifica \textbf{base64}, mentre il terzo e ultimo campo, ovvero smdpAddress, riporta in chiaro l'hostname del server SM-DP+ contattato.
+
+\subsubsection{Codifica base64}
+È un sistema di codifica che permette di convertire una sequenza di byte in una stringa in formato ASCII, dove i possibili caratteri diversi che compongono la stringa sono 64 \cite{RFC-4648}. Lo scopo della codifica è principalmente quello di rendere stampabile qualunque tipo di informazione.\\
+L'idea alla base della codifica è molto semplice: si prende la sequenza di byte di partenza, la si suddivide in gruppi di 6 bit, e ciascun gruppo di 6 bit viene tradotto nel corrispondente carattere ASCII secondo la convenzione riportata nella figura \ref{fig:base64} tratta da \cite{RFC-4648}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{base64.png}
+\caption{Tabella di conversione della codifica base64.}
+\label{fig:base64}
+\end{figure}
+La tabella di conversione della codifica base64 riporta anche un sessantacinquesimo carattere ('='), che svolge la funzione di padding. Infatti, è possibile assumere che ogni sequenza di byte data in input all'algoritmo di codifica base64 abbia una lunghezza multipla di 8 bit, ma non è detto che abbia una lunghezza multipla anche di 6 bit (i.e. di 24 bit). Per questo motivo, si hanno tre casistiche \cite{RFC-4648}:
+\begin{enumerate}
+\item La sequenza di byte di input ha una lunghezza multipla di 24 bit: in tal caso, non è necessario avere particolari accortezze e, in particolare, non è previsto alcun padding.
+\item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 8 bit: in tal caso, vengono aggiunti 4 bit di padding pari a 0, vengono convertiti i 12 bit così ottenuti nei corrispettivi 2 caratteri ASCII e, in coda alla stringa di output, vengono aggiunti 2 caratteri di uguale ('==').
+\item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 16 bit: in tal caso, vengono aggiunti 2 bit di padding pari a 0, vengono convertiti i 18 bit così ottenuti nei corrispettivi 3 caratteri ASCII e, in coda alla stringa di output, viene aggiunto un carattere di uguale ('=').
+\end{enumerate}
+Sulla base dell'algoritmo di conversione appena esposto, è possibile concludere che il campo euiccChallenge del messaggio è uguale al valore intero 232645733703218863597835671721642336624, mentre il campo euiccInfo1 risulta pari alla sequenza di byte mostrata in figura \ref{fig:asn1-euiccInfo1}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{asn1-euiccInfo1.png}
+\caption{Sequenza di byte che descrive il campo euiccInfo1 di initiateAuthentication.}
+\label{fig:asn1-euiccInfo1}
+\end{figure}
 
 \chapter{Risultati ottenuti}
 [TODO]

@@ -21,5 +21,9 @@
 \contentsline {figure}{\numberline {2.17}{\ignorespaces Sequence diagram che descrive il trasferimento di un profilo.\relax }}{32}{figure.caption.29}%
 \contentsline {figure}{\numberline {2.18}{\ignorespaces Sequence diagram che descrive la Common Cancel Session Procedure.\relax }}{35}{figure.caption.32}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Lista di pacchetti catturati.\relax }}{39}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.\relax }}{40}{figure.caption.40}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Tabella di conversione della codifica base64.\relax }}{41}{figure.caption.42}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Sequenza di byte che descrive il campo euiccInfo1 di initiateAuthentication.\relax }}{42}{figure.caption.43}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

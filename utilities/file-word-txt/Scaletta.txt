@@ -15,4 +15,5 @@ ANALISI DI SICUREZZA DELL'ESIM
 
 
 RISULTATI
+
 1) Primissimi risultati sulle risposte dei server non avendo una certificate chain valida.

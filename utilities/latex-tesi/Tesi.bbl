@@ -52,6 +52,12 @@ IETF.
   2018.
 \newblock \url{https://rfc-editor.org/rfc/rfc8446}.
 
+\bibitem[IETF(2006)]{RFC-4648}
+IETF.
+\newblock \emph{"The Base16, Base32, and Base64 Data Encodings"},
+  2006.
+\newblock \url{https://datatracker.ietf.org/doc/html/rfc4648}.
+
 \bibitem[AJ~ONeal(2018)]{ASN1}
 AJ~ONeal.
 \newblock \emph{"ASN.1 for Dummies"},
