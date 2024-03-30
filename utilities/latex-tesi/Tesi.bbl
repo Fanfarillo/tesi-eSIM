@@ -58,10 +58,40 @@ IETF.
   2006.
 \newblock \url{https://datatracker.ietf.org/doc/html/rfc4648}.
 
+\bibitem[OSS~Nokalva(2022)]{DER}
+OSS~Nokalva.
+\newblock \emph{"Distinguished Encoding Rules"},
+  2022.
+\newblock \url{https://www.oss.com/asn1/resources/asn1-made-simple/asn1-quick-reference/distinguished-encoding-rules.html}.
+
+\bibitem[OSS~Nokalva(2012)]{BER}
+OSS~Nokalva.
+\newblock \emph{"Basic Encoding Rules"},
+  2012.
+\newblock \url{https://www.oss.com/asn1/resources/asn1-made-simple/asn1-quick-reference/basic-encoding-rules.html}.
+
+\bibitem[IETF(2010)]{RFC-6025}
+IETF.
+\newblock \emph{"ASN.1 Translation"},
+  2010.
+\newblock \url{https://datatracker.ietf.org/doc/html/rfc6025}.
+
 \bibitem[AJ~ONeal(2018)]{ASN1}
 AJ~ONeal.
 \newblock \emph{"ASN.1 for Dummies"},
   2018.
 \newblock \url{https://coolaj86.com/articles/asn1-for-dummies/}.
+
+\bibitem[Microsoft(2021)]{ASN1-types}
+Microsoft.
+\newblock \emph{"DER Encoding of ASN.1 Types"},
+  2021.
+\newblock \url{https://learn.microsoft.com/en-us/windows/win32/seccertenroll/about-der-encoding-of-asn-1-types}.
+
+\bibitem[Harald~Welte(2022)]{RSP-definitions}
+Harald~Welte.
+\newblock \emph{"RSPDefinitions.asn"},
+  2022.
+\newblock \url{https://gitea.osmocom.org/sim-card/gsma-esim-iot/src/branch/master/asn/RSPDefinitions.asn}.
 
 \end{thebibliography}

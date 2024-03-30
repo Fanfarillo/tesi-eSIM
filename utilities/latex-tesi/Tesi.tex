@@ -932,6 +932,51 @@ Sulla base dell'algoritmo di conversione appena esposto, è possibile concludere
 \caption{Sequenza di byte che descrive il campo euiccInfo1 di initiateAuthentication.}
 \label{fig:asn1-euiccInfo1}
 \end{figure}
+Le specifiche di GSMA \cite{GSMA-docs-new} suggeriscono che i tipi di dato complessi come euiccInfo1 in RSP vengono rappresentati secondo lo standard \textbf{ASN.1} sfruttando la codifica \textbf{DER}.
+
+\subsubsection{Codifica DER}
+DER (Distinguished Encoding Rules) è una variante restrittiva di \textbf{BER} (Basic Encoding Rules) che, di fatto, elimina alcune flessibilità offerte da BER \cite{DER}.\\
+BER a sua volta rappresenta un insieme di regole per la conversione di dati eterogenei in flussi di byte. Per la codifica, fa uso del formato \textbf{TLV} (Tag-Length-Value) e, per questa ragione, è particolarmente legato allo standard ASN.1 \cite{BER}. Di conseguenza, per comprendere al meglio il significato dei byte che compongono euiccInfo1, può risultare utile introdurre una panoramica generale sul funzionamento dello standard ASN.1.
+
+\subsubsection{Standard ASN.1}
+ASN.1 (Abstract Syntax Notation One) è uno standard di codifica che rappresenta le informazioni sfruttando il formato TLV, proprio come previsto dalle specifiche della codifica BER \cite{RFC-6025}\cite{ASN1}. Ciò significa che ciascuna unità di informazione è suddivisa in tre parti:
+\begin{itemize}
+\item \textbf{Tag}: detto anche \textbf{type}, è composto tipicamente da un byte e indica il tipo di dato che si sta rappresentando. Il tipo può essere primitivo (e.g. Boolean, Integer, UTF8String \cite{ASN1-types}), composto (e.g. Sequence, Set \cite{ASN1-types}), un metadato (e.g. Object Identifier \cite{ASN1-types}) oppure un tipo di dato custom; in quest'ultimo caso, spesso e volentieri il tag è composto da due byte anziché da uno.
+\item \textbf{Length}: è un campo che può essere composto da uno o più byte. Più precisamente, si hanno tre casi \cite{ASN1}:
+\begin{itemize}[itemsep=0pt]
+\item Campo length composto da un solo byte compreso tra 0x00 e 0x7F (i.e. tra 0 e 127): in tal caso l'unico byte rappresenta la lunghezza effettiva del campo value.
+\item Campo length composto da più di un byte: in tal caso il primo byte deve essere compreso tra 0x81 e 0xFF (i.e. tra 129 e 255) ed è tale per cui il suo valore diminuito di 0x80 (i.e. 128) rappresenta la lunghezza della restante porzione del campo length. La restante porzione del campo length, invece, indica la lunghezza effettiva del campo value. Questa convenzione viene applicata tutte e sole le volte in cui il campo value è più lungo di 127 byte. Per fare un esempio, per indicare una lunghezza di value pari a 257 byte, il campo length deve essere uguale a 0x820101: il primo byte (0x82) indica che, oltre a lui stesso, si hanno ulteriori due byte (i.e. 0x82-0x80) a comporre il campo length; gli ultimi due byte (0x0101), invece, stanno a indicare esattamente la lunghezza del campo value, che è proprio pari a 257.
+\item Campo length il cui primo byte è pari a 0x80: in tal caso, si ha una length "indefinita", per cui è verosimilmente sintomo di una formattazione errata.
+\end{itemize}
+\item \textbf{Value}: è il campo che contiene il payload vero e proprio dell'informazione che si sta rappresentando. Nel caso particolare in cui il relativo tipo di dato è composto, tale campo è costituito a sua volta da altri elementi TLV, creando così un'annidazione che può essere ricorsiva a piacere \cite{ASN1}.
+\end{itemize}
+Comunque sia, avere una conoscenza accurata dello standard ASN.1 non è sufficiente per interpretare in modo agevole le sequenze di byte come quella in figura \ref{fig:asn1-euiccInfo1} che è relativa a euiccInfo1. Infatti, a primo impatto si intuisce solo che euiccInfo1 è composto a sua volta da tre elementi in formato TLV (che iniziano rispettivamente con i byte 0x8203, 0xA92C, 0xAA2C), ma il loro significato non è chiaro. Per questo motivo, si ricorre alle definizioni ASN.1 in RSP, che è possibile trovare in \cite{RSP-definitions} (vedere repository \textit{sim-card/gsma-esim-iot}). In figura \ref{fig:def-euiccInfo1} è ritratta la definizione precisa della struttura dati euiccInfo1 tratta da \cite{RSP-definitions}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-euiccInfo1.png}
+\caption{Definizione del campo euiccInfo1 di initiateAuthentication.}
+\label{fig:def-euiccInfo1}
+\end{figure}
+Come si può evincere, euiccInfo1 è una struttura dati composta da alcune informazioni che caratterizzano l'eUICC del dispositivo mobile coinvolto nella comunicazione. Tali informazioni sono schematizzate di seguito.
+\begin{itemize}
+\item lo Specification Version Number (SVN), che sarebbe la versione di GSMA SGP.22 supportata dall'eUICC;
+\item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per autenticare il server;
+\item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per firmare i propri dati.
+\end{itemize}
+Si noti che questa definizione di euiccInfo1 combacia perfettamente con le specifiche della GSMA \cite{GSMA-docs-new} relative alla procedura di Common Mutual Authentication \ref{sec:mutual-auth}.\\
+Per determinare nel modo più agevole possibile i valori assunti dai tre campi di euiccInfo1 sopra elencati, si può far riferimento al sito https://lapo.it/asn1js/ (\textit{ASN.1 JavaScript decoder}) il quale, data una stringa base64, restituisce in chiaro le informazioni codificate con lo standard ASN.1. In figura \ref{fig:decode-euiccInfo1} è riportato l'output del sito \textit{ASN.1 JavaScript decoder} nel momento in cui gli viene dato in pasto la stringa base64 associata a euiccInfo1 in figura \ref{fig:msg1-stream-pcap}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-euiccInfo1.png}
+\caption{Decodifica del campo euiccInfo1 di initiateAuthentication.}
+\label{fig:decode-euiccInfo1}
+\end{figure}
+In definitiva:
+\begin{itemize}
+\item SVN è pari alla sequenza di byte 0x020202, che verosimilmente sta a indicare la versione 2.2.2;
+\item euiccCiPKIdListForVerification ed euiccCiPKIdListForSigning sono due liste identiche ciascuna delle quali contiene due identificatori di chiavi pubbliche del CI.
+\end{itemize}
+
+\subsection{Analisi di initiateAuthenticationResponse}
+[TODO]
 
 \chapter{Risultati ottenuti}
 [TODO]

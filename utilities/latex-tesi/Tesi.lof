@@ -25,5 +25,7 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.\relax }}{40}{figure.caption.40}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Tabella di conversione della codifica base64.\relax }}{41}{figure.caption.42}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Sequenza di byte che descrive il campo euiccInfo1 di initiateAuthentication.\relax }}{42}{figure.caption.43}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Definizione del campo euiccInfo1 di initiateAuthentication.\relax }}{43}{figure.caption.46}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Decodifica del campo euiccInfo1 di initiateAuthentication.\relax }}{43}{figure.caption.47}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
