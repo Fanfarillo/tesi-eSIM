@@ -58,24 +58,6 @@ IETF.
   2006.
 \newblock \url{https://datatracker.ietf.org/doc/html/rfc4648}.
 
-\bibitem[OSS~Nokalva(2022)]{DER}
-OSS~Nokalva.
-\newblock \emph{"Distinguished Encoding Rules"},
-  2022.
-\newblock \url{https://www.oss.com/asn1/resources/asn1-made-simple/asn1-quick-reference/distinguished-encoding-rules.html}.
-
-\bibitem[OSS~Nokalva(2012)]{BER}
-OSS~Nokalva.
-\newblock \emph{"Basic Encoding Rules"},
-  2012.
-\newblock \url{https://www.oss.com/asn1/resources/asn1-made-simple/asn1-quick-reference/basic-encoding-rules.html}.
-
-\bibitem[IETF(2010)]{RFC-6025}
-IETF.
-\newblock \emph{"ASN.1 Translation"},
-  2010.
-\newblock \url{https://datatracker.ietf.org/doc/html/rfc6025}.
-
 \bibitem[AJ~ONeal(2018)]{ASN1}
 AJ~ONeal.
 \newblock \emph{"ASN.1 for Dummies"},

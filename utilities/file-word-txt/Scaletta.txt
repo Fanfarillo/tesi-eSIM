@@ -6,11 +6,7 @@ ANALISI DI SICUREZZA DELL'ESIM
 
 2) Catture su Wireshark con decrittazione TLS col proxy relay.
 
-3) Analisi del formato dei messaggi. Partendo da euiccInfo1:
-	-> le specifiche GSMA suggeriscono che i tipi di dato complessi in RSP vengono rappresentati in ASN.1 sfruttando la codifica DER.
-	-> breve definizione delle codifiche DER, BER.
-	-> panoramica sulla codifica ASN.1.
-	-> la struttura esatta di euiccInfo1 è definita in RSPDefinitions.asn.
+3) Analisi del formato dei messaggi --> ASN.1.
 
 4) Implementazione dei simulatori:
 	-> librerie utilizzate per la connessione, per la conversione dei dati in ASN.1, e così via;
