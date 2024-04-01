@@ -180,8 +180,8 @@
 \citation{RFC-4648}
 \citation{RFC-4648}
 \citation{RFC-4648}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.\relax }}{40}{figure.caption.40}\protected@file@percent }
-\newlabel{fig:msg1-stream-pcap}{{3.2}{40}{Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.\relax }{figure.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Messaggio di initiateAuthentication visualizzato su Wireshark.\relax }}{40}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:msg1-stream-pcap}{{3.2}{40}{Messaggio di initiateAuthentication visualizzato su Wireshark.\relax }{figure.caption.40}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Analisi di initiateAuthentication}{40}{subsection.3.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Codifica base64}{40}{section*.41}\protected@file@percent }
 \citation{GSMA-docs-new}
@@ -208,11 +208,31 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Decodifica del campo euiccInfo1 di initiateAuthentication.\relax }}{43}{figure.caption.47}\protected@file@percent }
 \newlabel{fig:decode-euiccInfo1}{{3.6}{43}{Decodifica del campo euiccInfo1 di initiateAuthentication.\relax }{figure.caption.47}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Analisi di initiateAuthenticationResponse}{43}{subsection.3.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Risultati ottenuti}{44}{chapter.4}\protected@file@percent }
+\citation{RSP-definitions}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.\relax }}{44}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:msg2-stream-pcap}{{3.7}{44}{Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.\relax }{figure.caption.48}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Definizione del campo serverSigned1 di initiateAuthenticationResponse.\relax }}{44}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:def-serverSigned1}{{3.8}{44}{Definizione del campo serverSigned1 di initiateAuthenticationResponse.\relax }{figure.caption.49}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Decodifica del campo serverSigned1 di initiateAuthenticationResponse.\relax }}{45}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:decode-serverSigned1}{{3.9}{45}{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.\relax }{figure.caption.50}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Sequenza di byte che descrive il campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.\relax }}{45}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:asn1-euiccCiPKIdToBeUsed}{{3.10}{45}{Sequenza di byte che descrive il campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.\relax }{figure.caption.51}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.\relax }}{45}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:decode-euiccCiPKIdToBeUsed}{{3.11}{45}{Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.\relax }{figure.caption.52}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 1/2).\relax }}{46}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:decode-serverCertificate1}{{3.12}{46}{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 1/2).\relax }{figure.caption.53}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 2/2).\relax }}{46}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:decode-serverCertificate2}{{3.13}{46}{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 2/2).\relax }{figure.caption.54}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Analisi di authenticateClient}{47}{subsection.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.4}Analisi di authenticateClientResponse}{47}{subsection.3.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.5}Analisi di getBoundProfilePackage}{47}{subsection.3.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.6}Analisi di getBoundProfilePackageResponse}{47}{subsection.3.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.7}Analisi di handleNotification}{47}{subsection.3.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Risultati ottenuti}{48}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \bibdata{Bibliography}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusione}{45}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusione}{49}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \bibcite{Corcom}{{1}{2023}{{Corcom}}{{}}}
@@ -230,4 +250,4 @@
 \bibcite{ASN1}{{13}{2018}{{AJ~ONeal}}{{}}}
 \bibcite{ASN1-types}{{14}{2021}{{Microsoft}}{{}}}
 \bibcite{RSP-definitions}{{15}{2022}{{Harald~Welte}}{{}}}
-\gdef \@abspage@last{48}
+\gdef \@abspage@last{52}

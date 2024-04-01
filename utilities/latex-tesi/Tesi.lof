@@ -22,10 +22,17 @@
 \contentsline {figure}{\numberline {2.18}{\ignorespaces Sequence diagram che descrive la Common Cancel Session Procedure.\relax }}{35}{figure.caption.32}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Lista di pacchetti catturati.\relax }}{39}{figure.caption.39}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.\relax }}{40}{figure.caption.40}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Messaggio di initiateAuthentication visualizzato su Wireshark.\relax }}{40}{figure.caption.40}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Tabella di conversione della codifica base64.\relax }}{41}{figure.caption.42}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Sequenza di byte che descrive il campo euiccInfo1 di initiateAuthentication.\relax }}{42}{figure.caption.43}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Definizione del campo euiccInfo1 di initiateAuthentication.\relax }}{43}{figure.caption.46}%
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Decodifica del campo euiccInfo1 di initiateAuthentication.\relax }}{43}{figure.caption.47}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.\relax }}{44}{figure.caption.48}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Definizione del campo serverSigned1 di initiateAuthenticationResponse.\relax }}{44}{figure.caption.49}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Decodifica del campo serverSigned1 di initiateAuthenticationResponse.\relax }}{45}{figure.caption.50}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Sequenza di byte che descrive il campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.\relax }}{45}{figure.caption.51}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.\relax }}{45}{figure.caption.52}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 1/2).\relax }}{46}{figure.caption.53}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 2/2).\relax }}{46}{figure.caption.54}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
