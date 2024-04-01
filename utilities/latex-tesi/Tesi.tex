@@ -899,7 +899,7 @@ Per comprendere appieno la struttura e il formato dei messaggi scambiati tra LPA
 Da Wireshark è possibile osservare il contenuto del messaggio initiateAuthentication all'interno della comunicazione reale tra LPA del dispositivo mobile e server SM-DP+ di Very Mobile. La figura \ref{fig:msg1-stream-pcap} ne mostra un estratto.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg1-stream-pcap.png}
-\caption{Messaggio di initiateAuthentication visualizzato mediante il comando 'Segui flusso TCP' di Wireshark.}
+\caption{Messaggio di initiateAuthentication visualizzato su Wireshark.}
 \label{fig:msg1-stream-pcap}
 \end{figure}
 L'header HTTP riporta alcune informazioni interessanti:
@@ -976,6 +976,74 @@ In definitiva:
 \end{itemize}
 
 \subsection{Analisi di initiateAuthenticationResponse}
+La figura \ref{fig:msg2-stream-pcap} mostra l'intero contenuto del primo messaggio di risposta del server SM-DP+.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg2-stream-pcap.png}
+\caption{Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.}
+\label{fig:msg2-stream-pcap}
+\end{figure}
+Nell'header HTTP si ritrovano alcuni punti in in comune col messaggio inviato dall'LPA: ad esempio, anche qui la versione HTTP utilizzata è la 1.1 e il protocollo usato per l'interazione tra LPA e server è la versione 2.2.0 di GSMA-RSP.\\
+Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
+\begin{itemize}
+\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{"status":"Executed-Success"\}} indica che tutti i check sulle informazioni ricevuti dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche GSMA;
+\item \textbf{transactionId}: è un campo in chiaro che indica l'ID della transazione;
+\item \textbf{serverSigned1}: è un campo codificato in base64;
+\item \textbf{serverSignature1}: è un altro campo codificato in base64 che, come enunciato nella sezione \ref{sec:mutual-auth} del capitolo precedente, rappresenta la signature di serverSigned1;
+\item \textbf{euiccCiPKIdToBeUsed}: è il terzo campo codificato in base64;
+\item \textbf{serverCertificate}: è l'ultimo campo codificato in base64. La sua lunghezza è giustificata dal fatto che, con riferimento alla sezione \ref{sec:mutual-auth} del capitolo precedente, rappresenta il certificato CERT.DPauth.SIG, che è verosimilmente una struttura dati molto complessa.
+\end{itemize}
+Per comprendere appieno le informazioni celate nei campi di initiateAuthenticationResponse codificati in base64, si fa nuovamente riferimento alle definizioni RSP \cite{RSP-definitions} e al sito \textit{ASN.1 JavaScript decoder}.\\
+La struttura dati serverSigned1 è molto semplice: dalle figure \ref{fig:def-serverSigned1}, \ref{fig:decode-serverSigned1}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-serverSigned1.png}
+\caption{Definizione del campo serverSigned1 di initiateAuthenticationResponse.}
+\label{fig:def-serverSigned1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-serverSigned1.png}
+\caption{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.}
+\label{fig:decode-serverSigned1}
+\end{figure}
+Il campo euiccCiPKIdToBeUsed cela anch'esso una struttura TLV dello standard ASN.1, com'è possibile vedere dalle figure \ref{fig:asn1-euiccCiPKIdToBeUsed}, \ref{fig:decode-euiccCiPKIdToBeUsed}. Inoltre, il relativo campo value assume un valore che è comparso sia in euiccCiPKIdListForVerification, sia in euiccCiPKIdListForSigning, il che vuol dire che il server SM-DP+ accetta l'utilizzo di una delle due chiavi pubbliche di CA (i.e. una delle due certificate chain) proposte dal client nel messaggio initiateAuthentication.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{asn1-euiccCiPKIdToBeUsed.png}
+\caption{Sequenza di byte che descrive il campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
+\label{fig:asn1-euiccCiPKIdToBeUsed}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-euiccCiPKIdToBeUsed.png}
+\caption{Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
+\label{fig:decode-euiccCiPKIdToBeUsed}
+\end{figure}
+Per quanto invece riguarda il campo serverCertificate di initiateAuthenticationResponse, il sito \textit{ASN.1 JavaScript decoder} aiuta a comprendere molti dettagli sul certificato CERT.DPauth.SIG e sulla relativa certificate chain utilizzata. Le figure \ref{fig:decode-serverCertificate1}, \ref{fig:decode-serverCertificate2} mostrano la decodifica di tale certificato. Inizialmente vi sono gli attributi fondamentali, come:
+\begin{itemize}
+\item \textbf{signature AlgorithmIdentifier}: indica con quale algoritmo vengono effettuate le signature ed è pari a \textit{ecdsaWithSHA256} (ANSI X.962 ECDSA algorithm with SHA256);
+\item \textbf{issuer Name}: è un campo relativo alla CA che ha rilasciato il presente certificato ed è a sua volta articolato in due sotto-campi, che sono l'organizationName (pari a "GSM Association") e il commonName (pari a "GSM Association - RSP2 Root CI1");
+\item \textbf{validity Validity}: dichiara che il certificato è valido dal 30 marzo 2023 al 29 marzo 2026;
+\item \textbf{subject Name}: è un campo che fornisce dettagli informativi sul presente certificato ed è a sua volta composto in diversi sotto-campi, tra cui countryName (pari a "FR", i.e. Francia), localityName (pari a "Tours"), organizationName (pari a "Thales DIS France SA"), organizationalUnitName (pari a "ODC") e commonName (pari a "SMDP Plus Tours Platform").
+\item \textbf{subjectPublicKeyInfo SubjectPublicKeyInfo}: fornisce maggiori informazioni sulla chiave pubblica associata al certificato, tra cui la curva ellittica utilizzata per generare le signature, che è identificata con \textit{prime256v1}.
+\end{itemize}
+Più in basso nel certificato, si trovano le cosiddette estensioni, ovvero informazioni aggiuntive opzionali che possono essere aggiunte a piacere all'interno del certificato. Tra queste si hanno:
+\begin{itemize}
+\item \textbf{subjectKeyIdentifier}: è l'identificatore della chiave pubblica associata al presente certificato;
+\item \textbf{authorityKeyIdentifier}: è l'identificatore della chiave pubblica dell'issuer del certificato e, per coerenza, deve corrispondere o contenere il valore associato al campo euiccCiPKIdToBeUsed del messaggio initiateAuthenticationResponse;
+\item altre informazioni che non verranno esaminate a fondo in questa trattazione, come certificatePolicies, cRLDistributionPoints, keyUsage (i.e. i possibili utilizzi delle chiavi associate al certificato) e subjectAltName (nome alternativo dell'entità che possiede il certificato).
+\end{itemize}
+Infine, in fondo al certificato, si hanno ulteriori informazioni riguardanti la signature e l'algoritmo di signature.
+
+\subsection{Analisi di authenticateClient}
+[TODO]
+
+\subsection{Analisi di authenticateClientResponse}
+[TODO]
+
+\subsection{Analisi di getBoundProfilePackage}
+[TODO]
+
+\subsection{Analisi di getBoundProfilePackageResponse}
+[TODO]
+
+\subsection{Analisi di handleNotification}
 [TODO]
 
 \chapter{Risultati ottenuti}
