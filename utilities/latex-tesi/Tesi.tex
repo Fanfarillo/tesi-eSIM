@@ -395,7 +395,7 @@ Qualunque comunicazione remota definita per RSP deve far fede alle regole riport
 \item \textbf{Autorizzazione}: il server SM-DP+ deve sempre verificare che il client che ha inviato una richiesta sia effettivamente autorizzato prima di far partire l'esecuzione della funzione desiderata.
 \end{itemize}
 
-\subsection{Step dell'interazione in RSP}
+\subsection{Step dell'interazione in RSP}\label{sec:step-RSP}
 L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro fasi distinte: profile ordering, download initialization, common handshake e profile download \cite{Sec-analysis}.
 \begin{itemize}
 \item \textbf{Profile ordering \& download initialization}: nella prima fase, l'operatore richiede al server SM-DP+ di preparare un profilo eSIM, e il server gli restituisce dei download initialization pointer (che possono essere rappresentati ad esempio da un codice di attivazione). Nella seconda fase, l'operatore consegna i download initialization pointer all'LPA in modo tale che poi sia possibile effettuare il download vero e proprio del profilo. Per questi primi due step, si possono seguire tre tipi di approcci differenti:
@@ -982,7 +982,7 @@ La figura \ref{fig:msg2-stream-pcap} mostra l'intero contenuto del primo messagg
 \caption{Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.}
 \label{fig:msg2-stream-pcap}
 \end{figure}
-Nell'header HTTP si ritrovano alcuni punti in in comune col messaggio inviato dall'LPA: ad esempio, anche qui la versione HTTP utilizzata è la 1.1 e il protocollo usato per l'interazione tra LPA e server è la versione 2.2.0 di GSMA-RSP.\\
+Nell'header HTTP si ritrovano alcuni punti in comune col messaggio inviato dall'LPA: ad esempio, anche qui la versione HTTP utilizzata è la 1.1 e il protocollo usato per l'interazione tra LPA e server è la versione 2.2.0 di GSMA-RSP.\\
 
 Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
 \begin{itemize}
@@ -995,7 +995,7 @@ Il payload del messaggio ha una struttura JSON del tutto analoga a quella di ini
 \end{itemize}
 Per comprendere appieno le informazioni celate nei campi di initiateAuthenticationResponse codificati in base64, si fa nuovamente riferimento a \cite{RSP-definitions} e al sito \textit{ASN.1 JavaScript decoder}.\\
 
-La struttura dati serverSigned1 è molto semplice: dalle figure \ref{fig:def-serverSigned1}, \ref{fig:decode-serverSigned1}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
+La struttura dati serverSigned1 è molto semplice: dalle figure \ref{fig:def-serverSigned1}, \ref{fig:decode-serverSigned1} \cite{RSP-definitions}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{def-serverSigned1.png}
 \caption{Definizione del campo serverSigned1 di initiateAuthenticationResponse.}
@@ -1046,10 +1046,62 @@ Infine, in fondo al certificato, si hanno ulteriori informazioni riguardanti la 
 \end{figure}
 
 \subsection{Analisi di authenticateClient}
-[TODO]
+La figura \ref{fig:msg3-stream-pcap} mostra il contenuto del secondo messaggio inviato dal client (authenticateClient).\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg3-stream-pcap.png}
+\caption{Messaggio di authenticateClient visualizzato su Wireshark.}
+\label{fig:msg3-stream-pcap}
+\end{figure}
+Il JSON del payload è composto da due campi:
+\begin{itemize}
+\item \textbf{authenticateServerResponse}: è una struttura dati complessa che verrà approfondita tra poco;
+\item \textbf{transactionId}: corrisponde all'ID di transazione appena ricevuto nel messaggio initiateAuthenticationResponse.
+\end{itemize}
+Per quanto riguarda authenticateServerResponse, è una struttura composta da più elementi ASN.1 di tipo Sequence anche annidati tra loro, ed è descritta all'interno delle figure \ref{fig:def-authenticateServerResponse1}, \ref{fig:def-authenticateServerResponse2}, \ref{fig:def-authenticateServerResponse3} \cite{RSP-definitions}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-authenticateServerResponse1.png}
+\caption{Definizione del campo authenticateServerResponse di authenticateClient.}
+\label{fig:def-authenticateServerResponse1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{def-authenticateServerResponse2.png}
+\caption{Definizione del sotto-campo euiccInfo2 di EuiccSigned1.}
+\label{fig:def-authenticateServerResponse2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{def-authenticateServerResponse3.png}
+\caption{Definizione del sotto-campo ctxParams1 di EuiccSigned1.}
+\label{fig:def-authenticateServerResponse3}
+\end{figure}
+Com'è possibile osservare, authenticateServerResponse si articola in due casi: authenticateResponseOk nel caso in cui l'autenticazione del server SM-DP+ sia andata a buon fine, e authenticateResponseError in caso contrario. La struttura authenticateResponseError è composta semplicemente dall'ID di transazione e da un codice di errore \cite{RSP-definitions}, mentre la struttura authenticateResponseOk è molto più articolata.\\
+Anzitutto, authenticateResponseOk è composto da quattro campi: euiccSigned1 che è a sua volta un'altra struttura dati complessa, euiccSignature1 che, come ormai suggerisce il nome, rappresenta la firma digitale di euiccSigned1, il certificato dell'eUICC (CERT.EUICC.SIG) e il certificato dell'EUM (CERT.EUM.SIG). La struttura euiccSigned1 si articola in:
+\begin{itemize}
+\item \textbf{transactionId}: è l'ID della transazione;
+\item \textbf{serverAddress}: è l'hostname del server SM-DP+;
+\item \textbf{serverChallenge}: è la challenge generata precedentemente dal server e comunicata al client mediante il messaggio initiateAuthenticationResponse;
+\item \textbf{euiccInfo2}: è un'ulteriore struttura dati che comprende tutte le informazioni sull'eUICC che si sta per autenticare e su cui avverrà l'installazione del nuovo profilo. È un sovrainsieme del campo euiccInfo1 di initiateAuthentication;
+\item \textbf{ctxParams1}: come suggerito dal nome, rappresenta i parametri di contesto e, in particolar modo, le informazioni del dispositivo e il Matching ID. Quest'ultimo è tipicamente un token associato all'Activation Code (codice di attivazione) \cite{RSP-definitions}, il quale viene negoziato da server SM-DP+ e operatore durante la fase di \textit{profile ordering} e viene rilasciato dall'operatore mediante un'apposita email durante la fase di \textit{download initialization} (vedere sezione \ref{sec:step-RSP} del capitolo precedente). Un estratto dell'email di Very Mobile relativa al profilo che si sta per installare sull'eUICC del dispositivo mobile di riferimento è riportato in figura \ref{fig:email}.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=\linewidth]{email.png}
+\caption{Estratto dell'email di Very Mobile.}
+\label{fig:email}
+\end{figure}
+La figura \ref{fig:decode-euiccInfo2} mostra come il sito \textit{ASN.1 JavaScript decoder} decodifica il campo euiccSigned1 a partire dalla stringa base64 relativa all'ASN.1 del campo authenticateServerResponse del messaggio authenticateClient. A partire dalla sestultima riga dell'immagine si ha la traduzione della struttura ctxParamas1: qui si nota la corrispondenza tra il sotto-campo matchingId e l'Activation Code presente nell'email di cui sopra.
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-euiccInfo2.png}
+\caption{Decodifica del campo euiccInfo2 di authenticateServerResponse.}
+\label{fig:decode-euiccInfo2}
+\end{figure}
 
 \subsection{Analisi di authenticateClientResponse}
-[TODO]
+La figura \ref{fig:msg4-stream-pcap} mostra il contenuto della risposta del server al secondo messaggio inviato dal client (authenticateClientResponse).\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg4-stream-pcap.png}
+\caption{Messaggio di authenticateClientResponse visualizzato su Wireshark.}
+\label{fig:msg4-stream-pcap}
+\end{figure}
+Il JSON del payload è composto da [TODO].
 
 \subsection{Analisi di getBoundProfilePackage}
 [TODO]
