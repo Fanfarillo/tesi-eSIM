@@ -199,7 +199,7 @@ Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzat
 \end{enumerate}
 
 \section{Chiavi crittografiche e certificati}
-\subsection{Chiavi crittografiche}
+\subsection{Chiavi crittografiche}\label{sec:keys}
 I principali attori che interagiscono nel protocollo RSP sono l'eUICC, l'LPA e il server SM-DP+. Le chiavi utilizzate da loro hanno tutte un nome di tipo $<$XX$>$.$<$YY$>$.$<$ZZ$>$ \cite{GSMA-docs-new}, dove:
 \begin{itemize}
 \item \textbf{$<$XX$>$}: indica la natura della chiave (i.e. chiave pubblica PK, chiave privata SK, chiave pubblica one-time otPK, chiave privata one-time otSK).
@@ -1134,10 +1134,55 @@ La struttura dati smdpSigned2, come mostrato in figura \ref{fig:def-smdpSigned2}
 \end{figure}
 
 \subsection{Analisi di getBoundProfilePackage}
-[TODO]
+La figura \ref{fig:msg5-stream-pcap} mostra il contenuto del terzo messaggio inviato dal client (getBoundProfilePackage).\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg5-stream-pcap.png}
+\caption{Messaggio di getBoundProfilePackage visualizzato su Wireshark.}
+\label{fig:msg5-stream-pcap}
+\end{figure}
+Il payload è composto da due campi:
+\begin{itemize}
+\item \textbf{prepareDownloadResponse}: è una struttura dati in base64 che verrà descritta a breve;
+\item \textbf{transactionId}: è il solito ID di transazione.
+\end{itemize}
+La definizione di prepareDownloadResponse è riportata in figura \ref{fig:def-prepareDownloadResponse}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-prepareDownloadResponse.png}
+\caption{Definizione del campo prepareDownloadResponse di getBoundProfilePackage.}
+\label{fig:def-prepareDownloadResponse}
+\end{figure}
+Anche prepareDownloadResponse, come authenticateServerResponse nel messaggio authenticateClient, si articola in due casi: prepareDownloadResponseOk nel caso in cui tutti i controlli effettuati dal client alla ricezione di authenticateClientResponse abbiano avuto successo, e prepareDownloadResponseError in caso contrario. La struttura dati prepareDownloadResponseError, in modo perfettamente analogo ad authenticateResponseError, è composta dall'ID di transazione e da un codice di errore.\\
+D'altra parte, prepareDownloadResponseOk è composto dalla struttura dati euiccSigned2 e dalla relativa digital signature euiccSignature2, dove euiccSigned2 è composto a sua volta da:
+\begin{itemize}
+\item \textbf{transactionId}: è l'ID di transazione;
+\item \textbf{euiccOtpk}: è la chiave pubblica otPK.EUICC.KA (sezione \ref{sec:keys});
+\item \textbf{hashCc}: è un campo opzionale che è presente se il Confirmation Code è richiesto e corrisponde al valore SHA256(SHA256(Confirmation Code) | transactionId).
+\end{itemize}
 
 \subsection{Analisi di getBoundProfilePackageResponse}
-[TODO]
+La figura \ref{fig:msg6-stream-pcap} mostra il contenuto della risposta del server al terzo messaggio inviato dal client (getBoundProfilePackageResponse).\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg6-stream-pcap.png}
+\caption{Messaggio di getBoundProfilePackageResponse visualizzato su Wireshark.}
+\label{fig:msg6-stream-pcap}
+\end{figure}
+Il payload è composto dai seguenti tre campi:
+\begin{itemize}
+\item \textbf{header}: contiene ancora una volta \textit{\{"status":"Executed-Success"\}};
+\item \textbf{transactionId}: è l'ID di transazione;
+\item \textbf{boundProfilePackage}: è un campo codificato in base64 ed è molto grande, tant'è vero che non rientra per intero nella figura \ref{fig:msg6-stream-pcap}.
+\end{itemize}
+Com'è possibile osservare in figura \ref{fig:def-boundProfilePackage}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-boundProfilePackage.png}
+\caption{Definizione del campo boundProfilePackage di getBoundProfilePackageResponse.}
+\label{fig:def-boundProfilePackage}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-boundProfilePackage.png}
+\caption{Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.}
+\label{fig:decode-boundProfilePackage}
+\end{figure}
 
 \subsection{Analisi di handleNotification}
 [TODO]
