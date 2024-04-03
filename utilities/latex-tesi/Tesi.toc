@@ -46,13 +46,13 @@
 \contentsline {section}{\numberline {3.3}Analisi dei messaggi catturati}{39}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Analisi di initiateAuthentication}{40}{subsection.3.3.1}%
 \contentsline {subsubsection}{Codifica base64}{40}{section*.41}%
-\contentsline {subsubsection}{Codifica DER}{41}{section*.44}%
+\contentsline {subsubsection}{Codifica DER}{42}{section*.44}%
 \contentsline {subsubsection}{Standard ASN.1}{42}{section*.45}%
 \contentsline {subsection}{\numberline {3.3.2}Analisi di initiateAuthenticationResponse}{43}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Analisi di authenticateClient}{47}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.3}Analisi di authenticateClient}{45}{subsection.3.3.3}%
 \contentsline {subsection}{\numberline {3.3.4}Analisi di authenticateClientResponse}{51}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Analisi di getBoundProfilePackage}{51}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Analisi di getBoundProfilePackageResponse}{51}{subsection.3.3.6}%
-\contentsline {subsection}{\numberline {3.3.7}Analisi di handleNotification}{51}{subsection.3.3.7}%
-\contentsline {chapter}{\numberline {4}Risultati ottenuti}{53}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusione}{54}{chapter.5}%
+\contentsline {subsection}{\numberline {3.3.5}Analisi di getBoundProfilePackage}{52}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Analisi di getBoundProfilePackageResponse}{52}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Analisi di handleNotification}{52}{subsection.3.3.7}%
+\contentsline {chapter}{\numberline {4}Risultati ottenuti}{54}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusione}{55}{chapter.5}%

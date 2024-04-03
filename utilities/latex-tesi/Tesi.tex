@@ -706,7 +706,7 @@ Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve 
 \item Se l'LPA aveva ricevuto rpmPending nel messaggio di risposta ad \textit{authenticateClient}, allora dovrebbe iniziare a una sessione RSP aggiuntiva col server SM-DP+, settando l'operationType a RPM (Remote Profile Management).
 \end{enumerate}
 
-\subsection{Cambio di dispositivo}
+\subsection{Cambio di dispositivo}\label{sec:device-change}
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (qui indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
 \begin{figure}
 \includegraphics[width=\linewidth]{device-change.png}
@@ -881,17 +881,17 @@ Wireshark risulta fondamentale per individuare il formato esatto di ciascun pacc
 \end{figure}
 Com'è possibile vedere, in mezzo a dei normalissimi pacchetti TCP, spiccano alcuni pacchetti contrassegnati dal protocollo HTTP/JSON, che sono relativi proprio ai messaggi che compongono la comunicazione tra l'LPA e il server SM-DP+. In particolare, ve ne sono tre inviati al server da parte del client, mentre gli altri tre non sono altro che le rispettive risposte del server. I tre messaggi inviati dal client sono elencati qui di seguito:
 \begin{enumerate}
-\item \textbf{initiateAuthentication}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth} del capitolo precedente).
-\item \textbf{authenticateClient}, che corrisponde al secondo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth} del capitolo precedente).
-\item \textbf{getBoundProfilePackage}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm} del capitolo precedente).
+\item \textbf{initiateAuthentication}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
+\item \textbf{authenticateClient}, che corrisponde al secondo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
+\item \textbf{getBoundProfilePackage}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).
 \end{enumerate}
 È chiaro che le risposte del server all'interno del file PCAP, nell'ordine, siano relative ai seguenti altri messaggi:
 \begin{enumerate}
-\item \textbf{initiateAuthenticationResponse}: corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (9) della procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth} del capitolo precedente).
-\item \textbf{authenticateClientResponse}, che corrisponde all'unico messaggio inviato all'LPA da parte del server SM-DP+ allo step (6) della procedura di download e installazione dei profili (sezione \ref{sec:down-install} del capitolo precedente).
-\item \textbf{getBoundProfilePackageResponse}, che corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (11) della sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm} del capitolo precedente).
+\item \textbf{initiateAuthenticationResponse}: corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (9) della procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
+\item \textbf{authenticateClientResponse}, che corrisponde all'unico messaggio inviato all'LPA da parte del server SM-DP+ allo step (6) della procedura di download e installazione dei profili (sezione \ref{sec:down-install}).
+\item \textbf{getBoundProfilePackageResponse}, che corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (11) della sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).
 \end{enumerate}
-In realtà, le altre due tracce che sono state prese, oltre a questi sei pacchetti HTTP/JSON, riportano ulteriori messaggi contrassegnati dal medesimo protocollo, e sembrano corrispondere tutti a un \textbf{handleNotification} inviato al server SM-DP+ da parte dell'LPA in modo periodico: tale handleNotification è relativo all'ultimo messaggio ricevuto dal server durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm} del capitolo precedente).\\
+In realtà, le altre due tracce che sono state prese, oltre a questi sei pacchetti HTTP/JSON, riportano ulteriori messaggi contrassegnati dal medesimo protocollo, e sembrano corrispondere tutti a un \textbf{handleNotification} inviato al server SM-DP+ da parte dell'LPA in modo periodico: tale handleNotification è relativo all'ultimo messaggio ricevuto dal server durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).\\
 In definitiva, è possibile apprezzare un matching perfetto tra i pacchetti catturati nelle tracce PCAP e i messaggi previsti dalla documentazione di GSMA \cite{GSMA-docs-new} nel momento in cui si considerano in sequenza la procedura di Common Mutual Authentication e la procedura di download e installazione dei profili (inclusa la sotto-procedura di Download Confirmation).\\
 Per comprendere appieno la struttura e il formato dei messaggi scambiati tra LPA e server SM-DP+, è certamente sufficiente effettuare un'analisi dettagliata del primo messaggio inviato dal client durante la procedura di Common Mutual Authentication (initiateAuthentication) e della relativa risposta del server (initiateAuthenticationResponse). Tuttavia, nella presente trattazione si intende effettuare un'analisi completa di tutti i pacchetti scambiati dalle controparti con lo scopo di acquisire più informazioni possibili sui messaggi scambiati ed, eventualmente, sul server SM-DP+ di Very Mobile e/o sul profilo installato nell'eUICC del dispositivo mobile.
 
@@ -986,12 +986,12 @@ Nell'header HTTP si ritrovano alcuni punti in comune col messaggio inviato dall'
 
 Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
 \begin{itemize}
-\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{"status":"Executed-Success"\}} indica che tutti i check sulle informazioni ricevuti dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche GSMA;
+\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{"status":"Executed-Success"\}} indica che tutti i check sulle informazioni ricevute dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche GSMA;
 \item \textbf{transactionId}: è un campo in chiaro che indica l'ID della transazione;
 \item \textbf{serverSigned1}: è un campo codificato in base64;
-\item \textbf{serverSignature1}: è un altro campo codificato in base64 che, come enunciato nella sezione \ref{sec:mutual-auth} del capitolo precedente, rappresenta la signature di serverSigned1;
+\item \textbf{serverSignature1}: è un altro campo codificato in base64 che, come enunciato nella sezione \ref{sec:mutual-auth}, rappresenta la signature di serverSigned1;
 \item \textbf{euiccCiPKIdToBeUsed}: è il terzo campo codificato in base64;
-\item \textbf{serverCertificate}: è l'ultimo campo codificato in base64. La sua lunghezza è giustificata dal fatto che, con riferimento alla sezione \ref{sec:mutual-auth} del capitolo precedente, rappresenta il certificato CERT.DPauth.SIG, che è verosimilmente una struttura dati molto complessa.
+\item \textbf{serverCertificate}: è l'ultimo campo codificato in base64. La sua lunghezza è giustificata dal fatto che, con riferimento alla sezione \ref{sec:mutual-auth}, rappresenta il certificato CERT.DPauth.SIG, che è verosimilmente una struttura dati molto complessa.
 \end{itemize}
 Per comprendere appieno le informazioni celate nei campi di initiateAuthenticationResponse codificati in base64, si fa nuovamente riferimento a \cite{RSP-definitions} e al sito \textit{ASN.1 JavaScript decoder}.\\
 
@@ -1031,7 +1031,9 @@ Più in basso nel certificato, si trovano le cosiddette estensioni, ovvero infor
 \begin{itemize}
 \item \textbf{subjectKeyIdentifier}: è l'identificatore della chiave pubblica associata al presente certificato;
 \item \textbf{authorityKeyIdentifier}: è l'identificatore della chiave pubblica dell'issuer del certificato e, per coerenza, deve corrispondere o contenere il valore associato al campo euiccCiPKIdToBeUsed del messaggio initiateAuthenticationResponse;
-\item altre informazioni che non verranno esaminate a fondo in questa trattazione, come certificatePolicies, cRLDistributionPoints, keyUsage (i.e. i possibili utilizzi delle chiavi associate al certificato) e subjectAltName (nome alternativo dell'entità che possiede il certificato).
+\item \textbf{keyUsage}: rappresenta i possibili utilizzi delle chiavi associate al certificato;
+\item \textbf{subjectAltName}: rappresenta il nome alternativo dell'entità che possiede il certificato;
+\item altre informazioni che non verranno esaminate a fondo in questa trattazione, come certificatePolicies e cRLDistributionPoints.
 \end{itemize}
 Infine, in fondo al certificato, si hanno ulteriori informazioni riguardanti la signature e l'algoritmo di signature.
 \begin{figure}
@@ -1054,7 +1056,7 @@ La figura \ref{fig:msg3-stream-pcap} mostra il contenuto del secondo messaggio i
 \end{figure}
 Il JSON del payload è composto da due campi:
 \begin{itemize}
-\item \textbf{authenticateServerResponse}: è una struttura dati complessa che verrà approfondita tra poco;
+\item \textbf{authenticateServerResponse}: è una struttura dati che verrà approfondita tra poco;
 \item \textbf{transactionId}: corrisponde all'ID di transazione appena ricevuto nel messaggio initiateAuthenticationResponse.
 \end{itemize}
 Per quanto riguarda authenticateServerResponse, è una struttura composta da più elementi ASN.1 di tipo Sequence anche annidati tra loro, ed è descritta all'interno delle figure \ref{fig:def-authenticateServerResponse1}, \ref{fig:def-authenticateServerResponse2}, \ref{fig:def-authenticateServerResponse3} \cite{RSP-definitions}.\\
@@ -1080,7 +1082,7 @@ Anzitutto, authenticateResponseOk è composto da quattro campi: euiccSigned1 che
 \item \textbf{serverAddress}: è l'hostname del server SM-DP+;
 \item \textbf{serverChallenge}: è la challenge generata precedentemente dal server e comunicata al client mediante il messaggio initiateAuthenticationResponse;
 \item \textbf{euiccInfo2}: è un'ulteriore struttura dati che comprende tutte le informazioni sull'eUICC che si sta per autenticare e su cui avverrà l'installazione del nuovo profilo. È un sovrainsieme del campo euiccInfo1 di initiateAuthentication;
-\item \textbf{ctxParams1}: come suggerito dal nome, rappresenta i parametri di contesto e, in particolar modo, le informazioni del dispositivo e il Matching ID. Quest'ultimo è tipicamente un token associato all'Activation Code (codice di attivazione) \cite{RSP-definitions}, il quale viene negoziato da server SM-DP+ e operatore durante la fase di \textit{profile ordering} e viene rilasciato dall'operatore mediante un'apposita email durante la fase di \textit{download initialization} (vedere sezione \ref{sec:step-RSP} del capitolo precedente). Un estratto dell'email di Very Mobile relativa al profilo che si sta per installare sull'eUICC del dispositivo mobile di riferimento è riportato in figura \ref{fig:email}.
+\item \textbf{ctxParams1}: come suggerito dal nome, rappresenta i parametri di contesto e, in particolar modo, le informazioni del dispositivo e il Matching ID. Quest'ultimo è tipicamente un token associato all'Activation Code (codice di attivazione) \cite{RSP-definitions}, il quale viene negoziato da server SM-DP+ e operatore durante la fase di \textit{profile ordering} e viene rilasciato dall'operatore mediante un'apposita email durante la fase di \textit{download initialization} (sezione \ref{sec:step-RSP}). Un estratto dell'email di Very Mobile relativa al profilo che si sta per installare sull'eUICC del dispositivo mobile di riferimento è riportato in figura \ref{fig:email}.
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{email.png}
@@ -1101,7 +1103,35 @@ La figura \ref{fig:msg4-stream-pcap} mostra il contenuto della risposta del serv
 \caption{Messaggio di authenticateClientResponse visualizzato su Wireshark.}
 \label{fig:msg4-stream-pcap}
 \end{figure}
-Il JSON del payload è composto da [TODO].
+Il JSON del payload è composto dai campi elencati qui di seguito:
+\begin{itemize}
+\item \textbf{header}: contiene di nuovo \textit{\{"status":"Executed-Success"\}}, il che vuol dire che anche in questa fase tutti i check effettuati dal server SM-DP+ hanno avuto successo;
+\item \textbf{transactionId}: è l'ID di transazione e assume sempre il medesimo valore;
+\item \textbf{profileMetadata}: è un campo codificato in base64 che, come suggerisce il nome, dovrebbe comprendere i metadati del profilo di cui si sta per effettuare il download;
+\item \textbf{smdpSigned2}: è un campo codificato in base 64 che, come suggerisce il nome, dovrebbe essere strutturalmente simile a serverSigned1 e a euiccSigned1;
+\item \textbf{smdpSignature2}: è un campo codificato in base64 relativo alla signature di smdpSigned2;
+\item \textbf{smdpCertificate}: è un ultimo campo codificato in base64 che, con riferimento alla sezione \ref{sec:down-install}, rappresenta il certificato CERT.DPpb.SIG, che è potenzialmente diverso dal certificato CERT.DPauth.SIG inviato all'LPA precedentemente e viene utilizzato per firmare il profilo che si sta per scaricare.
+\end{itemize}
+I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e del sito \textit{ASN.1 JavaScript decoder} sono profileMetadata e smdpSigned2.\\
+
+La struttura dati profileMetadata, come riportato in figura \ref{fig:def-profileMetadata}, comprende informazioni sul profilo target come l'ICCID (che, come spiegato nella sezione \ref{sec:device-change}, è l'identificativo del profilo), il nome dell'operatore, il nome del profilo, la classe del profilo ed eventuali Profile Policy Rules.\\
+
+La struttura dati smdpSigned2, come mostrato in figura \ref{fig:def-smdpSigned2}, contiene l'ID di transazione e un booleano che indica se è richiesto il Confirmation Code immesso dall'utente per completare il download e l'installazione del profilo. La necessità o meno del Confirmation Code e l'eventuale relativo valore vengono negoziati da server SM-DP+ e operatore durante la fase di \textit{profile ordering} (sezione \ref{sec:step-RSP}). Nel caso specifico del profilo scaricato con l'operatore Very Mobile, il Confirmation Code non è richiesto, come testimoniato dalla figura \ref{fig:decode-smdpSigned2} tratta dal sito \textit{ASN.1 JavaScript decoder}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-profileMetadata.png}
+\caption{Definizione del campo profileMetadata di authenticateClientResponse.}
+\label{fig:def-profileMetadata}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{def-smdpSigned2.png}
+\caption{Definizione del campo smdpSigned2 di authenticateClientResponse.}
+\label{fig:def-smdpSigned2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-smdpSigned2.png}
+\caption{Decodifica del campo smdpSigned2 di authenticateClientResponse.}
+\label{fig:decode-smdpSigned2}
+\end{figure}
 
 \subsection{Analisi di getBoundProfilePackage}
 [TODO]
