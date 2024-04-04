@@ -1219,6 +1219,81 @@ Poiché, com'è stato già visto, la struttura dei certificati è piuttosto gran
 \label{fig:decode-pendingNotification}
 \end{figure}
 
+\section{Implementazione dei simulatori}
+Il sistema di simulazione sviluppato è un'applicazione Python composta da tre moduli principali:
+\begin{itemize}
+\item \textbf{rootCA}: è il modulo relativo al Certificate Issuer. È composto unicamente da un eseguibile per la generazione di certificati custom;
+\item \textbf{smdp}: è il modulo relativo al server SM-DP+. È composto a sua volta da:
+\begin{itemize}
+\item un eseguibile per la generazione di certificati custom;
+\item un eseguibile per la comunicazione con l'operatore per il rilascio di un nuovo profilo;
+\item un eseguibile per le procedure di Common Mutual Authentication e di download e installazione del profilo;
+\item un file per tenere traccia delle informazioni sui profili esistenti che sono il Matching ID, l'EID dell'eUICC a cui il profilo è destinato, l'ICCID, il numero di tentativi di download effettuati, l'ID dell'eventuale transazione in cui si sta tentando correntemente di installare il profilo, lo stato attuale del profilo, il tipo di profilo e l'eventuale Confirmation Code che serve per fornire la conferma finale sul download del profilo;
+\item un eseguibile per effettuare il clean-up del file di cui sopra, in modo tale da lasciare esclusivamente i profili in uno stato diverso da 'Released' e da 'Error'.
+\end{itemize}
+\item \textbf{euicc}: è il modulo che comprende la coppia eUICC + LPA e l'operatore telefonico. Questo accorpamento consente di semplificare la logica applicativa lato client e di bypassare, ad esempio, la comunicazione tra l'operatore e l'LPA che si ha nella fase di download initialization (sezione \label{sec:step-RSP}). Tale modulo è composto a sua volta da:
+\begin{itemize}
+\item un eseguibile per la generazione di certificati custom sia per l'eUICC che per l'EUM;
+\item un eseguibile per la comunicazione col server SM-DP+ per il rilascio di un nuovo profilo (qui l'attore impersonificato è l'operatore);
+\item un eseguibile per le procedure di Common Mutual Authentication e di download e installazione del profilo (qui l'attore impersonificato è la coppia eUICC + LPA);
+\item un file che rappresenta una RAT.
+\end{itemize}
+\end{itemize}
+
+\subsection{Librerie Python utilizzate}
+La tabella \ref{tab:libraries} racchiude tutte le librerie Python che sono state sfruttate per il sistema simulato e i relativi utilizzi.\\
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Librerie Python utilizzate}
+\label{tab:libraries}
+\begin{tabularx}{\textwidth}{|c|X|}
+\hline
+\textbf{Libreria} & \textbf{Utilizzo}\\
+\hline
+asn1tools & È la libreria di riferimento per convertire i dati in e dal formato ASN.1; prevede l'ausilio di alcuni file contenenti, tra le varie cose, le definizioni ASN.1 che vengono usate \cite{RSP-definitions}.\\
+\hline
+base64 & Viene usata per convertire i dati in e dal formato base64.\\
+\hline
+cryptography & Viene usata a supporto della generazione dei certificati custom, della generazione e della verifica delle signature e di altre funzionalità crittografiche.\\
+\hline
+datetime & Viene usata per definire delle date o degli istanti di tempo; è utile ad esempio per inizializzare i campi \textit{not valid before} e \textit{not valid after} dei certificati custom.\\
+\hline
+ecdsa & Viene usata per eseguire operazioni sull'algoritmo ECDSA e sulle relative curve ellittiche.\\
+\hline
+gzip & Viene usata per estrarre il payload dei messaggi eventualmente compressi del server SM-DP+ (non è il caso di Very Mobile).\\
+\hline
+hashlib & Viene usata per generare fingerprint ad esempio con la funzione hash SHA256().\\
+\hline
+http & Viene sfruttata per utilizzare la parte client e/o la parte server per la comunicazione HTTP.\\
+\hline
+json & Viene usata per convertire i dati in e dal formato JSON, oltre che per leggere e scrivere sui file .json.\\
+\hline
+os & Viene usata per interagire col sistema operativo.\\
+\hline
+random & Viene usata per generare valori o stringhe in modo pseudo-randomico, come ad esempio i Matching ID.\\
+\hline
+secrets & Viene usata per generare sequenze di byte pseudo-randomiche, come ad esempio le challenge.\\
+\hline
+signal & Viene usata per definire un timeout ove è previsto un input da parte dell'utente da immettere entro un tempo limitato.\\
+\hline
+socket & Viene usata per definire e utilizzare le socket dalle quali verrà istanziata la connessione HTTP.\\
+\hline
+ssl & Viene usata per aggiungere la componente SSL (o TLS) alla connessione HTTP.\\
+\hline
+sslkeylog & Viene usata per generare un log su ciò che avviene all'interno di una connessione di rete.\\
+\hline
+string & Viene usata per la definizione di stringhe o di insiemi di caratteri; ad esempio, può indicare il set dei possibili caratteri che potenzialmente comporranno una stringa pseudo-randomica.\\
+\hline
+sys & Viene usata per interagire con l'ambiente runtime di Python.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+
+\subsection{Confronto tra specifiche GSMA e simulatori}
+[TODO]
+
 \chapter{Risultati ottenuti}
 [TODO]
 
