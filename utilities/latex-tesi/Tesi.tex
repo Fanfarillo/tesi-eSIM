@@ -1319,6 +1319,14 @@ Per quanto concerne i dettagli implementativi del sistema simulato, è stato pos
 È stato aggiunto anche un controllo su se il campo transactionId di initiateAuthenticationResponse corrisponde al sotto-campo transactionId della struttura serverSigned1 contenuta nel medesimo messaggio.
 
 \subsubsection{Check da parte del server alla ricezione di authenticateClient}
+\begin{itemize}
+\item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId di authenticateClient e il sotto-campo transactionId della struttura euiccSigned1 sono uguali all'ID di transazione originariamente comunicato dal server.
+\item Validità del Root della certificate chain usata dal client: l'implementazione prevede un controllo su se il campo \textit{AuthorityKeyIdentifier} del certificato CERT.EUM.SIG corrisponde alla variabile euiccCiPKIdToBeUsed.
+\item Validità della catena di certificati: l'implementazione prevede un controllo sul certificato CERT.EUM.SIG mediante la chiave pubblica del CI e un controllo sul certificato CERT.EUICC.SIG mediante la chiave pubblica dell'EUM.
+\item Validità di euiccSignature1: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
+\item Validità di serverChallenge: l'implementazione prevede un controllo su se la serverChallenge ricevuta corrisponde a quella inviata nel precedente messaggio di initiateAuthenticationResponse.
+\end{itemize}
+A livello implementativo sono stati aggiunti anche i controlli elencati qui di seguito.
 [TODO]
 
 \chapter{Risultati ottenuti}
