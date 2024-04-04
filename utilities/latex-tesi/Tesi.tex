@@ -565,7 +565,7 @@ Se anche solo uno di questi controlli non va a buon fine, il server restituisce 
 \begin{itemize}[itemsep=0pt]
 \item Verificare l'OID, che è l'Object Identifier del server SM-DP+ (se fornito in precedenza).
 \item Verificare che l'indirizzo SM-DP+ restituito dal server (incapsulato in serverSigned1) matchi con l'indirizzo SM-DP+ che l'LPA aveva inviato allo step (6).
-\item Verificare che la chiave pubblica associata al certificato CERT.DPauth.SIG sia inclusa in euiccInfo1.
+\item Verificare che la chiave pubblica associata del Root della certificate chain associata al certificato CERT.DPauth.SIG sia inclusa in euiccInfo1 (se l'opzione euiccCiUpdateSupport dell'LPA è attiva).
 \item Effettuare altre verifiche sui certificati che non verranno approfondite in questa sede.
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, l'LPA interrompe la procedura di Common Mutual Authentication. In caso contrario, procede col generare la struttura dati ctxParams1, che dovrà essere inviata all'eUICC affinché venga poi inclusa tra i dati firmati.
@@ -986,7 +986,7 @@ Nell'header HTTP si ritrovano alcuni punti in comune col messaggio inviato dall'
 
 Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
 \begin{itemize}
-\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{"status":"Executed-Success"\}} indica che tutti i check sulle informazioni ricevute dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche GSMA;
+\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{"status":"Executed-Success"\}} indica che tutti i check sulle informazioni ricevute dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche di GSMA;
 \item \textbf{transactionId}: è un campo in chiaro che indica l'ID della transazione;
 \item \textbf{serverSigned1}: è un campo codificato in base64;
 \item \textbf{serverSignature1}: è un altro campo codificato in base64 che, come enunciato nella sezione \ref{sec:mutual-auth}, rappresenta la signature di serverSigned1;
@@ -1292,6 +1292,33 @@ sys & Viene usata per interagire con l'ambiente runtime di Python.\\
 \end{table}
 
 \subsection{Confronto tra specifiche GSMA e simulatori}
+Per quanto concerne i dettagli implementativi del sistema simulato, è stato possibile formattare i messaggi scambiati tra le controparti in modo perfettamente compatibile con le specifiche di GSMA sia grazie al livello di dettaglio fornito dalle specifiche stesse \cite{GSMA-docs-new}, sia grazie alla completezza delle definizioni ASN.1 per il protocollo RSP \cite{RSP-definitions}, anche se è stato necessario ritoccare queste ultime con piccole correzioni al fine di ottenere un funzionamento corretto. Un aspetto sicuramente più interessante da trattare riguarda i controlli che devono essere effettuati dalle controparti a ogni messaggio ricevuto.
+
+\subsubsection{Check da parte del server alla ricezione di initiateAuthetication}
+\begin{itemize}
+\item Validità dell'indirizzo SM-DP+: l'implementazione prevede un controllo su se l'hostname specificato è uguale al vero hostname del server.
+\item Validità del contenuto di euiccInfo1: l'implementazione prevede un controllo su se in euiccCiPKIdListForVerification e in euiccCiPKIdListForSigning compare il valore di euiccCiPKIdToBeUsed.
+\end{itemize}
+
+\subsubsection{Check da parte dell'LPA alla ricezione di initiateAuthenticationResponse}
+\begin{itemize}
+\item Validità dell'OID (opzionale): non implementato.
+\item Validità dell'indirizzo SM-DP+: l'implementazione prevede un controllo su se l'hostname ricevuto corrisponde a quello inviato nel precedente messaggio di initiateAuthentication.
+\item Validità della chiave pubblica del Root della certificate chain (opzionale): non implementato.
+\item Eventuali altri controlli previsti per l'LPA non sono implementati.
+\end{itemize}
+
+\subsubsection{Check da parte dell'eUICC alla ricezione di initiateAuthenticationResponse}
+\begin{itemize}
+\item Validità della catena di certificati: l'implementazione prevede un controllo sul certificato CERT.DPauth.SIG mediante la chiave pubblica del CI (i.e. del Root).
+\item Validità di serverSignature1: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.DPauth.SIG.
+\item Validità di euiccChallenge: l'implementazione prevede un controllo su se l'euiccChallenge ricevuta corrisponde a quella inviata nel precedente messaggio di initiateAuthentication.
+\item Supporto della chiave pubblica del CI ricevuta nel campo euiccCiPKIdToBeUsed: l'implementazione prevede un controllo su se euiccCiPKIdToBeUsed è incluso all'interno del campo euiccCiPKIdListForSigning.
+\item Validità della CRL (opzionale): non implementato.
+\end{itemize}
+È stato aggiunto anche un controllo su se il campo transactionId di initiateAuthenticationResponse corrisponde al sotto-campo transactionId della struttura serverSigned1 contenuta nel medesimo messaggio.
+
+\subsubsection{Check da parte del server alla ricezione di authenticateClient}
 [TODO]
 
 \chapter{Risultati ottenuti}

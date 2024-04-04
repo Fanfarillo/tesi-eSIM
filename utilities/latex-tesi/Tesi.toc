@@ -57,5 +57,9 @@
 \contentsline {section}{\numberline {3.4}Implementazione dei simulatori}{61}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Librerie Python utilizzate}{61}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Confronto tra specifiche GSMA e simulatori}{61}{subsection.3.4.2}%
-\contentsline {chapter}{\numberline {4}Risultati ottenuti}{63}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Conclusione}{64}{chapter.5}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di initiateAuthetication}{61}{section*.76}%
+\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di initiateAuthenticationResponse}{62}{section*.77}%
+\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di initiateAuthenticationResponse}{62}{section*.78}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di authenticateClient}{63}{section*.79}%
+\contentsline {chapter}{\numberline {4}Risultati ottenuti}{64}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Conclusione}{65}{chapter.5}%
