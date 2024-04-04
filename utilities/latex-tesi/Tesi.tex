@@ -1145,7 +1145,7 @@ Il payload è composto da due campi:
 \item \textbf{prepareDownloadResponse}: è una struttura dati in base64 che verrà descritta a breve;
 \item \textbf{transactionId}: è il solito ID di transazione.
 \end{itemize}
-La definizione di prepareDownloadResponse è riportata in figura \ref{fig:def-prepareDownloadResponse}.\\
+La definizione di prepareDownloadResponse è riportata in figura \ref{fig:def-prepareDownloadResponse} \cite{RSP-definitions}.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{def-prepareDownloadResponse.png}
 \caption{Definizione del campo prepareDownloadResponse di getBoundProfilePackage.}
@@ -1172,7 +1172,7 @@ Il payload è composto dai seguenti tre campi:
 \item \textbf{transactionId}: è l'ID di transazione;
 \item \textbf{boundProfilePackage}: è un campo codificato in base64 ed è molto grande, tant'è vero che non rientra per intero nella figura \ref{fig:msg6-stream-pcap}.
 \end{itemize}
-Com'è possibile osservare in figura \ref{fig:def-boundProfilePackage}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata.\\
+Com'è possibile osservare in figura \ref{fig:def-boundProfilePackage} \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{def-boundProfilePackage.png}
 \caption{Definizione del campo boundProfilePackage di getBoundProfilePackageResponse.}
@@ -1185,7 +1185,39 @@ Com'è possibile osservare in figura \ref{fig:def-boundProfilePackage}, il campo
 \end{figure}
 
 \subsection{Analisi di handleNotification}
-[TODO]
+Nelle due tracce diverse da quella di riferimento sono stati catturati anche dei messaggi di handleNotification inviati al server SM-DP+ da parte dell'LPA. Può tornare utile analizzarne un campione, come quello riportato in figura \ref{fig:msg7-stream-pcap}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{msg7-stream-pcap.png}
+\caption{Messaggio di handleNotification visualizzato su Wireshark.}
+\label{fig:msg7-stream-pcap}
+\end{figure}
+Si ha un solo campo JSON, pendingNotification, la cui definizione è distribuita nelle figure \ref{fig:def-pendingNotification1}, \ref{fig:def-pendingNotification2}, \ref{fig:def-pendingNotification3} \cite{RSP-definitions}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{def-pendingNotification1.png}
+\caption{Definizione del campo pendingNotification di handleNotification (parte 1/3).}
+\label{fig:def-pendingNotification1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{def-pendingNotification2.png}
+\caption{Definizione del campo pendingNotification di handleNotification (parte 2/3).}
+\label{fig:def-pendingNotification2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{def-pendingNotification3.png}
+\caption{Definizione del campo pendingNotification di handleNotification (parte 3/3).}
+\label{fig:def-pendingNotification3}
+\end{figure}
+Si hanno due casi possibili: pendingNotification pari alla struttura dati profileInstallationResult e pendingNotification pari alla struttura dati otherSignedNotification.
+\begin{itemize}
+\item Nel primo caso, si ha una struttura profileInstallationResultData composta da ID di transazione, alcuni metadati di notificazione, OID (i.e. l'identificatore) del server SM-DP+ ed esito finale dell'installazione del profilo all'interno dell'eUICC (che può essere un successResult o un errorResult). Oltre a profileInstallationResultData, il campo pendingNotification è composto anche da euiccSignPIR, che risulta essere la signature di profileInstallationResultData.
+\item Nel secondo caso, invece, si hanno alcuni metadati di notificazione, la relativa digital signature, il certificato dell'eUICC (CERT.EUICC.SIG) e il certificato dell'EUM (CERT.EUM.SIG). Intuitivamente, si ricade in questa casistica in contesti differenti da quello in cui l'LPA ha bisogno di comunicare l'esito dell'installazione del profilo (i.e. il successResult o l'errorResult).
+\end{itemize}
+Poiché, com'è stato già visto, la struttura dei certificati è piuttosto grande e poiché la stringa in base64 che codifica il campo pendingNotification del messaggio handleNotification, al contrario, è molto breve, è già possibile intuire che il messaggio catturato nella traccia ricada nel primo caso esposto precedentemente, dove pendingNotification è pari alla struttura dati profileInstallationResult che, verosimilmente, contiene un successResult. Tale intuizione trova conferma in figura \ref{fig:decode-pendingNotification} tratta dal sito \textit{ASN.1 JavaScript decoder}, dove chiaramente non compaiono riferimenti a certificati.
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-pendingNotification.png}
+\caption{Decodifica del campo pendingNotification di handleNotification.}
+\label{fig:decode-pendingNotification}
+\end{figure}
 
 \chapter{Risultati ottenuti}
 [TODO]

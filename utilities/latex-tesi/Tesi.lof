@@ -46,8 +46,13 @@
 \contentsline {figure}{\numberline {3.23}{\ignorespaces Decodifica del campo smdpSigned2 di authenticateClientResponse.\relax }}{54}{figure.caption.64}%
 \contentsline {figure}{\numberline {3.24}{\ignorespaces Messaggio di getBoundProfilePackage visualizzato su Wireshark.\relax }}{54}{figure.caption.65}%
 \contentsline {figure}{\numberline {3.25}{\ignorespaces Definizione del campo prepareDownloadResponse di getBoundProfilePackage.\relax }}{55}{figure.caption.66}%
-\contentsline {figure}{\numberline {3.26}{\ignorespaces Messaggio di getBoundProfilePackageResponse visualizzato su Wireshark.\relax }}{55}{figure.caption.67}%
+\contentsline {figure}{\numberline {3.26}{\ignorespaces Messaggio di getBoundProfilePackageResponse visualizzato su Wireshark.\relax }}{56}{figure.caption.67}%
 \contentsline {figure}{\numberline {3.27}{\ignorespaces Definizione del campo boundProfilePackage di getBoundProfilePackageResponse.\relax }}{56}{figure.caption.68}%
-\contentsline {figure}{\numberline {3.28}{\ignorespaces Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.\relax }}{56}{figure.caption.69}%
+\contentsline {figure}{\numberline {3.28}{\ignorespaces Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.\relax }}{57}{figure.caption.69}%
+\contentsline {figure}{\numberline {3.29}{\ignorespaces Messaggio di handleNotification visualizzato su Wireshark.\relax }}{57}{figure.caption.70}%
+\contentsline {figure}{\numberline {3.30}{\ignorespaces Definizione del campo pendingNotification di handleNotification (parte 1/3).\relax }}{58}{figure.caption.71}%
+\contentsline {figure}{\numberline {3.31}{\ignorespaces Definizione del campo pendingNotification di handleNotification (parte 2/3).\relax }}{59}{figure.caption.72}%
+\contentsline {figure}{\numberline {3.32}{\ignorespaces Definizione del campo pendingNotification di handleNotification (parte 3/3).\relax }}{60}{figure.caption.73}%
+\contentsline {figure}{\numberline {3.33}{\ignorespaces Decodifica del campo pendingNotification di handleNotification.\relax }}{60}{figure.caption.74}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
