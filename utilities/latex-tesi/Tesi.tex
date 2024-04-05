@@ -684,7 +684,7 @@ Se anche solo uno di questi controlli non va a buon fine, l'eUICC deve restituir
 \begin{itemize}[itemsep=0pt]
 \item Recuperare l'hash del Confirmation Code ottenuto dalla funzione \textit{confirmOrder} relativa alle fasi di profile ordering \& download initialization, e calcolarne il valore atteso come SHA256(SHA256(Confirmation Code) | transactionID).
 \item Verificare che l'hash del Confirmation Code ricevuto all'interno di euiccSigned2 corrisponda col valore hash atteso.
-\item Se la verifica dell'hash del Confirmation Code fallisce, incrementare di un'unità il contatore dei tentativi di immissione del codice di attivazione e verificare che tale contatore non sfori il numero massimo ammissibile.
+\item Se la verifica dell'hash del Confirmation Code fallisce, incrementare di un'unità il contatore dei tentativi di immissione del codice e verificare che tale contatore non sfori il numero massimo ammissibile.
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve restituire uno stato di errore e la procedura di download e installazione del profilo deve essere interrotta. Più precisamente, se fallisce il controllo sul contatore dei tentativi di immissione del codice di attivazione, è necessario anche impostare il profilo target nello stato Error e passare allo step (8) prima di interrompere la procedura. Se invece i controlli vanno tutti a buon fine, si passa allo step (9).
 \item Se il numero di tentativi di immissione del codice di attivazione supera il massimo stabilito, il server SM-DP+ informa l'operatore del fallimento mediante la funzione \textit{handleNotification}; dopodiché, la procedura di download e installazione del profilo viene interrotta.
@@ -784,7 +784,7 @@ Le policy dei profili possono essere descritte dalle cosiddette \textbf{Profile 
 \item PPR2 - 'Deletion of this Profile is not allowed'
 \end{itemize}
 
-\subsection{Rules Authorisation Table}
+\subsection{Rules Authorisation Table}\label{sec:rat}
 La Rules Authorisation Table (RAT) è una struttura dati che tiene traccia dell'insieme delle PPR accettabili per ciascun profilo \cite{GSMA-docs-new}. Da un punto di vista strutturale, la RAT mantiene una o più entry, ciascuna delle quali è relativa a una \textbf{Profile Policy Authorisation Rule} (PPAR). Una PPAR a sua volta è composta dalle seguenti informazioni (che costituiscono le colonne della tabella RAT):
 \begin{itemize}
 \item \textbf{Profile Policy Rule Identifier}: identifica una o più PPR a cui questa PPAR fa riferimento.
@@ -1231,7 +1231,7 @@ Il sistema di simulazione sviluppato è un'applicazione Python composta da tre m
 \item un file per tenere traccia delle informazioni sui profili esistenti che sono il Matching ID, l'EID dell'eUICC a cui il profilo è destinato, l'ICCID, il numero di tentativi di download effettuati, l'ID dell'eventuale transazione in cui si sta tentando correntemente di installare il profilo, lo stato attuale del profilo, il tipo di profilo e l'eventuale Confirmation Code che serve per fornire la conferma finale sul download del profilo;
 \item un eseguibile per effettuare il clean-up del file di cui sopra, in modo tale da lasciare esclusivamente i profili in uno stato diverso da 'Released' e da 'Error'.
 \end{itemize}
-\item \textbf{euicc}: è il modulo che comprende la coppia eUICC + LPA e l'operatore telefonico. Questo accorpamento consente di semplificare la logica applicativa lato client e di bypassare, ad esempio, la comunicazione tra l'operatore e l'LPA che si ha nella fase di download initialization (sezione \label{sec:step-RSP}). Tale modulo è composto a sua volta da:
+\item \textbf{euicc}: è il modulo che comprende la coppia eUICC + LPA e l'operatore telefonico. Questo accorpamento consente di semplificare la logica applicativa lato client e di bypassare, ad esempio, la comunicazione tra l'operatore e l'LPA che si ha nella fase di download initialization (sezione \ref{sec:step-RSP}). Tale modulo è composto a sua volta da:
 \begin{itemize}
 \item un eseguibile per la generazione di certificati custom sia per l'eUICC che per l'EUM;
 \item un eseguibile per la comunicazione col server SM-DP+ per il rilascio di un nuovo profilo (qui l'attore impersonificato è l'operatore);
@@ -1325,9 +1325,68 @@ Per quanto concerne i dettagli implementativi del sistema simulato, è stato pos
 \item Validità della catena di certificati: l'implementazione prevede un controllo sul certificato CERT.EUM.SIG mediante la chiave pubblica del CI e un controllo sul certificato CERT.EUICC.SIG mediante la chiave pubblica dell'EUM.
 \item Validità di euiccSignature1: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
 \item Validità di serverChallenge: l'implementazione prevede un controllo su se la serverChallenge ricevuta corrisponde a quella inviata nel precedente messaggio di initiateAuthenticationResponse.
+\item Validità del Matching ID: l'implementazione prevede un controllo su se il campo matchingId della struttura ctxParams1 corrisponde a un Matching ID realmente esistente per il server e correntemente nello stato 'Released' o 'Download'.
 \end{itemize}
 A livello implementativo sono stati aggiunti anche i controlli elencati qui di seguito.
-[TODO]
+\begin{itemize}
+\item Validità dell'indirizzo SM-DP+: si ha un controllo su se il campo serverAddress della struttura euiccSigned1 è uguale all'hostname del server.
+\item Validità dei campi di euiccInfo2 in comune con euiccInfo1: si ha un controllo su se i campi svn, euiccCiPKIdListForVerification ed euiccCiPKIdListForSigning assumono gli stessi valori in euiccInfo2 all'interno di authenticateClient e in euiccInfo1 all'interno di initiateAuthentication.
+\end{itemize}
+
+\subsubsection{Check da parte dell'LPA alla ricezione di authenticateClientResponse}
+\begin{itemize}
+\item Verifica della RAT: l'implementazione prevede una funzione che segue la logica introdotta nella sezione \ref{sec:rat}.
+\item Conferma da parte dell'utente: l'implementazione prevede due casi. Nel primo caso è richiesta l'acquisizione del Confirmation Code da parte dell'utente e, se questo è errato o scatta il timeout, viene invocata la procedura di Common Cancel Session. Nel secondo caso è richiesta la conferma semplice e, se l'utente risponde "No", "Not now" oppure fa scadere il timeout, viene invocata la procedura di Common Cancel Session.
+\end{itemize}
+
+\subsubsection{Check da parte dell'eUICC alla ricezione di authenticateClientResponse}
+\begin{itemize}
+\item Validità di CERT.DPpb.SIG: l'implementazione prevede un controllo sul certificato CERT.DPpb.SIG mediante la chiave pubblica del CI.
+\item Appartenenza di CERT.DPpb.SIG e di CERT.DPauth.SIG alla medesima entità: l'implementazione prevede un controllo su se l'Organization Name di CERT.DPpb.SIG corrisponde all'Organization Name di CERT.DPauth.SIG, e un controllo su se l'Organization Name dell'issuer di CERT.DPpb.SIG corrisponde all'Organization Name dell'issuer di CERT.DPauth.SIG.
+\item Validità di smdpSignature2: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.DPpb.SIG.
+\item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId di authenticateClientResponse e il sotto-campo transactionId della struttura smdpSigned2 sono uguali all'ID di transazione che identifica la sessione RSP corrente.
+\end{itemize}
+È stato aggiunto anche un controllo su se i campi serviceProviderName e profileName della struttura profileMetadata corrispondono a stringhe non vuote.
+
+\subsubsection{Check da parte del server alla ricezione di getBoundProfilePackage}
+\begin{itemize}
+\item Validità di euiccSignature2: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
+\item Validità del Confirmation Code (opzionale): l'implementazione prevede un controllo sull'hash del Confirmation Code ricevuto dal server; se il check non va a buon fine, è previsto un incremento del contatore dei tentativi di immissione del codice e un controllo su se il contatore ha sforato il numero massimo ammissibile.
+\end{itemize}
+È stato aggiunto anche un controllo su se il campo transactionId di getBoundProfilePackage e il sotto-campo transactionId della struttura euiccSigned2 sono uguali all'ID di transazione che identifica la sessione RSP corrente.
+
+\subsubsection{Check da parte del client alla ricezione di getBoundProfilePackageResponse}
+In questa fase, è stato deciso di sintetizzare tutti i check svolti da parte dell'LPA e dell'eUICC in cinque punti fondamentali.
+\begin{itemize}
+\item Validità del Bound Profile Package: l'implementazione prevede un controllo in modo particolare sul campo sequenceOf88 della struttura boundProfilePackage per verificare se corrisponde alla codifica ASN.1 dell'intero campo profileMetadata ricevuto nel precedente messaggio del server (authenticateClientResponse).
+\item Validità del Remote Operation Type: l'implementazione prevede un controllo su se il campo remoteOpId della struttura initialiseSecureChannelRequest corrisponde a un'operazione remota (Remote Operation) supportata.
+\item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId di getBoundProfilePackageResponse e il sotto-campo transactionId della struttura initialiseSecureChannelRequest sono uguali all'ID di transazione che identifica la sessione RSP corrente.
+\item Validità della Profile Class: l'implementazione prevede un controllo su se la classe del profilo target (Profile Class) è supportata.
+\item Validità di smdpSign: l'implementazione prevede un controllo della signature contenuta nella struttura initialiseSecureChannelRequest del messaggio mediante la chiave pubblica associata al certificato CERT.DPpb.SIG.
+\end{itemize}
+
+\subsubsection{Check da parte del server alla ricezione di handleNotification}
+Nonostante la sezione \ref{sec:down-confirm} non parli esplicitamente di controlli effettuati dal server SM-DP+ dopo la ricezione del messaggio handleNotification da parte dell'LPA, si è comunque deciso di inserire due check che sembravano ormai ovvi e doverosi.
+\begin{itemize}
+\item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId della struttura profileInstallationResultData è uguale all'ID di transazione che identifica la sessione RSP corrente.
+\item Validità di euiccSignPIR: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
+\end{itemize}
+
+\subsubsection{Check da parte del server alla ricezione di cancelSession}
+All'interno del sistema simulato, il client avvia la procedura di Common Cancel Session nei casi riportati qui di seguito, come suggerito dalle specifiche di GSMA \cite{GSMA-docs-new}:
+\begin{itemize}
+\item il messaggio authenticateClientResponse da parte del server contiene un solo campo (transactionId);
+\item il messaggio authenticateClientResponse contiene la struttura profileMetadata con serviceProviderName o profileName pari alla stringa vuota;
+\item fallisce un qualche controllo sulle Profile Policy Rules all'interno dei metadati del profilo (struttura profileMetadata);
+\item l'end user non inserisce correttamente in input l'eventuale Confirmation Code o comunque non fornisce la conferma sul download del profilo target;
+\item il campo sequenceOf88 della struttura boundProfilePackage all'interno del messaggio getBoundProfilePackageResponse non corrisponde alla codifica ASN.1 dell'intero campo profileMetadata del precedente messaggio di authenticateClientResponse.
+\end{itemize}
+Quando il server riceve un messaggio di cancelSession all'interno del sistema simulato, vengono implementati i seguenti check:
+\begin{itemize}
+\item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId di cancelSession e il sotto-campo transactionId della struttura euiccCancelSessionSigned sono uguali all'ID di transazione che identifica una sessione RSP correntemente attiva.
+\item Validità di euiccCancelSessionSignature: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
+\end{itemize}
+Tuttavia, manca un controllo sull'OID.
 
 \chapter{Risultati ottenuti}
 [TODO]
