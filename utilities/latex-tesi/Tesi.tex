@@ -1172,7 +1172,7 @@ Il payload è composto dai seguenti tre campi:
 \item \textbf{transactionId}: è l'ID di transazione;
 \item \textbf{boundProfilePackage}: è un campo codificato in base64 ed è molto grande, tant'è vero che non rientra per intero nella figura \ref{fig:msg6-stream-pcap}.
 \end{itemize}
-Com'è possibile osservare in figura \ref{fig:def-boundProfilePackage} \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata.\\
+Com'è possibile osservare in figura \ref{fig:def-boundProfilePackage} \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{def-boundProfilePackage.png}
 \caption{Definizione del campo boundProfilePackage di getBoundProfilePackageResponse.}
