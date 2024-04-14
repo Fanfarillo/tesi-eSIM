@@ -27,18 +27,6 @@ Vodafone: l'attivazione costa 1€, la sostituzione costa 10€ e l'offerta più
 WindTre: l'attivazione costa 10€, la sostituzione costa 15€ e l'offerta più scrausa è a 12,99€/mese.
 
 NOTA 4
-Il problema della signature di 70-73 byte in formato DER è stato affrontato nel seguente modo, con l'aiuto della libreria ecdsa di Python (è l'unico modo che ho trovato in un pomeriggio di ricerche):
-    #genera euiccSignature1 firmando euiccSigned1 (= byte_euiccSigned1.decode()) con la chiave privata euiccPrivKey
-    der_euiccSignature1 = euiccPrivKey.sign(byte_euiccSigned1, ec.ECDSA(hashes.SHA256()))
-    #der_euiccSignature1 è in formato DER (con una dimensione di 70-73 byte): ci facciamo aiutare dalla libreria ecdsa.util per convertirla in row byte (64 byte).
-    euiccSignature1_first_half_int, euiccSignature1_second_half_int = ecdsa.util.sigdecode_der(der_euiccSignature1, ecdsa.NIST256p.order)   #NIST256p == SECP256R1
-    euiccSignature1_first_half = euiccSignature1_first_half_int.to_bytes((euiccSignature1_first_half_int.bit_length() + 7) // 8, byteorder=ENDIANESS)
-    euiccSignature1_second_half = euiccSignature1_second_half_int.to_bytes((euiccSignature1_second_half_int.bit_length() + 7) // 8, byteorder=ENDIANESS)
-    euiccSignature1 = bytes(euiccSignature1_first_half + euiccSignature1_second_half)
-Mi sono anche accorto che il campo ASN.1 relativo alla signature deve essere definito come tag.tagClassApplication e non come tag.tagClassContext: in questo modo, il tag di questo campo è pari a 5F37 (come richiesto dalle specifiche) e non più pari a 9F37. È stata proprio quest'ultima correzione a risolvere l'errore "tlv not valid", che tuttavia è stato sostituito dall'errore "Internal error while verifying the signature". Ho provato a inizializzare il campo euiccSignature1 sia con la signature di 70-73 byte in formato DER, sia con la signature portata a 64 byte, sia ponendo euiccSignature1 = bytes(euiccSignature1_second_half + euiccSignature1_first_half), ma rimane sempre "Internal error while verifying the signature". Questo almeno per quanto riguarda HOSTNAME = "sys.prod.ondemandconnectivity.com". Per quanto concerne HOSTNAME = "lpa.ds.gsma.com", invece, si ha un JSONDecodeError per la seconda risposta del server.
-AGGIORNAMENTO (25/10/2023): ho effettuato diverse prove di invio di messaggi ai due server SM-DP+ (in stille 'fuzzing'), i quali danno messaggi di errori diversi (anche tra loro) al variare del contenuto dei messaggi inviati (i.e. al variare della transactionId, della signature, dei certificati). Le varie risposte (i.e. i vari messaggi di errore) dei server sono riportati nel file Word Risposte-server.docx.
-
-NOTA 5
 PIATTAFORMA DI TEST
 Dal capitolo 3 del documento SGP.23-v1.0 (tratto dalla documentazione ufficiale di GSMA) emerge che:
 a) L'implementazione dei simulatori per i casi di test è sotto la responsabilità di chi fornisce i tool per il testing.
@@ -49,9 +37,29 @@ e) Si parla di un companion device (contenente l'eUICC di test e l'LPAd) diretta
 In definitiva, almeno per quanto concerne eUICC e LPA, sembra che si parli di un ambiente di testing composto rispettivamente da un eUICC reale e da una LPA installata in un apposito dispositivo (contesto reale).
 D'altra parte, nel video https://www.youtube.com/watch?v=5oecn43xsDg, emerge che alcuni pc con Windows 10 supportano direttamente la eSIM (io con Windows 11 non ho questa feature).
 
-NOTA 6
+NOTA 5
 Il video menzionato nella nota 5 (https://www.youtube.com/watch?v=5oecn43xsDg) parla di possibili aspetti di sicurezza concernenti le eSIM che possono essere affrontati, come:
 a) Come deployare un profilo definito direttamente da noi.
 b) Come installare applicazioni custom nell'eUICC.
 c) Trovare qualche vulnerabilità dell'eUICC (utilizzo di toolkit per catturare info, esecuzione di comandi su una macchina vittima mediante una connessione definita da noi, ecc.).
 Comunque sia, chi ha condotto questo talk non ha trovato problemi o vulnerabilità nel protocollo in sé.
+
+NOTA 6
+SCENARI DI POSSIBILI ATTACCHI DI TIPO MITM
+a) L'attaccante mette a disposizione una LPA trojan che si comporta esattamente come una normalissima LPA, con la differenza che, durante la comunicazione tra dispositivo mobile e server SM-DP+, l'LPA trojan effettua un MITM con lo scopo di superare le protezioni TLS e accedere al payload dei pacchetti scambiati. Eventualmente, le informazioni così ottenute vengono inviate direttamente all'attaccante.
+b) L'attaccante cerca di far installare un malware mediante l'approccio phishing. Il malware può avere la stessa logica di base dell'LPA trojan descritta nel punto precedente. Può anche non essere una LPA ma più semplicemente un proxy relay che effettua un MITM quando l'LPA del dispositivo mobile è in funzione.
+VANTAGGI PER L'ATTACCANTE
+Nel momento in cui l'attaccante è a conoscenza di informazioni come l'Activation Code e/o il Confirmation Code, potrebbe fingere di essere la vittima: sono questi codici che legano un profilo al rispettivo proprietario. D'altra parte, i certificati servono solo a indicare che le controparti siano valide, non a individuare l'identità del client.
+
+NOTA 7
+CORRISPONDENZE HOSTNAME <--> INDIRIZZI IP DEI SERVER SM-DP+ NOTI
+Google: prod.smdp-plus.rsp.goog <--> 34.95.109.237
+Gsma: lpa.ds.gsma.com <--> 34.89.151.119
+Iliad: frm.prod.ondemandconnectivity.com <--> 34.107.65.70
+Infineon: testsmdpplus.infineon.com <--> 52.57.244.228; 18.196.185.236 (NO PING)
+Tim: rsp-0001.oberthur.net <--> 51.11.249.51
+Very Mobile: sys.prod.ondemandconnectivity.com <--> 34.107.65.70
+SERVER SM-DP+ TROVATI CON LA FORZA BRUTA
+rsp-0002.oberthur.net <--> 51.11.249.55 (stesso CERT.DPauth.SIG di 51.11.249.51)
+rsp-0003.oberthur.net <--> 185.200.48.11 (NO PING)
+rsp-0012.oberthur.net <--> 213.39.85.20 (WEB PAGE BLOCKED! - NO PING)
