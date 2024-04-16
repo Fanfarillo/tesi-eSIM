@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  16 APR 2024 16:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  2 APR 2023 11:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -208,10 +208,10 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-<images/logo.png, id=1, 212.7147pt x 49.1436pt>
-File: images/logo.png Graphic file (type png)
-<use images/logo.png>
-Package pdftex.def Info: images/logo.png  used on input line 22.
+<logo.png, id=1, 212.7147pt x 49.1436pt>
+File: logo.png Graphic file (type png)
+<use logo.png>
+Package pdftex.def Info: logo.png  used on input line 22.
 (pdftex.def)             Requested size: 184.7422pt x 42.67912pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 22.
@@ -221,21 +221,21 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 22.
  [1
 
-{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./images/logo.p
-ng>] ) 
+{c:/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo.png>] ) 
 Here is how much of TeX's memory you used:
- 2951 strings out of 476024
- 47903 string characters out of 5794016
+ 2950 strings out of 476024
+ 47854 string characters out of 5794016
  1852382 words of memory out of 5000000
  23390 multiletter control sequences out of 15000+600000
  516252 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,14n,62p,215b,264s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:
-/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2
-022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on Tesi-frn.pdf (1 page, 65490 bytes).
+<
+c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texliv
+e/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/texlive/2022/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2022/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb>
+Output written on Tesi-frn.pdf (1 page, 64087 bytes).
 PDF statistics:
  31 PDF objects out of 1000 (max. 8388607)
  17 compressed objects within 1 object stream
