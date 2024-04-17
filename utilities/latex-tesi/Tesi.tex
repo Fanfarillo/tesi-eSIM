@@ -41,6 +41,10 @@
 \vspace{\stretch{2}}\null
 \end{flushright}
 
+\chapter*{Abstract}
+L'argomento principale della presente trattazione è la sicurezza dell'eSIM, una tecnologia entrata in vigore negli ultimi anni che sta diventando sempre di più un tema di attualità. Il lavoro proposto consiste dunque nell'analizzare il protocollo definito per questa tecnologia e le relative implementazioni, in modo tale da individuare e trattare eventuali vulnerabilità, ipotizzare degli scenari di attacco e, se possibile, definire dei meccanismi di difesa.\\
+All'interno del presente documento, anzitutto verrà introdotto il problema e verrà svolta una trattazione dettagliata sull'architettura dell'eSIM e sul protocollo di comunicazione tra eUICC, LPA e server SM-DP+, con lo scopo di fornire al lettore gli strumenti necessari per comprendere appieno le tematiche centrali del lavoro. Successivamente, verrà illustrato l'intero procedimento che ha portato all'implementazione dei simulatori delle entità (eUICC + LPA da una parte, server SM-DP+ dall'altra), che fungono da strumenti di base per effettuare le analisi e le considerazioni successive. Verranno mostrati in particolar modo i risultati ottenuti dall'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Infine, verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
+
 \tableofcontents
 \listoffigures
 \listoftables
@@ -52,7 +56,7 @@ L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'
 \section{Obiettivo del lavoro}
 La presente trattazione si propone di:
 \begin{itemize}
-\item introdurre una panoramica sul mondo dell'e-SIM, descrivendo tutti i dettagli architetturali e protocollari necessari;
+\item introdurre una panoramica sul mondo dell'eSIM, descrivendo tutti i dettagli architetturali e protocollari necessari;
 \item effettuare un'analisi di sicurezza e delle vulnerabilità dell'eSIM e del suo funzionamento;
 \item se possibile, tentare di sfruttare, anche con delle attività di laboratorio, le eventuali vulnerabilità trovate.
 \end{itemize}
@@ -63,9 +67,6 @@ La presente trattazione si propone di:
 \item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, inclusi la creazione, l'aggiornamento e la cancellazione.
 \item \textbf{SM-DP+ (Subscription Manager Data Preparation plus)}: è un protocollo che rappresenta una tecnica di provisioning usata per configurare le eSIM in modo automatico e remoto. Rispetto alla versione base SM-DP, offre delle funzionalità aggiuntive come un sistema di crittografia più avanzato e un'architettura di rete più flessibile.
 \end{itemize}
-
-\section{Panoramica sui capitoli successivi}
-Nel capitolo 2 verrà svolta una trattazione dettagliata sull'architettura dell'eSIM e sul protocollo di comunicazione tra eUICC, LPA e server SM-DP+, con lo scopo di fornire al lettore gli strumenti per comprendere appieno le tematiche centrali del lavoro. Nel capitolo 3 verrà illustrato l'intero procedimento che ha portato all'implementazione dei simulatori delle entità (eUICC + LPA da una parte, server SM-DP+ dall'altra), che fungono da strumenti di base per effettuare le analisi e le considerazioni successive.  effettuata un'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Nel capitolo 4 verranno mostrati in particolar modo i risultati ottenuti dall'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Infine, nel capitolo 5 verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
 
 \chapter{Interfacce e funzionamento dell'eSIM}
 \section{Architettura di RSP}
@@ -313,7 +314,7 @@ Attualmente, invece, la struttura della certificate chain è più complessa e in
 \item Porzione della catena comprendente il CI e i certificati di tipo SIG di SM-DP+ e SM-DS: è riportata nella figura \ref{fig:cert-chain-new2} tratta da \cite{GSMA-docs-new} e prevede quattro varianti differenti.
 \begin{itemize}
 \item \textbf{Variante O (originale)}: il CI root rilascia direttamente i certificati CERT.DPauth.SIG, CERT.DPpb.SIG, CERT.DSauth.SIG.
-\item \textbf{Variante A}: il CI root rilascia certificati per l'SM-DP+ intermediario e l'SM-DS intermediario; l'SM-DP+ intermediario rilascia i certificati  CERT.DPauth.SIG, CERT.DPpb.SIG; l'SM-DS intermediario rilascia il certificato CERT.DSauth.SIG.
+\item \textbf{Variante A}: il CI root rilascia certificati per l'SM-DP+ intermediario e l'SM-DS intermediario; l'SM-DP+ intermediario rilascia a sua volta i certificati  CERT.DPauth.SIG, CERT.DPpb.SIG; l'SM-DS intermediario rilascia il certificato CERT.DSauth.SIG.
 \item \textbf{Variante B}: il CI root rilascia certificati per il CI subordinato, il quale rilascia a sua volta i certificati CERT.DPauth.SIG, CERT.DPpb.SIG, CERT.DSauth.SIG.
 \item \textbf{Variante C}: il CI root rilascia certificati per il CI subordinato; il CI subordinato rilascia certificati per l'SM-DP+ intermediario e l'SM-DS intermediario; l'SM-DP+ intermediario rilascia i certificati CERT.DPauth.SIG, CERT.DPpb.SIG; l'SM-DS intermediario rilascia il certificato CERT.DSauth.SIG.
 \end{itemize}
@@ -674,7 +675,7 @@ Se anche solo uno di questi controlli non va a buon fine, l'eUICC deve restituir
 \item L'eUICC prosegue con le seguenti altre azioni:
 \begin{itemize}[itemsep=0pt]
 \item Generare una coppia di chiavi one-time (otPK.EUICC.KA, otSK.EUICC.KA).
-\item Generare la struttura dati euiccSigned2, che comprende l'ID di transazione, otPK.EUICC.KA ed eventualmente l'hash del Confirmation Code.
+\item Generare la struttura dati euiccSigned2, che comprende l'ID di transazione, la chiave pubblica one-time otPK.EUICC.KA ed eventualmente l'hash del Confirmation Code.
 \item Calcolare euiccSignature2.
 \end{itemize}
 \item L'eUICC restituisce all'LPA la risposta a \textit{prepareDownload}.
