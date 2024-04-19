@@ -14,6 +14,7 @@
 \usepackage{caption}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{xcolor}
 
 \pagestyle{fancy}
 \fancyhead{}
@@ -42,7 +43,7 @@
 \end{flushright}
 
 \chapter*{Abstract}
-L'argomento principale della presente trattazione è la sicurezza dell'eSIM, una tecnologia entrata in vigore negli ultimi anni che sta diventando sempre di più un tema di attualità. Il lavoro proposto consiste dunque nell'analizzare il protocollo definito per questa tecnologia e le relative implementazioni, in modo tale da individuare e trattare eventuali vulnerabilità, ipotizzare degli scenari di attacco e, se possibile, definire dei meccanismi di difesa.\\
+L'argomento principale della presente trattazione è la sicurezza dell'eSIM, una tecnologia entrata in vigore negli ultimi anni che sta diventando sempre di più un tema di attualità. Il lavoro proposto consiste nell'analizzare il protocollo definito per questa tecnologia e le relative implementazioni, in modo tale da individuare e trattare eventuali vulnerabilità, ipotizzare degli scenari di attacco e, se possibile, definire dei meccanismi di difesa.\\
 All'interno del presente documento, anzitutto verrà introdotto il problema e verrà svolta una trattazione dettagliata sull'architettura dell'eSIM e sul protocollo di comunicazione tra eUICC, LPA e server SM-DP+, con lo scopo di fornire al lettore gli strumenti necessari per comprendere appieno le tematiche centrali del lavoro. Successivamente, verrà illustrato l'intero procedimento che ha portato all'implementazione dei simulatori delle entità (eUICC + LPA da una parte, server SM-DP+ dall'altra), che fungono da strumenti di base per effettuare le analisi e le considerazioni successive. Verranno mostrati in particolar modo i risultati ottenuti dall'analisi della sicurezza dell'eSIM a boot-time (i.e. durante la fase di configurazione). Infine, verranno tratte delle conclusioni sul lavoro svolto e verrà fornita una panoramica sui possibili progetti futuri che potranno essere intrapresi a partire dai risultati ottenuti attraverso questo lavoro.
 
 \tableofcontents
@@ -63,9 +64,9 @@ La presente trattazione si propone di:
 
 \section{Definizioni preliminari}
 \begin{itemize}
-\item \textbf{eUICC (embedded Universal Integrated Circuit Card)}: è un chip utilizzato nei telefoni all'interno del quale è embeddato il software dell'eSIM. È integrato direttamente nei dispositivi (i.e. non è rimovibile) ed è progettato per essere programmato a distanza. Può contenere uno o più profili eSIM.
-\item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, inclusi la creazione, l'aggiornamento e la cancellazione.
-\item \textbf{SM-DP+ (Subscription Manager Data Preparation plus)}: è un protocollo che rappresenta una tecnica di provisioning usata per configurare le eSIM in modo automatico e remoto. Rispetto alla versione base SM-DP, offre delle funzionalità aggiuntive come un sistema di crittografia più avanzato e un'architettura di rete più flessibile.
+\item \textbf{eUICC (embedded Universal Integrated Circuit Card)}: è un chip utilizzato nei telefoni all'interno del quale è embeddato il software dell'eSIM. È integrato direttamente nei dispositivi (i.e. non è removibile) ed è progettato per essere programmato a distanza. Può contenere uno o più profili eSIM.
+\item \textbf{LPA (Local Profile Assistant)}: è un'applicazione che vive nel telefono dell'utente ed è responsabile della gestione dei profili all'interno della rete mobile, inclusi la creazione, l'aggiornamento e la cancellazione. Essa funge anche da intermediario in qualunque comunicazione tra l'eUICC e il server.
+\item \textbf{SM-DP+ (Subscription Manager Data Preparation plus)}: è un protocollo che rappresenta una tecnica di provisioning usata per configurare le eSIM in modo automatico e remoto. Rispetto alla versione base SM-DP, offre delle funzionalità aggiuntive come un sistema di crittografia più avanzato e un'architettura di rete più flessibile. La parte server del protocollo è appunto detta \textbf{server SM-DP+}.
 \end{itemize}
 
 \chapter{Interfacce e funzionamento dell'eSIM}
@@ -92,9 +93,9 @@ Di seguito è riportato un breve glossario che chiarisce il significato di alcun
 \item \textbf{Enterprise} = impresa (i.e. azienda, organizzazione o entità governativa) che si iscrive ai servizi mobili che devono essere utilizzati dai dipendenti a supporto dell'impresa stessa.
 \item \textbf{EUM} = eUICC Manufacturer: è il fornitore delle eUICC e del software residente (e.g. firmware, sistema operativo); svolge anche il ruolo di certificate authority subordinata al CI e rilascia certificati all'eUICC \cite{GSMA-docs-new}\cite{Sec-analysis}.
 \item \textbf{HRI Server} = server che fornisce le High Resolution Icon, che sono icone che vengono create per essere visualizzate in alta risoluzione.
-\item \textbf{LDSd} = Local Discovery Service (quando LPA non è nell'eUICC).
-\item \textbf{LPDd} = Local Profile Download (quando LPA non è nell'eUICC).
-\item \textbf{LUId} = Local User Interface (quando LPA non è nell'eUICC).
+\item \textbf{LDSd} = Local Discovery Service (quando l'LPA non è nell'eUICC).
+\item \textbf{LPDd} = Local Profile Download (quando l'LPA non è nell'eUICC).
+\item \textbf{LUId} = Local User Interface (quando l'LPA non è nell'eUICC).
 \item \textbf{SM-DS} = Subscription Manager Discovery Server: è il componente che consente a SM-DP+ di raggiungere l'eUICC senza dover sapere a quale rete il dispositivo è connesso.
 \end{itemize}
 \item \textbf{LPA embeddato all'interno dell'eUICC (LPAe)}: sono necessarie solo delle interfacce tra l'eUICC e SM-DP+, come mostrato nella figura \ref{fig:RSP-LPAe} tratta da \cite{GSMA-docs-new}.
@@ -191,7 +192,7 @@ Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzat
 
 \subsection{Caratteristiche hardware e software dell'eUICC}
 \begin{enumerate}[itemsep=0pt]
-\item Deve essere resistente al tampering dei componenti hardware.
+\item Deve essere resistente al tampering (manomissione) dei componenti hardware.
 \item Contiene un unico ECASD (eUICC Controlling Authority Security Domain).
 \item Supporta SHA-1.
 %\item Supporta TUAK, che è un particolare algoritmo crittografico di 3GPP, dove 3GPP (Third Generation Partnership Project) è il consorzio industriale che definisce gli standard per la tecnologia 5G .
@@ -363,7 +364,7 @@ Il CI fornisce una Certificate Revocation List (CRL), che è la lista dei certif
 In realtà, i certificati relativi alla PKI di RSP di cui si è discusso finora non sono gli unici certificati utilizzati per effettuare il deployment dei profili eSIM: esiste anche un certificato per firmare l'applicazione LPA e un certificato da inserire in ciascun profilo eSIM da distribuire all'end user. Dove entrano in gioco tali certificati? Con riferimento alla guida di Android per le API e per l'implementazione del deployment dei profili eSIM \cite{Android-docs}, l'interazione tra un'applicazione LPA e l'interfaccia all'eUICC (legata al componente EuiccManager in \cite{Android-docs}) può avvenire solo se l'applicazione dispone dei privilegi dell'operatore. Di norma, tali privilegi sono conferiti all'applicazione se il certificato usato per firmarla coincide col certificato presente nel profilo fornito da SM-DP+.
 
 \subsection{Aggiornamento delle chiavi pubbliche nell'eUICC}
-L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata all'EUM o al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, nei capitoli successivi potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
+L'eUICC può fornire un meccanismo per aggiornare il set di chiavi pubbliche memorizzate nell'ECASD dell'eUICC (che sono chiavi a lunga durata). L'implementazione di tale meccanismo è lasciata all'EUM o al produttore del dispositivo mobile e, stando alla guida ufficiale di GSMA \cite{GSMA-docs-new}, deve essere sicura. Tuttavia, nel momento in cui un'implementazione è affidata a terze parti, nessuno può garantire con certezza che la prescrizione sulla sicurezza venga rispettata, poiché non vengono seguite delle linee guida standard e consolidate. Di conseguenza, potrebbe essere utile approfondire mediante degli esperimenti pratici il funzionamento dell'aggiornamento del set di chiavi poste nell'ECASD e stabilire così se esiste qualche vulnerabilità da sfruttare a vantaggio di un attaccante.
 
 \subsubsection{Contenuto dell'ECASD}
 Tutti gli eUICC devono avere un ECASD che contenga \cite{GSMA-docs-new}:
@@ -384,11 +385,11 @@ La necessità di rinnovare le chiavi contenute nell'ECASD può presentarsi in du
 
 \section{Interazione tra eUICC, LPA, SM-DP+ e operatore}
 \subsection{Sicurezza TLS}
-Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA), dove è prevista la mutua autenticazione tra le parti. La documentazione di GSMA di riferimento \cite{GSMA-docs-new} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, introduce anche la possibilità (e suggerisce) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui nei capitoli successivi potrebbe essere necessario verificare a livello pratico qual è la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
-Un discorso analogo vale per l'interazione che si ha nella mutua autenticazione tra l'eUICC e il server SM-DP+, dove le due parti interagiscono tra loro tramite un TLS tunnel \cite{Sec-analysis}. Per quanto invece riguarda la comunicazione tra eUICC e applicazione LPA, è richiesto l'utilizzo di un pairwise secure channel (ovvero di un canale di comunicazione sicuro rispetto alla confidenzialità e all'autenticazione dei messaggi) che collega le due parti all'interno del dispositivo mobile \cite{Sec-analysis}. Tuttavia, non esiste una specifica universale che imponga l'utilizzo di un particolare protocollo di crittografia per proteggere il pairwise secure channel; il protocollo più utilizzato a tal proposito rimane TLS ma, di nuovo, potrebbe essere necessario stabilire con un approccio pratico se nel canale di comunicazione tra eUICC e LPA viene utilizzato TLS oppure un protocollo differente.
+Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA), dove è prevista la mutua autenticazione tra le parti. La documentazione di GSMA di riferimento \cite{GSMA-docs-new} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, introduce anche la possibilità (e suggerisce) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui potrebbe essere interessante verificare a livello pratico qual è la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
+Un discorso analogo vale per l'interazione che si ha nella mutua autenticazione tra l'eUICC e il server SM-DP+, dove le due parti interagiscono tra loro tramite un TLS tunnel \cite{Sec-analysis}. Per quanto invece riguarda la comunicazione tra eUICC e applicazione LPA, è richiesto l'utilizzo di un pairwise secure channel (ovvero di un canale di comunicazione sicuro rispetto alla confidenzialità e all'autenticazione dei messaggi) che collega le due parti all'interno del dispositivo mobile \cite{Sec-analysis}. Tuttavia, non esiste una specifica universale che imponga l'utilizzo di un particolare protocollo di crittografia per proteggere il pairwise secure channel; il protocollo più utilizzato a tal proposito rimane TLS ma, di nuovo, potrebbe essere una buona idea stabilire con un approccio pratico se nel canale di comunicazione tra eUICC e LPA viene utilizzato TLS oppure un protocollo differente.
 
 \subsection{Regole per la comunicazione in RSP}
-Qualunque comunicazione remota definita per RSP deve far fede alle regole riportate di seguito \cite{GSMA-docs-new}.
+Qualunque comunicazione remota definita per il protocollo RSP deve far fede alle regole riportate di seguito \cite{GSMA-docs-new}.
 \begin{itemize}
 \item \textbf{Mutua autenticazione tra eUICC e server SM-DP+}: il server deve essere autenticato per primo da parte dell'eUICC, dove il processo di autenticazione deve includere la verifica di una catena di certificati del server. D'altra parte, l'eUICC deve essere autenticato in un secondo momento da parte del server, dove il processo di autenticazione, di nuovo, deve includere la verifica di una catena di certificati dell'eUICC; l'autenticazione dell'eUICC non si applica all'LPA.
 \item \textbf{Privacy dei dati}: l'eUICC, in quanto client, non deve rivelare alcuna informazione privata a un server SM-DP+ non autenticato. Inoltre, non deve generare materiale firmato prima del completamento del processo di autenticazione del server.
@@ -402,11 +403,11 @@ L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro 
 \item \textbf{Profile ordering \& download initialization}: nella prima fase, l'operatore richiede al server SM-DP+ di preparare un profilo eSIM, e il server gli restituisce dei download initialization pointer (che possono essere rappresentati ad esempio da un codice di attivazione). Nella seconda fase, l'operatore consegna i download initialization pointer all'LPA in modo tale che poi sia possibile effettuare il download vero e proprio del profilo. Per questi primi due step, si possono seguire tre tipi di approcci differenti:
 \begin{enumerate}
 \item \underline{Default server approach}: la figura \ref{fig:default-server} tratta da \cite{Sec-analysis} mostra questo approccio. L'operatore (indicato con MNO - Mobile Network Operator) pre-condivide con l'eUICC l'indirizzo S del server. Quando vuole effettuare una nuova sottoscrizione e ottenere così un nuovo profilo, l'end user contatta l'operatore (messaggio 0), il quale ordina al server SM-DP+ il profilo per l'identificatore U dell'eUICC target (messaggio 1). Il server crea il nuovo profilo e lo invia all'operatore (messaggio 2), il quale notifica l'utente (messaggio 3). A tal punto, l'applicazione LPA viene avviata e, tramite un'operazione di get, recupera S dall'eUICC.
-\item \underline{Activation Code approach}: la figura \ref{fig:activation-code} tratta da \cite{Sec-analysis} mostra questo secondo approccio. L'operatore ordina al server SM-DP+ dei profili (messaggio 1), e il server li rende disponibili con un codice di attivazione (tipicamente un codice QR) e li restituisce all'operatore (messaggio 2). Il codice di attivazione include l'indirizzo S del server, l'identificatore $I_{ac}$ del profilo e, opzionalmente, l'OID, ovvero l'identificatore del server SM-DP+. Quando l'end user vuole effettuare una nuova sottoscrizione e ottenere così un nuovo profilo, contatta l'operatore (messaggio 0, che può essere inviato sia prima che dopo l'interazione tra operatore e SM-DP+ server appena descritta), il quale restituisce il codice di attivazione opportuno (messaggio 3).
+\item \underline{Activation Code approach}: la figura \ref{fig:activation-code} tratta da \cite{Sec-analysis} mostra questo secondo approccio. L'operatore ordina al server SM-DP+ dei profili (messaggio 1), e il server li rende disponibili con un codice di attivazione (tipicamente un codice QR) e li restituisce all'operatore (messaggio 2). Il codice di attivazione include l'indirizzo S del server, l'identificatore $I_{ac}$ del profilo e, opzionalmente, l'OID, ovvero l'identificatore del server SM-DP+. Quando l'end user vuole effettuare una nuova sottoscrizione e ottenere così un nuovo profilo, contatta l'operatore (messaggio 0, che può essere inviato sia prima che dopo l'interazione tra operatore e server SM-DP+ appena descritta), il quale restituisce il codice di attivazione opportuno (messaggio 3).
 \item \underline{SM-DS assisted approach}: è un approccio analogo all'Activation Code, con la differenza che SM-DP+ si appoggia sui server SM-DS per comunicare con l'eUICC.
 \end{enumerate}
 \item \textbf{Common handshake}: questa fase, nota anche come Common Mutual Authentication, coinvolge tre attori fondamentali: il server SM-DP+, l'applicazione LPA e l'eUICC. I relativi dettagli sono riportati nella sezione \ref{sec:mutual-auth}.
-\item \textbf{Profile download}: in quest'ultima fase, i cui dettagli sono riportati nella sezione \ref{sec:down-install}, viene calcolato uno shared secret da cui, mediante una key derivation function (KDF), saranno derivate le chiavi di sessione k (per la cifratura) e k' (per l'integrità dei dati). Avviene poi il download del profilo eSIM, in cui il server SM-DP+ invia all'LPA il profilo cifrato con la chiave k e l'operatore di riferimento, dove entrambe le informazioni sono firmate singolarmente con la chiave k' mediante il meccanismo di message authentication code (MAC). Dopodiché, l'LPA mostra l'operatore all'utente, che dovrà stabilire se è corretto: se sì, l'LPA inoltra tutte le informazioni all'eUICC il quale, dopo aver derivato a sua volta le chiavi di sessione k, k', dovrà decriptare il profilo P, che risulterà finalmente essere utilizzabile.
+\item \textbf{Profile download}: in quest'ultima fase, i cui dettagli sono riportati nella sezione \ref{sec:down-install}, viene calcolato uno shared secret da cui, mediante una key derivation function (KDF), saranno derivate le chiavi one-time di sessione k (per la cifratura) e k' (per l'integrità dei dati). Avviene poi il download del profilo eSIM, in cui il server SM-DP+ invia all'LPA il profilo cifrato con la chiave k e l'operatore di riferimento, dove entrambe le informazioni sono firmate singolarmente con la chiave k' mediante il meccanismo di message authentication code (MAC). Dopodiché, l'LPA mostra l'operatore all'utente, che dovrà stabilire se è corretto: se sì, l'LPA inoltra tutte le informazioni all'eUICC il quale, dopo aver derivato a sua volta le chiavi di sessione k, k', dovrà decriptare il profilo P, che risulterà finalmente essere utilizzabile.
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{default-server.png}
@@ -646,7 +647,6 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \item L'LPA verifica se il profilo può essere effettivamente installato. Per far ciò, deve ricorrere a un'apposita struttura dati detta Rules Authorisation Table (RAT) e/o alla lista dei profili installati. Se non dispone già di queste informazioni, deve richiederle all'eUICC invocando le funzioni \textit{getRAT} e/o \textit{getProfilesInfo}. Informazioni più dettagliate sulla RAT e, più in generale, sulla gestione delle policy dei profili, sono riportate nella sezione \ref{sec:profile-policy}.
 \item Se necessario, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come 'Yes', 'No', 'Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione (Common Cancel Session Procedure, i cui dettagli sono riportati nella sezione \ref{sec:common-cancel-session}); altrimenti, l'installazione del profilo può completarsi con successo mediante la sotto-procedura di Download Confirmation, che verrà illustrata qui di seguito.
 \end{enumerate}
-%In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
 \subsection{Sotto-procedura di Download Confirmation}\label{sec:down-confirm}
 La figura \ref{fig:download-confirmation} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la sotto-procedura di Download Confirmation, che conclude la procedura di download e installazione dei profili introdotta poc'anzi. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Ancora una volta i passaggi rimangono gli stessi se si ha un server SM-DS al posto del server SM-DP+.
@@ -683,7 +683,7 @@ Se anche solo uno di questi controlli non va a buon fine, l'eUICC deve restituir
 \item Il server SM-DP+ verifica euiccSignature2 e stabilisce se è richiesto il codice di conferma: se sì, si procede con lo step (7), altrimenti si passa allo step (9).
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Recuperare l'hash del Confirmation Code ottenuto dalla funzione \textit{confirmOrder} relativa alle fasi di profile ordering \& download initialization, e calcolarne il valore atteso come SHA256(SHA256(Confirmation Code) | transactionID).
+\item Recuperare l'hash del Confirmation Code ottenuto dalla funzione \textit{confirmOrder} relativa alle fasi di profile ordering \& download initialization, e calcolarne il valore atteso come SHA256(SHA256(Confirmation Code) $\vert$ transactionID).
 \item Verificare che l'hash del Confirmation Code ricevuto all'interno di euiccSigned2 corrisponda col valore hash atteso.
 \item Se la verifica dell'hash del Confirmation Code fallisce, incrementare di un'unità il contatore dei tentativi di immissione del codice e verificare che tale contatore non sfori il numero massimo ammissibile.
 \end{itemize}
@@ -706,6 +706,7 @@ Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve 
 \item L'eUICC cancella il risultato dell'installazione del profilo dalla propria memoria non volatile.
 \item Se l'LPA aveva ricevuto rpmPending nel messaggio di risposta ad \textit{authenticateClient}, allora dovrebbe iniziare a una sessione RSP aggiuntiva col server SM-DP+, settando l'operationType a RPM (Remote Profile Management).
 \end{enumerate}
+%In definitiva, sembra che il modo più semplice per bucare la procedura di download e installazione dei profili sia sfruttare eventuali vulnerabilità presenti nella procedura di Common Mutual Authentication.
 
 \subsection{Cambio di dispositivo}\label{sec:device-change}
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (qui indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
@@ -735,7 +736,7 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta ad \textit{authenticateClient} che comprende transactionId (l'identificativo della transazione), smdpSigned4 (informazioni del server SM-DP+), smdpSignature4 (signature di smdpSigned4) ed eventualmente il messaggio di Service Provider per il cambio di dispositivo.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il Service Provider esegue il Download Preparation Process (processo di preparazione del download) e opzionalmente il Subscription Activation Process (processo di attivazione della sottoscrizione al profilo).
 \item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7). Se l'end user non inserisce correttamente il codice di conferma entro un timeout prestabilito, si procede con la cancellazione della sessione (Common Cancel Session Procedure, \ref{sec:common-cancel-session}).
-\item L'LPA del vecchio dispositivo invoca la funzione \textit{prepareDeviceChange} passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(Confirmation Code) | transactionID).
+\item L'LPA del vecchio dispositivo invoca la funzione \textit{prepareDeviceChange} passandovi come parametri smdpSigned4, smdpSignature4 ed eventualmente l'hash del codice di conferma. Quest'ultimo viene calcolato come SHA256(SHA256(Confirmation Code) $\vert$ transactionID).
 \item L'LPA del vecchio dispositivo invoca la funzione \textit{confirmDeviceChange} passandovi come parametri transactionId e prepareDeviceChangeResponse.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il server SM-DP+ invoca la funzione \textit{handleNotification} per notificare il Service Provider riguardo l'esito della conferma del cambio di dispositivo da parte dell'end user. Se l'end user ha accettato il cambio di dispositivo, allora si passa allo step (15); altrimenti la procedura termina.
 \item Se il booleano isNewProfileRequired vale FALSE, allora il server SM-DP+ prepara il profilo per il download e il Matching ID associato al profilo. Inoltre, se nello step (5) è stato fornito un EID, allora il server lo collega al download del profilo preparato. Infine, il server invoca la funzione \textit{handleNotification} per notificare il Service Provider riguardo l'esito della preparazione del profilo.
@@ -779,7 +780,7 @@ Se anche solo uno di questi controlli non va a buon fine, o se l'ID di transazio
 
 \section{Policy dei profili}\label{sec:profile-policy}
 Come accennato nella sotto-sezione \ref{sec:down-install}, durante la procedura di download e installazione del profilo, è necessario anche verificare le policy del profilo per stabilire se quest'ultimo può essere installato all'interno dell'eUICC. Di conseguenza, può tornare utile illustrare nel dettaglio il meccanismo di gestione delle policy dei profili previsto in GSMA \cite{GSMA-docs-new}.\\
-Le policy dei profili possono essere descritte dalle cosiddette \textbf{Profile Policy Rules} (PPR), che sono delle regole che descrivono cosa è possibile e non è possibile fare con ciascun profilo. Attualmente possono essere definite due PPR in particolare:
+Le policy dei profili possono essere descritte dalle cosiddette \textbf{Profile Policy Rules} (PPR), che sono delle regole che descrivono cosa è possibile e cosa non è possibile fare con ciascun profilo. Attualmente possono essere definite due PPR in particolare:
 \begin{itemize}
 \item PPR1 - 'Disabling of this Profile is not allowed'
 \item PPR2 - 'Deletion of this Profile is not allowed'
@@ -801,7 +802,7 @@ In definitiva, la possibilità per un profilo di essere installato o meno dipend
 \item Se invece non tutte le PPR vengono coperte, non c'è la possibilità di installare il profilo nell'eUICC.
 \end{itemize}
 \end{itemize}
-Si noti che il placeholder "*" per Allowed Operators indica "tutti gli operatori". Se esistono più PPAR valide per una medesima PPR e un medesimo operatore, fa fede quella che compare per prima all'interno della RAT.\\
+Si noti che il placeholder '*' per Allowed Operators indica "tutti gli operatori". Se esistono più PPAR valide per una medesima PPR e un medesimo operatore, fa fede quella che compare per prima all'interno della RAT.\\
 Il componente dell'eUICC che si occupa di verificare se un profilo contenente una o più PPR è autorizzato dalla RAT o meno è detto \textbf{Profile Policy Enabler} (PPE) \cite{GSMA-docs-new}.
 
 \subsubsection{Primo esempio di RAT}
@@ -858,11 +859,11 @@ Un terzo esempio classico è dato dalla tabella RAT vuota, secondo cui nessun op
 \section{Obiettivo prefissato}
 Lo scopo che è stato inizialmente definito per la fase operativa del presente lavoro è quello di costruire un simulatore sia per il client (composto da eUICC e LPA) sia per il server SM-DP+, in modo tale da:
 \begin{enumerate}
-\item creare un ecosistema simulato che funzioni secondo le specifiche della GSMA;
+\item creare un ecosistema simulato che funzioni secondo le specifiche di GSMA;
 \item far comunicare ciascun simulatore rispettivamente con server SM-DP+ reali e con eUICC + LPA reali, con l'idea di verificare come questi rispondono se vengono sollecitati in modo diverso. In tal modo, con test opportuni, è possibile mettere alla prova le entità reali per stabilire se:
 \begin{itemize}[itemsep=0pt]
 \item è possibile ricavare qualche informazione in più o qualche vulnerabilità;
-\item implementano ogni controllo e ogni messaggio secondo le specifiche della GSMA oppure accettano un qualche pacchetto non conforme (e.g. contenente una signature o un certificato non valido).
+\item implementano ogni controllo e ogni messaggio secondo le specifiche di GSMA oppure accettano un qualche pacchetto non conforme (e.g. contenente una signature o un certificato non valido).
 \end{itemize}
 \end{enumerate}
 Per aiutarsi con l'implementazione dei simulatori, è utile avere a disposizione una traccia che rappresenti un reale scambio di messaggi tra un'applicazione LPA e un server SM-DP+. Questa, assieme alla documentazione, può rappresentare il punto di riferimento a cui affidarsi per implementare nel modo più preciso e fedele possibile lo scambio di messaggi e i check effettuati dalle due controparti.
@@ -882,9 +883,9 @@ Wireshark risulta fondamentale per individuare il formato esatto di ciascun pacc
 \end{figure}
 Com'è possibile vedere, in mezzo a dei normalissimi pacchetti TCP, spiccano alcuni pacchetti contrassegnati dal protocollo HTTP/JSON, che sono relativi proprio ai messaggi che compongono la comunicazione tra l'LPA e il server SM-DP+. In particolare, ve ne sono tre inviati al server da parte del client, mentre gli altri tre non sono altro che le rispettive risposte del server. I tre messaggi inviati dal client sono elencati qui di seguito:
 \begin{enumerate}
-\item \textbf{initiateAuthentication}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
-\item \textbf{authenticateClient}, che corrisponde al secondo messaggio inviato al server SM-DP+ da parte dell'LPA durante la procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
-\item \textbf{getBoundProfilePackage}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).
+\item \textbf{initiateAuthentication}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA allo step (6) della procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
+\item \textbf{authenticateClient}, che corrisponde al secondo messaggio inviato al server SM-DP+ da parte dell'LPA allo step (15) della procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).
+\item \textbf{getBoundProfilePackage}, che corrisponde al primo messaggio inviato al server SM-DP+ da parte dell'LPA allo step (5) della sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).
 \end{enumerate}
 È chiaro che le risposte del server all'interno del file PCAP, nell'ordine, siano relative ai seguenti altri messaggi:
 \begin{enumerate}
@@ -892,9 +893,9 @@ Com'è possibile vedere, in mezzo a dei normalissimi pacchetti TCP, spiccano alc
 \item \textbf{authenticateClientResponse}, che corrisponde all'unico messaggio inviato all'LPA da parte del server SM-DP+ allo step (6) della procedura di download e installazione dei profili (sezione \ref{sec:down-install}).
 \item \textbf{getBoundProfilePackageResponse}, che corrisponde al messaggio inviato all'LPA da parte del server SM-DP+ allo step (11) della sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).
 \end{enumerate}
-In realtà, le altre due tracce che sono state prese, oltre a questi sei pacchetti HTTP/JSON, riportano ulteriori messaggi contrassegnati dal medesimo protocollo, e sembrano corrispondere tutti a un \textbf{handleNotification} inviato al server SM-DP+ da parte dell'LPA in modo periodico: tale handleNotification è relativo all'ultimo messaggio ricevuto dal server durante la sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).\\
+In realtà, le altre due tracce che sono state prese, oltre a questi sei pacchetti HTTP/JSON, riportano ulteriori messaggi contrassegnati dal medesimo protocollo, e sembrano corrispondere tutti a un \textbf{handleNotification} inviato al server SM-DP+ da parte dell'LPA in modo periodico: tale handleNotification è relativo all'ultimo messaggio ricevuto dal server allo step (14) della sotto-procedura di Download Confirmation (sezione \ref{sec:down-confirm}).\\
 In definitiva, è possibile apprezzare un matching perfetto tra i pacchetti catturati nelle tracce PCAP e i messaggi previsti dalla documentazione di GSMA \cite{GSMA-docs-new} nel momento in cui si considerano in sequenza la procedura di Common Mutual Authentication e la procedura di download e installazione dei profili (inclusa la sotto-procedura di Download Confirmation).\\
-Per comprendere appieno la struttura e il formato dei messaggi scambiati tra LPA e server SM-DP+, è certamente sufficiente effettuare un'analisi dettagliata del primo messaggio inviato dal client durante la procedura di Common Mutual Authentication (initiateAuthentication) e della relativa risposta del server (initiateAuthenticationResponse). Tuttavia, nella presente trattazione si intende effettuare un'analisi completa di tutti i pacchetti scambiati dalle controparti con lo scopo di acquisire più informazioni possibili sui messaggi scambiati ed, eventualmente, sul server SM-DP+ di Very Mobile e/o sul profilo installato nell'eUICC del dispositivo mobile.
+Per comprendere appieno la struttura e il formato dei messaggi scambiati tra LPA e server SM-DP+, è certamente sufficiente effettuare un'analisi dettagliata del primo messaggio inviato dal client durante la procedura di Common Mutual Authentication (initiateAuthentication) e della relativa risposta del server (initiateAuthenticationResponse). Tuttavia, nella presente trattazione si intende effettuare un'analisi completa di tutti i pacchetti scambiati dalle controparti con lo scopo di acquisire più informazioni possibili sui messaggi ed, eventualmente, sul server SM-DP+ di Very Mobile e sul profilo installato all'interno dell'eUICC del dispositivo mobile.
 
 \subsection{Analisi di initiateAuthentication}
 Da Wireshark è possibile osservare il contenuto del messaggio initiateAuthentication all'interno della comunicazione reale tra LPA del dispositivo mobile e server SM-DP+ di Very Mobile. La figura \ref{fig:msg1-stream-pcap} ne mostra un estratto.\\
@@ -915,13 +916,13 @@ Per quanto invece concerne il payload del messaggio, è possibile osservare che 
 
 \subsubsection{Codifica base64}
 È un sistema di codifica che permette di convertire una sequenza di byte in una stringa in formato ASCII, dove i possibili caratteri diversi che compongono la stringa sono 64 \cite{RFC-4648}. Lo scopo della codifica è principalmente quello di rendere stampabile qualunque tipo di informazione.\\
-L'idea alla base della codifica è molto semplice: si prende la sequenza di byte di partenza, la si suddivide in gruppi di 6 bit, e ciascun gruppo di 6 bit viene tradotto nel corrispondente carattere ASCII secondo la convenzione riportata nella figura \ref{fig:base64} tratta da \cite{RFC-4648}.\\
+L'idea alla base è molto semplice: si prende la sequenza di byte di partenza, la si suddivide in gruppi di 6 bit, e ciascun gruppo di 6 bit viene tradotto nel corrispondente carattere ASCII secondo la convenzione riportata nella figura \ref{fig:base64} tratta da \cite{RFC-4648}.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{base64.png}
 \caption{Tabella di conversione della codifica base64.}
 \label{fig:base64}
 \end{figure}
-La tabella di conversione della codifica base64 riporta anche un sessantacinquesimo carattere ('='), che svolge la funzione di padding. Infatti, è possibile assumere che ogni sequenza di byte data in input all'algoritmo di codifica base64 abbia una lunghezza multipla di 8 bit, ma non è detto che abbia una lunghezza multipla anche di 6 bit (i.e. di 24 bit). Per questo motivo, si hanno tre casistiche \cite{RFC-4648}:
+La tabella di conversione della codifica base64 riporta anche un sessantacinquesimo carattere ('='), che svolge la funzione di padding. Infatti, è possibile assumere che ogni sequenza di byte data in input all'algoritmo di codifica base64 abbia una lunghezza multipla di 8 bit, ma non è detto che abbia una lunghezza multipla anche di 6 bit; di fatto, avere una linghezza multipla di 6 bit significherebbe avere una lunghezza multipla di 24 bit. Si hanno dunque tre casistiche \cite{RFC-4648}:
 \begin{enumerate}
 \item La sequenza di byte di input ha una lunghezza multipla di 24 bit: in tal caso, non è necessario avere particolari accortezze e, in particolare, non è previsto alcun padding.
 \item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 8 bit: in tal caso, vengono aggiunti 4 bit di padding pari a 0, vengono convertiti i 12 bit così ottenuti nei corrispettivi 2 caratteri ASCII e, in coda alla stringa di output, vengono aggiunti 2 caratteri di uguale ('==').
@@ -953,9 +954,9 @@ ASN.1 (Abstract Syntax Notation One) è uno standard di codifica che rappresenta
 \end{itemize}
 Comunque sia, conoscere lo standard ASN.1 non è sufficiente per interpretare in modo agevole le sequenze di byte come quella in figura \ref{fig:asn1-euiccInfo1} che è relativa a euiccInfo1. Infatti, a primo impatto si intuisce solo che euiccInfo1 è composto a sua volta da tre elementi in formato TLV (che iniziano rispettivamente coi byte 0x8203, 0xA92C, 0xAA2C), ma il loro significato non è chiaro. Di seguito è riportata la definizione precisa della struttura dati euiccInfo1 tratta da \cite{RSP-definitions}.\\
 
-\textit{EUICCInfo1 ::= [32] SEQUENCE \{ -- Tag 'BF20'}
+\textit{EUICCInfo1 ::= [32] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF20'}}
 
-\hspace{0.75cm} \textit{svn [2] VersionType, -- GSMA SGP.22 version supported (SVN)}
+\hspace{0.75cm} \textit{svn [2] VersionType, \textcolor{gray}{{-}{-} GSMA SGP.22 version supported (SVN)}}
 
 \hspace{0.75cm} \textit{euiccCiPKIdListForVerification [9] SEQUENCE OF SubjectKeyIdentifier,}
 
@@ -969,7 +970,7 @@ Come si può evincere, euiccInfo1 è una struttura dati composta da alcune infor
 \item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per autenticare il server;
 \item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per firmare i propri dati.
 \end{itemize}
-Si noti che questa definizione di euiccInfo1 combacia perfettamente con le specifiche della GSMA \cite{GSMA-docs-new} relative alla procedura di Common Mutual Authentication \ref{sec:mutual-auth}.\\
+Si noti che questa definizione di euiccInfo1 combacia perfettamente con le specifiche di GSMA \cite{GSMA-docs-new} relative alla procedura di Common Mutual Authentication \ref{sec:mutual-auth}.\\
 Per determinare nel modo più agevole possibile i valori assunti dai tre campi di euiccInfo1 sopra elencati, si può far riferimento al sito https://lapo.it/asn1js/ (\textit{ASN.1 JavaScript decoder}) il quale, data una stringa base64, restituisce in chiaro le informazioni codificate con lo standard ASN.1. In figura \ref{fig:decode-euiccInfo1} è riportato l'output del sito \textit{ASN.1 JavaScript decoder} nel momento in cui gli viene dato in pasto la stringa base64 associata a euiccInfo1 in figura \ref{fig:msg1-stream-pcap}.
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-euiccInfo1.png}
@@ -1006,13 +1007,13 @@ La struttura dati serverSigned1 è molto semplice: dalla sua definizione riporta
 
 \textit{ServerSigned1 ::= [32] SEQUENCE \{}
 
-\hspace{0.75cm} \textit{transactionId [0] TransactionId, -- The Transaction ID generated by the RSP Server}
+\hspace{0.75cm} \textit{transactionId [0] TransactionId, \textcolor{gray}{{-}{-} The Transaction ID generated by the RSP Server}}
 
-\hspace{0.75cm} \textit{euiccChallenge [1] Octet16, -- The eUICC Challenge}
+\hspace{0.75cm} \textit{euiccChallenge [1] Octet16, \textcolor{gray}{{-}{-} The eUICC Challenge}}
 
-\hspace{0.75cm} \textit{serverAddress [3] UTF8String, -- The RSP Server address}
+\hspace{0.75cm} \textit{serverAddress [3] UTF8String, \textcolor{gray}{{-}{-} The RSP Server address}}
 
-\hspace{0.75cm} \textit{serverChallenge [4] Octet16, -- The RSP Server Challenge}
+\hspace{0.75cm} \textit{serverChallenge [4] Octet16, \textcolor{gray}{{-}{-} The RSP Server Challenge}}
 
 \textit{\}\\}
 
@@ -1040,7 +1041,7 @@ Per quanto invece riguarda il campo serverCertificate di initiateAuthenticationR
 \item \textbf{issuer Name}: è un campo relativo alla CA che ha rilasciato il presente certificato ed è a sua volta articolato in due sotto-campi, che sono l'organizationName (pari a "GSM Association") e il commonName (pari a "GSM Association - RSP2 Root CI1");
 \item \textbf{validity Validity}: dichiara che il certificato è valido dal 30 marzo 2023 al 29 marzo 2026, il che corrisponde a tre anni;
 \item \textbf{subject Name}: è un campo che fornisce dettagli informativi sul presente certificato ed è a sua volta composto in diversi sotto-campi, tra cui countryName (pari a "FR", i.e. Francia), localityName (pari a "Tours"), organizationName (pari a "Thales DIS France SA"), organizationalUnitName (pari a "ODC") e commonName (pari a "SMDP Plus Tours Platform").
-\item \textbf{subjectPublicKeyInfo SubjectPublicKeyInfo}: fornisce maggiori informazioni sulla chiave pubblica associata al certificato, tra cui la curva ellittica utilizzata per generare le signature, che è identificata con \textit{prime256v1}.
+\item \textbf{subjectPublicKeyInfo SubjectPublicKeyInfo}: fornisce maggiori informazioni sulle chiavi associate al certificato, tra cui la curva ellittica utilizzata per generare le signature, che è identificata con \textit{prime256v1}.
 \end{itemize}
 Più in basso nel certificato si trovano le cosiddette estensioni, ovvero informazioni aggiuntive opzionali che possono essere inserite a piacimento all'interno del certificato. Tra queste è possibile individuare:
 \begin{itemize}
@@ -1076,7 +1077,7 @@ Il JSON del payload è composto da due campi:
 \end{itemize}
 Per quanto riguarda authenticateServerResponse, è una struttura composta da più elementi ASN.1 di tipo Sequence anche annidati tra loro, ed è descritta nella definizione riportata nelle pagine successive\cite{RSP-definitions}.\\
 
-\textit{AuthenticateServerResponse ::= [56] CHOICE \{ -- Tag 'BF38'}
+\textit{AuthenticateServerResponse ::= [56] CHOICE \{ \textcolor{gray}{{-}{-} Tag 'BF38'}}
 
 \hspace{0.75cm} \textit{authenticateResponseOk AuthenticateResponseOk,}
 
@@ -1086,13 +1087,13 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \textit{AuthenticateResponseOk ::= SEQUENCE \{}
 
-\hspace{0.75cm} \textit{euiccSigned1 EuiccSigned1, -- Signed information}
+\hspace{0.75cm} \textit{euiccSigned1 EuiccSigned1, \textcolor{gray}{{-}{-} Signed information}}
 
-\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, -- EUICC\_Sign1, tag 5F37}
+\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag 5F37}}
 
-\hspace{0.75cm} \textit{euiccCertificate Certificate, -- CERT.EUICC.ECDSA signed by the EUM}
+\hspace{0.75cm} \textit{euiccCertificate Certificate, \textcolor{gray}{{-}{-} CERT.EUICC.ECDSA signed by the EUM}}
 
-\hspace{0.75cm} \textit{eumCertificate Certificate -- CERT.EUM.ECDSA signed by the CI}
+\hspace{0.75cm} \textit{eumCertificate Certificate \textcolor{gray}{{-}{-} CERT.EUM.ECDSA signed by the CI}}
 
 \textit{\}\\}
 
@@ -1102,7 +1103,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{serverAddress [3] UTF8String,}
 
-\hspace{0.75cm} \textit{serverChallenge [4] Octet16, -- The RSP Server Challenge}
+\hspace{0.75cm} \textit{serverChallenge [4] Octet16, \textcolor{gray}{{-}{-} The RSP Server Challenge}}
 
 \hspace{0.75cm} \textit{euiccInfo2 [34] EUICCInfo2,}
 
@@ -1110,15 +1111,15 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \textit{\}\\}
 
-\textit{EuiccInfo2 ::= [34] SEQUENCE \{ -- Tag 'BF22'}
+\textit{EuiccInfo2 ::= [34] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF22'}}
 
-\hspace{0.75cm} \textit{profileVersion [1] VersionType, -- SIMAlliace Profile package version supported}
+\hspace{0.75cm} \textit{profileVersion [1] VersionType, \textcolor{gray}{{-}{-} SIMAlliace Profile package version supported}}
 
-\hspace{0.75cm} \textit{svn [2] VersionType, -- eUICC Firmware version}
+\hspace{0.75cm} \textit{svn [2] VersionType, \textcolor{gray}{{-}{-} eUICC Firmware version}}
 
-\hspace{0.75cm} \textit{euiccFirmwareVer [3] VersionType, -- eUICC Firmware version}
+\hspace{0.75cm} \textit{euiccFirmwareVer [3] VersionType, \textcolor{gray}{{-}{-} eUICC Firmware version}}
 
-\hspace{0.75cm} \textit{extCardResource [4] OCTET STRING, -- Extended Card Resource Information}
+\hspace{0.75cm} \textit{extCardResource [4] OCTET STRING, \textcolor{gray}{{-}{-} Extended Card Resource Information}}
 
 \hspace{0.75cm} \textit{uiccCapability [5] UICCCapability,}
 
@@ -1144,9 +1145,9 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{\} OPTIONAL,}
 
-\hspace{0.75cm} \textit{forbiddenProfilePolicyRules [25] PprIds OPTIONAL, -- Tag '99'}
+\hspace{0.75cm} \textit{forbiddenProfilePolicyRules [25] PprIds OPTIONAL, \textcolor{gray}{{-}{-} Tag '99'}}
 
-\hspace{0.75cm} \textit{ppVersion VersionType, -- Protection Profile version}
+\hspace{0.75cm} \textit{ppVersion VersionType, \textcolor{gray}{{-}{-} Protection Profile version}}
 
 \hspace{0.75cm} \textit{sasAcreditationNumber UTF8String (SIZE(0..64)),}
 
@@ -1164,7 +1165,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{matchingId UTF8String OPTIONAL,}
 
-\hspace{0.75cm} \textit{deviceInfo DeviceInfo -- The Device information}
+\hspace{0.75cm} \textit{deviceInfo DeviceInfo \textcolor{gray}{{-}{-} The Device information}}
 
 \textit{\}\\}
 
@@ -1209,25 +1210,25 @@ I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e 
 
 La struttura dati profileMetadata, come riportato di seguito, comprende informazioni sul profilo target come l'ICCID (che, come spiegato nella sezione \ref{sec:device-change}, è l'identificativo del profilo), il nome dell'operatore, il nome del profilo, la classe del profilo ed eventuali Profile Policy Rules.\\
 
-\textit{StoreMetadataRequest ::= [37] SEQUENCE \{ -- Tag 'BF25'}
+\textit{StoreMetadataRequest ::= [37] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF25'}}
 
 \hspace{0.75cm} \textit{iccid Iccid,}
 
-\hspace{0.75cm} \textit{serviceProviderName [17] UTF8String (SIZE(0..32)), -- Tag '91'}
+\hspace{0.75cm} \textit{serviceProviderName [17] UTF8String (SIZE(0..32)), \textcolor{gray}{{-}{-} Tag '91'}}
 
-\hspace{0.75cm} \textit{profileName [18] UTF8String (SIZE(0..64)), -- Tag '92'}
+\hspace{0.75cm} \textit{profileName [18] UTF8String (SIZE(0..64)), \textcolor{gray}{{-}{-} Tag '92'}}
 
-\hspace{0.75cm} \textit{iconType [19] IconType OPTIONAL, -- Tag '93' (JPG or PNG)}
+\hspace{0.75cm} \textit{iconType [19] IconType OPTIONAL, \textcolor{gray}{{-}{-} Tag '93' (JPG or PNG)}}
 
-\hspace{0.75cm} \textit{icon [20] OCTET STRING (SIZE(0..1024)), -- Tag '94' (Data of the icon}
+\hspace{0.75cm} \textit{icon [20] OCTET STRING (SIZE(0..1024)), \textcolor{gray}{{-}{-} Tag '94' (Data of the icon)}}
 
-\hspace{0.75cm} \textit{profileClass [21] ProfileClass DEFAULT operational, -- Tag '95'}
+\hspace{0.75cm} \textit{profileClass [21] ProfileClass DEFAULT operational, \textcolor{gray}{{-}{-} Tag '95'}}
 
 \hspace{0.75cm} \textit{notifConfig [22] SEQUENCE OF NotificationConfigurationInformation OPTIONAL,}
 
-\hspace{0.75cm} \textit{profileOwner [23] OperatorId OPTIONAL, -- Tag 'B7'}
+\hspace{0.75cm} \textit{profileOwner [23] OperatorId OPTIONAL, \textcolor{gray}{{-}{-} Tag 'B7'}}
 
-\hspace{0.75cm} \textit{profilePolicyRules [25] PprIds OPTIONAL -- Tag '99'}
+\hspace{0.75cm} \textit{profilePolicyRules [25] PprIds OPTIONAL \textcolor{gray}{{-}{-} Tag '99'}}
 
 \textit{\}\\}
 
@@ -1235,11 +1236,11 @@ La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transa
 
 \textit{SmdpSigned2 ::= SEQUENCE \{}
 
-\hspace{0.75cm} \textit{transactionId [0] TransactionId, -- The TransactionID generated by the SM-DP+}
+\hspace{0.75cm} \textit{transactionId [0] TransactionId, \textcolor{gray}{{-}{-} The TransactionID generated by the SM-DP+}}
 
-\hspace{0.75cm} \textit{ccRequiredFlag BOOLEAN, -- Indicates if the Confirmation Code is required}
+\hspace{0.75cm} \textit{ccRequiredFlag BOOLEAN, \textcolor{gray}{{-}{-} Indicates if the Confirmation Code is required}}
 
-\hspace{0.75cm} \textit{bppEuiccOtpk [APPLICATION 73] OCTET STRING OPTIONAL -- otPK.EUICC.ECKA}
+\hspace{0.75cm} \textit{bppEuiccOtpk [APPLICATION 73] OCTET STRING OPTIONAL \textcolor{gray}{{-}{-} otPK.EUICC.ECKA}}
 
 \textit{\}\\}
 
@@ -1263,7 +1264,7 @@ Il payload è composto da due campi:
 \end{itemize}
 Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definitions}.\\
 
-\textit{PrepareDownloadResponse ::= [33] CHOICE \{ -- Tag 'BF21'}
+\textit{PrepareDownloadResponse ::= [33] CHOICE \{ \textcolor{gray}{{-}{-} Tag 'BF21'}}
 
 \hspace{0.75cm} \textit{downloadResponseOk PrepareDownloadResponseOk,}
 
@@ -1273,9 +1274,9 @@ Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definit
 
 \textit{PrepareDownloadResponseOk ::= SEQUENCE \{}
 
-\hspace{0.75cm} \textit{euiccSigned2 EUICCSigned2, -- Signed information}
+\hspace{0.75cm} \textit{euiccSigned2 EUICCSigned2, \textcolor{gray}{{-}{-} Signed information}}
 
-\hspace{0.75cm} \textit{euiccSignature2 [APPLICATION 55] OCTET STRING -- tag '5F37'}
+\hspace{0.75cm} \textit{euiccSignature2 [APPLICATION 55] OCTET STRING \textcolor{gray}{{-}{-} tag '5F37'}}
 
 \textit{\}\\}
 
@@ -1283,9 +1284,9 @@ Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definit
 
 \hspace{0.75cm} \textit{transactionId [0] TransactionId,}
 
-\hspace{0.75cm} \textit{euiccOtpk [APPLICATION 73] OCTET STRING, -- otPK.EUICC.ECKA, tag '5F49'}
+\hspace{0.75cm} \textit{euiccOtpk [APPLICATION 73] OCTET STRING, \textcolor{gray}{{-}{-} otPK.EUICC.ECKA, tag '5F49'}}
 
-\hspace{0.75cm} \textit{hashCc Octet32 OPTIONAL -- Hash of confirmation code}
+\hspace{0.75cm} \textit{hashCc Octet32 OPTIONAL \textcolor{gray}{{-}{-} Hash of confirmation code}}
 
 \textit{\}\\}
 
@@ -1294,7 +1295,7 @@ D'altra parte, prepareDownloadResponseOk è composto dalla struttura dati euiccS
 \begin{itemize}
 \item \textbf{transactionId}: è l'ID di transazione;
 \item \textbf{euiccOtpk}: è la chiave pubblica otPK.EUICC.KA (sezione \ref{sec:keys});
-\item \textbf{hashCc}: è un campo opzionale che è presente se il Confirmation Code è richiesto e corrisponde al valore SHA256(SHA256(Confirmation Code) | transactionId).
+\item \textbf{hashCc}: è un campo opzionale che è presente se il Confirmation Code è richiesto e corrisponde al valore SHA256(SHA256(Confirmation Code) $\vert$ transactionID).
 \end{itemize}
 
 \subsection{Analisi di getBoundProfilePackageResponse}
@@ -1312,17 +1313,17 @@ Il payload è composto dai seguenti tre campi:
 \end{itemize}
 Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
 
-\textit{BoundProfilePackage ::= [54] SEQUENCE \{ -- Tag 'BF36'}
+\textit{BoundProfilePackage ::= [54] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF36'}}
 
-\hspace{0.75cm} \textit{initialiseSecureChannelRequest [35] InitialiseSecureChannelRequest, -- Tag 'BF23'}
+\hspace{0.75cm} \textit{initialiseSecureChannelRequest [35] InitialiseSecureChannelRequest, \textcolor{gray}{{-}{-} Tag 'BF23'}}
 
-\hspace{0.75cm} \textit{firstSequenceOf87 [0] SEQUENCE OF [7] OCTET STRING, -- sequence if '87' TLVs}
+\hspace{0.75cm} \textit{firstSequenceOf87 [0] SEQUENCE OF [7] OCTET STRING, \textcolor{gray}{{-}{-} sequence if '87' TLVs}}
 
-\hspace{0.75cm} \textit{sequenceOf88 [1] SEQUENCE OF [8] OCTET STRING, -- sequence of '88' TLVs}
+\hspace{0.75cm} \textit{sequenceOf88 [1] SEQUENCE OF [8] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '88' TLVs}}
 
 \hspace{0.75cm} \textit{secondSequenceOf87 [2] SEQUENCE OF [7] OCTET STRING OPTIONAL,}
 
-\hspace{0.75cm} \textit{sequenceOf86 [3] SEQUENCE OF [6] OCTET STRING, -- sequence of '86' TLVs}
+\hspace{0.75cm} \textit{sequenceOf86 [3] SEQUENCE OF [6] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '86' TLVs}}
 
 \textit{\}\\}
 
@@ -1343,7 +1344,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{PendingNotification ::= CHOICE \{}
 
-\hspace{0.75cm} \textit{profileInstallationResult [55] ProfileInstallationResult, -- Tag 'BF37'}
+\hspace{0.75cm} \textit{profileInstallationResult [55] ProfileInstallationResult, \textcolor{gray}{{-}{-} Tag 'BF37'}}
 
 \hspace{0.75cm} \textit{otherSignedNotification OtherSignedNotification}
 
@@ -1353,15 +1354,15 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \hspace{0.75cm} \textit{tbsOtherNotification NotificationMetadata,}
 
-\hspace{0.75cm} \textit{euiccNotificationSignature [APPLICATION 55] OCTET STRING, -- eUICC signature}
+\hspace{0.75cm} \textit{euiccNotificationSignature [APPLICATION 55] OCTET STRING, \textcolor{gray}{{-}{-} eUICC signature}}
 
-\hspace{0.75cm} \textit{euiccCertificate Certificate, -- CERT.EUICC.ECDSA}
+\hspace{0.75cm} \textit{euiccCertificate Certificate, \textcolor{gray}{{-}{-} CERT.EUICC.ECDSA}}
 
-\hspace{0.75cm} \textit{eumCertificate Certificate -- CERT.EUM.ECDSA}
+\hspace{0.75cm} \textit{eumCertificate Certificate \textcolor{gray}{{-}{-} CERT.EUM.ECDSA}}
 
 \textit{\}\\}
 
-\textit{ProfileInstallationResult ::= [55] SEQUENCE \{ -- Tag 'BF37'}
+\textit{ProfileInstallationResult ::= [55] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF37'}}
 
 \hspace{0.75cm} \textit{profileInstallationResultData [39] ProfileInstallationResultData,}
 
@@ -1369,13 +1370,13 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{\}\\}
 
-\textit{ProfileInstallationResultData ::= [39] SEQUENCE \{ -- Tag 'BF27'}
+\textit{ProfileInstallationResultData ::= [39] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF27'}}
 
-\hspace{0.75cm} \textit{transactionId[0] TransactionId, -- The TransactionID generated by the SM-DP+}
+\hspace{0.75cm} \textit{transactionId[0] TransactionId, \textcolor{gray}{{-}{-} The TransactionID generated by the SM-DP+}}
 
 \hspace{0.75cm} \textit{notificationMetadata [47] NotificationMetadata,}
 
-\hspace{0.75cm} \textit{smdpOid OBJECT IDENTIFIER, -- SM-DP+ OID}
+\hspace{0.75cm} \textit{smdpOid OBJECT IDENTIFIER, \textcolor{gray}{{-}{-} SM-DP+ OID}}
 
 \hspace{0.75cm} \textit{finalResult [2] CHOICE \{}
 
@@ -1389,9 +1390,9 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{SuccessResult ::= SEQUENCE \{}
 
-\hspace{0.75cm} \textit{aid [APPLICATION 15] OCTET STRING (SIZE (5..16)), -- AID of ISD-P}
+\hspace{0.75cm} \textit{aid [APPLICATION 15] OCTET STRING (SIZE (5..16)), \textcolor{gray}{{-}{-} AID of ISD-P}}
 
-\hspace{0.75cm} \textit{simaResponse OCTET STRING -- contains (multiple) 'EUICCResponse'}
+\hspace{0.75cm} \textit{simaResponse OCTET STRING \textcolor{gray}{{-}{-} contains (multiple) 'EUICCResponse'}}
 
 \textit{\}\\}
 
@@ -1401,7 +1402,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \hspace{0.75cm} \textit{errorReason ErrorReason,}
 
-\hspace{0.75cm} \textit{simaResponse OCTET STRING OPTIONAL -- contains (multiple) 'EUICCResponse'}
+\hspace{0.75cm} \textit{simaResponse OCTET STRING OPTIONAL \textcolor{gray}{{-}{-} contains (multiple) 'EUICCResponse'}}
 
 \textit{\}\\}
 
