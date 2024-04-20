@@ -1004,6 +1004,11 @@ Il payload del messaggio ha una struttura JSON del tutto analoga a quella di ini
 Per comprendere appieno le informazioni celate nei campi di initiateAuthenticationResponse codificati in base64, si fa nuovamente riferimento a \cite{RSP-definitions} e al sito \textit{ASN.1 JavaScript decoder}.\\
 
 La struttura dati serverSigned1 è molto semplice: dalla sua definizione riportata di seguito e dalla figura \ref{fig:decode-serverSigned1} \cite{RSP-definitions}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-serverSigned1.png}
+\caption{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.}
+\label{fig:decode-serverSigned1}
+\end{figure}
 
 \textit{ServerSigned1 ::= [32] SEQUENCE \{}
 
@@ -1017,23 +1022,7 @@ La struttura dati serverSigned1 è molto semplice: dalla sua definizione riporta
 
 \textit{\}\\}
 
-\begin{figure}
-\includegraphics[width=\linewidth]{decode-serverSigned1.png}
-\caption{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.}
-\label{fig:decode-serverSigned1}
-\end{figure}
-
 Il campo euiccCiPKIdToBeUsed cela anch'esso una struttura TLV dello standard ASN.1, com'è possibile vedere dalle figure \ref{fig:asn1-euiccCiPKIdToBeUsed}, \ref{fig:decode-euiccCiPKIdToBeUsed}. Inoltre, il relativo campo value assume un valore che è comparso sia in euiccCiPKIdListForVerification, sia in euiccCiPKIdListForSigning, il che vuol dire che il server SM-DP+ accetta l'utilizzo di una delle due chiavi pubbliche di CA (i.e. una delle due certificate chain) proposte dal client nel messaggio initiateAuthentication.\\
-\begin{figure}
-\includegraphics[width=\linewidth]{asn1-euiccCiPKIdToBeUsed.png}
-\caption{Sequenza di byte che descrive il campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
-\label{fig:asn1-euiccCiPKIdToBeUsed}
-\end{figure}
-\begin{figure}
-\includegraphics[width=\linewidth]{decode-euiccCiPKIdToBeUsed.png}
-\caption{Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
-\label{fig:decode-euiccCiPKIdToBeUsed}
-\end{figure}
 
 Per quanto invece riguarda il campo serverCertificate di initiateAuthenticationResponse, il sito \textit{ASN.1 JavaScript decoder} aiuta a comprendere molti dettagli sul certificato CERT.DPauth.SIG e sulla relativa certificate chain utilizzata. Le figure \ref{fig:decode-serverCertificate1}, \ref{fig:decode-serverCertificate2} mostrano la decodifica di tale certificato. Inizialmente vi sono gli attributi fondamentali, come:
 \begin{itemize}
@@ -1052,6 +1041,16 @@ Più in basso nel certificato si trovano le cosiddette estensioni, ovvero inform
 \item altre informazioni che non verranno esaminate a fondo in questa trattazione, come certificatePolicies e cRLDistributionPoints.
 \end{itemize}
 Infine, in fondo al certificato, si hanno ulteriori informazioni riguardanti la signature e l'algoritmo di signature.
+\begin{figure}
+\includegraphics[width=\linewidth]{asn1-euiccCiPKIdToBeUsed.png}
+\caption{Sequenza di byte che descrive il campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
+\label{fig:asn1-euiccCiPKIdToBeUsed}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{decode-euiccCiPKIdToBeUsed.png}
+\caption{Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
+\label{fig:decode-euiccCiPKIdToBeUsed}
+\end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-serverCertificate1.png}
 \caption{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 1/2).}
@@ -1089,7 +1088,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{euiccSigned1 EuiccSigned1, \textcolor{gray}{{-}{-} Signed information}}
 
-\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag 5F37}}
+\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag '5F37'}}
 
 \hspace{0.75cm} \textit{euiccCertificate Certificate, \textcolor{gray}{{-}{-} CERT.EUICC.ECDSA signed by the EUM}}
 
@@ -1111,11 +1110,11 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \textit{\}\\}
 
-\textit{EuiccInfo2 ::= [34] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF22'}}
+\textit{EUICCInfo2 ::= [34] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF22'}}
 
-\hspace{0.75cm} \textit{profileVersion [1] VersionType, \textcolor{gray}{{-}{-} SIMAlliace Profile package version supported}}
+\hspace{0.75cm} \textit{profileVersion [1] VersionType, \textcolor{gray}{{-}{-} SIMAlliance Profile package version supported}}
 
-\hspace{0.75cm} \textit{svn [2] VersionType, \textcolor{gray}{{-}{-} eUICC Firmware version}}
+\hspace{0.75cm} \textit{svn [2] VersionType, \textcolor{gray}{{-}{-} GSMA SGP.22 version supported (SVN)}}
 
 \hspace{0.75cm} \textit{euiccFirmwareVer [3] VersionType, \textcolor{gray}{{-}{-} eUICC Firmware version}}
 
@@ -1183,11 +1182,11 @@ Anzitutto, authenticateResponseOk è composto da quattro campi: euiccSigned1 che
 \caption{Estratto dell'email di Very Mobile.}
 \label{fig:email}
 \end{figure}
-La figura \ref{fig:decode-euiccInfo2} mostra come il sito \textit{ASN.1 JavaScript decoder} decodifica il campo euiccSigned1 a partire dalla stringa base64 relativa all'ASN.1 del campo authenticateServerResponse del messaggio authenticateClient. A partire dalla sestultima riga dell'immagine si ha la traduzione della struttura ctxParamas1: qui si nota la corrispondenza tra il sotto-campo matchingId e l'Activation Code presente nell'email di cui sopra.
+La figura \ref{fig:decode-euiccSigned1} mostra come il sito \textit{ASN.1 JavaScript decoder} decodifica il campo euiccSigned1 a partire dalla stringa base64 relativa all'ASN.1 del campo authenticateServerResponse del messaggio authenticateClient. A partire dalla sestultima riga dell'immagine si ha la traduzione della struttura ctxParams1: qui si nota la corrispondenza tra il sotto-campo matchingId e l'Activation Code presente nell'email di cui sopra.
 \begin{figure}
-\includegraphics[width=\linewidth]{decode-euiccInfo2.png}
-\caption{Decodifica del campo euiccInfo2 di authenticateServerResponse.}
-\label{fig:decode-euiccInfo2}
+\includegraphics[width=\linewidth]{decode-euiccSigned1.png}
+\caption{Decodifica del campo euiccSigned1 di authenticateServerResponse.}
+\label{fig:decode-euiccSigned1}
 \end{figure}
 
 \subsection{Analisi di authenticateClientResponse}
@@ -1202,11 +1201,11 @@ Il JSON del payload è composto dai campi elencati qui di seguito:
 \item \textbf{header}: contiene di nuovo \textit{\{"status":"Executed-Success"\}}, il che vuol dire che anche in questa fase tutti i check effettuati dal server SM-DP+ hanno avuto successo;
 \item \textbf{transactionId}: è l'ID di transazione e assume sempre il medesimo valore;
 \item \textbf{profileMetadata}: è un campo codificato in base64 che, come suggerisce il nome, dovrebbe comprendere i metadati del profilo di cui si sta per effettuare il download;
-\item \textbf{smdpSigned2}: è un campo codificato in base 64 che, come suggerisce il nome, dovrebbe essere strutturalmente simile a serverSigned1 e a euiccSigned1;
+\item \textbf{smdpSigned2}: è un campo codificato in base64 che, come suggerisce il nome, dovrebbe essere strutturalmente simile a serverSigned1 e a euiccSigned1;
 \item \textbf{smdpSignature2}: è un campo codificato in base64 relativo alla signature di smdpSigned2;
 \item \textbf{smdpCertificate}: è un ultimo campo codificato in base64 che, con riferimento alla sezione \ref{sec:down-install}, rappresenta il certificato CERT.DPpb.SIG, che è potenzialmente diverso dal certificato CERT.DPauth.SIG inviato all'LPA precedentemente e viene utilizzato per firmare il profilo che si sta per scaricare.
 \end{itemize}
-I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e del sito \textit{ASN.1 JavaScript decoder} sono profileMetadata e smdpSigned2.\\
+I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e del sito \textit{ASN.1 JavaScript decoder} sono profileMetadata (la cui sequenza di byte in ASN.1 è mostrata in figura \ref{fig:asn1-profileMetadata}) e smdpSigned2.\\
 
 La struttura dati profileMetadata, come riportato di seguito, comprende informazioni sul profilo target come l'ICCID (che, come spiegato nella sezione \ref{sec:device-change}, è l'identificativo del profilo), il nome dell'operatore, il nome del profilo, la classe del profilo ed eventuali Profile Policy Rules.\\
 
@@ -1231,6 +1230,12 @@ La struttura dati profileMetadata, come riportato di seguito, comprende informaz
 \hspace{0.75cm} \textit{profilePolicyRules [25] PprIds OPTIONAL \textcolor{gray}{{-}{-} Tag '99'}}
 
 \textit{\}\\}
+
+\begin{figure}
+\includegraphics[width=\linewidth]{asn1-profileMetadata.png}
+\caption{Sequenza di byte che descrive profileMetadata in authenticateClientResponse.}
+\label{fig:asn1-profileMetadata}
+\end{figure}
 
 La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transazione e un booleano che indica se è richiesto il Confirmation Code immesso dall'utente per completare il download e l'installazione del profilo. La necessità o meno del Confirmation Code e l'eventuale relativo valore vengono negoziati da server SM-DP+ e operatore durante la fase di \textit{profile ordering} (sezione \ref{sec:step-RSP}). Nel caso specifico del profilo scaricato con l'operatore Very Mobile, il Confirmation Code non è richiesto, come testimoniato dalla figura \ref{fig:decode-smdpSigned2} tratta dal sito \textit{ASN.1 JavaScript decoder}.\\
 
@@ -1311,35 +1316,29 @@ Il payload è composto dai seguenti tre campi:
 \item \textbf{transactionId}: è l'ID di transazione;
 \item \textbf{boundProfilePackage}: è un campo codificato in base64 ed è molto grande, tant'è vero che non rientra per intero nella figura \ref{fig:msg6-stream-pcap}.
 \end{itemize}
-Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. I lettori più attenti, dalla figura \ref{fig:decode-boundProfilePackage}, si accorgeranno che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
-
-\textit{BoundProfilePackage ::= [54] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF36'}}
-
-\hspace{0.75cm} \textit{initialiseSecureChannelRequest [35] InitialiseSecureChannelRequest, \textcolor{gray}{{-}{-} Tag 'BF23'}}
-
-\hspace{0.75cm} \textit{firstSequenceOf87 [0] SEQUENCE OF [7] OCTET STRING, \textcolor{gray}{{-}{-} sequence if '87' TLVs}}
-
-\hspace{0.75cm} \textit{sequenceOf88 [1] SEQUENCE OF [8] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '88' TLVs}}
-
-\hspace{0.75cm} \textit{secondSequenceOf87 [2] SEQUENCE OF [7] OCTET STRING OPTIONAL,}
-
-\hspace{0.75cm} \textit{sequenceOf86 [3] SEQUENCE OF [6] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '86' TLVs}}
-
-\textit{\}\\}
-
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-boundProfilePackage.png}
 \caption{Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.}
 \label{fig:decode-boundProfilePackage}
 \end{figure}
+Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. Dalle figure \ref{fig:asn1-profileMetadata}, \ref{fig:decode-boundProfilePackage}, è possibile accorgersi che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
+
+\textit{BoundProfilePackage ::= [54] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF36'}}
+
+\hspace{0.75cm} \textit{initialiseSecureChannelRequest [35] InitialiseSecureChannelRequest, \textcolor{gray}{{-}{-} Tag 'BF23'}}
+
+\hspace{0.75cm} \textit{firstSequenceOf87 [0] SEQUENCE OF [7] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '87' TLVs}}
+
+\hspace{0.75cm} \textit{sequenceOf88 [1] SEQUENCE OF [8] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '88' TLVs}}
+
+\hspace{0.75cm} \textit{secondSequenceOf87 [2] SEQUENCE OF [7] OCTET STRING OPTIONAL,}
+
+\hspace{0.75cm} \textit{sequenceOf86 [3] SEQUENCE OF [6] OCTET STRING \textcolor{gray}{{-}{-} sequence of '86' TLVs}}
+
+\textit{\}\\}
 
 \subsection{Analisi di handleNotification}
 Nelle due tracce diverse da quella di riferimento sono stati catturati anche dei messaggi di handleNotification inviati al server SM-DP+ da parte dell'LPA. Può tornare utile analizzarne un campione, come quello riportato in figura \ref{fig:msg7-stream-pcap}.\\
-\begin{figure}
-\includegraphics[width=\linewidth]{msg7-stream-pcap.png}
-\caption{Messaggio di handleNotification visualizzato su Wireshark.}
-\label{fig:msg7-stream-pcap}
-\end{figure}
 Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qui di seguito.\\
 
 \textit{PendingNotification ::= CHOICE \{}
@@ -1372,7 +1371,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{ProfileInstallationResultData ::= [39] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF27'}}
 
-\hspace{0.75cm} \textit{transactionId[0] TransactionId, \textcolor{gray}{{-}{-} The TransactionID generated by the SM-DP+}}
+\hspace{0.75cm} \textit{transactionId[0] TransactionId, \textcolor{gray}{{-}{-} The Transaction ID generated by the SM-DP+}}
 
 \hspace{0.75cm} \textit{notificationMetadata [47] NotificationMetadata,}
 
@@ -1405,6 +1404,12 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 \hspace{0.75cm} \textit{simaResponse OCTET STRING OPTIONAL \textcolor{gray}{{-}{-} contains (multiple) 'EUICCResponse'}}
 
 \textit{\}\\}
+
+\begin{figure}
+\includegraphics[width=\linewidth]{msg7-stream-pcap.png}
+\caption{Messaggio di handleNotification visualizzato su Wireshark.}
+\label{fig:msg7-stream-pcap}
+\end{figure}
 
 Si hanno due casi possibili: pendingNotification pari alla struttura dati profileInstallationResult e pendingNotification pari alla struttura dati otherSignedNotification.
 \begin{itemize}
@@ -1450,6 +1455,8 @@ La tabella \ref{tab:libraries} racchiude tutte le librerie Python che sono state
 \hline
 \textbf{Libreria} & \textbf{Utilizzo}\\
 \hline
+asn1crypto & Viene usata a supporto della generazione e della verifica delle signature.\\
+\hline
 asn1tools & È la libreria di riferimento per convertire i dati in e dal formato ASN.1; prevede l'ausilio di alcuni file contenenti, tra le varie cose, le definizioni ASN.1 che vengono usate \cite{RSP-definitions}.\\
 \hline
 base64 & Viene usata per convertire i dati in e dal formato base64.\\
@@ -1457,8 +1464,6 @@ base64 & Viene usata per convertire i dati in e dal formato base64.\\
 cryptography & Viene usata a supporto della generazione dei certificati custom, della generazione e della verifica delle signature e di altre funzionalità crittografiche.\\
 \hline
 datetime & Viene usata per definire delle date o degli istanti di tempo; è utile ad esempio per inizializzare i campi \textit{not valid before} e \textit{not valid after} dei certificati custom.\\
-\hline
-ecdsa & Viene usata per eseguire operazioni sull'algoritmo ECDSA e sulle relative curve ellittiche.\\
 \hline
 gzip & Viene usata per estrarre il payload dei messaggi eventualmente compressi del server SM-DP+ (non è il caso di Very Mobile).\\
 \hline
@@ -1472,9 +1477,13 @@ os & Viene usata per interagire col sistema operativo.\\
 \hline
 random & Viene usata per generare valori o stringhe in modo pseudo-randomico, come ad esempio i Matching ID.\\
 \hline
+requests & Viene usata in alternativa alla libreria http, in particolar modo per utilizzare la parte client per la comunicazione HTTP quando si ha a che fare con un server che con la libreria http dà problemi.\\
+\hline
 secrets & Viene usata per generare sequenze di byte pseudo-randomiche, come ad esempio le challenge.\\
 \hline
 signal & Viene usata per definire un timeout ove è previsto un input da parte dell'utente da immettere entro un tempo limitato.\\
+\hline
+six & Viene usata per verificare se determinate variabili sono istanze di uno specifico tipo di dato.\\
 \hline
 socket & Viene usata per definire e utilizzare le socket dalle quali verrà istanziata la connessione HTTP.\\
 \hline
