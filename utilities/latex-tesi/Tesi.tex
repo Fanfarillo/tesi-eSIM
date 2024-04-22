@@ -31,8 +31,8 @@
 \Annoaccademico{2023/2024}
 \Titolo{Analisi della sicurezza e delle vulnerabilità delle eSIM, dei server SM-DP+ e del protocollo che regolamenta la loro comunicazione mediante l'implementazione e l'utilizzo di simulatori}
 \Candidato[0316179]{Matteo Fanfarillo}
-\Relatore{Giuseppe Bianchi}
-\Correlatore{Francesco Gringoli}
+\Relatore{Prof. Ing. Giuseppe Bianchi}
+\Correlatore{Prof. Ing. Francesco Gringoli}
 \Logo{logo.png}
 \end{frontespizio}
 
@@ -75,7 +75,7 @@ Per comprendere appieno come funziona e come si interfaccia l'eSIM all'interno d
 RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ per gestire la comunicazione tra il server SM-DP+ e la scheda eSIM del dispositivo mobile (i.e. l'eUICC). In particolare, definisce le operazioni di provisioning specifiche per la comunicazione dell'eUICC. Quest'ultimo comprende i dati sia dell'operatore che dell'utente che, nel caso delle SIM tradizionali, verrebbero memorizzati su una SIM card fisica. L'end user che vuole ottenere un profilo eSIM offerto da un particolare operatore (nel quale viene definito un piano tariffario) deve pagare l'operatore affinché esso gli fornisca un codice QR. Dopodiché, deve effettuare la scansione del codice QR per avviare lo scaricamento (operazione di Download) e l'installazione (operazione di Install) del profilo eSIM: a questo punto, la connessione tra end user (col relativo profilo eSIM) e operatore è completata. Se in un secondo momento l'end user ha la necessità di ottenere un secondo profilo eSIM, gli è sufficiente ripetere i medesimi passaggi appena descritti, e questo secondo profilo può essere installato all'interno del medesimo eUICC che ospita già il primo profilo. Tale meccanismo è illustrato nella figura \ref{fig:RSP-functioning} tratta da \cite{GSMA-whitepaper}.
 \begin{figure}
 \includegraphics[width=\linewidth]{RSP-functioning.png}
-\caption{\textit{Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.}}
+\caption{Comunicazione tra end user e operatore nel contesto del Remote SIM Provisioning.}
 \label{fig:RSP-functioning}
 \end{figure}
 \\Per quanto riguarda l'architettura interna di RSP nello specifico, esistono due soluzioni diverse \cite{GSMA-docs-new}.
@@ -83,7 +83,7 @@ RSP (Remote SIM Provisioning) è un protocollo utilizzato dal protocollo SM-DP+ 
 \item \textbf{LPA embeddato nel dispositivo mobile ma non all'interno dell'eUICC (LPAd)}: oltre alla comunicazione tra l'applicazione LPA e SM-DP+, si utilizzano delle apposite interfacce anche per la comunicazione tra l'eUICC e l'applicazione LPA, come mostrato nella figura \ref{fig:RSP-LPAd} tratta da \cite{GSMA-docs-new}.
 \begin{figure}
 \includegraphics[width=\linewidth]{RSP-LPAd.png}
-\caption{\textit{Architettura di RSP nel caso di LPA non embeddato nell'eUICC.}}
+\caption{Architettura di RSP nel caso di LPA non embeddato nell'eUICC.}
 \label{fig:RSP-LPAd}
 \end{figure}
 Di seguito è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura di RSP raffigurata in \ref{fig:RSP-LPAd}.
@@ -101,7 +101,7 @@ Di seguito è riportato un breve glossario che chiarisce il significato di alcun
 \item \textbf{LPA embeddato all'interno dell'eUICC (LPAe)}: sono necessarie solo delle interfacce tra l'eUICC e SM-DP+, come mostrato nella figura \ref{fig:RSP-LPAe} tratta da \cite{GSMA-docs-new}.
 \begin{figure}
 \includegraphics[width=\linewidth]{RSP-LPAe.png}
-\caption{\textit{Architettura di RSP nel caso di LPA embeddato nell'eUICC.}}
+\caption{Architettura di RSP nel caso di LPA embeddato nell'eUICC.}
 \label{fig:RSP-LPAe}
 \end{figure}
 Successivamente è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura di RSP raffigurata in \ref{fig:RSP-LPAe}.
@@ -118,7 +118,7 @@ Sono illustrate nella tabella \ref{tab:interfaces}, costruita a partire da infor
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Interfacce in RSP.}}
+\caption{Interfacce in RSP.}
 \label{tab:interfaces}
 \begin{tabularx}{\textwidth}{|c|c|c|X|} % <-- Alignments: 1st column center, 2nd center and 3rd center, with vertical lines in between
 \hline
@@ -173,7 +173,7 @@ ESapp & Operatore & Device App & È un'interfaccia che prescinde dagli scopi del
 Nella figura \ref{fig:eUICC-arch} tratta da \cite{GSMA-docs-new} è schematizzata l'architettura interna del chip eUICC, dove i riquadri e le frecce in rosso sono relativi rispettivamente ai componenti e alle interfacce che, nell'ambito dell'eUICC, sono presenti esclusivamente nel caso in cui l'applicazione LPA sia effettivamente embeddata all'interno dell'eUICC (LPAe).
 \begin{figure}
 \includegraphics[width=\linewidth]{eUICC-arch.png}
-\caption{\textit{Architettura dell'eUICC.}}
+\caption{Architettura dell'eUICC.}
 \label{fig:eUICC-arch}
 \end{figure}
 \\Di seguito, invece, è riportato un breve glossario che chiarisce il significato di alcuni componenti appartenenti all'architettura dell'eUICC raffigurata in \ref{fig:eUICC-arch}.
@@ -212,7 +212,7 @@ Le chiavi di maggiore rilievo, comunque sia, sono riportate nella tabella \ref{t
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Chiavi crittografiche in RSP.}}
+\caption{Chiavi crittografiche in RSP.}
 \label{tab:keys}
 \begin{tabularx}{\textwidth}{|c|X|}
 \hline
@@ -267,7 +267,7 @@ I certificati propri dei principali componenti che partecipano all'interazione d
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Certificati in RSP.}}
+\caption{Certificati in RSP.}
 \label{tab:cert}
 \begin{tabularx}{\textwidth}{|c|X|X|}
 \hline
@@ -336,27 +336,27 @@ Per quanto riguarda i certificati TLS, al posto del CI, può esserci come root q
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain.png}
-\caption{\textit{Catena di certificati definita originariamente dalla PKI di RSP.}}
+\caption{Catena di certificati definita originariamente dalla PKI di RSP.}
 \label{fig:cert-chain}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain-new1.png}
-\caption{\textit{Prima porzione dell'attuale catena di certificati definita dalla PKI di RSP.}}
+\caption{Prima porzione dell'attuale catena di certificati definita dalla PKI di RSP.}
 \label{fig:cert-chain-new1}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain-new2.png}
-\caption{\textit{Seconda porzione dell'attuale catena di certificati definita dalla PKI di RSP.}}
+\caption{Seconda porzione dell'attuale catena di certificati definita dalla PKI di RSP.}
 \label{fig:cert-chain-new2}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain-new3.png}
-\caption{\textit{Terza porzione dell'attuale catena di certificati definita dalla PKI di RSP.}}
+\caption{Terza porzione dell'attuale catena di certificati definita dalla PKI di RSP.}
 \label{fig:cert-chain-new3}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain-new4.png}
-\caption{\textit{Quarta porzione dell'attuale catena di certificati definita dalla PKI di RSP.}}
+\caption{Quarta porzione dell'attuale catena di certificati definita dalla PKI di RSP.}
 \label{fig:cert-chain-new4}
 \end{figure}
 All'interno della PKI, il Certificate Issuer di GSMA (CI) è la Root Certification Authority del servizio RSP e, di conseguenza, rappresenta il nodo radice della catena. Inoltre, tutti i certificati possono essere rilasciati direttamente dal CI (root o subordinato), fatta eccezione di CERT.EUICC.SIG che, invece, viene rilasciato dall'EUM (root o subordinato). Tutti i certificati che possono essere rilasciati direttamente dal CI hanno la possibilità di essere revocati in qualunque momento, in particolar modo se le entità corrispondenti (CI, EUM, SM-DP+, SM-DS) vengono compromesse. D'altra parte, i certificati eUICC (CERT.EUICC.SIG) non vengono revocati in modo individuale: di fatto, è difficile che un singolo eUICC venga compromesso. Piuttosto, è più verosimile che un modello eUICC o un intero batch di produzione di eUICC venga dichiarato come compromesso; quando ciò avviene, quello che si fa è revocare direttamente il certificato EUM (CERT.EUM.SIG) associato a quel modello o batch di produzione di eUICC \cite{GSMA-docs-new}.\\
@@ -411,12 +411,12 @@ L'interazione tra le parti, nel contesto del protocollo RSP, avviene in quattro 
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{default-server.png}
-\caption{\textit{Approccio default server per le fasi di profile ordering e download initialization.}}
+\caption{Approccio default server per le fasi di profile ordering e download initialization.}
 \label{fig:default-server}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{activation-code.png}
-\caption{\textit{Approccio Activation Code per le fasi di profile ordering e download initialization.}}
+\caption{Approccio Activation Code per le fasi di profile ordering e download initialization.}
 \label{fig:activation-code}
 \end{figure}
 
@@ -426,7 +426,7 @@ La tabella \ref{tab:profile-states} tratta da \cite{GSMA-docs-new}\cite{GSMA-doc
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Stati dei profili eSIM.}}
+\caption{Stati dei profili eSIM.}
 \label{tab:profile-states}
 \begin{tabularx}{\textwidth}{|c|X|}
 \hline
@@ -456,12 +456,12 @@ Unavailable & Il profilo non può essere più riutilizzato da SM-DP+.\\
 Nelle figure \ref{fig:profile-states1}, \ref{fig:profile-states2} tratte da \cite{GSMA-docs-new}\cite{GSMA-docs-old}, invece, sono mostrati due diagrammi a stati finiti che illustrano per bene il ciclo di vita dei profili in SM-DP+.
 \begin{figure}
 \includegraphics[width=\linewidth]{profile-states1.png}
-\caption{\textit{Primo diagramma a stati per i profili eSIM.}}
+\caption{Primo diagramma a stati per i profili eSIM.}
 \label{fig:profile-states1}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{profile-states2.png}
-\caption{\textit{Secondo diagramma a stati per i profili eSIM.}}
+\caption{Secondo diagramma a stati per i profili eSIM.}
 \label{fig:profile-states2}
 \end{figure}
 \\
@@ -509,7 +509,7 @@ A partire dallo stato Error:
 La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste tre entità svolgono durante la procedura di Common Mutual Authentication. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Si osservi che l'intero meccanismo resta valido e invariato se si ha un server SM-DS al posto del server SM-DP+.
 \begin{figure}
 \includegraphics[width=\linewidth]{common-mutual-auth.png}
-\caption{\textit{Sequence diagram che descrive la Common Mutual Authentication.}}
+\caption{Sequence diagram che descrive la Common Mutual Authentication.}
 \label{fig:common-mutual-auth}
 \end{figure}
 
@@ -604,7 +604,7 @@ In definitiva, in questa sezione è emerso come l'LPA svolga sì il ruolo di rel
 La figura \ref{fig:download-install} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la procedura di download e installazione dei profili. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Anche qui l'intero meccanismo resta valido se si ha un server SM-DS al posto del server SM-DP+, a meno di variazioni di poco conto.
 \begin{figure}
 \includegraphics[width=\linewidth]{download-install.png}
-\caption{\textit{Sequence diagram che descrive il download e l'installazione dei profili.}}
+\caption{Sequence diagram che descrive il download e l'installazione dei profili.}
 \label{fig:download-install}
 \end{figure}
 
@@ -652,7 +652,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 La figura \ref{fig:download-confirmation} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la sotto-procedura di Download Confirmation, che conclude la procedura di download e installazione dei profili introdotta poc'anzi. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive. Ancora una volta i passaggi rimangono gli stessi se si ha un server SM-DS al posto del server SM-DP+.
 \begin{figure}
 \includegraphics[width=\linewidth]{download-confirmation.png}
-\caption{\textit{Sequence diagram che descrive la sotto-procedura di Download Confirmation.}}
+\caption{Sequence diagram che descrive la sotto-procedura di Download Confirmation.}
 \label{fig:download-confirmation}
 \end{figure}
 
@@ -712,7 +712,7 @@ Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve 
 La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'end user, l'LPA installata nel vecchio dispositivo, l'eUICC presente nel vecchio dispositivo, il server SM-DP+, l'LPA installata nel nuovo dispositivo, l'eUICC presente nel nuovo dispositivo e l'operatore (qui indicato come Service Provider) si scambiano tra loro e le operazioni che queste sette entità svolgono durante la procedura di trasferimento di un profilo dovuto al cambio di dispositivo. Tutti i relativi dettagli \cite{GSMA-docs-new} sono spiegati nelle sottosezioni successive.
 \begin{figure}
 \includegraphics[width=\linewidth]{device-change.png}
-\caption{\textit{Sequence diagram che descrive il trasferimento di un profilo.}}
+\caption{Sequence diagram che descrive il trasferimento di un profilo.}
 \label{fig:device-change}
 \end{figure}
 
@@ -751,7 +751,7 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 La figura  \ref{fig:common-cancel-session} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la Common Cancel Session Procedure, che è una particolare procedura avviata dall'LPA con lo scopo di interrompere la sessione RSP corrente a seguito di una condizione di errore riscontrata dall'LPA stessa. Tutti i dettagli sul procedimento \cite{GSMA-docs-new} sono spiegati nella sottosezione successiva.
 \begin{figure}
 \includegraphics[width=\linewidth]{common-cancel-session.png}
-\caption{\textit{Sequence diagram che descrive la Common Cancel Session Procedure.}}
+\caption{Sequence diagram che descrive la Common Cancel Session Procedure.}
 \label{fig:common-cancel-session}
 \end{figure}
 
@@ -810,7 +810,7 @@ La tabella \ref{tab:rat1}, tratta da \cite{GSMA-docs-new}, raffigura un primo es
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Primo esempio di RAT.}}
+\caption{Primo esempio di RAT.}
 \label{tab:rat1}
 \begin{tabularx}{\textwidth}{|X|c|c|} % <-- Alignments: 2st column center and 3nd center, with vertical lines in between
 \hline
@@ -838,7 +838,7 @@ La tabella \ref{tab:rat2}, tratta da \cite{GSMA-docs-new}, raffigura un secondo 
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Secondo esempio di RAT.}}
+\caption{Secondo esempio di RAT.}
 \label{tab:rat2}
 \begin{tabularx}{\textwidth}{|X|c|c|} % <-- Alignments: 2st column center and 3nd center, with vertical lines in between
 \hline
@@ -878,7 +878,7 @@ Il file PCAP contenente la traccia così ottenuta è stato analizzato tramite Wi
 Wireshark risulta fondamentale per individuare il formato esatto di ciascun pacchetto catturato all'interno della traccia. Innanzitutto è necessario stabilire quali sono i messaggi presenti all'interno del file PCAP per stabilire quale corrispondenza ci sia tra la comunicazione di riferimento tra l'LPA del dispositivo mobile e il server SM-DP+ di Very Mobile. In figura \ref{fig:all-msgs-pcap} è rappresentata la schermata di Wireshark che mostra la successione dei messaggi che sono stati scambiati durante la cattura.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{all-msgs-pcap.png}
-\caption{\textit{Lista di pacchetti catturati.}}
+\caption{Lista di pacchetti catturati.}
 \label{fig:all-msgs-pcap}
 \end{figure}
 Com'è possibile vedere, in mezzo a dei normalissimi pacchetti TCP, spiccano alcuni pacchetti contrassegnati dal protocollo HTTP/JSON, che sono relativi proprio ai messaggi che compongono la comunicazione tra l'LPA e il server SM-DP+. In particolare, ve ne sono tre inviati al server da parte del client, mentre gli altri tre non sono altro che le rispettive risposte del server. I tre messaggi inviati dal client sono elencati qui di seguito:
@@ -901,7 +901,7 @@ Per comprendere appieno la struttura e il formato dei messaggi scambiati tra LPA
 Da Wireshark è possibile osservare il contenuto del messaggio initiateAuthentication all'interno della comunicazione reale tra LPA del dispositivo mobile e server SM-DP+ di Very Mobile. La figura \ref{fig:msg1-stream-pcap} ne mostra un estratto.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg1-stream-pcap.png}
-\caption{\textit{Messaggio di initiateAuthentication visualizzato su Wireshark.}}
+\caption{Messaggio di initiateAuthentication visualizzato su Wireshark.}
 \label{fig:msg1-stream-pcap}
 \end{figure}
 L'header HTTP riporta alcune informazioni interessanti:
@@ -919,7 +919,7 @@ Per quanto invece concerne il payload del messaggio, è possibile osservare che 
 L'idea alla base è molto semplice: si prende la sequenza di byte di partenza, la si suddivide in gruppi di 6 bit, e ciascun gruppo di 6 bit viene tradotto nel corrispondente carattere ASCII secondo la convenzione riportata nella figura \ref{fig:base64} tratta da \cite{RFC-4648}.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{base64.png}
-\caption{\textit{Tabella di conversione della codifica base64.}}
+\caption{Tabella di conversione della codifica base64.}
 \label{fig:base64}
 \end{figure}
 La tabella di conversione della codifica base64 riporta anche un sessantacinquesimo carattere ('='), che svolge la funzione di padding. Infatti, è possibile assumere che ogni sequenza di byte data in input all'algoritmo di codifica base64 abbia una lunghezza multipla di 8 bit, ma non è detto che abbia una lunghezza multipla anche di 6 bit; di fatto, avere una linghezza multipla di 6 bit significherebbe avere una lunghezza multipla di 24 bit. Si hanno dunque tre casistiche \cite{RFC-4648}:
@@ -931,7 +931,7 @@ La tabella di conversione della codifica base64 riporta anche un sessantacinques
 Sulla base dell'algoritmo di conversione appena esposto, è possibile concludere che il campo euiccChallenge del messaggio è uguale al valore intero 232645733703218863597835671721642336624, mentre il campo euiccInfo1 risulta pari alla sequenza di byte mostrata in figura \ref{fig:asn1-euiccInfo1}.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{asn1-euiccInfo1.png}
-\caption{\textit{Sequenza di byte che descrive euiccInfo1 in initiateAuthentication.}}
+\caption{Sequenza di byte che descrive euiccInfo1 in initiateAuthentication.}
 \label{fig:asn1-euiccInfo1}
 \end{figure}
 Le specifiche di GSMA \cite{GSMA-docs-new} suggeriscono che i tipi di dato complessi come euiccInfo1 in RSP vengono rappresentati secondo lo standard \textbf{ASN.1} sfruttando la codifica \textbf{DER}.
@@ -974,7 +974,7 @@ Si noti che questa definizione di euiccInfo1 combacia perfettamente con le speci
 Per determinare nel modo più agevole possibile i valori assunti dai tre campi di euiccInfo1 sopra elencati, si può far riferimento al sito https://lapo.it/asn1js/ (\textit{ASN.1 JavaScript decoder}) il quale, data una stringa base64, restituisce in chiaro le informazioni codificate con lo standard ASN.1. In figura \ref{fig:decode-euiccInfo1} è riportato l'output del sito \textit{ASN.1 JavaScript decoder} nel momento in cui gli viene dato in pasto la stringa base64 associata a euiccInfo1 in figura \ref{fig:msg1-stream-pcap}.
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-euiccInfo1.png}
-\caption{\textit{Decodifica del campo euiccInfo1 di initiateAuthentication.}}
+\caption{Decodifica del campo euiccInfo1 di initiateAuthentication.}
 \label{fig:decode-euiccInfo1}
 \end{figure}
 In definitiva:
@@ -987,7 +987,7 @@ In definitiva:
 La figura \ref{fig:msg2-stream-pcap} mostra l'intero contenuto del primo messaggio di risposta del server SM-DP+.\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg2-stream-pcap.png}
-\caption{\textit{Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.}}
+\caption{Messaggio di initiateAuthenticationResponse visualizzato su Wireshark.}
 \label{fig:msg2-stream-pcap}
 \end{figure}
 Nell'header HTTP si ritrovano alcuni punti in comune col messaggio inviato dall'LPA: ad esempio, anche qui la versione HTTP utilizzata è la 1.1 e il protocollo usato per l'interazione tra LPA e server è la versione 2.2.0 di GSMA-RSP.\\
@@ -1006,7 +1006,7 @@ Per comprendere appieno le informazioni celate nei campi di initiateAuthenticati
 La struttura dati serverSigned1 è molto semplice: dalla sua definizione riportata di seguito e dalla figura \ref{fig:decode-serverSigned1} \cite{RSP-definitions}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-serverSigned1.png}
-\caption{\textit{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.}}
+\caption{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.}
 \label{fig:decode-serverSigned1}
 \end{figure}
 
@@ -1043,22 +1043,22 @@ Più in basso nel certificato si trovano le cosiddette estensioni, ovvero inform
 Infine, in fondo al certificato, si hanno ulteriori informazioni riguardanti la signature e l'algoritmo di signature.
 \begin{figure}
 \includegraphics[width=\linewidth]{asn1-euiccCiPKIdToBeUsed.png}
-\caption{\textit{Sequenza di byte che descrive euiccCiPKIdToBeUsed in initiateAuthenticationResp.}}
+\caption{Sequenza di byte che descrive euiccCiPKIdToBeUsed in initiateAuthenticationResp.}
 \label{fig:asn1-euiccCiPKIdToBeUsed}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-euiccCiPKIdToBeUsed.png}
-\caption{\textit{Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}}
+\caption{Decodifica del campo euiccCiPKIdToBeUsed di initiateAuthenticationResponse.}
 \label{fig:decode-euiccCiPKIdToBeUsed}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-serverCertificate1.png}
-\caption{\textit{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 1/2).}}
+\caption{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 1/2).}
 \label{fig:decode-serverCertificate1}
 \end{figure}
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-serverCertificate2.png}
-\caption{\textit{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 2/2).}}
+\caption{Decodifica del campo serverCertificate di initiateAuthenticationResponse (parte 2/2).}
 \label{fig:decode-serverCertificate2}
 \end{figure}
 
@@ -1066,7 +1066,7 @@ Infine, in fondo al certificato, si hanno ulteriori informazioni riguardanti la 
 La figura \ref{fig:msg3-stream-pcap} mostra il contenuto del secondo messaggio inviato dal client (authenticateClient).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg3-stream-pcap.png}
-\caption{\textit{Messaggio di authenticateClient visualizzato su Wireshark.}}
+\caption{Messaggio di authenticateClient visualizzato su Wireshark.}
 \label{fig:msg3-stream-pcap}
 \end{figure}
 Il JSON del payload è composto da due campi:
@@ -1179,13 +1179,13 @@ Anzitutto, authenticateResponseOk è composto da quattro campi: euiccSigned1 che
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{email.png}
-\caption{\textit{Estratto dell'email di Very Mobile.}}
+\caption{Estratto dell'email di Very Mobile.}
 \label{fig:email}
 \end{figure}
 La figura \ref{fig:decode-euiccSigned1} mostra come il sito \textit{ASN.1 JavaScript decoder} decodifica il campo euiccSigned1 a partire dalla stringa base64 relativa all'ASN.1 del campo authenticateServerResponse del messaggio authenticateClient. A partire dalla sestultima riga dell'immagine si ha la traduzione della struttura ctxParams1: qui si nota la corrispondenza tra il sotto-campo matchingId e l'Activation Code presente nell'email di cui sopra.
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-euiccSigned1.png}
-\caption{\textit{Decodifica del campo euiccSigned1 di authenticateServerResponse.}}
+\caption{Decodifica del campo euiccSigned1 di authenticateServerResponse.}
 \label{fig:decode-euiccSigned1}
 \end{figure}
 
@@ -1193,7 +1193,7 @@ La figura \ref{fig:decode-euiccSigned1} mostra come il sito \textit{ASN.1 JavaSc
 La figura \ref{fig:msg4-stream-pcap} mostra il contenuto della risposta del server al secondo messaggio inviato dal client (authenticateClientResponse).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg4-stream-pcap.png}
-\caption{\textit{Messaggio di authenticateClientResponse visualizzato su Wireshark.}}
+\caption{Messaggio di authenticateClientResponse visualizzato su Wireshark.}
 \label{fig:msg4-stream-pcap}
 \end{figure}
 Il JSON del payload è composto dai campi elencati qui di seguito:
@@ -1233,7 +1233,7 @@ La struttura dati profileMetadata, come riportato di seguito, comprende informaz
 
 \begin{figure}
 \includegraphics[width=\linewidth]{asn1-profileMetadata.png}
-\caption{\textit{Sequenza di byte che descrive profileMetadata in authenticateClientResponse.}}
+\caption{Sequenza di byte che descrive profileMetadata in authenticateClientResponse.}
 \label{fig:asn1-profileMetadata}
 \end{figure}
 
@@ -1251,7 +1251,7 @@ La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transa
 
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-smdpSigned2.png}
-\caption{\textit{Decodifica del campo smdpSigned2 di authenticateClientResponse.}}
+\caption{Decodifica del campo smdpSigned2 di authenticateClientResponse.}
 \label{fig:decode-smdpSigned2}
 \end{figure}
 
@@ -1259,7 +1259,7 @@ La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transa
 La figura \ref{fig:msg5-stream-pcap} mostra il contenuto del terzo messaggio inviato dal client (getBoundProfilePackage).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg5-stream-pcap.png}
-\caption{\textit{Messaggio di getBoundProfilePackage visualizzato su Wireshark.}}
+\caption{Messaggio di getBoundProfilePackage visualizzato su Wireshark.}
 \label{fig:msg5-stream-pcap}
 \end{figure}
 Il payload è composto da due campi:
@@ -1307,7 +1307,7 @@ D'altra parte, prepareDownloadResponseOk è composto dalla struttura dati euiccS
 La figura \ref{fig:msg6-stream-pcap} mostra il contenuto della risposta del server al terzo messaggio inviato dal client (getBoundProfilePackageResponse).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{msg6-stream-pcap.png}
-\caption{\textit{Messaggio di getBoundProfilePackageResponse visualizzato su Wireshark.}}
+\caption{Messaggio di getBoundProfilePackageResponse visualizzato su Wireshark.}
 \label{fig:msg6-stream-pcap}
 \end{figure}
 Il payload è composto dai seguenti tre campi:
@@ -1318,7 +1318,7 @@ Il payload è composto dai seguenti tre campi:
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-boundProfilePackage.png}
-\caption{\textit{Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.}}
+\caption{Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.}
 \label{fig:decode-boundProfilePackage}
 \end{figure}
 Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. Dalle figure \ref{fig:asn1-profileMetadata}, \ref{fig:decode-boundProfilePackage}, è possibile accorgersi che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
@@ -1407,7 +1407,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \begin{figure}
 \includegraphics[width=\linewidth]{msg7-stream-pcap.png}
-\caption{\textit{Messaggio di handleNotification visualizzato su Wireshark.}}
+\caption{Messaggio di handleNotification visualizzato su Wireshark.}
 \label{fig:msg7-stream-pcap}
 \end{figure}
 
@@ -1419,7 +1419,7 @@ Si hanno due casi possibili: pendingNotification pari alla struttura dati profil
 Poiché, com'è stato già visto, la struttura dei certificati è piuttosto grande e poiché la stringa in base64 che codifica il campo pendingNotification del messaggio handleNotification, al contrario, è molto breve, è già possibile intuire che il messaggio catturato nella traccia ricada nel primo caso esposto precedentemente, dove pendingNotification è pari alla struttura dati profileInstallationResult che, verosimilmente, contiene un successResult. Tale intuizione trova conferma in figura \ref{fig:decode-pendingNotification} tratta dal sito \textit{ASN.1 JavaScript decoder}, dove chiaramente non compaiono riferimenti a certificati.
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-pendingNotification.png}
-\caption{\textit{Decodifica del campo pendingNotification di handleNotification.}}
+\caption{Decodifica del campo pendingNotification di handleNotification.}
 \label{fig:decode-pendingNotification}
 \end{figure}
 
@@ -1449,7 +1449,7 @@ La tabella \ref{tab:libraries} racchiude tutte le librerie Python che sono state
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
-\caption{\textit{Librerie Python utilizzate.}}
+\caption{Librerie Python utilizzate.}
 \label{tab:libraries}
 \begin{tabularx}{\textwidth}{|c|X|}
 \hline
