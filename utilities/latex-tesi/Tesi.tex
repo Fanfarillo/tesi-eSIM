@@ -39,7 +39,7 @@
 
 \begin{flushright}
 \null\vspace{\stretch{1}}
-\textit{"I'll walk through fire to save my life".}
+\textit{``I'll walk through fire to save my life".}
 \vspace{\stretch{2}}\null
 \end{flushright}
 
@@ -53,7 +53,7 @@ All'interno del presente documento, anzitutto verrà introdotto il problema e ve
 
 \chapter{Introduzione}
 \section{Panoramica sull'eSIM}
-L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una "SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research del 2023 stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni del 2023 ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
+L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'utente vuole cambiare operatore, non deve più acquistare fisicamente una nuova SIM card presso un negozio del nuovo operatore, bensì gli è sufficiente ricevere via e-mail un profilo, ossia una ``SIM digitale" che può essere caricata subito sul telefono mediante la scansione di un QR code. Si tratta di una soluzione molto più pratica rispetto a recarsi fisicamente presso il negozio dell'operatore, tant'è vero che negli ultimi anni si sta diffondendo sempre di più: uno studio di Juniper Research del 2023 stima che il numero di telefoni che utilizzano la connettività eSIM aumenterà dai 986 milioni del 2023 ai 3.5 miliardi entro il 2027 \cite{Corcom}. Per questi motivi, e poiché le informazioni associate alla comunicazione tra eSIM sono sensibili, è fondamentale garantire un livello di sicurezza sufficientemente elevato per il funzionamento dell'eSIM sia a run-time che a boot-time.
 
 \section{Obiettivo del lavoro}
 La presente trattazione si propone di:
@@ -646,7 +646,7 @@ In caso contrario, il server SM-DP+ esegue le seguenti altre operazioni:
 \end{itemize}
 \item Il server SM-DP+ fornisce all'LPA la risposta ad \textit{authenticateClient} (funzione invocata durante la procedura di Common Mutual Authentication), che comprende transactionId, i metadati del profilo, smdpSigned2, smdpSignature2 e CERT.DPpb.SIG.
 \item L'LPA verifica se il profilo può essere effettivamente installato. Per far ciò, deve ricorrere a un'apposita struttura dati detta Rules Authorisation Table (RAT) e/o alla lista dei profili installati. Se non dispone già di queste informazioni, deve richiederle all'eUICC invocando le funzioni \textit{getRAT} e/o \textit{getProfilesInfo}. Informazioni più dettagliate sulla RAT e, più in generale, sulla gestione delle policy dei profili, sono riportate nella sezione \ref{sec:profile-policy}.
-\item Se necessario, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come 'Yes', 'No', 'Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione (Common Cancel Session Procedure, i cui dettagli sono riportati nella sezione \ref{sec:common-cancel-session}); altrimenti, l'installazione del profilo può completarsi con successo mediante la sotto-procedura di Download Confirmation, che verrà illustrata qui di seguito.
+\item Se necessario, l'LPA richiede all'end user di inserire il codice di conferma che l'operatore gli aveva fornito. In caso contrario, l'LPA richiede una conferma semplice (Simple Confirmation) sul download del profilo, che può prevedere poche semplici opzioni di risposta come `Yes', `No', `Not now'. Se l'end user non inserisce correttamente il codice di conferma o non risponde positivamente alla conferma semplice, si procede con la cancellazione della sessione (Common Cancel Session Procedure, i cui dettagli sono riportati nella sezione \ref{sec:common-cancel-session}); altrimenti, l'installazione del profilo può completarsi con successo mediante la sotto-procedura di Download Confirmation, che verrà illustrata qui di seguito.
 \end{enumerate}
 
 \subsection{Sotto-procedura di Download Confirmation}\label{sec:down-confirm}
@@ -783,8 +783,8 @@ Se anche solo uno di questi controlli non va a buon fine, o se l'ID di transazio
 Come accennato nella sotto-sezione \ref{sec:down-install}, durante la procedura di download e installazione del profilo, è necessario anche verificare le policy del profilo per stabilire se quest'ultimo può essere installato all'interno dell'eUICC. Di conseguenza, può tornare utile illustrare nel dettaglio il meccanismo di gestione delle policy dei profili previsto in GSMA \cite{GSMA-docs-new}.\\
 Le policy dei profili possono essere descritte dalle cosiddette \textbf{Profile Policy Rules} (PPR), che sono delle regole che descrivono cosa è possibile e cosa non è possibile fare con ciascun profilo. Attualmente possono essere definite due PPR in particolare:
 \begin{itemize}
-\item PPR1 - 'Disabling of this Profile is not allowed'
-\item PPR2 - 'Deletion of this Profile is not allowed'
+\item PPR1 - `Disabling of this Profile is not allowed'
+\item PPR2 - `Deletion of this Profile is not allowed'
 \end{itemize}
 
 \subsection{Rules Authorisation Table}\label{sec:rat}
@@ -803,7 +803,7 @@ In definitiva, la possibilità per un profilo di essere installato o meno dipend
 \item Se invece non tutte le PPR vengono coperte, non c'è la possibilità di installare il profilo nell'eUICC.
 \end{itemize}
 \end{itemize}
-Si noti che il placeholder '*' per Allowed Operators indica "tutti gli operatori". Se esistono più PPAR valide per una medesima PPR e un medesimo operatore, fa fede quella che compare per prima all'interno della RAT.\\
+Si noti che il placeholder `*' per Allowed Operators indica ``tutti gli operatori". Se esistono più PPAR valide per una medesima PPR e un medesimo operatore, fa fede quella che compare per prima all'interno della RAT.\\
 Il componente dell'eUICC che si occupa di verificare se un profilo contenente una o più PPR è autorizzato dalla RAT o meno è detto \textbf{Profile Policy Enabler} (PPE) \cite{GSMA-docs-new}.
 
 \subsubsection{Primo esempio di RAT}
@@ -949,13 +949,13 @@ ASN.1 (Abstract Syntax Notation One) è uno standard di codifica che rappresenta
 \begin{itemize}[itemsep=0pt]
 \item Campo length composto da un solo byte compreso tra 0x00 e 0x7F (i.e. tra 0 e 127): in tal caso l'unico byte rappresenta la lunghezza effettiva del campo value.
 \item Campo length composto da più di un byte: in tal caso il primo byte deve essere compreso tra 0x81 e 0xFF (i.e. tra 129 e 255) ed è tale per cui il suo valore diminuito di 0x80 (i.e. 128) rappresenta la lunghezza della restante porzione del campo length. La restante porzione del campo length, invece, indica la lunghezza effettiva del campo value. Questa convenzione viene applicata tutte e sole le volte in cui il campo value è più lungo di 127 byte. Per fare un esempio, per indicare una lunghezza di value pari a 257 byte, il campo length deve essere uguale a 0x820101: il primo byte (0x82) indica che, oltre a lui stesso, si hanno ulteriori due byte (i.e. 0x82-0x80) a comporre il campo length; gli ultimi due byte (0x0101), invece, stanno a indicare esattamente la lunghezza del campo value, che è proprio pari a 257.
-\item Campo length il cui primo byte è pari a 0x80: in tal caso, si ha una length "indefinita", per cui è verosimilmente sintomo di una formattazione errata.
+\item Campo length il cui primo byte è pari a 0x80: in tal caso, si ha una length ``indefinita", per cui è verosimilmente sintomo di una formattazione errata.
 \end{itemize}
 \item \textbf{Value}: è il campo che contiene il payload vero e proprio dell'informazione che si sta rappresentando. Nel caso particolare in cui il relativo tipo di dato è composto, tale campo è costituito a sua volta da altri elementi TLV, creando così un'annidazione che può essere ricorsiva a piacere \cite{ASN1}.
 \end{itemize}
 Comunque sia, conoscere lo standard ASN.1 non è sufficiente per interpretare in modo agevole le sequenze di byte come quella in figura \ref{fig:asn1-euiccInfo1} che è relativa a euiccInfo1. Infatti, a primo impatto si intuisce solo che euiccInfo1 è composto a sua volta da tre elementi in formato TLV (che iniziano rispettivamente coi byte 0x8203, 0xA92C, 0xAA2C), ma il loro significato non è chiaro. Di seguito è riportata la definizione precisa della struttura dati euiccInfo1 tratta da \cite{RSP-definitions}.\\
 
-\textit{EUICCInfo1 ::= [32] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF20'}}
+\textit{EUICCInfo1 ::= [32] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF20'}}
 
 \hspace{0.75cm} \textit{svn [2] VersionType, \textcolor{gray}{{-}{-} GSMA SGP.22 version supported (SVN)}}
 
@@ -995,7 +995,7 @@ Nell'header HTTP si ritrovano alcuni punti in comune col messaggio inviato dall'
 
 Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
 \begin{itemize}
-\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{"status":"Executed-Success"\}} indica che tutti i check sulle informazioni ricevute dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche di GSMA;
+\item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{``status":``Executed-Success"\}} indica che tutti i check sulle informazioni ricevute dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche di GSMA;
 \item \textbf{transactionId}: è un campo in chiaro che indica l'ID della transazione;
 \item \textbf{serverSigned1}: è un campo codificato in base64;
 \item \textbf{serverSignature1}: è un altro campo codificato in base64 che, come enunciato nella sezione \ref{sec:mutual-auth}, rappresenta la signature di serverSigned1;
@@ -1028,9 +1028,9 @@ Il campo euiccCiPKIdToBeUsed cela anch'esso una struttura TLV dello standard ASN
 Per quanto invece riguarda il campo serverCertificate di initiateAuthenticationResponse, il sito \textit{ASN.1 JavaScript decoder} aiuta a comprendere molti dettagli sul certificato CERT.DPauth.SIG e sulla relativa certificate chain utilizzata. Le figure \ref{fig:decode-serverCertificate1}, \ref{fig:decode-serverCertificate2} mostrano la decodifica di tale certificato. Inizialmente vi sono gli attributi fondamentali, come:
 \begin{itemize}
 \item \textbf{signature AlgorithmIdentifier}: indica con quale algoritmo vengono calcolate le signature mediante la chiave privata associata al certificato ed è pari a \textit{ecdsaWithSHA256} (ANSI X.962 ECDSA algorithm with SHA256);
-\item \textbf{issuer Name}: è un campo relativo alla CA che ha rilasciato il presente certificato ed è a sua volta articolato in due sotto-campi, che sono l'organizationName (pari a "GSM Association") e il commonName (pari a "GSM Association - RSP2 Root CI1");
+\item \textbf{issuer Name}: è un campo relativo alla CA che ha rilasciato il presente certificato ed è a sua volta articolato in due sotto-campi, che sono l'organizationName (pari a ``GSM Association") e il commonName (pari a ``GSM Association - RSP2 Root CI1");
 \item \textbf{validity Validity}: dichiara che il certificato è valido dal 30 marzo 2023 al 29 marzo 2026, il che corrisponde a tre anni;
-\item \textbf{subject Name}: è un campo che fornisce dettagli informativi sul presente certificato ed è a sua volta composto in diversi sotto-campi, tra cui countryName (pari a "FR", i.e. Francia), localityName (pari a "Tours"), organizationName (pari a "Thales DIS France SA"), organizationalUnitName (pari a "ODC") e commonName (pari a "SMDP Plus Tours Platform").
+\item \textbf{subject Name}: è un campo che fornisce dettagli informativi sul presente certificato ed è a sua volta composto in diversi sotto-campi, tra cui countryName (pari a ``FR", i.e. Francia), localityName (pari a ``Tours"), organizationName (pari a ``Thales DIS France SA"), organizationalUnitName (pari a ``ODC") e commonName (pari a ``SMDP Plus Tours Platform").
 \item \textbf{subjectPublicKeyInfo SubjectPublicKeyInfo}: fornisce maggiori informazioni sulle chiavi associate al certificato, tra cui la curva ellittica utilizzata per generare le signature, che è identificata con \textit{prime256v1}.
 \end{itemize}
 Più in basso nel certificato si trovano le cosiddette estensioni, ovvero informazioni aggiuntive opzionali che possono essere inserite a piacimento all'interno del certificato. Tra queste è possibile individuare:
@@ -1077,7 +1077,7 @@ Il JSON del payload è composto da due campi:
 \end{itemize}
 Per quanto riguarda authenticateServerResponse, è una struttura composta da più elementi ASN.1 di tipo Sequence anche annidati tra loro, ed è descritta nella definizione riportata nelle pagine successive\cite{RSP-definitions}.\\
 
-\textit{AuthenticateServerResponse ::= [56] CHOICE \{ \textcolor{gray}{{-}{-} Tag 'BF38'}}
+\textit{AuthenticateServerResponse ::= [56] CHOICE \{ \textcolor{gray}{{-}{-} Tag `BF38'}}
 
 \hspace{0.75cm} \textit{authenticateResponseOk AuthenticateResponseOk,}
 
@@ -1089,7 +1089,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{euiccSigned1 EuiccSigned1, \textcolor{gray}{{-}{-} Signed information}}
 
-\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag '5F37'}}
+\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag `5F37'}}
 
 \hspace{0.75cm} \textit{euiccCertificate Certificate, \textcolor{gray}{{-}{-} CERT.EUICC.ECDSA signed by the EUM}}
 
@@ -1111,7 +1111,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \textit{\}\\}
 
-\textit{EUICCInfo2 ::= [34] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF22'}}
+\textit{EUICCInfo2 ::= [34] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF22'}}
 
 \hspace{0.75cm} \textit{profileVersion [1] VersionType, \textcolor{gray}{{-}{-} SIMAlliance Profile package version supported}}
 
@@ -1145,7 +1145,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{\} OPTIONAL,}
 
-\hspace{0.75cm} \textit{forbiddenProfilePolicyRules [25] PprIds OPTIONAL, \textcolor{gray}{{-}{-} Tag '99'}}
+\hspace{0.75cm} \textit{forbiddenProfilePolicyRules [25] PprIds OPTIONAL, \textcolor{gray}{{-}{-} Tag `99'}}
 
 \hspace{0.75cm} \textit{ppVersion VersionType, \textcolor{gray}{{-}{-} Protection Profile version}}
 
@@ -1199,7 +1199,7 @@ La figura \ref{fig:msg4-stream-pcap} mostra il contenuto della risposta del serv
 \end{figure}
 Il JSON del payload è composto dai campi elencati qui di seguito:
 \begin{itemize}
-\item \textbf{header}: contiene di nuovo \textit{\{"status":"Executed-Success"\}}, il che vuol dire che anche in questa fase tutti i check effettuati dal server SM-DP+ hanno avuto successo;
+\item \textbf{header}: contiene di nuovo \textit{\{``status":``Executed-Success"\}}, il che vuol dire che anche in questa fase tutti i check effettuati dal server SM-DP+ hanno avuto successo;
 \item \textbf{transactionId}: è l'ID di transazione e assume sempre il medesimo valore;
 \item \textbf{profileMetadata}: è un campo codificato in base64 che, come suggerisce il nome, dovrebbe comprendere i metadati del profilo di cui si sta per effettuare il download;
 \item \textbf{smdpSigned2}: è un campo codificato in base64 che, come suggerisce il nome, dovrebbe essere strutturalmente simile a serverSigned1 e a euiccSigned1;
@@ -1210,25 +1210,25 @@ I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e 
 
 La struttura dati profileMetadata, come riportato di seguito, comprende informazioni sul profilo target come l'ICCID (che, come spiegato nella sezione \ref{sec:device-change}, è l'identificativo del profilo), il nome dell'operatore, il nome del profilo, la classe del profilo ed eventuali Profile Policy Rules.\\
 
-\textit{StoreMetadataRequest ::= [37] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF25'}}
+\textit{StoreMetadataRequest ::= [37] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF25'}}
 
 \hspace{0.75cm} \textit{iccid Iccid,}
 
-\hspace{0.75cm} \textit{serviceProviderName [17] UTF8String (SIZE(0..32)), \textcolor{gray}{{-}{-} Tag '91'}}
+\hspace{0.75cm} \textit{serviceProviderName [17] UTF8String (SIZE(0..32)), \textcolor{gray}{{-}{-} Tag `91'}}
 
-\hspace{0.75cm} \textit{profileName [18] UTF8String (SIZE(0..64)), \textcolor{gray}{{-}{-} Tag '92'}}
+\hspace{0.75cm} \textit{profileName [18] UTF8String (SIZE(0..64)), \textcolor{gray}{{-}{-} Tag `92'}}
 
-\hspace{0.75cm} \textit{iconType [19] IconType OPTIONAL, \textcolor{gray}{{-}{-} Tag '93' (JPG or PNG)}}
+\hspace{0.75cm} \textit{iconType [19] IconType OPTIONAL, \textcolor{gray}{{-}{-} Tag `93' (JPG or PNG)}}
 
-\hspace{0.75cm} \textit{icon [20] OCTET STRING (SIZE(0..1024)), \textcolor{gray}{{-}{-} Tag '94' (Data of the icon)}}
+\hspace{0.75cm} \textit{icon [20] OCTET STRING (SIZE(0..1024)), \textcolor{gray}{{-}{-} Tag `94' (Data of the icon)}}
 
-\hspace{0.75cm} \textit{profileClass [21] ProfileClass DEFAULT operational, \textcolor{gray}{{-}{-} Tag '95'}}
+\hspace{0.75cm} \textit{profileClass [21] ProfileClass DEFAULT operational, \textcolor{gray}{{-}{-} Tag `95'}}
 
 \hspace{0.75cm} \textit{notifConfig [22] SEQUENCE OF NotificationConfigurationInformation OPTIONAL,}
 
-\hspace{0.75cm} \textit{profileOwner [23] OperatorId OPTIONAL, \textcolor{gray}{{-}{-} Tag 'B7'}}
+\hspace{0.75cm} \textit{profileOwner [23] OperatorId OPTIONAL, \textcolor{gray}{{-}{-} Tag `B7'}}
 
-\hspace{0.75cm} \textit{profilePolicyRules [25] PprIds OPTIONAL \textcolor{gray}{{-}{-} Tag '99'}}
+\hspace{0.75cm} \textit{profilePolicyRules [25] PprIds OPTIONAL \textcolor{gray}{{-}{-} Tag `99'}}
 
 \textit{\}\\}
 
@@ -1270,7 +1270,7 @@ Il payload è composto da due campi:
 \end{itemize}
 Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definitions}.\\
 
-\textit{PrepareDownloadResponse ::= [33] CHOICE \{ \textcolor{gray}{{-}{-} Tag 'BF21'}}
+\textit{PrepareDownloadResponse ::= [33] CHOICE \{ \textcolor{gray}{{-}{-} Tag `BF21'}}
 
 \hspace{0.75cm} \textit{downloadResponseOk PrepareDownloadResponseOk,}
 
@@ -1282,7 +1282,7 @@ Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definit
 
 \hspace{0.75cm} \textit{euiccSigned2 EUICCSigned2, \textcolor{gray}{{-}{-} Signed information}}
 
-\hspace{0.75cm} \textit{euiccSignature2 [APPLICATION 55] OCTET STRING \textcolor{gray}{{-}{-} tag '5F37'}}
+\hspace{0.75cm} \textit{euiccSignature2 [APPLICATION 55] OCTET STRING \textcolor{gray}{{-}{-} tag `5F37'}}
 
 \textit{\}\\}
 
@@ -1290,7 +1290,7 @@ Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definit
 
 \hspace{0.75cm} \textit{transactionId [0] TransactionId,}
 
-\hspace{0.75cm} \textit{euiccOtpk [APPLICATION 73] OCTET STRING, \textcolor{gray}{{-}{-} otPK.EUICC.ECKA, tag '5F49'}}
+\hspace{0.75cm} \textit{euiccOtpk [APPLICATION 73] OCTET STRING, \textcolor{gray}{{-}{-} otPK.EUICC.ECKA, tag `5F49'}}
 
 \hspace{0.75cm} \textit{hashCc Octet32 OPTIONAL \textcolor{gray}{{-}{-} Hash of confirmation code}}
 
@@ -1313,7 +1313,7 @@ La figura \ref{fig:msg6-stream-pcap} mostra il contenuto della risposta del serv
 \end{figure}
 Il payload è composto dai seguenti tre campi:
 \begin{itemize}
-\item \textbf{header}: contiene ancora una volta \textit{\{"status":"Executed-Success"\}};
+\item \textbf{header}: contiene ancora una volta \textit{\{``status":``Executed-Success"\}};
 \item \textbf{transactionId}: è l'ID di transazione;
 \item \textbf{boundProfilePackage}: è un campo codificato in base64 ed è molto grande, tant'è vero che non rientra per intero nella figura \ref{fig:msg6-stream-pcap}.
 \end{itemize}
@@ -1324,17 +1324,17 @@ Il payload è composto dai seguenti tre campi:
 \end{figure}
 Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. Dalle figure \ref{fig:asn1-profileMetadata}, \ref{fig:decode-boundProfilePackage}, è possibile accorgersi che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
 
-\textit{BoundProfilePackage ::= [54] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF36'}}
+\textit{BoundProfilePackage ::= [54] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF36'}}
 
-\hspace{0.75cm} \textit{initialiseSecureChannelRequest [35] InitialiseSecureChannelRequest, \textcolor{gray}{{-}{-} Tag 'BF23'}}
+\hspace{0.75cm} \textit{initialiseSecureChannelRequest [35] InitialiseSecureChannelRequest, \textcolor{gray}{{-}{-} Tag `BF23'}}
 
-\hspace{0.75cm} \textit{firstSequenceOf87 [0] SEQUENCE OF [7] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '87' TLVs}}
+\hspace{0.75cm} \textit{firstSequenceOf87 [0] SEQUENCE OF [7] OCTET STRING, \textcolor{gray}{{-}{-} sequence of `87' TLVs}}
 
-\hspace{0.75cm} \textit{sequenceOf88 [1] SEQUENCE OF [8] OCTET STRING, \textcolor{gray}{{-}{-} sequence of '88' TLVs}}
+\hspace{0.75cm} \textit{sequenceOf88 [1] SEQUENCE OF [8] OCTET STRING, \textcolor{gray}{{-}{-} sequence of `88' TLVs}}
 
 \hspace{0.75cm} \textit{secondSequenceOf87 [2] SEQUENCE OF [7] OCTET STRING OPTIONAL,}
 
-\hspace{0.75cm} \textit{sequenceOf86 [3] SEQUENCE OF [6] OCTET STRING \textcolor{gray}{{-}{-} sequence of '86' TLVs}}
+\hspace{0.75cm} \textit{sequenceOf86 [3] SEQUENCE OF [6] OCTET STRING \textcolor{gray}{{-}{-} sequence of `86' TLVs}}
 
 \textit{\}\\}
 
@@ -1344,7 +1344,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{PendingNotification ::= CHOICE \{}
 
-\hspace{0.75cm} \textit{profileInstallationResult [55] ProfileInstallationResult, \textcolor{gray}{{-}{-} Tag 'BF37'}}
+\hspace{0.75cm} \textit{profileInstallationResult [55] ProfileInstallationResult, \textcolor{gray}{{-}{-} Tag `BF37'}}
 
 \hspace{0.75cm} \textit{otherSignedNotification OtherSignedNotification}
 
@@ -1362,7 +1362,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{\}\\}
 
-\textit{ProfileInstallationResult ::= [55] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF37'}}
+\textit{ProfileInstallationResult ::= [55] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF37'}}
 
 \hspace{0.75cm} \textit{profileInstallationResultData [39] ProfileInstallationResultData,}
 
@@ -1370,7 +1370,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \textit{\}\\}
 
-\textit{ProfileInstallationResultData ::= [39] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag 'BF27'}}
+\textit{ProfileInstallationResultData ::= [39] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF27'}}
 
 \hspace{0.75cm} \textit{transactionId[0] TransactionId, \textcolor{gray}{{-}{-} The Transaction ID generated by the SM-DP+}}
 
@@ -1392,7 +1392,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \hspace{0.75cm} \textit{aid [APPLICATION 15] OCTET STRING (SIZE (5..16)), \textcolor{gray}{{-}{-} AID of ISD-P}}
 
-\hspace{0.75cm} \textit{simaResponse OCTET STRING \textcolor{gray}{{-}{-} contains (multiple) 'EUICCResponse'}}
+\hspace{0.75cm} \textit{simaResponse OCTET STRING \textcolor{gray}{{-}{-} contains (multiple) `EUICCResponse'}}
 
 \textit{\}\\}
 
@@ -1402,7 +1402,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 
 \hspace{0.75cm} \textit{errorReason ErrorReason,}
 
-\hspace{0.75cm} \textit{simaResponse OCTET STRING OPTIONAL \textcolor{gray}{{-}{-} contains (multiple) 'EUICCResponse'}}
+\hspace{0.75cm} \textit{simaResponse OCTET STRING OPTIONAL \textcolor{gray}{{-}{-} contains (multiple) `EUICCResponse'}}
 
 \textit{\}\\}
 
@@ -1434,7 +1434,7 @@ Il sistema di simulazione sviluppato è un'applicazione Python composta da tre m
 \item un eseguibile per la comunicazione con l'operatore per il rilascio di un nuovo profilo;
 \item un eseguibile per le procedure di Common Mutual Authentication e di download e installazione del profilo;
 \item un file per tenere traccia delle informazioni sui profili esistenti che sono il Matching ID, l'EID dell'eUICC a cui il profilo è destinato, l'ICCID, il numero di tentativi di download effettuati, l'ID dell'eventuale transazione in cui si sta tentando correntemente di installare il profilo, lo stato attuale del profilo, il tipo di profilo e l'eventuale Confirmation Code che serve per fornire la conferma finale sul download del profilo;
-\item un eseguibile per effettuare il clean-up del file di cui sopra, in modo tale da lasciare esclusivamente i profili in uno stato diverso da 'Released' e da 'Error'.
+\item un eseguibile per effettuare il clean-up del file di cui sopra, in modo tale da lasciare esclusivamente i profili in uno stato diverso da `Released' e da `Error'.
 \end{itemize}
 \item \textbf{euicc}: è il modulo che comprende la coppia eUICC + LPA e l'operatore telefonico. Questo accorpamento consente di semplificare la logica applicativa lato client e di bypassare, ad esempio, la comunicazione tra l'operatore e l'LPA che si ha nella fase di download initialization (sezione \ref{sec:step-RSP}). Tale modulo è composto a sua volta da:
 \begin{itemize}
@@ -1534,7 +1534,7 @@ Per quanto concerne i dettagli implementativi del sistema simulato, è stato pos
 \item Validità della catena di certificati: l'implementazione prevede un controllo sul certificato CERT.EUM.SIG mediante la chiave pubblica del CI, ma anche un controllo sul certificato CERT.EUICC.SIG mediante la chiave pubblica dell'EUM.
 \item Validità di euiccSignature1: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
 \item Validità di serverChallenge: l'implementazione prevede un controllo su se la serverChallenge ricevuta corrisponde a quella inviata nel precedente messaggio di initiateAuthenticationResponse.
-\item Validità del Matching ID: l'implementazione prevede un controllo su se il campo matchingId della struttura ctxParams1 corrisponde a un Matching ID realmente esistente per il server e correntemente nello stato 'Released' o 'Download'.
+\item Validità del Matching ID: l'implementazione prevede un controllo su se il campo matchingId della struttura ctxParams1 corrisponde a un Matching ID realmente esistente per il server e correntemente nello stato `Released' o `Download'.
 \end{itemize}
 A livello implementativo sono stati aggiunti anche i controlli elencati qui di seguito.
 \begin{itemize}
@@ -1545,7 +1545,7 @@ A livello implementativo sono stati aggiunti anche i controlli elencati qui di s
 \subsubsection{Check da parte dell'LPA alla ricezione di authenticateClientResponse}
 \begin{itemize}
 \item Verifica della RAT: l'implementazione prevede una funzione che segue la logica introdotta nella sezione \ref{sec:rat}.
-\item Conferma da parte dell'utente: l'implementazione prevede due casi. Nel primo caso è richiesta l'acquisizione del Confirmation Code da parte dell'utente e, se questo è errato o scatta il timeout, viene invocata la procedura di Common Cancel Session. Nel secondo caso è richiesta la conferma semplice e, se l'utente risponde "No", "Not now" oppure fa scadere il timeout, viene invocata la procedura di Common Cancel Session.
+\item Conferma da parte dell'utente: l'implementazione prevede due casi. Nel primo caso è richiesta l'acquisizione del Confirmation Code da parte dell'utente e, se questo è errato o scatta il timeout, viene invocata la procedura di Common Cancel Session. Nel secondo caso è richiesta la conferma semplice e, se l'utente risponde `No', `Not now' oppure fa scadere il timeout, viene invocata la procedura di Common Cancel Session.
 \end{itemize}
 
 \subsubsection{Check da parte dell'eUICC alla ricezione di authenticateClientResponse}
