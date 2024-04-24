@@ -331,9 +331,9 @@ Attualmente, invece, la struttura della certificate chain è più complessa e in
 Per quanto riguarda i certificati TLS, al posto del CI, può esserci come root qualunque CA pubblica, come mostrato nella figura \ref{fig:cert-chain-new4} tratta da \cite{GSMA-docs-new}. Anche con questa soluzione esistono diverse varianti.
 \begin{itemize}
 \item \textbf{Prima variante OO (originale)}: la CA pubblica root rilascia direttamente i certificati CERT.DP.TLS, CERT.DS.TLS.
-\item \textbf{Seconda variante OO}: la CA pubblica root rilascia certificati per la CA pubblica subordinata, la quale rilascia a sua volta i certificati CERT.DP.TLS, CERT.DS.TLS.
+\item \textbf{Seconda variante OO}: la CA pubblica root rilascia certificati per una catena di una o più CA pubbliche subordinate, l'ultima delle quali rilascia CERT.DP.TLS, CERT.DS.TLS.
 \item \textbf{Prima variante AA}: la CA pubblica rilascia certificati per l'SM-DP+ intermediario e l'SM-DS intermediario; l'SM-DP+ intermediario rilascia il certificato CERT.DP.TLS; l'SM-DS intermediario rilascia il certificato CERT.DS.TLS.
-\item \textbf{Seconda variante AA}: la CA pubblica rilascia certificati per la CA pubblica subordinata; la CA pubblica subordinata rilascia certificati per l'SM-DP+ intermediario e l'SM-DS intermediario; l'SM-DP+ intermediario rilascia il certificato CERT.DP.TLS; l'SM-DS intermediario rilascia il certificato CERT.DS.TLS.
+\item \textbf{Seconda variante AA}: la CA pubblica rilascia certificati per una catena di una o più CA pubbliche subordinate; l'ultima CA pubblica subordinata rilascia certificati per l'SM-DP+ intermediario e l'SM-DS intermediario; l'SM-DP+ intermediario rilascia il certificato CERT.DP.TLS; l'SM-DS intermediario rilascia il certificato CERT.DS.TLS.
 \end{itemize}
 \begin{figure}
 \includegraphics[width=\linewidth]{cert-chain.png}
