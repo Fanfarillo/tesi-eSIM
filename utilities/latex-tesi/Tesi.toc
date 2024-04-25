@@ -41,32 +41,32 @@
 \contentsline {subsubsection}{Terzo esempio di RAT}{38}{section*.38}%
 \contentsline {chapter}{\numberline {3}Stato dell'arte}{39}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Uno studio condotto nel 2022}{39}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Implementazione dei simulatori}{40}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Obiettivo prefissato}{40}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Ottenimento delle catture su Wireshark}{40}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Analisi dei messaggi catturati}{41}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Analisi di initiateAuthentication}{42}{subsection.4.3.1}%
-\contentsline {subsubsection}{Codifica base64}{42}{section*.41}%
-\contentsline {subsubsection}{Codifica DER}{43}{section*.44}%
-\contentsline {subsubsection}{Standard ASN.1}{44}{section*.45}%
-\contentsline {subsection}{\numberline {4.3.2}Analisi di initiateAuthenticationResponse}{45}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Analisi di authenticateClient}{47}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Analisi di authenticateClientResponse}{50}{subsection.4.3.4}%
-\contentsline {subsection}{\numberline {4.3.5}Analisi di getBoundProfilePackage}{54}{subsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.3.6}Analisi di getBoundProfilePackageResponse}{55}{subsection.4.3.6}%
-\contentsline {subsection}{\numberline {4.3.7}Analisi di handleNotification}{56}{subsection.4.3.7}%
-\contentsline {section}{\numberline {4.4}Implementazione dei simulatori}{57}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Librerie Python utilizzate}{58}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}Confronto tra specifiche GSMA e simulatori}{58}{subsection.4.4.2}%
-\contentsline {subsubsection}{Check da parte del server alla ricezione di initiateAuthetication}{58}{section*.65}%
-\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di initiateAuthenticationResponse}{58}{section*.66}%
-\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di initiateAuthenticationResponse}{59}{section*.67}%
-\contentsline {subsubsection}{Check da parte del server alla ricezione di authenticateClient}{60}{section*.68}%
-\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di authenticateClientResponse}{60}{section*.69}%
-\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di authenticateClientResponse}{60}{section*.70}%
-\contentsline {subsubsection}{Check da parte del server alla ricezione di getBoundProfilePackage}{61}{section*.71}%
-\contentsline {subsubsection}{Check da parte del client alla ricezione di getBoundProfilePackageResponse}{61}{section*.72}%
-\contentsline {subsubsection}{Check da parte del server alla ricezione di handleNotification}{61}{section*.73}%
-\contentsline {subsubsection}{Check da parte del server alla ricezione di cancelSession}{62}{section*.74}%
-\contentsline {chapter}{\numberline {5}Analisi di sicurezza dell'eSIM}{63}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{64}{chapter.6}%
+\contentsline {chapter}{\numberline {4}Implementazione dei simulatori}{42}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Obiettivo prefissato}{42}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Ottenimento delle catture su Wireshark}{42}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Analisi dei messaggi catturati}{43}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Analisi di initiateAuthentication}{44}{subsection.4.3.1}%
+\contentsline {subsubsection}{Codifica base64}{44}{section*.44}%
+\contentsline {subsubsection}{Codifica DER}{45}{section*.47}%
+\contentsline {subsubsection}{Standard ASN.1}{46}{section*.48}%
+\contentsline {subsection}{\numberline {4.3.2}Analisi di initiateAuthenticationResponse}{47}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Analisi di authenticateClient}{49}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Analisi di authenticateClientResponse}{52}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Analisi di getBoundProfilePackage}{56}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Analisi di getBoundProfilePackageResponse}{57}{subsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.3.7}Analisi di handleNotification}{58}{subsection.4.3.7}%
+\contentsline {section}{\numberline {4.4}Implementazione dei simulatori}{59}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Librerie Python utilizzate}{60}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Confronto tra specifiche GSMA e simulatori}{60}{subsection.4.4.2}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di initiateAuthetication}{60}{section*.68}%
+\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di initiateAuthenticationResponse}{60}{section*.69}%
+\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di initiateAuthenticationResponse}{61}{section*.70}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di authenticateClient}{62}{section*.71}%
+\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di authenticateClientResponse}{62}{section*.72}%
+\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di authenticateClientResponse}{62}{section*.73}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di getBoundProfilePackage}{63}{section*.74}%
+\contentsline {subsubsection}{Check da parte del client alla ricezione di getBoundProfilePackageResponse}{63}{section*.75}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di handleNotification}{63}{section*.76}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di cancelSession}{64}{section*.77}%
+\contentsline {chapter}{\numberline {5}Analisi di sicurezza dell'eSIM}{65}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{66}{chapter.6}%

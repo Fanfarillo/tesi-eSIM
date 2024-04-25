@@ -862,7 +862,94 @@ Un terzo esempio classico è dato dalla tabella RAT vuota, secondo cui nessun op
 \chapter{Stato dell'arte}
 \section{Uno studio condotto nel 2022}
 Per quanto concerne la sicurezza dell'eSIM e del protocollo RSP, non sono ancora stati condotti numerosi studi e, al momento, risulta difficoltoso trovare degli articoli a riguardo in rete. Ciò è dovuto al fatto che questo mondo è del tutto nuovo e i telefoni che supportano le eSIM sono tuttora in fase di diffusione. Di conseguenza, in questo capitolo ci si limita a illustrare un particolare studio che, al momento, è di gran lunga il più importante a essere stato condotto nell'ambito dell'eSIM: si tratta di un'analisi portata a termine nel 2022 da quattro ricercatori dell'università Aalto in Finlandia (Abu Shohel Ahmed, Aleksi Peltonen, Mohit Sethi e Tuomas Aura) \cite{Sec-analysis}.\\
-Il fine ultimo dello studio è quello di effettuare un'analisi di sicurezza del protocollo, a partire dalla procedura di Common Mutual Authentication fino al download e l'installazione del profilo, definendo 15 obiettivi di sicurezza, considerando due varianti del protocollo (default server approach e Activation Code approach) e lavorando su 11 scenari differenti, ciascuno dei quali viene analizzato sia con l'uso del tunnel TLS tra l'applicazione LPA e il server SM-DP+, sia senza l'uso del tunnel TLS. L'analisi è stata svolta con l'aiuto di ProVerif, un verificatore automatico di protocolli crittografici che lavora nel modello formale; in particolare, questo tool permette di dimostrare la validità di proprietà crittografiche come la confidenzialità, l'autenticazione, l'indistinguibilità tra più segreti e l'equivalenza di più processi client che differiscono esclusivamente nella sessione in cui comunicano col server \cite{ProVerif}.
+Il fine ultimo dello studio è quello di effettuare un'analisi di sicurezza del protocollo, a partire dalla procedura di Common Mutual Authentication fino al download e l'installazione del profilo, definendo 15 obiettivi di sicurezza, considerando due varianti del protocollo (default server approach e Activation Code approach) e lavorando su 11 scenari differenti, ciascuno dei quali viene analizzato sia con l'uso del tunnel TLS tra l'applicazione LPA e il server SM-DP+, sia senza l'uso del tunnel TLS. L'analisi è stata svolta con l'aiuto di ProVerif, un verificatore automatico di protocolli crittografici che lavora nel modello formale; in particolare, questo tool permette di dimostrare la validità di proprietà crittografiche come la confidenzialità, l'autenticazione, l'indistinguibilità tra più segreti e l'equivalenza di più processi client che differiscono esclusivamente nella sessione in cui comunicano col server \cite{ProVerif}.\\
+La tabella \ref{tab:scenarios}, tratta da \cite{Sec-analysis}, elenca gli 11 scenari su cui si è lavorato. È chiaro che gli ultimi due sono applicabili soltanto nella variante del protocollo in cui è previsto l'uso dell'Activation Code (Activation Code approach).
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Gli 11 scenari considerati nello studio.}
+\label{tab:scenarios}
+\begin{tabularx}{\textwidth}{|c|c|X|} % <-- Alignments: 1st column center and 2nd center, with vertical lines in between
+\hline
+\textbf{N°} & \textbf{Scenario} & \textbf{Descrizione}\\
+\hline
+1 & Base-case & Tutti i partecipanti sono onesti e solo la rete tra l'LPA e il server SM-DP+ è untrusted.\\
+\hline
+2 & Server & L'attaccante possiede tutte le chiavi private del server SM-DP+.\\
+\hline
+3 & eUICC & L'attaccante possiede la chiave privata dell'eUICC del telefono della vittima.\\
+\hline
+4 & LPA & L'attaccante è l'utente che controlla l'LPA.\\
+\hline
+5 & 2nd server & Il server SM-DP+ target è onesto ma esiste un secondo server SM-DP+ compromesso.\\
+\hline
+6 & 2nd eUICC & L'attaccante possiede la chiave privata dell'eUICC del proprio telefono.\\
+\hline
+7 & 2nd MNO & L'operatore target è onesto ma esiste un secondo operatore compromesso.\\
+\hline
+8 & Order-user & L'attaccante impersona la vittima quando esegue l'ordine di un profilo.\\
+\hline
+9 & Order-eUICC & L'attaccante richiede un profilo per l'eUICC della vittima (senza impersonarla).\\
+\hline
+10 & AC leak & L'attaccante ottiene l'Activation Code associato a un profilo da scaricare.\\
+\hline
+11 & AC spoof & L'attaccante manipola l'LPA affinché utilizzi un Activation Code errato.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+
+D'altra parte, i 15 obiettivi di sicurezza, il cui conseguimento è stato testato negli scenari di cui sopra (con e senza tunnel TLS) sono schematizzati all'interno della tabella \ref{tab:security-goals} tratta da \cite{Sec-analysis}.
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{I 15 obiettivi di sicurezza considerati nello studio.}
+\label{tab:security-goals}
+\begin{tabularx}{\textwidth}{|c|c|X|} % <-- Alignments: 1st column center and 2nd center, with vertical lines in between
+\hline
+\textbf{ID} & \textbf{Tipo} & \textbf{Descrizione}\\
+\hline
+A & Autenticazione & L'eUICC può completare l'autenticazione del server SM-DP+ solo dopo che entrambi gli end-point hanno avviato la procedura.\\
+\hline
+B & Autenticazione & Il server SM-DP+ può completare l'autenticazione dell'eUICC solo dopo aver avviato la procedura e dopo essere stato autenticato dall'eUICC.\\
+\hline
+B' & Autenticazione & Vi è una corrispondenza tra il completamento dell'autenticazione dell'eUICC, il fatto che l'end user sia l'effettivo proprietario dell'eUICC, la richiesta di un profilo all'operatore da parte dell'end user e la richiesta di ordinazione di quel profilo al server SM-DP+ da parte dell'operatore.\\
+\hline
+C & Autenticazione & L'eUICC può accettare il server SM-DP+ come entità da cui effettuare il download del profilo solo se la procedura di mutua autenticazione è stata completata con successo e se la GSMA ha autorizzato il server a rilasciare profili.\\
+\hline
+D & Autenticazione & Il server SM-DP+ può avviare il key agreement e la consegna del profilo solo se l'eUICC è stato autenticato e lo ha accettato come entità da cui effettuare il download del profilo.\\
+\hline
+E & Autenticazione & L'eUICC può accettare le chiavi di sessione solo se quest'ultimo ha avviato il key agreement.\\
+\hline
+F & Autenticazione & L'eUICC può scaricare il profilo dal server SM-DP+ solo se quest'ultimo ha avviato la consegna del profilo.\\
+\hline
+G & Autenticazione & Vi è una corrispondenza tra l'accettazione della notifica di download del profilo da parte del server SM-DP+, il fatto che l'end user sia l'effettivo proprietario dell'eUICC, la richiesta di un profilo all'operatore da parte dell'end user e la richiesta di ordinazione di quel profilo al server SM-DP+ da parte dell'operatore.\\
+\hline
+I & Autenticazione & L'eUICC può scaricare il profilo dal server SM-DP+ solo dopo che entrambi gli end-point hanno avviato la procedura di Common Mutual Authentication.\\
+\hline
+J & Autenticazione & Vi è una corrispondenza tra il download del profilo all'interno dell'eUICC, il fatto che l'end user sia l'effettivo proprietario dell'eUICC, la richiesta di un profilo all'operatore da parte dell'end user e la richiesta di ordinazione di quel profilo al server SM-DP+ da parte dell'operatore.\\
+\hline
+K & Autenticazione & Vi è una corrispondenza tra il rilascio del profilo da parte del server SM-DP+, il fatto che l'end user sia l'effettivo proprietario dell'eUICC, la richiesta di un profilo all'operatore da parte dell'end user e la richiesta di ordinazione di quel profilo al server SM-DP+ da parte dell'operatore.\\
+\hline
+W & Confidenzialità & L'attaccante non può accedere alle chiavi di sessione una volta che sono state accettate dal server SM-DP+.\\
+\hline
+X & Confidenzialità & L'attaccante non può accedere alle chiavi di sessione una volta che sono state accettate dall'eUICC.\\
+\hline
+Y & Confidenzialità & L'attaccante non può accedere al profilo decrittato una volta che è stato rilasciato dal server SM-DP+.\\
+\hline
+Z & Confidenzialità & L'attaccante non può accedere al profilo decrittato una volta che è stato scaricato nell'eUICC.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+
+I risultati dei test eseguiti dai quattro ricercatori dell'università Aalto sono illustrati in figura \ref{fig:results2022} tratta da \cite{Sec-analysis}.
+\begin{figure}
+\includegraphics[width=\linewidth]{results2022.png}
+\caption{Risultati dell'approccio default server (in alto) e Activation Code (in basso).}
+\label{fig:results2022}
+\end{figure}
+[TODO: dire che vogliono dire le spunte, le X e i cerchi nella figura]
 
 \chapter{Implementazione dei simulatori}
 \section{Obiettivo prefissato}
