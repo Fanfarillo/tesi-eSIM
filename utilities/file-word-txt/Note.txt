@@ -38,7 +38,7 @@ In definitiva, almeno per quanto concerne eUICC e LPA, sembra che si parli di un
 D'altra parte, nel video https://www.youtube.com/watch?v=5oecn43xsDg, emerge che alcuni pc con Windows 10 supportano direttamente la eSIM (io con Windows 11 non ho questa feature).
 
 NOTA 5
-Il video menzionato nella nota 5 (https://www.youtube.com/watch?v=5oecn43xsDg) parla di possibili aspetti di sicurezza concernenti le eSIM che possono essere affrontati, come:
+Il video menzionato nella nota 4 (https://www.youtube.com/watch?v=5oecn43xsDg) parla di possibili aspetti di sicurezza concernenti le eSIM che possono essere affrontati, come:
 a) Come deployare un profilo definito direttamente da noi.
 b) Come installare applicazioni custom nell'eUICC.
 c) Trovare qualche vulnerabilità dell'eUICC (utilizzo di toolkit per catturare info, esecuzione di comandi su una macchina vittima mediante una connessione definita da noi, ecc.).

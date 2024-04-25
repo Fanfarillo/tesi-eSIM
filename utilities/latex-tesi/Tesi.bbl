@@ -52,6 +52,12 @@ IETF.
   2018.
 \newblock \url{https://rfc-editor.org/rfc/rfc8446}.
 
+\bibitem[Bruno~Blanchet(2016)]{ProVerif}
+Bruno~Blanchet.
+\newblock \emph{"Modeling and Verifying Security Protocols with the Applied Pi Calculus and ProVerif"},
+  2016.
+\newblock \url{https://www.nowpublishers.com/article/Details/SEC-004}.
+
 \bibitem[IETF(2006)]{RFC-4648}
 IETF.
 \newblock \emph{"The Base16, Base32, and Base64 Data Encodings"},
