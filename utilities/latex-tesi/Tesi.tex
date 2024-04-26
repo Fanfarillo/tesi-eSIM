@@ -59,7 +59,8 @@ L'eSIM (embedded-SIM) non è altro che una SIM virtuale: grazie a lei, quando l'
 La presente trattazione si propone di:
 \begin{itemize}
 \item introdurre una panoramica sul mondo dell'eSIM, descrivendo tutti i dettagli architetturali e protocollari necessari;
-\item effettuare un'analisi di sicurezza e delle vulnerabilità dell'eSIM e del suo funzionamento;
+\item definire il punto a cui sono arrivate le ricerche precedenti, in modo tale da riprendere il lavoro a partire da quel punto ed evitare così di ripetere le analisi e gli esperimenti che sono stati già resi di dominio pubblico;
+\item effettuare un'analisi di sicurezza e delle vulnerabilità dell'eSIM e del suo funzionamento, dopo aver orchestrato un ambiente di test dal quale avviare gli esperimenti;
 \item se possibile, tentare di sfruttare, anche con delle attività di laboratorio, le eventuali vulnerabilità trovate.
 \end{itemize}
 
@@ -949,7 +950,23 @@ I risultati dei test eseguiti dai quattro ricercatori dell'università Aalto son
 \caption{Risultati dell'approccio default server (in alto) e Activation Code (in basso).}
 \label{fig:results2022}
 \end{figure}
-[TODO: dire che vogliono dire le spunte, le X e i cerchi nella figura]
+La spunta indica che il controllo di sicurezza è passato, il cerchio indica che il controllo di sicurezza è passato solo nel caso in cui è presente il tunnel TLS, la spunta tra parentesi indica che il tool ProVerif ha terminato senza un risultato conclusivo, mentre la X indica che il controllo di sicurezza non è passato. Tutti i simboli colorati di rosso nelle due tabelle sono relativi a risultati inaspettati o comunque degni di nota: di fatto, i casi in cui l'attaccante possiede le chiavi private del server SM-DP+ o dell'eUICC sono gli unici in cui ci si aspettava con un elevato livello di confidenza che l'intero protocollo fosse compromesso.
+
+Sulla base delle considerazioni riportate in \cite{Sec-analysis}, è possibile riassumere le vulnerabilità emerse nel seguente elenco.
+\begin{enumerate}
+\item Se si usa un server SM-DP+ S' compromesso a fianco del server SM-DP+ S coinvolto nella comunicazione RSP e non vi è un tunnel TLS tra l'LPA e il server S, allora l'attaccante può deviare la comunicazione verso il server S'. In tal modo, l'eUICC accetta anche i profili falsi generati dal server compromesso (S'). La vulnerabilità potrebbe essere dovuta al fatto che non compare alcun identificatore del server SM-DP+ (OID) all'interno dei messaggi che contengono i profili.
+\item Se l'attaccante possiede l'eUICC U, viene compromesso un secondo eUICC U', non vi è un tunnel TLS tra l'LPA e il server SM-DP+ e si ricorre all'approccio Activation Code, allora l'attaccante può rubare l'Activation Code dalla vittima che possiede U, firmarlo con la chiave privata dell'eUICC compromesso (U') e inviare il messaggio così generato al server SM-DP+. In tal modo, il server risponde a U' (anziché a U) con il nuovo profilo. La vulnerabilità potrebbe essere dovuta al fatto che all'interno del server SM-DP+ non viene registrato l'identificatore dell'eUICC target (EID) nel momento in cui viene ordinato un nuovo profilo.
+\item L'attaccante può scaricare un profilo in modo illegittimo sul proprio eUICC in uno dei seguenti due modi: il primo modo consiste nell'impersonare un utente legittimo deviando il download sul proprio eUICC; il secondo modo consiste nel ricostruire l'Activation Code a partire da leak di informazioni lasciati dall'utente vittima, dall'operatore oppure da una LPA modificata. La vulnerabilità potrebbe essere dovuta al fatto che, quando un utente richiede il download di un profilo, l'operatore non verifica in modo soddisfacente la sua identità: di fatto, non vi è alcun legame crittografico tra il profilo e l'end user che ne richiede il download, bensì è sufficiente esibire il codice di attivazione per dimostrare di essere il proprietario legittimo del profilo target.
+\item L'attaccante può scaricare un profilo nell'eUICC vittima (U) con la propria sottoscrizione (e quindi in modo illegittimo) in uno dei seguenti due modi: il primo modo consiste nel conoscere l'identificatore (l'EID) dell'eUICC U e richiedere il download del profilo per conto di U; il secondo modo consiste nell'iniettare un Activation Code per conto di U, ad esempio tramite una LPA modificata.
+\item Se si hanno due server SM-DP+ (S, S'), tra cui S' è compromesso, e non vi è un tunnel TLS tra l'LPA e il server S, allora l'attaccante può far sì che il server S impersoni il server S': così, durante la procedura di Common Mutual Authentication, S crederà di aver autenticato l'eUICC e l'eUICC crederà di aver autenticato S'. La vulnerabilità potrebbe essere dovuta al fatto che l'OID non viene incluso nei messaggi iniziali della Common Mutual Authentication.
+\item Se si hanno due eUICC (U, U'), tra cui U' è compromesso, e non vi è un tunnel TLS tra l'LPA e il server SM-DP+, allora l'attaccante può intercettare l'autenticazione tra l'eUICC U e il server: così, alla fine della procedura di Common Mutual Authentication, U crederà di aver autenticato il server e il server crederà di aver autenticato U'. La vulnerabilità potrebbe essere dovuta al fatto che l'EID non viene incluso nei messaggi iniziali della Common Mutual Authentication.
+\item Se non vi è un tunnel TLS tra l'LPA e il server SM-DP+ e si ricorre all'approccio Activation Code, allora, anche senza componenti compromessi, potrebbero rimanere dei leak di informazioni riguardanti l'Activation Code che un eventuale attaccante potrebbe sfruttare a proprio vantaggio.
+\end{enumerate}
+Tutti i punti sopra elencati, eccetto il terzo e il quarto, fanno riferimento a vulnerabilità che occorrerebbero nel caso in cui non si avesse un tunnel TLS tra l'applicazione LPA in utilizzo e il server SM-DP+ contattato dall'LPA. Tuttavia, si noti anche che le vulnerabilità illustrate possono essere sfruttate solo in situazioni molto particolari dove si hanno malfunzionamenti, componenti compromessi o requisiti imposti dalle specifiche di GSMA non rispettati (come l'assenza del tunnel TLS tra l'LPA e il server SM-DP+). Di conseguenza, rimane impossibile assumere che il protocollo RSP così definito non sia formalmente corretto.
+
+\section{Altri studi in corso}
+Tuttora vengono portati avanti degli studi sulla sicurezza dell'eSIM e si tengono delle conferenze a rigurardo. Un esempio è l'OffensiveCon, il cui talk sull'eSIM tenutosi nel maggio 2023 è disponibile su YouTube: https://www.youtube.com/watch?v=5oecn43xsDg.\\
+Qui è stato discusso su come deployare un profilo custom definito manualmente, come installare applicazioni custom nell'eUICC e come sfruttare qualche vulnerabilià dell'eUICC (e.g. utilizzo di un toolkit per catturare informazioni, esecuzione di comandi sulla macchina vittima mediante una connessione custom). Comunque sia, di nuovo, non sono stati riscontrati problemi o vulnerabilità nella definizione formale del protocollo RSP.
 
 \chapter{Implementazione dei simulatori}
 \section{Obiettivo prefissato}
@@ -1691,6 +1708,9 @@ Quando il server riceve un messaggio di cancelSession all'interno del sistema si
 \item Validità di euiccCancelSessionSignature: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata a CERT.EUICC.SIG.
 \end{itemize}
 L'unico aspetto da puntualizzare è la mancanza di un controllo sull'OID.
+
+\section{Validazione dei simulatori}
+[TODO]
 
 \chapter{Analisi di sicurezza dell'eSIM}
 [TODO]

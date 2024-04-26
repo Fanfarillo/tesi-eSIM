@@ -11,5 +11,3 @@ ANALISI DI SICUREZZA DELL'ESIM
 CONCLUSIONE
 1) Resoconto dei risultati ottenuti.
 2) Sviluppi futuri (e.g. pensare di allargare il campione dei server e dei client testati, pensare a nuove strade per individuare eventuali vulnerabilità).
-
-[???] Inserire anche uno stato dell'arte?
