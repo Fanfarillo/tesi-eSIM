@@ -70,5 +70,7 @@
 \contentsline {subsubsection}{Check da parte del server alla ricezione di handleNotification}{65}{section*.76}%
 \contentsline {subsubsection}{Check da parte del server alla ricezione di cancelSession}{66}{section*.77}%
 \contentsline {section}{\numberline {4.5}Validazione dei simulatori}{66}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Analisi di sicurezza dell'eSIM}{67}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{68}{chapter.6}%
+\contentsline {subsection}{\numberline {4.5.1}Validazione del simulatore lato client}{66}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Validazione del simulatore lato server}{67}{subsection.4.5.2}%
+\contentsline {chapter}{\numberline {5}Analisi di sicurezza dell'eSIM}{68}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{69}{chapter.6}%

@@ -100,4 +100,16 @@ Harald~Welte.
   2022.
 \newblock \url{https://gitea.osmocom.org/sim-card/gsma-esim-iot/src/branch/master/asn/RSPDefinitions.asn}.
 
+\bibitem[Association(2020)]{GSMA-test-cert}
+GSM Association.
+\newblock \emph{``RSP Test Certificates definitions Version 1.4"}, 2020.
+\newblock
+  \url{https://www.gsma.com/solutions-and-impact/technologies/esim/wp-content/uploads/2020/07/SGP.26-v1.4.pdf}.
+
+\bibitem[IETF(2010)]{RFC-5639}
+IETF.
+\newblock \emph{``Elliptic Curve Cryptography (ECC) Brainpool Standard Curves and Curve Generation"},
+  2010.
+\newblock \url{https://datatracker.ietf.org/doc/html/rfc5639}.
+
 \end{thebibliography}
