@@ -1721,9 +1721,112 @@ Il simulatore è stato approvato, e quindi considerato valido, nel momento in cu
 [TODO]
 
 \chapter{Analisi di sicurezza dell'eSIM}
+\section{Descrizione dell'analisi}
+L'analisi di sicurezza che ci si propone di effettuare si articola in due fasi.
+\begin{enumerate}
+\item Si individua un campione di server SM-DP+ da testare e, mediante il simulatore del client precedentemente sviluppato, si tenta di comunicare con ciascuno di loro in svariati modi diversi (e.g. modificando qualche campo di un messaggio, cambiando la certificate chain utilizzata, cambiando l'ordine dei messaggi inviati), costruendo così altrettanti casi di test. Per ciascun caso di test si analizzano le risposte di ogni server SM-DP+ del campione, col fine ultimo di stabilire se esse sono perfettamente conformi alle specifiche oppure lasciano intendere che il server abbia omesso dei check, aprendo le porte a eventuali vulnerabilità.
+\item Si utilizzano dei dispositivi mobili (i.e. coppie eUICC - LPA) per definire ulteriori casi di test a parti invertite. Così, sfruttando il simulatore del server implementato in precedenza, si tenta di comunicare coi dispositivi mobili e si raccolgono i loro messaggi di risposta per ciascun caso di test, anche qui con lo scopo di verificare se i loro eUICC e le loro LPA sono conformi alle specifiche.
+\end{enumerate}
+
+[TODO: cenno sui client da testare selezionati]
+
+\section{Ottenimento dei server da testare}
+L'idea originale consisteva nell'individuare tutti i server SM-DP+ del mondo in modo tale da effettuare dei test esaustivi e su larga scala. Tuttavia, non è stato possibile trovare in rete alcun riferimento a hostname o indirizzi IP dei server SM-DP+, eccezion fatta per i server di test, che sono quello di Google (con hostname \textit{prod.smdp-plus.rsp.goog}) e quello di Infineon (con hostname \textit{testsmdpplus.infineon.com}). Questi due server, a differenza di Osmo-smdpp, non sono open-source e non hanno bisogno di essere installati sulla macchina locale per essere eseguiti, bensì possono essere visti come normalissimi server SM-DP+.\\
+Per trovare dei server SM-DP+ che siano affiliati a degli operatori e permettano realmente di effettuare il download di profili, è stato necessario procedere come per il server di Very Mobile (vedere capitolo 4), ovvero acquistare un piano tariffario reale su un telefono che supporta l'eSIM, ricavando così l'hostname del server SM-DP+ a partire da un'email ricevuta dall'operatore (come quella in figura \ref{fig:email}). Sono stati così individuati i seguent server SM-DP+:
+\begin{itemize}
+\item server ufficiale di GSMA, con hostname \textit{lpa.ds.gsma.com};
+\item server di Iliad, con hostname \textit{frm.prod.ondemandconnectivity.com};
+\item server di Tim, con hostname \textit{rsp-0001.oberthur.net};
+\item server di Very Mobile, con hostname \textit{sys.prod.ondemandconnectivity.com}.
+\end{itemize}
+Successivamente, è stato effettuato un altro tentativo per ricavare l'hostname del maggior numero di server SM-DP+ possibile, che consiste nel provare a sfruttare l'indirizzo IP dei server già noti. In particolare, tramite il comando \textit{dig}, sono state inviate delle query a un server DNS con lo scopo di ottenere l'indirizzo IP associato a ciascun hostname ottenuto, compreso quello dei server di test. La tabella \ref{tab:IP-addr} mette insieme hostname e indirizzo IP dei server SM-DP+ attualmente noti.
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Hostname e indirizzo IP dei server SM-DP+ noti.}
+\label{tab:IP-addr}
+\begin{tabularx}{\textwidth}{|c|c|X|} % <-- Alignments: 1st column center and 2nd center, with vertical lines in between
+\hline
+\textbf{Nome} & \textbf{Hostname} & \textbf{Indirizzo IP}\\
+\hline
+Google & prod.smdp-plus.rsp.goog & 34.95.109.237\\
+\hline
+Infineon & testsmdpplus.infineon.com & 52.57.244.228; 18.196.185.236 \\
+\hline
+GSMA & lpa.ds.gsma.com & 34.89.151.119\\
+\hline
+Iliad & frm.prod.ondemandconnectivity.com & 34.107.65.70\\
+\hline
+Tim & rsp-0001.oberthur.net & 51.11.249.51\\
+\hline
+Very Mobile & sys.prod.ondemandconnectivity.com & 34.107.65.70\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+
+Dalla tabella \ref{tab:IP-addr} è possibile concludere che non c'è un pattern vero e proprio negli indirizzi IP dei server SM-DP+, per cui risulterebbe eccessivamente difficoltoso provare a ricavare ulteriori indirizzi IP a partire da quelli noti. Inoltre, è possibile osservare che gli operatori Iliad e Very Mobile si appoggiano sul medesimo server SM-DP+.\\
+Si potrebbe pensare di procedere con la forza bruta e, per ogni indirizzo IP che va da 0.0.0.0 a 255.255.255.255, provare a stabilire se esso è associato o meno a un server SM-DP. Tuttavia, né inviando query a un server DNS, né provando a contattare direttamente gli host specificando il loro indirizzo IP anziché il loro hostname si riescono a ottenere informazioni utili.\\
+L'unico aspetto su cui si è potuto lavorare è l'hostname del server SM-DP+ associato a Tim, dove compare un numero $N$ a quattro cifre (0001). Facendo variare $N$, si ottengono ancora degli hostname esistenti e validi per qualunque $N$ a quattro cifre compreso tra 0001 e 0032. In particolare, i 32 hostname così trovati sono mappati soltanto su quattro indirizzi IP diversi, per cui molti di loro costituiscono degli alias. I quattro host individuati solo elencati di seguito:
+\begin{itemize}
+\item \textit{rsp-0001.oberthur.net}, con indirizzo IP 51.11.249.51;
+\item \textit{rsp-0002.oberthur.net}, con indirizzo IP 51.11.249.55;
+\item \textit{rsp-0003.oberthur.net}, con indirizzo IP 185.200.48.11;
+\item \textit{rsp-0012.oberthur.net}, con indirizzo IP 213.39.85.20.
+\end{itemize}
+Stabilendo una prima connessione con ciascuno dei quattro host, è stato possibile capire che dietro gli hostname \textit{rsp-0001.oberthur.net} e \textit{rsp-0002.oberthur.net} si cela con ogni probabilità il medesimo server SM-DP+, poiché nei due casi ha esibito esattamente lo stesso certificato CERT.DPauth.SIG. Inoltre, dietro l'hotname \textit{rsp-0012.oberthur.net} si cela un server non più utilizzabile perché, indipendentemente dal messaggio di richiesta che gli viene inviato, risponde con l'errore ``Web Page Blocked!" come riportato in figura \ref{fig:web-page-blocked}.\\
+\begin{figure}
+\includegraphics[width=\linewidth]{web-page-blocked.png}
+\caption{Pagina web con cui rsp-0012.oberthur.net risponde.}
+\label{fig:web-page-blocked}
+\end{figure}
+Di conseguenza, ai fini degli esperimenti, oltre a \textit{rsp-0001.oberthur.net} (server di Tim), verrà considerato solo \textit{rsp-0003.oberthur.net}, che verrà identificato come `gemello del server di Tim' poiché, nonostante esibisca un certificato CERT.DPauth.SIG diverso, apparentemente si comporta allo stesso modo del server di Tim, a meno del layout dei messaggi di risposta.\\
+
+In definitiva, la tabella \ref{tab:all-servers} mostra tutti i server che verranno contattati durante l'esecuzione dei test.
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Elenco dei server SM-DP+ coinvolti negli esperimenti.}
+\label{tab:all-servers}
+\begin{tabularx}{\textwidth}{|X|c|X|X|} % <-- Alignments: 2nd column center, with vertical lines in between
+\hline
+\textbf{Nome} & \textbf{Hostname} & \textbf{Descrizione} & \textbf{Note}\\
+\hline
+Google & prod.smdp-plus.rsp.goog & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test. Matching ID: 052X-UFXS-CQIY-PNGL.\\
+\hline
+Infineon & testsmdpplus.infineon.com & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test. Matching ID: ApcLl-k0Ulo-kqSlk-GLhCl.\\
+\hline
+GSMA & lpa.ds.gsma.com & Server SM-DP+ ufficiale della GSMA & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+\hline
+Iliad \& Very Mobile & frm.prod.ondemandconnectivity.com & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+\hline
+Tim & rsp-0001.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+\hline
+Gemello di Tim & rsp-0003.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+\hline
+Osmo-smdpp & testsmdpplus1.example.com & Server SM-DP+ di test open-source installato in locale & Verrà contattato usando una certificate chain di test. Matching ID: TS48v1\_A.\\
+\hline
+Simulatore & localhost & Simulatore lato server precedentemente implementato & Può essere contattato usando una certificate chain qualsiasi e un Matching ID custom.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+\\\textit{*Non è possibile disporre di un'intera certificate chain valida della GSMA assieme a tutte le chiavi private associate. È per questo motivo che, in linea teorica, il certificato presentato dal simulatore del client all'interno del messaggio authenticateClient non può essere considerato valido. Dunque, i successivi esperimenti non possono spingersi oltre alla procedura di Common Mutual Authentication.}
+
+\section{Risposte dei server testati}
+[TODO: partire dalla definizione dei casi di test per poi elencare (forse con un itemize) le risposte dei server raggruppandole per caso di test e non per server]
+
+\section{Risposte dei client testati}
+[TODO]
+
+\section{Scenari di attacchi ipotetici}
 [TODO]
 
 \chapter{Conclusione}
+\section{Resoconto dei risultati ottenuti}
+[TODO]
+
+\section{Sviluppi futuri}
 [TODO]
 
 \bibliography{Bibliography}
