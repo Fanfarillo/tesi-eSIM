@@ -1814,77 +1814,7 @@ Simulatore & localhost & Simulatore lato server precedentemente implementato & P
 \\\textit{*Non è possibile disporre di un'intera certificate chain valida della GSMA assieme a tutte le chiavi private associate. È per questo motivo che, in linea teorica, il certificato presentato dal simulatore del client all'interno del messaggio authenticateClient non può essere considerato valido. Dunque, i successivi esperimenti non possono spingersi oltre alla procedura di Common Mutual Authentication.}
 
 \section{Risposte dei server testati}
-\subsection{Casi di test definiti}
-I casi di test che sono stati implementati ed eseguiti ai fini della presente trattazione sono riportati nella tabella \ref{tab:test-cases}.\\
-\begin{table}[h!]
-\begin{center}
-\captionsetup{skip=4pt}
-\caption{Elenco dei casi di test definiti per i server SM-DP+.}
-\label{tab:test-cases}
-\begin{tabularx}{\textwidth}{|c|X|} % <-- Alignments: 1st column center, with vertical lines in between
-\hline
-\textbf{ID} & \textbf{Descrizione}\\
-\hline
-1 & Il simulatore del client si comporta perfettamente come da specifiche.\\
-\hline
-2 & Manomissione del messaggio authenticateClient: invio della struttura authenticateResponseError anziché authenticateResponseOk.\\
-\hline
-3 & Manomissione del messaggio authenticateClient: utilizzo di una certificate chain lato client differente da quella scelta di default.\\
-\hline
-4 & Manomissione del messaggio authenticateClient: calcolo errato dalla signature (euiccSignature).\\
-\hline
-5.1 & Manomissione del messaggio authenticateClient (sotto-campo euiccInfo2): utilizzo di un SVN (Specification Version Number) non atteso (e.g. 0x000000, che corrisponderebbe alla versione 0.0.0).\\
-\hline
-5.2 & Manomissione del messaggio authenticateClient (sotto-campo euiccInfo2): utilizzo di euiccCiPKIdListForVerification ed euiccCiPKIdListForSigning non attesi (pur mantenendo la certificate chain di default).\\
-\hline
-5.3 & Manomissione del messaggio authenticateClient (sotto-campo euiccInfo2): sasAcreditationNumber = stringa vuota.\\
-\hline
-6.1 & Manomissione del messaggio authenticateClient (sotto-campo ctxParams1): eliminazione del sotto-campo imei.\\
-\hline
-6.2 & Manomissione del messaggio authenticateClient (sotto-campo ctxParams1): inserimento di un Matching ID non valido.\\
-\hline
-7.1 & Manomissione del messaggio authenticateClient: utilizzo di un Transaction ID non valido all'interno del campo euiccSigned1.\\
-\hline
-7.2 & Manomissione del messaggio authenticateClient: campo transactionId non valido direttamente all'interno di authenticateResponseOk.\\
-\hline
-8 & Manomissione del messaggio authenticateClient: utilizzo di un smdpAddress non valido all'interno del campo euiccSigned1.\\
-\hline
-9 & Manomissione del messaggio authenticateClient: utilizzo di una serverChallenge non valida all'interno del campo euiccSigned1.\\
-\hline
-10 & Manomissione del messaggio initiateAuthentication: utilizzo di una euiccChallenge malforme (e.g. 0x00).\\
-\hline
-11 & Manomissione del messaggio initiateAuthentication: utilizzo di un smdpAddress non valido.\\
-\hline
-12.1 & Manomissione del messaggio initiateAuthentication (campo euiccInfo1): utilizzo di un SVN (Specification Version Number) non atteso (e.g. 0x000000, che corrisponderebbe alla versione 0.0.0).\\
-\hline
-12.2 & Manomissione del messaggio initiateAuthentication (campo euiccInfo1): utilizzo di euiccCiPKIdListForVerification ed euiccCiPKIdListForSigning non attesi (pur mantenendo la certificate chain di default).\\
-\hline
-13.1 & Avvio della Common Cancel Session Procedure già dal primo messaggio.\\
-\hline
-13.2 & Avvio della Common Cancel Session Procedure a partire dal secondo messaggio.\\
-\hline
-14.1 & Invio di getBoundProfilePackage come primo messaggio.\\
-\hline
-14.2 & Invio di getBoundProfilePackage come secondo messaggio.\\
-\hline
-15 & Invio di getBoundProfilePackage come primo messaggio col campo transactionId pari all'ID di transazione di una connessione instaurata da un altro processo client messo appositamente in sleep.\\
-\hline
-\end{tabularx}
-\end{center}
-\end{table}
-
-\subsection{Caso di test 1}
-Il caso di test 1 consiste nel comunicare col server SM-DP+ seguendo fedelmente le specifiche, senza alcuna manomissione nel protocollo o nei messaggi inviati. Di seguito è descritto il comportamento dei server in esame in questo caso di test.
-\begin{itemize}
-\item \textbf{Google}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``message: Execution Failed} $\rightarrow$ ``none of the proposed Public Key Identifiers is supported by the SM-DP+.
-\item \textbf{Infineon}:
-\item \textbf{GSMA}:
-\item \textbf{Iliad \& Very Mobile}:
-\item \textbf{Tim}:
-\item \textbf{Gemello di Tim}:
-\item \textbf{Osmo-smdpp}:
-\item \textbf{Simulatore}:
-\end{itemize}
+[TODO: partire dalla definizione dei casi di test per poi elencare (forse con un itemize) le risposte dei server raggruppandole per caso di test e non per server]
 
 \section{Risposte dei client testati}
 [TODO]
