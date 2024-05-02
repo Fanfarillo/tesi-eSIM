@@ -76,8 +76,14 @@
 \contentsline {section}{\numberline {5.1}Descrizione dell'analisi}{69}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Ottenimento dei server da testare}{69}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Risposte dei server testati}{72}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Risposte dei client testati}{72}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Scenari di attacchi ipotetici}{72}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{73}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{73}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Sviluppi futuri}{73}{section.6.2}%
+\contentsline {subsection}{\numberline {5.3.1}Casi di test definiti}{72}{subsection.5.3.1}%
+\contentsline {subsubsection}{Caso di test 1}{73}{section*.82}%
+\contentsline {subsubsection}{Caso di test 2}{73}{section*.83}%
+\contentsline {subsubsection}{Caso di test 3}{74}{section*.84}%
+\contentsline {subsection}{\numberline {5.3.2}Certificati esibiti dai server}{74}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Osservazioni sulle risposte ricevute}{74}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Risposte dei client testati}{74}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Scenari di attacchi ipotetici}{74}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{75}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{75}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Sviluppi futuri}{75}{section.6.2}%
