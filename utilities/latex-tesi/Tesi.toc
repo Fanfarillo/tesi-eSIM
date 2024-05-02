@@ -1,0 +1,83 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{8}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Panoramica sull'eSIM}{8}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Obiettivo del lavoro}{8}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Definizioni preliminari}{8}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Interfacce e funzionamento dell'eSIM}{10}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Architettura di RSP}{10}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Interfacce presenti nell'architettura di RSP}{12}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Architettura dell'eUICC}{14}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Caratteristiche hardware e software dell'eUICC}{15}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Chiavi crittografiche e certificati}{15}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Chiavi crittografiche}{15}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Certificati}{15}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Aggiornamento delle chiavi pubbliche nell'eUICC}{21}{subsection.2.3.3}%
+\contentsline {subsubsection}{Contenuto dell'ECASD}{21}{section*.13}%
+\contentsline {subsubsection}{Quando avviene l'aggiornamento delle chiavi?}{21}{section*.14}%
+\contentsline {section}{\numberline {2.4}Interazione tra eUICC, LPA, SM-DP+ e operatore}{21}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Sicurezza TLS}{21}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Regole per la comunicazione in RSP}{22}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Step dell'interazione in RSP}{22}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Ciclo di vita dei profili in SM-DP+}{23}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Dettagli sulla Common Mutual Authentication}{26}{subsection.2.4.5}%
+\contentsline {subsubsection}{Condizioni iniziali}{26}{section*.21}%
+\contentsline {subsubsection}{Procedimento}{26}{section*.22}%
+\contentsline {subsection}{\numberline {2.4.6}Dettagli su download e installazione dei profili}{29}{subsection.2.4.6}%
+\contentsline {subsubsection}{Condizioni iniziali}{29}{section*.24}%
+\contentsline {subsubsection}{Procedimento}{31}{section*.25}%
+\contentsline {subsection}{\numberline {2.4.7}Sotto-procedura di Download Confirmation}{32}{subsection.2.4.7}%
+\contentsline {subsubsection}{Condizioni iniziali}{32}{section*.27}%
+\contentsline {subsubsection}{Procedimento}{32}{section*.28}%
+\contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{34}{subsection.2.4.8}%
+\contentsline {subsubsection}{Condizioni iniziali}{36}{section*.30}%
+\contentsline {subsubsection}{Procedimento}{36}{section*.31}%
+\contentsline {subsection}{\numberline {2.4.9}Dettagli sulla Common Cancel Session Procedure}{37}{subsection.2.4.9}%
+\contentsline {subsubsection}{Procedimento}{37}{section*.33}%
+\contentsline {section}{\numberline {2.5}Policy dei profili}{39}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Rules Authorisation Table}{39}{subsection.2.5.1}%
+\contentsline {subsubsection}{Primo esempio di RAT}{40}{section*.34}%
+\contentsline {subsubsection}{Secondo esempio di RAT}{40}{section*.36}%
+\contentsline {subsubsection}{Terzo esempio di RAT}{40}{section*.38}%
+\contentsline {chapter}{\numberline {3}Stato dell'arte}{41}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Uno studio condotto nel 2022}{41}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Altri studi in corso}{44}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Implementazione dei simulatori}{45}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Obiettivo prefissato}{45}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Ottenimento delle catture su Wireshark}{45}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Analisi dei messaggi catturati}{46}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Analisi di initiateAuthentication}{47}{subsection.4.3.1}%
+\contentsline {subsubsection}{Codifica base64}{47}{section*.44}%
+\contentsline {subsubsection}{Codifica DER}{48}{section*.47}%
+\contentsline {subsubsection}{Standard ASN.1}{49}{section*.48}%
+\contentsline {subsection}{\numberline {4.3.2}Analisi di initiateAuthenticationResponse}{50}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Analisi di authenticateClient}{52}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Analisi di authenticateClientResponse}{55}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Analisi di getBoundProfilePackage}{59}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Analisi di getBoundProfilePackageResponse}{60}{subsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.3.7}Analisi di handleNotification}{61}{subsection.4.3.7}%
+\contentsline {section}{\numberline {4.4}Implementazione dei simulatori}{62}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Librerie Python utilizzate}{63}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Confronto tra specifiche GSMA e simulatori}{63}{subsection.4.4.2}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di initiateAuthetication}{63}{section*.68}%
+\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di initiateAuthenticationResponse}{63}{section*.69}%
+\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di initiateAuthenticationResponse}{64}{section*.70}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di authenticateClient}{65}{section*.71}%
+\contentsline {subsubsection}{Check da parte dell'LPA alla ricezione di authenticateClientResponse}{65}{section*.72}%
+\contentsline {subsubsection}{Check da parte dell'eUICC alla ricezione di authenticateClientResponse}{65}{section*.73}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di getBoundProfilePackage}{66}{section*.74}%
+\contentsline {subsubsection}{Check da parte del client alla ricezione di getBoundProfilePackageResponse}{66}{section*.75}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di handleNotification}{66}{section*.76}%
+\contentsline {subsubsection}{Check da parte del server alla ricezione di cancelSession}{67}{section*.77}%
+\contentsline {section}{\numberline {4.5}Validazione dei simulatori}{67}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Validazione del simulatore lato client}{67}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Validazione del simulatore lato server}{68}{subsection.4.5.2}%
+\contentsline {chapter}{\numberline {5}Analisi di sicurezza dell'eSIM}{69}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descrizione dell'analisi}{69}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Ottenimento dei server da testare}{69}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Risposte dei server testati}{72}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Risposte dei client testati}{72}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Scenari di attacchi ipotetici}{72}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{73}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{73}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Sviluppi futuri}{73}{section.6.2}%
