@@ -1913,6 +1913,23 @@ Il caso di test 3 consiste nel manomettere il messaggio authenticateClient inser
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.3"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``eUICC Certificate"}, \textit{``message": ``Verification Failed"} $\rightarrow$ il certificato dell'eUICC o un qualunque certificato nella catena è non valido.
 \end{itemize}
 
+\subsubsection{Caso di test 4}
+Il caso di test 4 consiste nel manomettere il messaggio authenticateClient ponendo il campo euiccSignature1 uguale a un valore diverso dalla signature di euiccSigned1 firmata con la chiave privata dell'eUICC.
+\begin{itemize}
+\item \textbf{Google}: n.d.
+\item \textbf{Infineon}: n.d.
+\item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
+\item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
+\item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
+\item \textbf{Osmo-smdpp}: 
+\begin{itemize}
+\item Caso in cui la lunghezza della signature è corretta $\rightarrow$ \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Verification failed"} $\rightarrow$ la signature dell'eUICC è non valida.
+\item Caso in cui la lunghezza della signature è errata $\rightarrow$ HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\end{itemize}
+\item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``eUICC"}, \textit{``message": ``Verification Failed"} $\rightarrow$ la signature dell'eUICC è non valida.
+\end{itemize}
+
 \subsection{Certificati esibiti dai server}
 [TODO]
 
