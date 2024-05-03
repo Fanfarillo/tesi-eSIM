@@ -80,10 +80,30 @@
 \contentsline {subsubsection}{Caso di test 1}{73}{section*.82}%
 \contentsline {subsubsection}{Caso di test 2}{73}{section*.83}%
 \contentsline {subsubsection}{Caso di test 3}{74}{section*.84}%
-\contentsline {subsection}{\numberline {5.3.2}Certificati esibiti dai server}{74}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Osservazioni sulle risposte ricevute}{74}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}Risposte dei client testati}{74}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Scenari di attacchi ipotetici}{74}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Conclusione}{75}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{75}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Sviluppi futuri}{75}{section.6.2}%
+\contentsline {subsubsection}{Caso di test 4}{74}{section*.85}%
+\contentsline {subsubsection}{Caso di test 5.1}{75}{section*.86}%
+\contentsline {subsubsection}{Caso di test 5.2}{75}{section*.87}%
+\contentsline {subsubsection}{Caso di test 5.3}{76}{section*.88}%
+\contentsline {subsubsection}{Caso di test 6.1}{76}{section*.89}%
+\contentsline {subsubsection}{Caso di test 6.2}{77}{section*.90}%
+\contentsline {subsubsection}{Caso di test 7.1}{77}{section*.91}%
+\contentsline {subsubsection}{Caso di test 7.2}{78}{section*.92}%
+\contentsline {subsubsection}{Caso di test 8}{78}{section*.93}%
+\contentsline {subsubsection}{Caso di test 9}{79}{section*.94}%
+\contentsline {subsubsection}{Caso di test 10}{79}{section*.95}%
+\contentsline {subsubsection}{Caso di test 11}{80}{section*.96}%
+\contentsline {subsubsection}{Caso di test 12.1}{80}{section*.97}%
+\contentsline {subsubsection}{Caso di test 12.2}{81}{section*.98}%
+\contentsline {subsubsection}{Caso di test 13.1}{82}{section*.99}%
+\contentsline {subsubsection}{Caso di test 13.2}{82}{section*.100}%
+\contentsline {subsubsection}{Caso di test 14.1}{83}{section*.101}%
+\contentsline {subsubsection}{Caso di test 14.2}{83}{section*.102}%
+\contentsline {subsubsection}{Caso di test 15}{84}{section*.103}%
+\contentsline {subsection}{\numberline {5.3.2}Certificati esibiti dai server}{84}{subsection.5.3.2}%
+\contentsline {subsubsection}{Certificato di GSMA}{84}{section*.104}%
+\contentsline {subsection}{\numberline {5.3.3}Osservazioni sulle risposte ricevute}{84}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Risposte dei client testati}{84}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Scenari di attacchi ipotetici}{84}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Conclusione}{85}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{85}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Sviluppi futuri}{85}{section.6.2}%
