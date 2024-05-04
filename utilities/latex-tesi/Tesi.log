@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  3 MAY 2024 17:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  4 MAY 2024 13:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1195,9 +1195,9 @@ Overfull \hbox (6.48146pt too wide) in paragraph at lines 1928--1929
 $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 HTTP[]INTERNAL[]SERVER[]ERROR
  []
 
-[75] [76] [77] [78] [79] [80] [81] [82] [83] [84]
+[75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87]
 Capitolo 6.
-(./Tesi.bbl [85
+(./Tesi.bbl [88
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -1243,7 +1243,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--108
  / esim / wp-[]content / uploads / 2020 /
  []
 
-[86
+[89
 
 ]
 Underfull \hbox (badness 1728) in paragraph at lines 110--114
@@ -1251,15 +1251,15 @@ Underfull \hbox (badness 1728) in paragraph at lines 110--114
 ECC) Brain-pool Stan-dard Cur-ves and Cur-ve
  []
 
-) [87] [88
+) [90] [91
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: C46DE50FBCCB38A39ABC464839263297;12184.
  ) 
 Here is how much of TeX's memory you used:
- 14974 strings out of 476024
- 243028 string characters out of 5794016
+ 14984 strings out of 476024
+ 243133 string characters out of 5794016
  1877382 words of memory out of 5000000
  34799 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
@@ -1280,10 +1280,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (89 pages, 2622858 bytes).
+Output written on Tesi.pdf (92 pages, 2627460 bytes).
 PDF statistics:
- 1446 PDF objects out of 1728 (max. 8388607)
- 1221 compressed objects within 13 object streams
- 378 named destinations out of 1000 (max. 500000)
+ 1468 PDF objects out of 1728 (max. 8388607)
+ 1240 compressed objects within 13 object streams
+ 388 named destinations out of 1000 (max. 500000)
  672 words of extra memory for PDF output out of 10000 (max. 10000000)
 

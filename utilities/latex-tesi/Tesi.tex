@@ -1713,7 +1713,7 @@ L'unico aspetto da puntualizzare è la mancanza di un controllo sull'OID.
 Prima di sfruttare i simulatori implementati per condurre gli esperimenti successivi, è necessario dimostrare che essi siano corretti, assicurandosi che rispettino fedelmente le specifiche di GSMA, siano privi di bug e siano in grado di comunicare con successo con server e client reali. In altre parole, si vuole validare i simulatori.
 
 \subsection{Validazione del simulatore lato client}
-Per validare il simulatore del client, si è deciso di farlo comunicare con un server di test, ovvero un server SM-DP+ che non è stato concepito per rilasciare profili reali a utenti che vogliono ottenere un vero e proprio piano tariffario, bensì per effettuare delle prove e rilasciare quindi dei profili di test. Tipicamente, un server di test prevede l'utilizzo di catene di certificati di test, le più importanti delle quali vengono definite e messe a disposizione direttamente dalla GSMA \cite{GSMA-test-cert}. Si tratta di due catene di certificati insieme alle quali è possibile scaricare anche le relative chiavi pubbliche e chiavi private. Inoltre, tali certificati coprono tutte le entità coinvolte nella catena, dalla Root CA, al server SM-DP+, all'EUM, all'eUICC. La prima certificate chain, indicata con BRP, fa uso dell'algoritmo Brainpool, che è un algoritmo utilizzato nell'ambito della crittografia basata sulle curve ellittiche \cite{RFC-5639}, mentre la seconda, indicata con NIST, no.\\
+Per validare il simulatore del client, si è deciso di farlo comunicare con un server di test, ovvero un server SM-DP+ che non è stato concepito per rilasciare profili reali a utenti che vogliono ottenere un vero e proprio piano tariffario, bensì per effettuare delle prove e rilasciare quindi dei profili di test. Tipicamente, un server di test prevede l'utilizzo di catene di certificati di test, le più importanti delle quali vengono definite e messe a disposizione direttamente dalla GSMA \cite{GSMA-test-cert}. Si tratta di due catene di certificati insieme alle quali è possibile scaricare anche le relative chiavi pubbliche e chiavi private. Inoltre, tali certificati coprono tutte le entità coinvolte nella catena, dalla RootCA, al server SM-DP+, all'EUM, all'eUICC. La prima certificate chain, indicata con BRP, fa uso dell'algoritmo Brainpool, che è un algoritmo utilizzato nell'ambito della crittografia basata sulle curve ellittiche \cite{RFC-5639}, mentre la seconda, indicata con NIST, no.\\
 Per aiutarsi con l'attività di debugging durante il processo di validazione del simulatore lato client, si è deciso di sfruttare un server di test open-source: \textbf{Osmo-smdpp}, che è possibile trovare su GitHub al link https://github.com/osmocom/pysim, ed è stato l'unico server SM-DP+ open-source reperibile al momento della validazione del simulatore. Si tratta di un server di test attualmente incompleto. Infatti, ha implementate tutte le funzioni necessarie per la mutua autenticazione e per il download dei profili di prova ma non prevede ancora tutti i controlli che, secondo le specifiche di GSMA \cite{GSMA-docs-new}, un qualunque server SM-DP+ deve effettuare a ogni messaggio ricevuto da parte dell'LPA coinvolta nella comunicazione; ciò è confermato dal fatto che all'interno del codice di Osmo-smdpp vi è un'ingente quantità di commenti marcati con l'espressione \textit{TODO}. Comunque sia, per semplicità, si è assunto che tale server di test fosse sufficiente per debuggare, completare e validare il simulatore del client appena sviluppato.\\
 Il simulatore è stato approvato, e quindi considerato valido, nel momento in cui è stato in grado di completare con successo la comunicazione col server Osmo-smdpp inviando nell'ordine i messaggi initiateAuthentication, authenticateClient, getBoundProfilePackage e handleNotification, potendo sfruttare sia la catena di certificati BRP, sia la catena di certificati NIST.
 
@@ -2185,11 +2185,131 @@ Consiste nell'inviare getBoundProfilePackage come primo messaggio della comunica
 \end{itemize}
 
 \subsection{Certificati esibiti dai server}
-Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. Sono perciò esclusi da questa trattazione i server di Google e Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati nei paragrafi successivi.
+Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. Sono perciò esclusi da questa trattazione i server di Google e Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati qui di seguito.
 
 \subsubsection{Certificato di GSMA}
 \begin{itemize}
-\item TODO
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: GSM Association;
+\item \textbf{issuer commonName}: GSM Association - RSP2 Root CI1;
+\item \textbf{validity notBefore}: 2023-06-21;
+\item \textbf{validity notAfter}: 2026-06-20;
+\item \textbf{countryName}: DE;
+\item \textbf{localityName}: Frankfurt;
+\item \textbf{organizationName}: ThalesSA;
+\item \textbf{organizationalUnitName}: IT;
+\item \textbf{commonName}: GCP EW3 PROD SMDS;
+\item \textbf{crLDistributionPoints}: http://gsma-crl.symauth.com/offlineca/gsma-rsp2-root-ci1.crl;
+\item \textbf{authorityKeyIdentifier}: rsp2.
+\end{itemize}
+
+\subsubsection{Certificato di Iliad e Very Mobile}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: GSM Association;
+\item \textbf{issuer commonName}: GSM Association - RSP2 Root CI1;
+\item \textbf{validity notBefore}: 2021-10-28;
+\item \textbf{validity notAfter}: 2024-10-27;
+\item \textbf{countryName}: DE;
+\item \textbf{localityName}: Frankfurt;
+\item \textbf{organizationName}: ThalesSA;
+\item \textbf{organizationalUnitName}: IT;
+\item \textbf{commonName}: SMDP+ GCP EW3 MULTITENANT;
+\item \textbf{crLDistributionPoints}: http://gsma-crl.symauth.com/offlineca/gsma-rsp2-root-ci1.crl;
+\item \textbf{authorityKeyIdentifier}: rsp2.
+\end{itemize}
+
+\subsubsection{Certificato di Tim}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: GSM Association;
+\item \textbf{issuer commonName}: GSM Association - RSP2 Root CI1;
+\item \textbf{validity notBefore}: 2021-12-08;
+\item \textbf{validity notAfter}: 2031-12-07;
+\item \textbf{countryName}: FR;
+\item \textbf{localityName}: Paris;
+\item \textbf{organizationName}: IDEMIA;
+\item \textbf{commonName}: Azure SM-DP 401;
+\item \textbf{crLDistributionPoints}: http://gsma-crl.symauth.com/offlineca/gsma-rsp2-root-ci1.crl;
+\item \textbf{authorityKeyIdentifier}: rsp2.
+\end{itemize}
+
+\subsubsection{Certificato del gemello di Tim}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: GSM Association;
+\item \textbf{issuer commonName}: GSM Association - RSP2 Root CI1;
+\item \textbf{validity notBefore}: 2017-04-13;
+\item \textbf{validity notAfter}: 2027-04-12;
+\item \textbf{countryName}: RO;
+\item \textbf{localityName}: Otopeni;
+\item \textbf{organizationName}: Oberthur Technologies Romania SRL;
+\item \textbf{commonName}: Oberthur Technologies SM-DP 01;
+\item \textbf{crLDistributionPoints}: http://gsma-crl.symauth.com/offlineca/gsma-rsp2-root-ci1.crl;
+\item \textbf{authorityKeyIdentifier}: rsp2.
+\end{itemize}
+
+\subsubsection{Certificato di Osmo-smdpp (BRP \& NIST)}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: RSPTEST;
+\item \textbf{issuer organizationalUnitName}: TESTCERT;
+\item \textbf{issuer commonName}: Test CI ;
+\item \textbf{issuer countryName}: IT;
+\item \textbf{validity notBefore}: 2020-04-01;
+\item \textbf{validity notAfter}: 2030-03-30;
+\item \textbf{organizationName}: ACME;
+\item \textbf{commonName}: TEST SM-DP+;
+\item \textbf{crLDistributionPoints}: http://ci.test.example.com/CRL-A.crl;\\http://ci.test.example.com/crl-B.crl;
+\item \textbf{authorityKeyIdentifier}: sgp.
+\end{itemize}
+
+\subsubsection{Certificato del simulatore del server}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: Fanfa Association;
+\item \textbf{issuer commonName}: Fanfa Association - RSP2 Root CI1;
+\item \textbf{validity notBefore}: 2024-04-12;
+\item \textbf{validity notAfter}: 2034-04-10;
+\item \textbf{countryName}: FR;
+\item \textbf{localityName}: Tours;
+\item \textbf{organizationName}: Thales DIS France SA;
+\item \textbf{organizationalUnitName}: ODC;
+\item \textbf{commonName}: SMDP Plus Torus Platform;
+\item \textbf{crLDistributionPoints}: http://gsma-crl.symauth.com/offlineca/gsma-rsp2-root-ci1.crl;
+\item \textbf{authorityKeyIdentifier}: fanfa.
+\end{itemize}
+
+A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA) e RSPTEST (a capo della certificate chain di test). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri due certificati.
+
+\subsubsection{Certificato Root di GSMA}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: GSM Association;
+\item \textbf{issuer commonName}: GSM Association - RSP2 Root CI1;
+\item \textbf{validity notBefore}: 2017-02-22;
+\item \textbf{validity notAfter}: 2052-02-21;
+\item \textbf{organizationName}: GSM Association;
+\item \textbf{commonName}: GSM Association - RSP2 Root CI1;
+\item \textbf{crLDistributionPoints}: http://gsma-crl.symauth.com/offlineca/gsma-rsp2-root-ci1.crl;
+\item \textbf{authorityKeyIdentifier}: rsp2.
+\end{itemize}
+
+\subsubsection{Certificato Root di RSPTEST (BRP \& NIST)}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: RSPTEST;
+\item \textbf{issuer organizationalUnitName}: TESTCERT;
+\item \textbf{issuer commonName}: Test CI;
+\item \textbf{issuer countryName}: IT;
+\item \textbf{validity notBefore}: 2020-04-01;
+\item \textbf{validity notAfter}: 2055-04-01;
+\item \textbf{countryName}: IT;
+\item \textbf{organizationName}: RSPTEST;
+\item \textbf{organizationalUnitName}: TESTCERT;
+\item \textbf{commonName}: Test CI;
+\item \textbf{crLDistributionPoints}: http://ci.test.example.com/CRL-A.crl;\\http://ci.test.example.com/crl-B.crl;
+\item \textbf{authorityKeyIdentifier}: sgp.
 \end{itemize}
 
 \subsection{Osservazioni sulle risposte ricevute}
