@@ -1782,8 +1782,7 @@ Stabilendo una prima connessione con ciascuno dei quattro host, è stato possibi
 \end{figure}
 Di conseguenza, ai fini degli esperimenti, oltre a \textit{rsp-0001.oberthur.net} (server di Tim), verrà considerato solo \textit{rsp-0003.oberthur.net}, che verrà identificato come `gemello del server di Tim' poiché, nonostante esibisca un certificato CERT.DPauth.SIG diverso, apparentemente si comporta allo stesso modo del server di Tim, a meno del layout dei messaggi di risposta.\\
 
-La tabella \ref{tab:all-servers} mostra tutti i server che verranno contattati durante l'esecuzione dei test.\\
-
+In definitiva, la tabella \ref{tab:all-servers} mostra tutti i server che verranno contattati durante l'esecuzione dei test.
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -1793,17 +1792,17 @@ La tabella \ref{tab:all-servers} mostra tutti i server che verranno contattati d
 \hline
 \textbf{Nome} & \textbf{Hostname} & \textbf{Descrizione} & \textbf{Note}\\
 \hline
-Google & prod.smdp-plus.rsp.goog & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test*. Matching ID: 052X-UFXS-CQIY-PNGL.\\
+Google & prod.smdp-plus.rsp.goog & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test. Matching ID: 052X-UFXS-CQIY-PNGL.\\
 \hline
 Infineon & testsmdpplus.infineon.com & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test. Matching ID: ApcLl-k0Ulo-kqSlk-GLhCl.\\
 \hline
-GSMA & lpa.ds.gsma.com & Server SM-DP+ ufficiale della GSMA & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
+GSMA & lpa.ds.gsma.com & Server SM-DP+ ufficiale della GSMA & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
 \hline
-Iliad \& Very Mobile & frm.prod.ondemandconnectivity.com & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
+Iliad \& Very Mobile & frm.prod.ondemandconnectivity.com & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
 \hline
-Tim & rsp-0001.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
+Tim & rsp-0001.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
 \hline
-Gemello di Tim & rsp-0003.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
+Gemello di Tim & rsp-0003.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
 \hline
 Osmo-smdpp & testsmdpplus1.example.com & Server SM-DP+ di test open-source installato in locale & Verrà contattato usando una certificate chain di test. Matching ID: TS48v1\_A.\\
 \hline
@@ -1812,8 +1811,7 @@ Simulatore & localhost & Simulatore lato server precedentemente implementato & P
 \end{tabularx}
 \end{center}
 \end{table}
-\textit{*La certificate chain di test supportata dal server di Google è diversa da quella prevista dagli altri server di test.}\\ \\
-\textit{**Non è possibile disporre di un'intera certificate chain valida della GSMA assieme a tutte le chiavi private associate. È per questo motivo che, in linea teorica, il certificato presentato dal simulatore del client all'interno del messaggio authenticateClient non può essere considerato valido. Dunque, i successivi esperimenti non possono spingersi oltre alla procedura di Common Mutual Authentication.}
+\\\textit{*Non è possibile disporre di un'intera certificate chain valida della GSMA assieme a tutte le chiavi private associate. È per questo motivo che, in linea teorica, il certificato presentato dal simulatore del client all'interno del messaggio authenticateClient non può essere considerato valido. Dunque, i successivi esperimenti non possono spingersi oltre alla procedura di Common Mutual Authentication.}
 
 \section{Risposte dei server testati}
 \subsection{Casi di test definiti}
@@ -1887,7 +1885,7 @@ Consiste nel comunicare col server SM-DP+ seguendo fedelmente le specifiche, sen
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Executed-Success"}.
 \end{itemize}
-Poiché il server Infineon dà problemi già dal primo messaggio (initiateAuthentication), non potrà essere oggetto dei casi di test che coinvolgono la manomissione del secondo messaggio (authenticateClient).
+Poiché i server di Google e Infineon danno problemi già dal primo messaggio (initiateAuthentication), non potranno essere oggetto dei casi di test che coinvolgono la manomissione del secondo messaggio (authenticateClient).
 
 \subsubsection{Caso di test 2}
 Consiste nel manomettere il messaggio authenticateClient inserendovi la struttura authenticateResponseError al posto di authenticateResponseOk, facendo credere al server SM-DP+ che la sua autenticazione non sia andata a buon fine.
@@ -2187,10 +2185,7 @@ Consiste nell'inviare getBoundProfilePackage come primo messaggio della comunica
 \end{itemize}
 
 \subsection{Certificati esibiti dai server}
-Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. È perciò escluso da questa trattazione il server Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati qui di seguito.
-
-\subsubsection{Certificato di Google}
-[TODO]
+Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. Sono perciò esclusi da questa trattazione i server di Google e Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati qui di seguito.
 
 \subsubsection{Certificato di GSMA}
 \begin{itemize}
