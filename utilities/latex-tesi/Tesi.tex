@@ -831,7 +831,7 @@ PPR1, PPR2 & * & true\\
 \end{center}
 \end{table}
 
-La RAT rappresentata in \ref{tab:rat1} descrive la seguente situazione:
+\noindent La RAT rappresentata in \ref{tab:rat1} descrive la seguente situazione:
 \begin{itemize}
 \item L'operatore OP-A può usare PPR1 senza il consenso dell'end user e PPR2 col consenso dell'end user.
 \item L'operatore OP-B può usare PPR1 col consenso dell'end user e PPR2 senza il consenso dell'end user.
@@ -855,7 +855,7 @@ PPR1, PPR2 & * & true\\
 \end{center}
 \end{table}
 
-Secondo la RAT rappresentata in \ref{tab:rat2}, tutti gli operatori possono usare PPR1 e PPR2 col consenso dell'end user.
+\noindent Secondo la RAT rappresentata in \ref{tab:rat2}, tutti gli operatori possono usare PPR1 e PPR2 col consenso dell'end user.
 
 \subsubsection{Terzo esempio di RAT}
 Un terzo esempio classico è dato dalla tabella RAT vuota, secondo cui nessun operatore può usare alcuna PPR.
@@ -900,7 +900,7 @@ La tabella \ref{tab:scenarios}, tratta da \cite{Sec-analysis}, elenca gli 11 sce
 \end{center}
 \end{table}
 
-D'altra parte, i 15 obiettivi di sicurezza, il cui conseguimento è stato testato negli scenari di cui sopra (con e senza tunnel TLS) sono schematizzati all'interno della tabella \ref{tab:security-goals} tratta da \cite{Sec-analysis}.
+\noindent D'altra parte, i 15 obiettivi di sicurezza, il cui conseguimento è stato testato negli scenari di cui sopra (con e senza tunnel TLS) sono schematizzati all'interno della tabella \ref{tab:security-goals} tratta da \cite{Sec-analysis}.
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -944,7 +944,7 @@ Z & Confidenzialità & L'attaccante non può accedere al profilo decrittato una 
 \end{center}
 \end{table}
 
-I risultati dei test eseguiti dai quattro ricercatori dell'università Aalto sono illustrati in figura \ref{fig:results2022} tratta da \cite{Sec-analysis}.
+\noindent I risultati dei test eseguiti dai quattro ricercatori dell'università Aalto sono illustrati in figura \ref{fig:results2022} tratta da \cite{Sec-analysis}.
 \begin{figure}
 \includegraphics[width=\linewidth]{results2022.png}
 \caption{Risultati dell'approccio default server (in alto) e Activation Code (in basso).}
@@ -952,7 +952,7 @@ I risultati dei test eseguiti dai quattro ricercatori dell'università Aalto son
 \end{figure}
 La spunta indica che il controllo di sicurezza è passato, il cerchio indica che il controllo di sicurezza è passato solo nel caso in cui è presente il tunnel TLS, la spunta tra parentesi indica che il tool ProVerif ha terminato senza un risultato conclusivo, mentre la X indica che il controllo di sicurezza non è passato. Tutti i simboli colorati di rosso nelle due tabelle sono relativi a risultati inaspettati o comunque degni di nota: di fatto, i casi in cui l'attaccante possiede le chiavi private del server SM-DP+ o dell'eUICC sono gli unici in cui ci si aspettava con un elevato livello di confidenza che l'intero protocollo fosse compromesso.
 
-Sulla base delle considerazioni riportate in \cite{Sec-analysis}, è possibile riassumere le vulnerabilità emerse nel seguente elenco.
+\noindent Sulla base delle considerazioni riportate in \cite{Sec-analysis}, è possibile riassumere le vulnerabilità emerse nel seguente elenco.
 \begin{enumerate}
 \item Se si usa un server SM-DP+ S' compromesso a fianco del server SM-DP+ S coinvolto nella comunicazione RSP e non vi è un tunnel TLS tra l'LPA e il server S, allora l'attaccante può deviare la comunicazione verso il server S'. In tal modo, l'eUICC accetta anche i profili falsi generati dal server compromesso (S'). La vulnerabilità potrebbe essere dovuta al fatto che non compare alcun identificatore del server SM-DP+ (OID) all'interno dei messaggi che contengono i profili.
 \item Se l'attaccante possiede l'eUICC U, viene compromesso un secondo eUICC U', non vi è un tunnel TLS tra l'LPA e il server SM-DP+ e si ricorre all'approccio Activation Code, allora l'attaccante può rubare l'Activation Code dalla vittima che possiede U, firmarlo con la chiave privata dell'eUICC compromesso (U') e inviare il messaggio così generato al server SM-DP+. In tal modo, il server risponde a U' (anziché a U) con il nuovo profilo. La vulnerabilità potrebbe essere dovuta al fatto che all'interno del server SM-DP+ non viene registrato l'identificatore dell'eUICC target (EID) nel momento in cui viene ordinato un nuovo profilo.
@@ -1077,7 +1077,7 @@ Comunque sia, conoscere lo standard ASN.1 non è sufficiente per interpretare in
 
 \textit{\}\\}
 
-Come si può evincere, euiccInfo1 è una struttura dati composta da alcune informazioni che caratterizzano l'eUICC del dispositivo mobile coinvolto nella comunicazione. Tali informazioni sono schematizzate di seguito.
+\noindent Come si può evincere, euiccInfo1 è una struttura dati composta da alcune informazioni che caratterizzano l'eUICC del dispositivo mobile coinvolto nella comunicazione. Tali informazioni sono schematizzate di seguito.
 \begin{itemize}
 \item lo Specification Version Number (SVN), che sarebbe la versione di GSMA SGP.22 supportata dall'eUICC;
 \item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per autenticare il server;
@@ -1105,7 +1105,7 @@ La figura \ref{fig:msg2-stream-pcap} mostra l'intero contenuto del primo messagg
 \end{figure}
 Nell'header HTTP si ritrovano alcuni punti in comune col messaggio inviato dall'LPA: ad esempio, anche qui la versione HTTP utilizzata è la 1.1 e il protocollo usato per l'interazione tra LPA e server è la versione 2.2.0 di GSMA-RSP.\\
 
-Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
+\noindent Il payload del messaggio ha una struttura JSON del tutto analoga a quella di initiateAuthentication. In particolare, si hanno i seguenti campi:
 \begin{itemize}
 \item \textbf{header}: è un campo in chiaro che indica l'esito del processamento del messaggio dell'LPA al livello del protocollo RSP. La presenza di \textit{\{``status":``Executed-Success"\}} indica che tutti i check sulle informazioni ricevute dal client sono andati a buon fine e la comunicazione può proseguire secondo le specifiche di GSMA;
 \item \textbf{transactionId}: è un campo in chiaro che indica l'ID della transazione;
@@ -1116,7 +1116,7 @@ Il payload del messaggio ha una struttura JSON del tutto analoga a quella di ini
 \end{itemize}
 Per comprendere appieno le informazioni celate nei campi di initiateAuthenticationResponse codificati in base64, si fa nuovamente riferimento a \cite{RSP-definitions} e al sito \textit{ASN.1 JavaScript decoder}.\\
 
-La struttura dati serverSigned1 è molto semplice: dalla sua definizione riportata di seguito e dalla figura \ref{fig:decode-serverSigned1} \cite{RSP-definitions}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
+\noindent La struttura dati serverSigned1 è molto semplice: dalla sua definizione riportata di seguito e dalla figura \ref{fig:decode-serverSigned1} \cite{RSP-definitions}, si capisce che è composta dall'ID di transazione, dalla challenge (euiccChallenge) che il server aveva ricevuto in initiateAuthentication, dall'hostname del server e da una nuova challenge generata dal server (serverChallenge).\\
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-serverSigned1.png}
 \caption{Decodifica del campo serverSigned1 di initiateAuthenticationResponse.}
@@ -1135,9 +1135,9 @@ La struttura dati serverSigned1 è molto semplice: dalla sua definizione riporta
 
 \textit{\}\\}
 
-Il campo euiccCiPKIdToBeUsed cela anch'esso una struttura TLV dello standard ASN.1, com'è possibile vedere dalle figure \ref{fig:asn1-euiccCiPKIdToBeUsed}, \ref{fig:decode-euiccCiPKIdToBeUsed}. Inoltre, il relativo campo value assume un valore che è comparso sia in euiccCiPKIdListForVerification, sia in euiccCiPKIdListForSigning, il che vuol dire che il server SM-DP+ accetta l'utilizzo di una delle due chiavi pubbliche di CA (i.e. una delle due certificate chain) proposte dal client nel messaggio initiateAuthentication.\\
+\noindent Il campo euiccCiPKIdToBeUsed cela anch'esso una struttura TLV dello standard ASN.1, com'è possibile vedere dalle figure \ref{fig:asn1-euiccCiPKIdToBeUsed}, \ref{fig:decode-euiccCiPKIdToBeUsed}. Inoltre, il relativo campo value assume un valore che è comparso sia in euiccCiPKIdListForVerification, sia in euiccCiPKIdListForSigning, il che vuol dire che il server SM-DP+ accetta l'utilizzo di una delle due chiavi pubbliche di CA (i.e. una delle due certificate chain) proposte dal client nel messaggio initiateAuthentication.\\
 
-Per quanto invece riguarda il campo serverCertificate di initiateAuthenticationResponse, il sito \textit{ASN.1 JavaScript decoder} aiuta a comprendere molti dettagli sul certificato CERT.DPauth.SIG e sulla relativa certificate chain utilizzata. Le figure \ref{fig:decode-serverCertificate1}, \ref{fig:decode-serverCertificate2} mostrano la decodifica di tale certificato. Inizialmente vi sono gli attributi fondamentali, come:
+\noindent Per quanto invece riguarda il campo serverCertificate di initiateAuthenticationResponse, il sito \textit{ASN.1 JavaScript decoder} aiuta a comprendere molti dettagli sul certificato CERT.DPauth.SIG e sulla relativa certificate chain utilizzata. Le figure \ref{fig:decode-serverCertificate1}, \ref{fig:decode-serverCertificate2} mostrano la decodifica di tale certificato. Inizialmente vi sono gli attributi fondamentali, come:
 \begin{itemize}
 \item \textbf{signature AlgorithmIdentifier}: indica con quale algoritmo vengono calcolate le signature mediante la chiave privata associata al certificato ed è pari a \textit{ecdsaWithSHA256} (ANSI X.962 ECDSA algorithm with SHA256);
 \item \textbf{issuer Name}: è un campo relativo alla CA che ha rilasciato il presente certificato ed è a sua volta articolato in due sotto-campi, che sono l'organizationName (pari a ``GSM Association") e il commonName (pari a ``GSM Association - RSP2 Root CI1");
@@ -1281,7 +1281,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \textit{\}\\}
 
-Com'è possibile osservare, authenticateServerResponse si articola in due casi: authenticateResponseOk nel caso in cui l'autenticazione del server SM-DP+ sia andata a buon fine, e authenticateResponseError in caso contrario. La struttura authenticateResponseError è composta semplicemente dall'ID di transazione e da un codice di errore \cite{RSP-definitions}, mentre la struttura authenticateResponseOk è molto più articolata.\\
+\noindent Com'è possibile osservare, authenticateServerResponse si articola in due casi: authenticateResponseOk nel caso in cui l'autenticazione del server SM-DP+ sia andata a buon fine, e authenticateResponseError in caso contrario. La struttura authenticateResponseError è composta semplicemente dall'ID di transazione e da un codice di errore \cite{RSP-definitions}, mentre la struttura authenticateResponseOk è molto più articolata.\\
 Anzitutto, authenticateResponseOk è composto da quattro campi: euiccSigned1 che è a sua volta un'altra struttura dati complessa, euiccSignature1 che, come ormai suggerisce il nome, rappresenta la firma digitale di euiccSigned1, il certificato dell'eUICC (CERT.EUICC.SIG) e il certificato dell'EUM (CERT.EUM.SIG). La struttura euiccSigned1 si articola in:
 \begin{itemize}
 \item \textbf{transactionId}: è l'ID della transazione;
@@ -1320,7 +1320,7 @@ Il JSON del payload è composto dai campi elencati qui di seguito:
 \end{itemize}
 I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e del sito \textit{ASN.1 JavaScript decoder} sono profileMetadata (la cui sequenza di byte in ASN.1 è mostrata in figura \ref{fig:asn1-profileMetadata}) e smdpSigned2.\\
 
-La struttura dati profileMetadata, come riportato di seguito, comprende informazioni sul profilo target come l'ICCID (che, come spiegato nella sezione \ref{sec:device-change}, è l'identificativo del profilo), il nome dell'operatore, il nome del profilo, la classe del profilo ed eventuali Profile Policy Rules.\\
+\noindent La struttura dati profileMetadata, come riportato di seguito, comprende informazioni sul profilo target come l'ICCID (che, come spiegato nella sezione \ref{sec:device-change}, è l'identificativo del profilo), il nome dell'operatore, il nome del profilo, la classe del profilo ed eventuali Profile Policy Rules.\\
 
 \textit{StoreMetadataRequest ::= [37] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF25'}}
 
@@ -1350,7 +1350,7 @@ La struttura dati profileMetadata, come riportato di seguito, comprende informaz
 \label{fig:asn1-profileMetadata}
 \end{figure}
 
-La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transazione e un booleano che indica se è richiesto il Confirmation Code immesso dall'utente per completare il download e l'installazione del profilo. La necessità o meno del Confirmation Code e l'eventuale relativo valore vengono negoziati da server SM-DP+ e operatore durante la fase di \textit{profile ordering} (sezione \ref{sec:step-RSP}). Nel caso specifico del profilo scaricato con l'operatore Very Mobile, il Confirmation Code non è richiesto, come testimoniato dalla figura \ref{fig:decode-smdpSigned2} tratta dal sito \textit{ASN.1 JavaScript decoder}.\\
+\noindent La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transazione e un booleano che indica se è richiesto il Confirmation Code immesso dall'utente per completare il download e l'installazione del profilo. La necessità o meno del Confirmation Code e l'eventuale relativo valore vengono negoziati da server SM-DP+ e operatore durante la fase di \textit{profile ordering} (sezione \ref{sec:step-RSP}). Nel caso specifico del profilo scaricato con l'operatore Very Mobile, il Confirmation Code non è richiesto, come testimoniato dalla figura \ref{fig:decode-smdpSigned2} tratta dal sito \textit{ASN.1 JavaScript decoder}.\\
 
 \textit{SmdpSigned2 ::= SEQUENCE \{}
 
@@ -1408,7 +1408,7 @@ Qui di seguito si ha la definizione di prepareDownloadResponse \cite{RSP-definit
 
 \textit{\}\\}
 
-Anche prepareDownloadResponse, come authenticateServerResponse nel messaggio authenticateClient, si articola in due casi: prepareDownloadResponseOk nel caso in cui tutti i controlli effettuati dal client alla ricezione di authenticateClientResponse abbiano avuto successo, e prepareDownloadResponseError in caso contrario. La struttura dati prepareDownloadResponseError, in modo perfettamente analogo ad authenticateResponseError, è composta dall'ID di transazione e da un codice di errore.\\
+\noindent Anche prepareDownloadResponse, come authenticateServerResponse nel messaggio authenticateClient, si articola in due casi: prepareDownloadResponseOk nel caso in cui tutti i controlli effettuati dal client alla ricezione di authenticateClientResponse abbiano avuto successo, e prepareDownloadResponseError in caso contrario. La struttura dati prepareDownloadResponseError, in modo perfettamente analogo ad authenticateResponseError, è composta dall'ID di transazione e da un codice di errore.\\
 D'altra parte, prepareDownloadResponseOk è composto dalla struttura dati euiccSigned2 e dalla relativa digital signature euiccSignature2, dove euiccSigned2 è composto a sua volta da:
 \begin{itemize}
 \item \textbf{transactionId}: è l'ID di transazione;
@@ -1524,7 +1524,7 @@ Si ha un solo campo JSON, pendingNotification, la cui definizione è mostrata qu
 \label{fig:msg7-stream-pcap}
 \end{figure}
 
-Si hanno due casi possibili: pendingNotification pari alla struttura dati profileInstallationResult e pendingNotification pari alla struttura dati otherSignedNotification.
+\noindent Si hanno due casi possibili: pendingNotification pari alla struttura dati profileInstallationResult e pendingNotification pari alla struttura dati otherSignedNotification.
 \begin{itemize}
 \item Nel primo caso, si ha una struttura profileInstallationResultData composta da ID di transazione, alcuni metadati di notificazione, OID (i.e. l'identificatore) del server SM-DP+ ed esito finale dell'installazione del profilo all'interno dell'eUICC (che può essere un successResult o un errorResult). Oltre a profileInstallationResultData, il campo pendingNotification è composto anche da euiccSignPIR, che risulta essere la signature di profileInstallationResultData.
 \item Nel secondo caso, invece, si hanno alcuni metadati di notificazione, la relativa digital signature, il certificato dell'eUICC (CERT.EUICC.SIG) e il certificato dell'EUM (CERT.EUM.SIG). Intuitivamente, si ricade in questa casistica in contesti differenti da quello in cui l'LPA ha bisogno di comunicare l'esito dell'installazione del profilo (i.e. il successResult o l'errorResult).
@@ -1765,7 +1765,7 @@ Very Mobile & sys.prod.ondemandconnectivity.com & 34.107.65.70\\
 \end{center}
 \end{table}
 
-Dalla tabella \ref{tab:IP-addr} è possibile concludere che non c'è un pattern vero e proprio negli indirizzi IP dei server SM-DP+, per cui risulterebbe eccessivamente difficoltoso provare a ricavare ulteriori indirizzi IP a partire da quelli noti. Inoltre, è possibile osservare che gli operatori Iliad e Very Mobile si appoggiano sul medesimo server SM-DP+.\\
+\noindent Dalla tabella \ref{tab:IP-addr} è possibile concludere che non c'è un pattern vero e proprio negli indirizzi IP dei server SM-DP+, per cui risulterebbe eccessivamente difficoltoso provare a ricavare ulteriori indirizzi IP a partire da quelli noti. Inoltre, è possibile osservare che gli operatori Iliad e Very Mobile si appoggiano sul medesimo server SM-DP+.\\
 Si potrebbe pensare di procedere con la forza bruta e, per ogni indirizzo IP che va da 0.0.0.0 a 255.255.255.255, provare a stabilire se esso è associato o meno a un server SM-DP. Tuttavia, né inviando query a un server DNS, né provando a contattare direttamente gli host specificando il loro indirizzo IP anziché il loro hostname si riescono a ottenere informazioni utili.\\
 L'unico aspetto su cui si è potuto lavorare è l'hostname del server SM-DP+ associato a Tim, dove compare un numero $N$ a quattro cifre (0001). Facendo variare $N$, si ottengono ancora degli hostname esistenti e validi per qualunque $N$ a quattro cifre compreso tra 0001 e 0032. In particolare, i 32 hostname così trovati sono mappati soltanto su quattro indirizzi IP diversi, per cui molti di loro costituiscono degli alias. I quattro host individuati solo elencati di seguito:
 \begin{itemize}
@@ -1782,7 +1782,8 @@ Stabilendo una prima connessione con ciascuno dei quattro host, è stato possibi
 \end{figure}
 Di conseguenza, ai fini degli esperimenti, oltre a \textit{rsp-0001.oberthur.net} (server di Tim), verrà considerato solo \textit{rsp-0003.oberthur.net}, che verrà identificato come `gemello del server di Tim' poiché, nonostante esibisca un certificato CERT.DPauth.SIG diverso, apparentemente si comporta allo stesso modo del server di Tim, a meno del layout dei messaggi di risposta.\\
 
-In definitiva, la tabella \ref{tab:all-servers} mostra tutti i server che verranno contattati durante l'esecuzione dei test.
+La tabella \ref{tab:all-servers} mostra tutti i server che verranno contattati durante l'esecuzione dei test.\\
+
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
@@ -1792,17 +1793,17 @@ In definitiva, la tabella \ref{tab:all-servers} mostra tutti i server che verran
 \hline
 \textbf{Nome} & \textbf{Hostname} & \textbf{Descrizione} & \textbf{Note}\\
 \hline
-Google & prod.smdp-plus.rsp.goog & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test. Matching ID: 052X-UFXS-CQIY-PNGL.\\
+Google & prod.smdp-plus.rsp.goog & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test*. Matching ID: 052X-UFXS-CQIY-PNGL.\\
 \hline
 Infineon & testsmdpplus.infineon.com & Server SM-DP+ di test & Verrà contattato usando una certificate chain di test. Matching ID: ApcLl-k0Ulo-kqSlk-GLhCl.\\
 \hline
-GSMA & lpa.ds.gsma.com & Server SM-DP+ ufficiale della GSMA & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+GSMA & lpa.ds.gsma.com & Server SM-DP+ ufficiale della GSMA & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
 \hline
-Iliad \& Very Mobile & frm.prod.ondemandconnectivity.com & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+Iliad \& Very Mobile & frm.prod.ondemandconnectivity.com & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
 \hline
-Tim & rsp-0001.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+Tim & rsp-0001.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
 \hline
-Gemello di Tim & rsp-0003.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA*.\\
+Gemello di Tim & rsp-0003.oberthur.net & Server SM-DP+ reale & Verrà contattato usando una certificate chain custom con CI = GSMA**.\\
 \hline
 Osmo-smdpp & testsmdpplus1.example.com & Server SM-DP+ di test open-source installato in locale & Verrà contattato usando una certificate chain di test. Matching ID: TS48v1\_A.\\
 \hline
@@ -1811,7 +1812,8 @@ Simulatore & localhost & Simulatore lato server precedentemente implementato & P
 \end{tabularx}
 \end{center}
 \end{table}
-\\\textit{*Non è possibile disporre di un'intera certificate chain valida della GSMA assieme a tutte le chiavi private associate. È per questo motivo che, in linea teorica, il certificato presentato dal simulatore del client all'interno del messaggio authenticateClient non può essere considerato valido. Dunque, i successivi esperimenti non possono spingersi oltre alla procedura di Common Mutual Authentication.}
+\noindent \textit{*La certificate chain di test supportata dal server di Google è diversa da quella prevista dagli altri server di test.}\\ \\
+\textit{**Non è possibile disporre di un'intera certificate chain valida della GSMA assieme a tutte le chiavi private associate. È per questo motivo che il certificato presentato dal simulatore del client all'interno del messaggio authenticateClient non potrebbe essere considerato valido. Dunque, i successivi esperimenti non possono spingersi oltre alla procedura di Common Mutual Authentication.}
 
 \section{Risposte dei server testati}
 \subsection{Casi di test definiti}
@@ -1876,7 +1878,7 @@ I casi di test che sono stati implementati ed eseguiti ai fini della presente tr
 \subsubsection{Caso di test 1}
 Consiste nel comunicare col server SM-DP+ seguendo fedelmente le specifiche, senza alcuna manomissione nel protocollo o nei messaggi inviati. Di seguito è descritto il comportamento dei server in esame in questo caso di test.
 \begin{itemize}
-\item \textbf{Google}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ nessuno degli identificatori di chiave pubblica del CI (Public Key Identifier) proposti è supportato dal server SM-DP+.
+\item \textbf{Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (initiateAuthenticationResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
@@ -1885,12 +1887,13 @@ Consiste nel comunicare col server SM-DP+ seguendo fedelmente le specifiche, sen
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Executed-Success"}.
 \end{itemize}
-Poiché i server di Google e Infineon danno problemi già dal primo messaggio (initiateAuthentication), non potranno essere oggetto dei casi di test che coinvolgono la manomissione del secondo messaggio (authenticateClient).
+
+\noindent Poiché il server Infineon dà problemi già dal primo messaggio (initiateAuthentication), non potrà essere oggetto dei casi di test che coinvolgono la manomissione del secondo messaggio (authenticateClient).
 
 \subsubsection{Caso di test 2}
 Consiste nel manomettere il messaggio authenticateClient inserendovi la struttura authenticateResponseError al posto di authenticateResponseOk, facendo credere al server SM-DP+ che la sua autenticazione non sia andata a buon fine.
 \begin{itemize}
-\item \textbf{Google}: n.d.
+\item \textbf{Google}: Common Cancel Session Procedure completata con successo a seguito di un \textit{``status": ``Executed-Success"} al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Infineon}: n.d.
 \item \textbf{GSMA}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``eUICC"}, \textit{``message": ``serverChallenge is invalid"}.
 \item \textbf{Iliad \& Very Mobile}: HTTP\_NO\_CONTENT (status code 204) al secondo messaggio di risposta (authenticateClientResponse).
@@ -2185,7 +2188,10 @@ Consiste nell'inviare getBoundProfilePackage come primo messaggio della comunica
 \end{itemize}
 
 \subsection{Certificati esibiti dai server}
-Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. Sono perciò esclusi da questa trattazione i server di Google e Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati qui di seguito.
+Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. È perciò escluso da questa trattazione il server Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati qui di seguito.
+
+\subsubsection{Certificato di Google}
+[TODO]
 
 \subsubsection{Certificato di GSMA}
 \begin{itemize}
@@ -2280,7 +2286,7 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \item \textbf{authorityKeyIdentifier}: fanfa.
 \end{itemize}
 
-A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA) e RSPTEST (a capo della certificate chain di test). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri due certificati.
+\noindent A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA) e RSPTEST (a capo della certificate chain di test). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri due certificati.
 
 \subsubsection{Certificato Root di GSMA}
 \begin{itemize}

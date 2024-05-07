@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  4 MAY 2024 13:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  7 MAY 2024 09:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1125,72 +1125,82 @@ Underfull \hbox (badness 10000) in paragraph at lines 1777--1784
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1785--1786
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 []|\OT1/cmr/m/n/10 Verr^^Ra con-tat-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 ta-to usan-do
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 una cer-ti-fi-ca-te
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 chain di te-st.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 Mat-ching ID:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 ApcLl-k0Ulo-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 uf-fi-cia-le del-la
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 di te-st open-
  []
 
 
-Underfull \hbox (badness 3872) in paragraph at lines 1811--1811
+Underfull \hbox (badness 3872) in paragraph at lines 1812--1812
 []|\OT1/cmr/m/n/10 Simulatore la-to
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 ser-ver pre-ce-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 den-te-men-te
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 tat-ta-to usan-do
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1811--1811
+Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
 \OT1/cmr/m/n/10 una cer-ti-fi-ca-te
  []
 
-[70 <./images//web-page-blocked.png>] [71] [72] [73] [74]
-Overfull \hbox (6.48146pt too wide) in paragraph at lines 1928--1929
+[70 <./images//web-page-blocked.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1815--1817
+
+ []
+
+[71] [72] [73] [74]
+Overfull \hbox (6.48146pt too wide) in paragraph at lines 1931--1932
 []\OT1/cmr/m/n/10 Caso in cui la lun-ghez-za del-la si-gna-tu-re ^^Re er-ra-ta 
 $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 HTTP[]INTERNAL[]SERVER[]ERROR
  []
@@ -1258,8 +1268,8 @@ Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: C46DE50FBCCB38A39ABC464839263297;12184.
  ) 
 Here is how much of TeX's memory you used:
- 14984 strings out of 476024
- 243133 string characters out of 5794016
+ 14985 strings out of 476024
+ 243145 string characters out of 5794016
  1877382 words of memory out of 5000000
  34799 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
@@ -1280,10 +1290,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (92 pages, 2627460 bytes).
+Output written on Tesi.pdf (92 pages, 2627562 bytes).
 PDF statistics:
- 1468 PDF objects out of 1728 (max. 8388607)
- 1240 compressed objects within 13 object streams
- 388 named destinations out of 1000 (max. 500000)
+ 1469 PDF objects out of 1728 (max. 8388607)
+ 1241 compressed objects within 13 object streams
+ 389 named destinations out of 1000 (max. 500000)
  672 words of extra memory for PDF output out of 10000 (max. 10000000)
 
