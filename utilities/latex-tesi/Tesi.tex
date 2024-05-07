@@ -2296,9 +2296,9 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \item \textbf{authorityKeyIdentifier}: fanfa.
 \end{itemize}
 
-\noindent A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA) e RSPTEST (a capo della certificate chain di test). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri due certificati.
+\noindent A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA), RSPTEST (a capo della certificate chain di test usata da Infineon e Osmo-smdpp) e Symantec Corporation (a capo della certificate chain di test usata da Google). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri due certificati.
 
-\subsubsection{Certificato Root di GSMA}
+\subsubsection{Certificato Root di GSM Association}
 \begin{itemize}
 \item \textbf{Algorithm}: ecdsaWithSHA256;
 \item \textbf{issuer organizationName}: GSM Association;
@@ -2326,6 +2326,19 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \item \textbf{commonName}: Test CI;
 \item \textbf{crLDistributionPoints}: http://ci.test.example.com/CRL-A.crl;\\http://ci.test.example.com/crl-B.crl;
 \item \textbf{authorityKeyIdentifier}: sgp.
+\end{itemize}
+
+\subsubsection{Certificato Root di Symantec Corporation}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer organizationName}: Symantec Corporation;
+\item \textbf{issuer commonName}: Symantec Corporation RSP Test Root CA - For Test Purposes Only;
+\item \textbf{validity notBefore}: 2017-07-11;
+\item \textbf{validity notAfter}: 2049-12-31;
+\item \textbf{organizationName}: Symantec Corporation;
+\item \textbf{commonName}: Symantec Corporation RSP Test Root CA - For Test Purposes Only;
+\item \textbf{crLDistributionPoints}: http://pki-crl.symauth.com/SymantecRSPTestRootCA/LatestCRL.crl
+\item \textbf{authorityKeyIdentifier}: symantec.
 \end{itemize}
 
 \subsection{Osservazioni sulle risposte ricevute}
