@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  7 MAY 2024 12:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 MAY 2024 19:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1116,108 +1116,48 @@ Capitolo 5.
 <images//web-page-blocked.png, id=1160, 584.93532pt x 127.22531pt>
 File: images//web-page-blocked.png Graphic file (type png)
 <use images//web-page-blocked.png>
-Package pdftex.def Info: images//web-page-blocked.png  used on input line 1779.
+Package pdftex.def Info: images//web-page-blocked.png  used on input line 1786.
 
 (pdftex.def)             Requested size: 426.79135pt x 92.83098pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1777--1784
+Underfull \hbox (badness 10000) in paragraph at lines 1784--1792
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1785--1786
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-[]|\OT1/cmr/m/n/10 Verr^^Ra con-tat-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 ta-to usan-do
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 una cer-ti-fi-ca-te
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 chain di te-st.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 Mat-ching ID:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 ApcLl-k0Ulo-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 uf-fi-cia-le del-la
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 di te-st open-
- []
-
-
-Underfull \hbox (badness 3872) in paragraph at lines 1812--1812
-[]|\OT1/cmr/m/n/10 Simulatore la-to
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 ser-ver pre-ce-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 den-te-men-te
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 tat-ta-to usan-do
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1812--1812
-\OT1/cmr/m/n/10 una cer-ti-fi-ca-te
  []
 
 [70 <./images//web-page-blocked.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1815--1817
+Underfull \hbox (badness 3240) in paragraph at lines 1826--1826
+[]|\OT1/cmr/m/n/10 Server SM-DP+ di te-st open-
+ []
+
+
+Underfull \hbox (badness 2318) in paragraph at lines 1826--1826
+\OT1/cmr/m/n/10 cer-ti-fi-ca-te chain qual-sia-si e un
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1829--1831
 
  []
 
 [71] [72] [73] [74]
-Overfull \hbox (6.48146pt too wide) in paragraph at lines 1931--1932
+Overfull \hbox (6.48146pt too wide) in paragraph at lines 1961--1962
 []\OT1/cmr/m/n/10 Caso in cui la lun-ghez-za del-la si-gna-tu-re ^^Re er-ra-ta 
 $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 HTTP[]INTERNAL[]SERVER[]ERROR
  []
 
 [75] [76] [77] [78] [79] [80] [81] [82] [83] [84]
-Overfull \hbox (78.6451pt too wide) in paragraph at lines 2202--2203
+Overfull \hbox (78.6451pt too wide) in paragraph at lines 2232--2233
 []\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
 h.com/ca[]a3dc2e3fea7708a11c889386d9d3a76f/LatestCRL.crl; 
  []
 
-[85] [86] [87]
-Overfull \hbox (24.12819pt too wide) in paragraph at lines 2340--2341
+[85] [86] [87] [88]
+Overfull \hbox (24.12819pt too wide) in paragraph at lines 2370--2371
 []\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
 h.com/SymantecRSPTestRootCA/LatestCRL.crl 
  []
 
-[88] [89]
+[89]
 Capitolo 6.
 (./Tesi.bbl [90
 
@@ -1302,7 +1242,7 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (94 pages, 2630540 bytes).
+Output written on Tesi.pdf (94 pages, 2631584 bytes).
 PDF statistics:
  1479 PDF objects out of 1728 (max. 8388607)
  1249 compressed objects within 13 object streams
