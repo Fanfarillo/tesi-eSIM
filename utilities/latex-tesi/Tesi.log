@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  24 MAY 2024 19:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  25 MAY 2024 13:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1110,56 +1110,64 @@ e del-l'is-suer di CERT.DPauth.SIG.
 
 [65] [66] [67] [68]
 Capitolo 5.
+
+Overfull \hbox (3.19856pt too wide) in paragraph at lines 1734--1737
+\OT1/cmr/m/n/10 Stork (con host-na-me \OT1/cmr/m/it/10 prod.smds.rsp.goog\OT1/c
+mr/m/n/10 ) e Ve-ri-zon Wi-re-less (con host-na-me \OT1/cmr/m/it/10 lpads.vzw.o
+tgeuicc.com\OT1/cmr/m/n/10 ).
+ []
+
 [69
 
 ]
-<images//web-page-blocked.png, id=1160, 584.93532pt x 127.22531pt>
+<images//web-page-blocked.png, id=1158, 584.93532pt x 127.22531pt>
 File: images//web-page-blocked.png Graphic file (type png)
 <use images//web-page-blocked.png>
-Package pdftex.def Info: images//web-page-blocked.png  used on input line 1786.
+Package pdftex.def Info: images//web-page-blocked.png  used on input line 1780.
 
 (pdftex.def)             Requested size: 426.79135pt x 92.83098pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1784--1792
+Underfull \hbox (badness 10000) in paragraph at lines 1793--1795
 
  []
 
 [70 <./images//web-page-blocked.png>]
-Underfull \hbox (badness 3240) in paragraph at lines 1826--1826
+Underfull \hbox (badness 1043) in paragraph at lines 1831--1831
 []|\OT1/cmr/m/n/10 Server SM-DP+ di te-st open-
  []
 
 
-Underfull \hbox (badness 2318) in paragraph at lines 1826--1826
-\OT1/cmr/m/n/10 cer-ti-fi-ca-te chain qual-sia-si e un
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1829--1831
+Underfull \hbox (badness 10000) in paragraph at lines 1834--1836
 
  []
 
-[71] [72] [73] [74]
-Overfull \hbox (6.48146pt too wide) in paragraph at lines 1961--1962
+[71] [72] [73] [74] [75]
+Overfull \hbox (6.48146pt too wide) in paragraph at lines 1968--1969
 []\OT1/cmr/m/n/10 Caso in cui la lun-ghez-za del-la si-gna-tu-re ^^Re er-ra-ta 
 $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 HTTP[]INTERNAL[]SERVER[]ERROR
  []
 
-[75] [76] [77] [78] [79] [80] [81] [82] [83] [84]
-Overfull \hbox (78.6451pt too wide) in paragraph at lines 2232--2233
+
+Overfull \hbox (6.48146pt too wide) in paragraph at lines 1974--1975
+[]\OT1/cmr/m/n/10 Caso in cui la lun-ghez-za del-la si-gna-tu-re ^^Re er-ra-ta 
+$\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 HTTP[]INTERNAL[]SERVER[]ERROR
+ []
+
+[76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90]
+Overfull \hbox (78.6451pt too wide) in paragraph at lines 2442--2443
 []\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
 h.com/ca[]a3dc2e3fea7708a11c889386d9d3a76f/LatestCRL.crl; 
  []
 
-[85] [86] [87] [88]
-Overfull \hbox (24.12819pt too wide) in paragraph at lines 2370--2371
+[91] [92] [93]
+Overfull \hbox (24.12819pt too wide) in paragraph at lines 2549--2550
 []\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
 h.com/SymantecRSPTestRootCA/LatestCRL.crl 
  []
 
-[89]
+[94]
 Capitolo 6.
-(./Tesi.bbl [90
+(./Tesi.bbl [95
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -1205,7 +1213,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--108
  / esim / wp-[]content / uploads / 2020 /
  []
 
-[91
+[96
 
 ]
 Underfull \hbox (badness 1728) in paragraph at lines 110--114
@@ -1213,15 +1221,15 @@ Underfull \hbox (badness 1728) in paragraph at lines 110--114
 ECC) Brain-pool Stan-dard Cur-ves and Cur-ve
  []
 
-) [92] [93
+) [97] [98
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: C46DE50FBCCB38A39ABC464839263297;12184.
  ) 
 Here is how much of TeX's memory you used:
- 14988 strings out of 476024
- 243171 string characters out of 5794016
+ 14998 strings out of 476024
+ 243266 string characters out of 5794016
  1877382 words of memory out of 5000000
  34799 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
@@ -1242,10 +1250,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (94 pages, 2631584 bytes).
+Output written on Tesi.pdf (99 pages, 2641681 bytes).
 PDF statistics:
- 1479 PDF objects out of 1728 (max. 8388607)
- 1249 compressed objects within 13 object streams
- 392 named destinations out of 1000 (max. 500000)
+ 1507 PDF objects out of 1728 (max. 8388607)
+ 1272 compressed objects within 13 object streams
+ 402 named destinations out of 1000 (max. 500000)
  672 words of extra memory for PDF output out of 10000 (max. 10000000)
 
