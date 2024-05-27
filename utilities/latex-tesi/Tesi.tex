@@ -29,7 +29,7 @@
 \Dipartimento{Ingegneria Civile e Ingegneria dell'Informazione}
 \Corso{Ingegneria Informatica}
 \Annoaccademico{2023/2024}
-\Titolo{Analisi della sicurezza e delle vulnerabilità delle eSIM, dei server SM-DP+ e del protocollo che regolamenta la loro comunicazione mediante l'implementazione e l'utilizzo di simulatori}
+\Titolo{Sicurezza delle eSIM: analisi e sperimentazione mediante sviluppo di user agent e server SM-DP+}
 \Candidato[0316179]{Matteo Fanfarillo}
 \Relatore{Prof. Ing. Giuseppe Bianchi}
 \Correlatore{Prof. Ing. Francesco Gringoli}
@@ -1982,14 +1982,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo l'SVN (Specific
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``3.11"}, \textit{``subjectIdentifier": ``eUICC"}, \textit{``message": ``Value has Changed"}.
 \end{itemize}
@@ -2000,14 +2000,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo euiccCiPKIdList
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``Unsupported"}.
 \end{itemize}
@@ -2018,14 +2018,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo sasAcreditation
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Executed-Success"}.
 \end{itemize}
@@ -2036,14 +2036,14 @@ Consiste nel manomettere il messaggio authenticateClient eliminando l'imei dalla
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Executed-Success"}.
 \end{itemize}
@@ -2060,8 +2060,8 @@ Consiste nel manomettere il messaggio authenticateClient ponendo il Matching ID 
 \item \textbf{Verizon Wireless}: n.d.
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.2.6"}, \textit{``reasonCode": ``3.8"}, \textit{``message": ``Refused (profile not reliable)"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.2.6"}, \textit{``reasonCode": ``3.8"}, \textit{``message": ``Refused"} $\rightarrow$ il Matching ID non corrisponde a un valore valido.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.2.6"}, \textit{``reasonCode": ``3.10"}, \textit{``subjectIdentifier": ``Matching ID"}, \textit{``message": ``Invalid Association"} $\rightarrow$ il Matching ID non corrisponde a quello effettivamente associato all'ICCID specificato.
 \end{itemize}
@@ -2072,14 +2072,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo il Transaction 
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
 \end{itemize}
@@ -2090,14 +2090,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo il Transaction 
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``$<$transactionId value$>$"}, \textit{``message": ``The transactionID is not correct"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}:  \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``Unknown"} $\rightarrow$ la sessione RSP identificata dal Transaction ID è sconosciuta.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``Unknown"} $\rightarrow$ la sessione RSP identificata dal Transaction ID è sconosciuta.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
 \end{itemize}
@@ -2108,14 +2108,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo il sotto-campo 
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``$<$smdpAddress value$>$"}, \textit{``message": ``The server address is not correct"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DP+ Address"}, \textit{``message": ``Refused"}.
 \end{itemize}
@@ -2126,14 +2126,14 @@ Consiste nel manomettere il messaggio authenticateClient ponendo il sotto-campo 
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.2"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``Function provider"}, \textit{``message": ``Internal error while verifying token signature: invalid Certificate Policies: [2.5.29.35, 2.23.146.1.2.1.2]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), senza ulteriori informazioni.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), senza ulteriori informazioni.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse
+\item \textbf{eSIM Discovery Staging}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse
 \item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Verification failed"} $\rightarrow$ la signature dell'eUICC non è valida.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``EUM Certificate"}, \textit{``message": ``Verification Failed"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Verification failed"} $\rightarrow$ la signature dell'eUICC non è valida.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``6.1"}, \textit{``subjectIdentifier": ``eUICC"}, \textit{``message": ``Verification failed"}.
 \end{itemize}
@@ -2144,14 +2144,14 @@ Consiste nel manomettere il messaggio initiateAuthentication utilizzando una eui
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``1.6"}, \textit{``reasonCode": ``2.1"}, \textit{``subjectIdentifier": ``Function"}, \textit{``message": ``Euicc challenge format is not Octet[16]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``SM-DP+"}, \textit{``message": ``Execution Error"}.
 \item \textbf{Gemello di Tim}:  \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``SM-DP+"}, \textit{``message": ``Execution Error"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
-\item \textbf{GSMA}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (authenticateClientResponse).	
-\item \textbf{Verizon Wireless}:
+\item \textbf{eSIM Discovery Production}: invio di una euiccChallenge composta comunque da 16 byte nel primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{eSIM Discovery Staging}: invio di una euiccChallenge composta comunque da 16 byte nel primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{GSMA}: invio di una euiccChallenge composta comunque da 16 byte nel primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{Verizon Wireless}: invio di una euiccChallenge composta comunque da 16 byte nel primo messaggio di risposta (initiateAuthenticationResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1.2"}, \textit{``reasonCode": ``6.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la verifica del certificato dell'EUM non è andata a buon fine.
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (initiateAuthenticationResponse).
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.6"}, \textit{``reasonCode": ``2.1"}, \textit{``message": ``Invalid"} $\rightarrow$ il formato di euiccChallenge è errato.
 \item \textbf{Osmo-smdpp}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).
 \item \textbf{Simulatore}: \textit{``status": ``Executed-Success"}.
 \end{itemize}
@@ -2162,14 +2162,14 @@ Consiste nel manomettere il messaggio initiateAuthentication utilizzando un host
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``$<$smdpAddress value$>$"}, \textit{``message": ``The SM-DP address sent by the LPA is unknown"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DP+ Address"}, \textit{``message": ``Refused"}.
 \item \textbf{Gemello di Tim}:  \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DP+ Address"}, \textit{``message": ``Refused"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DS Address"}, \textit{``message": ``Invalid SM-DS Address"}.
+\item \textbf{eSIM Discovery Staging}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DS Address"}, \textit{``message": ``Invalid SM-DS Address"}.
 \item \textbf{GSMA}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DS Address"}, \textit{``message": ``Invalid SM-DS Address"}.
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DS Address"}, \textit{``message": ``Invalid SM-DS Address"}.
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``message": ``Execution Failed"} $\rightarrow$ indirizzo del server SM-DP+ non valido.
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (initiateAuthenticationResponse).
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}:  \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``message": ``Invalid SM-DP+ Address"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DP+ Address"}, \textit{``message": ``Refused"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``message": ``Invalid SM-DP+ Address"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.1"}, \textit{``reasonCode": ``3.8"}, \textit{``subjectIdentifier": ``SM-DP+ Address"}, \textit{``message": ``Refused"}.
 \end{itemize}
@@ -2193,21 +2193,37 @@ Consiste nel manomettere il messaggio initiateAuthentication ponendo l'SVN (Spec
 \item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``SM-DP+"}, \textit{``message": ``Execution Error"}.
 \end{itemize}
 \item \textbf{eSIM Discovery Production}:
+\begin{itemize}
+\item Caso in cui la lunghezza dell'SVN è uguale a 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.3"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Specification Version Number"}, \textit{``message": ``The Specification Version Number indicated  by the eUICC is not supported by the SM-DS"}.
+\item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$\\HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).\\
+\end{itemize}
 \item \textbf{eSIM Discovery Staging}:
+\begin{itemize}
+\item Caso in cui la lunghezza dell'SVN è uguale a 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.3"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Specification Version Number"}, \textit{``message": ``The Specification Version Number indicated  by the eUICC is not supported by the SM-DS"}.
+\item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$\\HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).
+\end{itemize}
 \item \textbf{GSMA}:
 \begin{itemize}
 \item Caso in cui la lunghezza dell'SVN è uguale a 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.3"}, \textit{``reasonCode": ``3.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ SVN non valido.
 \item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$\\HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).
 \end{itemize}
 \item \textbf{Verizon Wireless}:
+\begin{itemize}
+\item Caso in cui la lunghezza dell'SVN è uguale a 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.3"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Specification Version Number"}, \textit{``message": ``The Specification Version Number indicated  by the eUICC is not supported by the SM-DS"}.
+\item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$\\HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).
+\end{itemize}
 \item \textbf{Stork \& Google}:
 \begin{itemize}
 \item Caso in cui la lunghezza dell'SVN è uguale a 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ SVN non valido.
 \item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$\\HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al primo messaggio di risposta (initiateAuthenticationResponse).
 \end{itemize}
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (initiateAuthenticationResponse).
-\item \textbf{Sysmocom}:
+\item \textbf{Sysmocom}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Truphone}:
+\begin{itemize}
+\item Caso in cui la lunghezza dell'SVN è uguale a 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.3"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Specification Version Number (SVN)"}, \textit{``message": ``Unsupported"}.
+\item Caso in cui la lunghezza dell'SVN è diversa da 3 byte $\rightarrow$ \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``1.6"}, \textit{``reasonCode": ``2.1"}, \textit{``subjectIdentifier": ``Function"}, \textit{``message": ``Invalid"} $\rightarrow$ il formato di svn è errato.
+\end{itemize}
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Executed-Success"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al secondo messaggio di risposta (authenticateClientResponse), con \textit{``subjectCode: ``8.1"}, \textit{``reasonCode": ``3.11"}, \textit{``subjectIdentifier": ``eUICC"}, \textit{``message": ``Value has Changed"}.
 \end{itemize}
@@ -2218,14 +2234,14 @@ Consiste nel manomettere il messaggio initiateAuthentication ponendo i campi eui
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.3"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``SM-DP+ Certificate"}, \textit{``message": ``The SM-DP+ has no CERT.DPauth.SIG which chains to one of the eSIM CA RootCA Certificate with a Public Key supported by the eUICC"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``Unsupported"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``Unsupported"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``None of the proposed Public Key Identifiers is supported by the SM-DS"}.
+\item \textbf{eSIM Discovery Staging}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``None of the proposed Public Key Identifiers is supported by the SM-DS"}.
 \item \textbf{GSMA}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``None of the proposed Public Key Identifiers is supported by the SM-DS"}.
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.9.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``None of the proposed Public Key Identifiers is supported by the SM-DS"}.
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``message": ``Execution Failed"} $\rightarrow$ nessun identificatore di chiave pubblica del CI (Public Key Identifier) tra quelli proposti è supportato dal server SM-DP+.
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (initiateAuthenticationResponse).
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``message": ``None of the proposed Public Key Identifiers is supported by the SM-DP+"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``Unsupported"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``message": ``None of the proposed Public Key Identifiers is supported by the SM-DP+"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``Unsupported"}.
 \end{itemize}
@@ -2236,14 +2252,14 @@ Consiste nell'avviare la Common Cancel Session Procedure appena si è stabilita 
 \item \textbf{Iliad \& Very Mobile}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Tim}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Gemello di Tim}: Common Cancel Session Procedure completata con successo.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (risposta a cancelSession).
+\item \textbf{eSIM Discovery Staging}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (risposta a cancelSession).
 \item \textbf{GSMA}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (risposta a cancelSession).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (risposta a cancelSession).
 \item \textbf{Stork \& Google}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (risposta a cancelSession).
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: Common Cancel Session Procedure completata con successo.
+\item \textbf{Truphone}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Osmo-smdpp}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Simulatore}: Common Cancel Session Procedure completata con successo.
 \end{itemize}
@@ -2254,14 +2270,14 @@ Consiste nell'avviare la Common Cancel Session Procedure subito dopo aver ricevu
 \item \textbf{Iliad \& Very Mobile}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Tim}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Gemello di Tim}: Common Cancel Session Procedure completata con successo.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (risposta a cancelSession).
+\item \textbf{eSIM Discovery Staging}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (risposta a cancelSession).
 \item \textbf{GSMA}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (risposta a cancelSession).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (risposta a cancelSession).
 \item \textbf{Stork \& Google}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (risposta a cancelSession).
+\item \textbf{Truphone}: Common Cancel Session Procedure completata con successo.
 \item \textbf{Osmo-smdpp}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (risposta a cancelSession).
 \item \textbf{Simulatore}: Common Cancel Session Procedure completata con successo.
 \end{itemize}
@@ -2272,14 +2288,14 @@ Consiste nell'inviare getBoundProfilePackage come primo messaggio della comunica
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``$<$transactionId value$>$"}, \textit{``message": ``Cannot retrieve the bound profile package with the current transactionId [$<$transactionId value$>$]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (getBoundProfilePackageResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (getBoundProfilePackageResponse).
 \item \textbf{GSMA}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (getBoundProfilePackageResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_NOT\_FOUND (status code 404) al primo messaggio di risposta (getBoundProfilePackageResponse).
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la sessione RSP identificata dal Transaction ID specificato è sconosciuta.
 \item \textbf{Infineon}: HTTP\_BAD\_REQUEST (status code 400) al primo messaggio di risposta (getBoundProfilePackageResponse).
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``The RSP session identified by the TransactionID is unknown"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
 \item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``The RSP session identified by the TransactionID is unknown"}.
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
 \end{itemize}
@@ -2290,14 +2306,14 @@ Consiste nell'inviare getBoundProfilePackage subito dopo aver ricevuto il messag
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al secondo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``$<$transactionId value$>$"}, \textit{``message": ``Cannot retrieve the bound profile package with the current transactionId [$<$transactionId value$>$]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.8"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``SM-DP+"}, \textit{``message": ``Execution Error"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al secondo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.8"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``SM-DP+"}, \textit{``message": ``Execution Error"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (getBoundProfilePackageResponse).
+\item \textbf{eSIM Discovery Staging}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (getBoundProfilePackageResponse).
 \item \textbf{GSMA}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (getBoundProfilePackageResponse).
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: HTTP\_NOT\_FOUND (status code 404) al secondo messaggio di risposta (getBoundProfilePackageResponse).
 \item \textbf{Stork \& Google}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (getBoundProfilePackageResponse).
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
+\item \textbf{Sysmocom}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (getBoundProfilePackageResponse).
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al secondo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.8.4"}, \textit{``reasonCode": ``3.7"}, \textit{``subjectIdentifier": ``SM-DP+ Certificate"}, \textit{``message": ``Unavailable"}.
 \item \textbf{Osmo-smdpp}: HTTP\_INTERNAL\_SERVER\_ERROR (status code 500) al secondo messaggio di risposta (getBoundProfilePackageResponse).
 \item \textbf{Simulatore}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.8.2"}, \textit{``reasonCode": ``3.1"}, \textit{``subjectIdentifier": ``Security configuration"}, \textit{``message": ``Unsupported"}.
 \end{itemize}
@@ -2308,15 +2324,15 @@ Consiste nell'inviare getBoundProfilePackage come primo messaggio della comunica
 \item \textbf{Iliad \& Very Mobile}: n.d.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
 \item \textbf{Gemello di Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``Transaction ID"}, \textit{``message": ``Unknown"}.
-\item \textbf{eSIM Discovery Production}:
-\item \textbf{eSIM Discovery Staging}:
+\item \textbf{eSIM Discovery Production}: n.d.
+\item \textbf{eSIM Discovery Staging}: n.d.
 \item \textbf{GSMA}: n.d.
-\item \textbf{Verizon Wireless}:
+\item \textbf{Verizon Wireless}: n.d.
 \item \textbf{Stork \& Google}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``Execution Failed"} $\rightarrow$ la sessione RSP identificata dal Transaction ID specificato è sconosciuta.
 \item \textbf{Infineon}: n.d.
-\item \textbf{Sysmocom}:
-\item \textbf{Truphone}:
-\item \textbf{Osmo-smdpp}: H\textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``The RSP session identified by the TransactionID is unknown"}.
+\item \textbf{Sysmocom}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``The RSP session identified by the TransactionID is unknown"}.
+\item \textbf{Truphone}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``subjectIdentifier": ``TransactionId"}, \textit{``message": ``Unknown"}.
+\item \textbf{Osmo-smdpp}: \textit{``status": ``Failed"} al primo messaggio di risposta (getBoundProfilePackageResponse), con \textit{``subjectCode: ``8.10.1"}, \textit{``reasonCode": ``3.9"}, \textit{``message": ``The RSP session identified by the TransactionID is unknown"}.
 \item \textbf{Simulatore}: il server non è in grado di processare più richieste in parallelo.
 \end{itemize}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  25 MAY 2024 13:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  27 MAY 2024 17:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1153,21 +1153,26 @@ Overfull \hbox (6.48146pt too wide) in paragraph at lines 1974--1975
 $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 HTTP[]INTERNAL[]SERVER[]ERROR
  []
 
-[76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90]
-Overfull \hbox (78.6451pt too wide) in paragraph at lines 2442--2443
+[76] [77] [78] [79] [80] [81] [82] [83] [84]
+Underfull \hbox (badness 10000) in paragraph at lines 2198--2199
+
+ []
+
+[85] [86] [87] [88] [89] [90] [91] [92] [93]
+Overfull \hbox (78.6451pt too wide) in paragraph at lines 2458--2459
 []\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
 h.com/ca[]a3dc2e3fea7708a11c889386d9d3a76f/LatestCRL.crl; 
  []
 
-[91] [92] [93]
-Overfull \hbox (24.12819pt too wide) in paragraph at lines 2549--2550
+[94] [95]
+Overfull \hbox (24.12819pt too wide) in paragraph at lines 2565--2566
 []\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
 h.com/SymantecRSPTestRootCA/LatestCRL.crl 
  []
 
-[94]
+[96] [97]
 Capitolo 6.
-(./Tesi.bbl [95
+(./Tesi.bbl [98
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -1213,7 +1218,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--108
  / esim / wp-[]content / uploads / 2020 /
  []
 
-[96
+[99
 
 ]
 Underfull \hbox (badness 1728) in paragraph at lines 110--114
@@ -1221,15 +1226,15 @@ Underfull \hbox (badness 1728) in paragraph at lines 110--114
 ECC) Brain-pool Stan-dard Cur-ves and Cur-ve
  []
 
-) [97] [98
+) [100] [101
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: C46DE50FBCCB38A39ABC464839263297;12184.
  ) 
 Here is how much of TeX's memory you used:
- 14998 strings out of 476024
- 243266 string characters out of 5794016
+ 15001 strings out of 476024
+ 243289 string characters out of 5794016
  1877382 words of memory out of 5000000
  34799 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
@@ -1250,10 +1255,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (99 pages, 2641681 bytes).
+Output written on Tesi.pdf (102 pages, 2653257 bytes).
 PDF statistics:
- 1507 PDF objects out of 1728 (max. 8388607)
- 1272 compressed objects within 13 object streams
- 402 named destinations out of 1000 (max. 500000)
+ 1520 PDF objects out of 1728 (max. 8388607)
+ 1282 compressed objects within 13 object streams
+ 405 named destinations out of 1000 (max. 500000)
  672 words of extra memory for PDF output out of 10000 (max. 10000000)
 
