@@ -45,6 +45,7 @@
 \contentsline {figure}{\numberline {4.20}{\ignorespaces Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.\relax }}{60}{figure.caption.64}%
 \contentsline {figure}{\numberline {4.21}{\ignorespaces Messaggio di handleNotification visualizzato su Wireshark.\relax }}{62}{figure.caption.65}%
 \contentsline {figure}{\numberline {4.22}{\ignorespaces Decodifica del campo pendingNotification di handleNotification.\relax }}{62}{figure.caption.66}%
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Lettore di SIM utilizzato per validare il simulatore del server.\relax }}{68}{figure.caption.78}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Pagina web con cui rsp-0012.oberthur.net risponde.\relax }}{70}{figure.caption.79}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Pagina web con cui rsp-0012.oberthur.net risponde.\relax }}{70}{figure.caption.80}%
 \addvspace {10\p@ }

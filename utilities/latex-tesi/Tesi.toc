@@ -29,8 +29,8 @@
 \contentsline {subsection}{\numberline {2.4.7}Sotto-procedura di Download Confirmation}{32}{subsection.2.4.7}%
 \contentsline {subsubsection}{Condizioni iniziali}{32}{section*.27}%
 \contentsline {subsubsection}{Procedimento}{32}{section*.28}%
-\contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{34}{subsection.2.4.8}%
-\contentsline {subsubsection}{Condizioni iniziali}{36}{section*.30}%
+\contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{35}{subsection.2.4.8}%
+\contentsline {subsubsection}{Condizioni iniziali}{35}{section*.30}%
 \contentsline {subsubsection}{Procedimento}{36}{section*.31}%
 \contentsline {subsection}{\numberline {2.4.9}Dettagli sulla Common Cancel Session Procedure}{37}{subsection.2.4.9}%
 \contentsline {subsubsection}{Procedimento}{37}{section*.33}%
@@ -77,47 +77,48 @@
 \contentsline {section}{\numberline {5.2}Ottenimento dei server da testare}{69}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Risposte dei server testati}{72}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Casi di test definiti}{72}{subsection.5.3.1}%
-\contentsline {subsubsection}{Caso di test 1}{73}{section*.82}%
-\contentsline {subsubsection}{Caso di test 2}{73}{section*.83}%
-\contentsline {subsubsection}{Caso di test 3}{74}{section*.84}%
-\contentsline {subsubsection}{Caso di test 4}{75}{section*.85}%
-\contentsline {subsubsection}{Caso di test 5.1}{76}{section*.86}%
-\contentsline {subsubsection}{Caso di test 5.2}{77}{section*.87}%
-\contentsline {subsubsection}{Caso di test 5.3}{78}{section*.88}%
-\contentsline {subsubsection}{Caso di test 6.1}{79}{section*.89}%
-\contentsline {subsubsection}{Caso di test 6.2}{79}{section*.90}%
-\contentsline {subsubsection}{Caso di test 7.1}{80}{section*.91}%
-\contentsline {subsubsection}{Caso di test 7.2}{81}{section*.92}%
-\contentsline {subsubsection}{Caso di test 8}{82}{section*.93}%
-\contentsline {subsubsection}{Caso di test 9}{82}{section*.94}%
-\contentsline {subsubsection}{Caso di test 10}{83}{section*.95}%
-\contentsline {subsubsection}{Caso di test 11}{84}{section*.96}%
-\contentsline {subsubsection}{Caso di test 12.1}{85}{section*.97}%
-\contentsline {subsubsection}{Caso di test 12.2}{87}{section*.98}%
-\contentsline {subsubsection}{Caso di test 13.1}{88}{section*.99}%
-\contentsline {subsubsection}{Caso di test 13.2}{88}{section*.100}%
-\contentsline {subsubsection}{Caso di test 14.1}{89}{section*.101}%
-\contentsline {subsubsection}{Caso di test 14.2}{89}{section*.102}%
-\contentsline {subsubsection}{Caso di test 15}{90}{section*.103}%
+\contentsline {subsubsection}{Caso di test 1}{73}{section*.83}%
+\contentsline {subsubsection}{Caso di test 2}{73}{section*.84}%
+\contentsline {subsubsection}{Caso di test 3}{74}{section*.85}%
+\contentsline {subsubsection}{Caso di test 4}{75}{section*.86}%
+\contentsline {subsubsection}{Caso di test 5.1}{76}{section*.87}%
+\contentsline {subsubsection}{Caso di test 5.2}{77}{section*.88}%
+\contentsline {subsubsection}{Caso di test 5.3}{78}{section*.89}%
+\contentsline {subsubsection}{Caso di test 6.1}{79}{section*.90}%
+\contentsline {subsubsection}{Caso di test 6.2}{79}{section*.91}%
+\contentsline {subsubsection}{Caso di test 7.1}{80}{section*.92}%
+\contentsline {subsubsection}{Caso di test 7.2}{81}{section*.93}%
+\contentsline {subsubsection}{Caso di test 8}{82}{section*.94}%
+\contentsline {subsubsection}{Caso di test 9}{82}{section*.95}%
+\contentsline {subsubsection}{Caso di test 10}{83}{section*.96}%
+\contentsline {subsubsection}{Caso di test 11}{84}{section*.97}%
+\contentsline {subsubsection}{Caso di test 12.1}{85}{section*.98}%
+\contentsline {subsubsection}{Caso di test 12.2}{87}{section*.99}%
+\contentsline {subsubsection}{Caso di test 13.1}{88}{section*.100}%
+\contentsline {subsubsection}{Caso di test 13.2}{88}{section*.101}%
+\contentsline {subsubsection}{Caso di test 14.1}{89}{section*.102}%
+\contentsline {subsubsection}{Caso di test 14.2}{89}{section*.103}%
+\contentsline {subsubsection}{Caso di test 15}{90}{section*.104}%
 \contentsline {subsection}{\numberline {5.3.2}Certificati esibiti dai server}{91}{subsection.5.3.2}%
-\contentsline {subsubsection}{Certificato di Iliad e Very Mobile}{91}{section*.104}%
-\contentsline {subsubsection}{Certificato di Tim}{91}{section*.105}%
-\contentsline {subsubsection}{Certificato del gemello di Tim}{92}{section*.106}%
-\contentsline {subsubsection}{Certificato di eSIM Discovery Production}{92}{section*.107}%
-\contentsline {subsubsection}{Certificato di eSIM Discovery Staging}{93}{section*.108}%
-\contentsline {subsubsection}{Certificato di GSMA}{93}{section*.109}%
-\contentsline {subsubsection}{Certificato di Verizon Wireless}{93}{section*.110}%
-\contentsline {subsubsection}{Certificato di Stork e Google}{94}{section*.111}%
-\contentsline {subsubsection}{Certificato di Sysmocom (NIST)}{94}{section*.112}%
-\contentsline {subsubsection}{Certificato di Truphone}{94}{section*.113}%
-\contentsline {subsubsection}{Certificato di Osmo-smdpp (BRP \& NIST)}{95}{section*.114}%
-\contentsline {subsubsection}{Certificato del simulatore del server}{95}{section*.115}%
-\contentsline {subsubsection}{Certificato Root di GSM Association}{96}{section*.116}%
-\contentsline {subsubsection}{Certificato Root di RSPTEST (BRP \& NIST)}{96}{section*.117}%
-\contentsline {subsubsection}{Certificato Root di Symantec Corporation}{96}{section*.118}%
+\contentsline {subsubsection}{Certificato di Iliad e Very Mobile}{91}{section*.105}%
+\contentsline {subsubsection}{Certificato di Tim}{91}{section*.106}%
+\contentsline {subsubsection}{Certificato del gemello di Tim}{92}{section*.107}%
+\contentsline {subsubsection}{Certificato di eSIM Discovery Production}{92}{section*.108}%
+\contentsline {subsubsection}{Certificato di eSIM Discovery Staging}{93}{section*.109}%
+\contentsline {subsubsection}{Certificato di GSMA}{93}{section*.110}%
+\contentsline {subsubsection}{Certificato di Verizon Wireless}{93}{section*.111}%
+\contentsline {subsubsection}{Certificato di Stork e Google}{94}{section*.112}%
+\contentsline {subsubsection}{Certificato di Sysmocom (NIST)}{94}{section*.113}%
+\contentsline {subsubsection}{Certificato di Truphone}{94}{section*.114}%
+\contentsline {subsubsection}{Certificato di Osmo-smdpp (BRP \& NIST)}{95}{section*.115}%
+\contentsline {subsubsection}{Certificato del simulatore del server}{95}{section*.116}%
+\contentsline {subsubsection}{Certificato Root di GSM Association}{96}{section*.117}%
+\contentsline {subsubsection}{Certificato Root di RSPTEST (BRP \& NIST)}{96}{section*.118}%
+\contentsline {subsubsection}{Certificato Root di Symantec Corporation}{96}{section*.119}%
 \contentsline {subsection}{\numberline {5.3.3}Osservazioni sulle risposte ricevute}{97}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}Risposte dei client testati}{97}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Scenari di attacchi ipotetici}{97}{section.5.5}%
+\contentsline {section}{\numberline {5.4}Ottenimento dei client da testare}{97}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Risposte dei client testati}{97}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Scenari di attacchi ipotetici}{97}{section.5.6}%
 \contentsline {chapter}{\numberline {6}Conclusione}{98}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{98}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Sviluppi futuri}{98}{section.6.2}%

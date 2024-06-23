@@ -694,7 +694,7 @@ Se anche solo uno di questi controlli non va a buon fine, l'eUICC deve restituir
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve restituire uno stato di errore e la procedura di download e installazione del profilo deve essere interrotta. Più precisamente, se fallisce il controllo sul contatore dei tentativi di immissione del codice di attivazione, è necessario anche impostare il profilo target nello stato Error e passare allo step (8) prima di interrompere la procedura. Se invece i controlli vanno tutti a buon fine, si passa allo step (9).
 \item Se il numero di tentativi di immissione del codice di attivazione supera il massimo stabilito, il server SM-DP+ informa l'operatore del fallimento mediante la funzione \textit{handleNotification}; dopodiché, la procedura di download e installazione del profilo viene interrotta.
-\item Il server SM-DP+ genera un Bound Profile Package.
+\item Il server SM-DP+ genera una coppia di chiavi one-time (otPK.DP.KA, otSK.DP.KA) da cui, assieme alla chiave otPK.EUICC.KA precedentemente ricevuta, ricava uno shared secret usato per cifrare e autenticare alcuni metadati del profilo da inviare al client; dopodiché, a partire da tali metadati e dal payload (cifrato) del profilo, genera il Bound Profile Package.
 \item Il server SM-DP+ può opzionalmente notificare l'operatore del completamento del download del profilo mediante la funzione \textit{handleNotification}.
 \item Il server SM-DP+ invia all'LPA la risposta a \textit{getBoundProfilePackage} e imposta lo stato del profilo target a Downloaded.
 \item Se l'LPA ha già trattato la struttura dati Profile Metadata in precedenza, allora deve assicurarsi che le informazioni contenute nel Bound Profile Package (BPP) appena ricevuto le informazioni relative ai metadati del profilo siano rimaste coerenti; se non dovessero esserlo, deve avviare la Common Cancel Session Procedure (\ref{sec:common-cancel-session}) per cancellare la sessione corrente.
@@ -753,7 +753,7 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \end{enumerate}
 
 \subsection{Dettagli sulla Common Cancel Session Procedure}\label{sec:common-cancel-session}
-La figura  \ref{fig:common-cancel-session} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la Common Cancel Session Procedure, che è una particolare procedura avviata dall'LPA con lo scopo di interrompere la sessione RSP corrente a seguito di una condizione di errore riscontrata dall'LPA stessa. Tutti i dettagli sul procedimento \cite{GSMA-docs-new} sono spiegati nella sottosezione successiva.
+La figura  \ref{fig:common-cancel-session} ripresa da \cite{GSMA-docs-new} illustra tutti i messaggi che l'operatore, il server SM-DP+, l'LPA e l'eUICC si scambiano tra loro e le operazioni che queste quattro entità svolgono durante la Common Cancel Session Procedure, che è una particolare procedura avviata dall'LPA con lo scopo di interrompere la sessione RSP corrente a seguito di una particolare condizione di errore riscontrata dall'LPA stessa. Tutti i dettagli sul procedimento \cite{GSMA-docs-new} sono spiegati all'interno della sottosezione successiva.
 \begin{figure}
 \includegraphics[width=\linewidth]{common-cancel-session.png}
 \caption{Sequence diagram che descrive la Common Cancel Session Procedure.}
@@ -1434,7 +1434,7 @@ Il payload è composto dai seguenti tre campi:
 \caption{Decodifica del campo boundProfilePackage di getBoundProfilePackageResponse.}
 \label{fig:decode-boundProfilePackage}
 \end{figure}
-Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. Dalle figure \ref{fig:asn1-profileMetadata}, \ref{fig:decode-boundProfilePackage}, è possibile accorgersi che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il payload vero e proprio del profilo target.\\
+Com'è possibile osservare nella definizione riportata di seguito \cite{RSP-definitions}, il campo boundProfilePackage è composto da strutture di tipo TLV, ovvero sequenze di byte che a loro volta possono essere interpretate come elementi ASN.1 coi loro tag, le loro length e i loro value. Dalle figure \ref{fig:asn1-profileMetadata}, \ref{fig:decode-boundProfilePackage}, è possibile accorgersi che il campo sequenceOf88 di boundProfilePackage, che in questo caso specifico corrisponde al campo da 109 byte, contiene una sequenza di byte che corrisponde all'intero TLV di profileMetadata. D'altra parte, il campo sequenceOf86, complice anche la sua dimensione, ha tutta l'aria di essere il vero e proprio payload (cifrato) del profilo target.\\
 
 \textit{BoundProfilePackage ::= [54] SEQUENCE \{ \textcolor{gray}{{-}{-} Tag `BF36'}}
 
@@ -1547,6 +1547,7 @@ Il sistema di simulazione sviluppato è un'applicazione Python composta da tre m
 \item un eseguibile per le procedure di Common Mutual Authentication e di download e installazione del profilo;
 \item un file per tenere traccia delle informazioni sui profili esistenti che sono il Matching ID, l'EID dell'eUICC a cui il profilo è destinato, l'ICCID, il numero di tentativi di download effettuati, l'ID dell'eventuale transazione in cui si sta tentando correntemente di installare il profilo, lo stato attuale del profilo, il tipo di profilo e l'eventuale Confirmation Code che serve per fornire la conferma finale sul download del profilo;
 \item un eseguibile per effettuare il clean-up del file di cui sopra, in modo tale da lasciare esclusivamente i profili in uno stato diverso da `Released' e da `Error'.
+\item un eseguibile per generare il QR code associato al profilo con un dato Matching ID.
 \end{itemize}
 \item \textbf{euicc}: è il modulo che comprende la coppia eUICC + LPA e l'operatore telefonico. Questo accorpamento consente di semplificare la logica applicativa lato client e di bypassare, ad esempio, la comunicazione tra l'operatore e l'LPA che si ha nella fase di download initialization (sezione \ref{sec:step-RSP}). Tale modulo è composto a sua volta da:
 \begin{itemize}
@@ -1718,7 +1719,14 @@ Per aiutarsi con l'attività di debugging durante il processo di validazione del
 Il simulatore è stato approvato, e quindi considerato valido, nel momento in cui è stato in grado di completare con successo la comunicazione col server Osmo-smdpp inviando nell'ordine i messaggi initiateAuthentication, authenticateClient, getBoundProfilePackage e handleNotification, potendo sfruttare sia la catena di certificati BRP, sia la catena di certificati NIST.
 
 \subsection{Validazione del simulatore lato server}
-[TODO]
+Per validare il simulatore del server, si è deciso di farlo comunicare con un client di test, che è composto da un'eUICC programmabile della Sysmocom. Tale eUICC può essere acquistata al sito https://shop.sysmocom.de e può essere inserita all'interno di un apposito lettore di SIM, il quale è direttamente collegabile al computer con cui si sta lavorando grazie al suo attacco USB ed è riportato in figura \ref{fig:eUICC-reader}. Inoltre, l'eUICC è pensata per comunicare col server di Osmocom (Osmo-smdpp) e, per questa ragione, supporta anch'essa la catena di certificati di test definita dalla GSMA, in particolare la NIST, che non fa uso dell'algoritmo Brainpool.\\
+Per testare il simulatore del server, è stato sufficiente installare e compilare un'apposita LPA di test (\textbf{lpac}) reperibile su GitHub al link https://github.com/estkme-group/lpac, collegare al computer il lettore di SIM con all'interno l'eUICC programmabile e avviare sia il simulatore del server che LPA di test in modo tale da farli comunicare tra loro.\\
+Il simulatore viene considerato valido nel momento in cui si riesce a installare con successo il profilo da lui offerto all'interno della SIM programmabile. Tuttavia, almeno per il momento, l'attività di debugging non ha consentito di raggiungere questo risultato: allo stato attuale, il simulatore è in grado di scambiare tutti i messaggi col client di test ma, dopo aver ricevuto il Bound Profile Package nel messaggio getBoundProfilePackageResponse, fornisce l'errore \textit{scp03tSecurityError} e non installa effettivamente il profilo all'interno dell'eUICC programmabile. Per questo motivo, il simulatore del server risulta validato solo parzialmente ma, grazie alla capacità di portare a termine la comunicazione coi client, rimane comunque uno strumento sufficientemente adeguato per intraprendere lo studio successivo con i client reali.
+\begin{figure}
+\includegraphics[width=\linewidth]{eUICC-reader.png}
+\caption{Lettore di SIM utilizzato per validare il simulatore del server.}
+\label{fig:eUICC-reader}
+\end{figure}
 
 \chapter{Analisi di sicurezza dell'eSIM}
 \section{Descrizione dell'analisi}
@@ -1727,8 +1735,6 @@ L'analisi di sicurezza che ci si propone di effettuare si articola in due fasi.
 \item Si individua un campione di server SM-DP+ da testare e, mediante il simulatore del client precedentemente sviluppato, si tenta di comunicare con ciascuno di loro in svariati modi diversi (e.g. modificando qualche campo di un messaggio, cambiando la certificate chain utilizzata, cambiando l'ordine dei messaggi inviati), costruendo così altrettanti casi di test. Per ciascun caso di test si analizzano le risposte di ogni server SM-DP+ del campione, col fine ultimo di stabilire se esse sono perfettamente conformi alle specifiche oppure lasciano intendere che il server abbia omesso dei check, aprendo le porte a eventuali vulnerabilità.
 \item Si utilizzano dei dispositivi mobili (i.e. coppie eUICC - LPA) per definire ulteriori casi di test a parti invertite. Così, sfruttando il simulatore del server implementato in precedenza, si tenta di comunicare coi dispositivi mobili e si raccolgono i loro messaggi di risposta per ciascun caso di test, anche qui con lo scopo di verificare se i loro eUICC e le loro LPA sono conformi alle specifiche.
 \end{enumerate}
-
-[TODO: cenno sui client da testare selezionati]
 
 \section{Ottenimento dei server da testare}
 L'idea originale consisteva nell'individuare tutti i server SM-DP+ del mondo in modo tale da effettuare dei test esaustivi e su larga scala. Tuttavia, non è stato possibile trovare in rete alcun riferimento a hostname o indirizzi IP dei server SM-DP+, eccezion fatta per i server di test e per alcuni server SM-DS. I server di test trovati sono quello di Google (con hostname \textit{prod.smdp-plus.rsp.goog}), Infineon (con hostname \textit{testsmdpplus.infineon.com}), Sysmocom (con hostname\\ \textit{smdpp.test.rsp.sysmocom.de}) e Truphone (con hostname \textit{rsp.truphone.com}). I server SM-DS trovati sono quello di GSMA (con hostname \textit{lpa.ds.gsma.com}), eSIM Discovery Production (con hostname \textit{lpa.live.esimdiscovery.com}), eSIM Discovery Staging (con hostname \textit{lpa.live.esimdiscovery.dev}), Stork (con hostname \textit{prod.smds.rsp.goog}) e Verizon Wireless (con hostname \textit{lpads.vzw.otgeuicc.com}). Tutti questi server, a differenza di Osmo-smdpp, non sono open-source e non devono essere installati sulla macchina locale per essere eseguiti, bensì possono essere visti come normali server SM-DP+.\\
@@ -2568,6 +2574,9 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 
 \subsection{Osservazioni sulle risposte ricevute}
 [TODO: vedere se integrare questa parte nella precedente descrizione dei singoli casi di test - forse no perché c'è da osservare l'analogia tra Tim e gemello di Tim e l'analogia tra Osmo-smdpp e Sysmocom]
+
+\section{Ottenimento dei client da testare}
+[TODO]
 
 \section{Risposte dei client testati}
 [TODO]
