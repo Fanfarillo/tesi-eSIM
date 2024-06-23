@@ -2573,10 +2573,42 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \end{itemize}
 
 \subsection{Osservazioni sulle risposte ricevute}
-[TODO: vedere se integrare questa parte nella precedente descrizione dei singoli casi di test - forse no perché c'è da osservare l'analogia tra Tim e gemello di Tim e l'analogia tra Osmo-smdpp e Sysmocom]
+A seguito di un'attenta analisi dei vari messaggi di risposta ricevuti dai server SM-DP+, il primo aspetto interessante che balza all'occhio è l'estrema somiglianza tra alcune implementazioni. In particolare, è possibile individuare tre sottoinsiemi di server: [TODO]
 
 \section{Ottenimento dei client da testare}
-[TODO]
+La selezione dei client da testare può essere effettuata sulla base delle risorse (i.e. eUICC e dispositivi mobili) che si hanno a disposizione durante la fase di sperimentazione. In particolare, sono stati individuati i seguenti client:
+\begin{itemize}
+\item eUICC programmabile e LPA EasyEUICC installati manualmente in un Google Pixel 6 (mostrato in figura \ref{fig:pixel6});
+\item eUICC e LPA direttamente forniti dal Google Pixel 6.
+\end{itemize}
+Assumendo di voler considerare anche il lettore di SIM e il simulatore del client come possibili partecipanti dei successivi esperimenti, la tabella \ref{tab:all-clients} mostra tutti i client che verranno impiegati durante l'esecuzione dei test.\\
+
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Elenco dei client coinvolti negli esperimenti.}
+\label{tab:all-clients}
+\begin{tabularx}{\textwidth}{|c|X|X|} % <-- Alignments: 1nd column center, with vertical lines in between
+\hline
+\textbf{Nome} & \textbf{Descrizione} & \textbf{Note}\\
+\hline
+Google Pixel 6 & Client reale & Utilizzerà una certificate chain di test.\\
+\hline
+EasyEUICC & eUICC programmabile + LPA EasyEUICC & Utilizzerà una certificate chain di test.\\
+\hline
+LPAC & eUICC programmabile + lpac & Utilizzerà una certificate chain di test.\\
+\hline
+Simulatore & Simulatore lato client precedentemente implementato & Utilizzerà una certificate chain di test.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+
+\begin{figure}
+\includegraphics[width=\linewidth]{pixel6.png}
+\caption{Il Google Pixel 6 coinvolto negli esperimenti.}
+\label{fig:pixel6}
+\end{figure}
 
 \section{Risposte dei client testati}
 [TODO]
