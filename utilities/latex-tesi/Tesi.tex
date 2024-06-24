@@ -2573,7 +2573,20 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \end{itemize}
 
 \subsection{Osservazioni sulle risposte ricevute}
-A seguito di un'attenta analisi dei vari messaggi di risposta ricevuti dai server SM-DP+, il primo aspetto interessante che balza all'occhio è l'estrema somiglianza tra alcune implementazioni. In particolare, è possibile individuare tre sottoinsiemi di server: [TODO]
+A seguito di un'attenta analisi dei vari messaggi di risposta ricevuti dai server SM-DP+, il primo aspetto interessante che balza all'occhio è l'estrema somiglianza tra alcune implementazioni. In particolare, è possibile individuare tre sottoinsiemi di server:
+\begin{enumerate}
+\item Tim, Gemello di Tim, Truphone;
+\item eSIM Discovery Production, eSIM Discovery Staging, GSMA, Verizon Wireless;
+\item Sysmocom, Osmo-smdpp.
+\end{enumerate}
+Solo il server di Iliad \& Very Mobile, quello di Stork \& Google e il simulatore precedentemente sviluppato assumono un comportamento abbastanza differente da tutti gli altri. D'altra parte, il server di Infineon solleva sempre l'errore HTTP\_BAD\_REQUEST indipendentemente dal messaggio di richiesta inviatogli: si tratta dunque di un server non particolarmente utile ai fini dello studio ma, per completezza, sarà preso in considerazione anche nelle valutazioni successive.\\
+Ai fini dell'analisi finale, non si terrà conto della suddivisione dei server SM-DP+ basata sui relativi messaggi di risposta, bensì ha più senso fare una distinzione sulla tipologia dei server stessi: di fatto, la mancanza di un controllo nell'implementazione di un server SM-DP+ di test ha un peso differente dalla mancanza del medesimo controllo nell'implementazione di un server SM-DP+ reale. In definitiva, farà fede la classificazione riportata qui di seguito:
+\begin{itemize}
+\item \textbf{server SM-DP+ reali}: Iliad \& Very Mobile, Tim, Gemello di Tim;
+\item \textbf{server SM-DS}: eSIM Discovery Production, eSIM Discovery Staging, GSMA, Verizon Wireless;
+\item \textbf{server SM-DP+ di test}: Stork \& Google, Infineon, Sysmocom, Truphone, Osmo-smdpp, simulatore.
+\end{itemize}
+A partire da tale suddivisione, è possibile produrre delle statistiche riassuntive sui casi di test più rilevanti.
 
 \section{Ottenimento dei client da testare}
 La selezione dei client da testare può essere effettuata sulla base delle risorse (i.e. eUICC e dispositivi mobili) che si hanno a disposizione durante la fase di sperimentazione. In particolare, sono stati individuati i seguenti client:
