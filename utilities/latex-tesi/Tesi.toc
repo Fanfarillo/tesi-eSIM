@@ -115,10 +115,11 @@
 \contentsline {subsubsection}{Certificato Root di GSM Association}{96}{section*.117}%
 \contentsline {subsubsection}{Certificato Root di RSPTEST (BRP \& NIST)}{96}{section*.118}%
 \contentsline {subsubsection}{Certificato Root di Symantec Corporation}{96}{section*.119}%
-\contentsline {subsection}{\numberline {5.3.3}Osservazioni sulle risposte ricevute}{97}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}Ottenimento dei client da testare}{97}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Risposte dei client testati}{98}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Scenari di attacchi ipotetici}{98}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Conclusione}{99}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{99}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Sviluppi futuri}{99}{section.6.2}%
+\contentsline {subsection}{\numberline {5.3.3}Analisi delle risposte ricevute}{97}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Osservazioni sulle risposte ricevute}{106}{subsection.5.3.4}%
+\contentsline {section}{\numberline {5.4}Ottenimento dei client da testare}{106}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Risposte dei client testati}{106}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Scenari di attacchi ipotetici}{107}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Conclusione}{108}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{108}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Sviluppi futuri}{108}{section.6.2}%

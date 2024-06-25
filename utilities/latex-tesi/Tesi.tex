@@ -2572,7 +2572,7 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \item \textbf{authorityKeyIdentifier}: symantec.
 \end{itemize}
 
-\subsection{Osservazioni sulle risposte ricevute}
+\subsection{Analisi delle risposte ricevute}
 A seguito di un'attenta analisi dei vari messaggi di risposta ricevuti dai server SM-DP+, il primo aspetto interessante che balza all'occhio è l'estrema somiglianza tra alcune implementazioni. In particolare, è possibile individuare tre sottoinsiemi di server:
 \begin{enumerate}
 \item Tim, Gemello di Tim, Truphone;
@@ -2586,7 +2586,102 @@ Ai fini dell'analisi finale, non si terrà conto della suddivisione dei server S
 \item \textbf{server SM-DS}: eSIM Discovery Production, eSIM Discovery Staging, GSMA, Verizon Wireless;
 \item \textbf{server SM-DP+ di test}: Stork \& Google, Infineon, Sysmocom, Truphone, Osmo-smdpp, simulatore.
 \end{itemize}
-A partire da tale suddivisione, è possibile produrre delle statistiche riassuntive sui casi di test più rilevanti.
+A partire da tale suddivisione e considerando anche le Root CA, è possibile anzitutto riassumere i tempi di validità di tutti i certificati ricevuti durante gli esperimenti: dalla figura \ref{fig:cert-duration} emerge che la durata dei certificati dei server varia tra i 3 e i 10 anni, mentre la durata dei certificati delle Root CA varia tra i 32 anni e mezzo e i 35 anni.\\
+Sono state prodotte anche delle statistiche riassuntive sui casi di test più rilevanti, che sono raffigurate nelle pagine successive.
+
+\begin{figure}
+\includegraphics[width=\linewidth]{cert-duration.png}
+\caption{Durata dei certificati dei server SM-DP+ e delle Root CA.}
+\label{fig:cert-duration}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-1.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 1.}
+\label{fig:test-1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-2.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 2.}
+\label{fig:test-2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-3.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 3.}
+\label{fig:test-3}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-4.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 4.}
+\label{fig:test-4}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-5-1.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 5.1.}
+\label{fig:test-5-1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-5-2.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 5.2.}
+\label{fig:test-5-2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-6-2.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 6.2.}
+\label{fig:test-6-2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-7-1.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 7.1.}
+\label{fig:test-7-1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-7-2.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 7.2.}
+\label{fig:test-7-2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-8.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 8.}
+\label{fig:test-8}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-9.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 9.}
+\label{fig:test-9}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-10.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 10.}
+\label{fig:test-10}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-11.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 11.}
+\label{fig:test-11}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-12-1.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 12.1.}
+\label{fig:test-12-1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-12-2.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 12.2.}
+\label{fig:test-12-2}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-13-1.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 13.1.}
+\label{fig:test-13-1}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{test-14-1.png}
+\caption{Risposte dei server SM-DP+ nel caso di test 14.1.}
+\label{fig:test-14-1}
+\end{figure}
+
+\subsection{Osservazioni sulle risposte ricevute}
+[TODO]
 
 \section{Ottenimento dei client da testare}
 La selezione dei client da testare può essere effettuata sulla base delle risorse (i.e. eUICC e dispositivi mobili) che si hanno a disposizione durante la fase di sperimentazione. In particolare, sono stati individuati i seguenti client:
@@ -2594,7 +2689,7 @@ La selezione dei client da testare può essere effettuata sulla base delle risor
 \item eUICC programmabile e LPA EasyEUICC installati manualmente in un Google Pixel 6 (mostrato in figura \ref{fig:pixel6});
 \item eUICC e LPA direttamente forniti dal Google Pixel 6.
 \end{itemize}
-Assumendo di voler considerare anche il lettore di SIM e il simulatore del client come possibili partecipanti dei successivi esperimenti, la tabella \ref{tab:all-clients} mostra tutti i client che verranno impiegati durante l'esecuzione dei test.\\
+Assumendo di voler considerare anche il lettore di SIM e il simulatore del client come possibili partecipanti dei successivi esperimenti, la tabella \ref{tab:all-clients} mostra tutti i client che verranno impiegati durante l'esecuzione dei test.
 
 \begin{table}[h!]
 \begin{center}
