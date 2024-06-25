@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  25 JUN 2024 12:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  25 JUN 2024 19:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1237,11 +1237,11 @@ File: images//test-9.png Graphic file (type png)
 <use images//test-9.png>
 Package pdftex.def Info: images//test-9.png  used on input line 2648.
 (pdftex.def)             Requested size: 426.79135pt x 254.29877pt.
-<images//test-10.png, id=1384, 797.22844pt x 474.27188pt>
+<images//test-10.png, id=1384, 808.52063pt x 475.7775pt>
 File: images//test-10.png Graphic file (type png)
 <use images//test-10.png>
 Package pdftex.def Info: images//test-10.png  used on input line 2653.
-(pdftex.def)             Requested size: 426.79135pt x 253.89577pt.
+(pdftex.def)             Requested size: 426.79135pt x 251.15175pt.
 <images//test-11.png, id=1385, 797.22844pt x 474.27188pt>
 File: images//test-11.png Graphic file (type png)
 <use images//test-11.png>
@@ -1272,15 +1272,16 @@ Package pdftex.def Info: images//test-14-1.png  used on input line 2678.
 -5-1.png> <./images//test-5-2.png>] [101 <./images//test-6-2.png> <./images//te
 st-7-1.png>] [102 <./images//test-7-2.png> <./images//test-8.png>] [103 <./imag
 es//test-9.png> <./images//test-10.png>] [104 <./images//test-11.png> <./images
-//test-12-1.png>] [105 <./images//test-12-2.png> <./images//test-13-1.png>]
-<images//pixel6.png, id=1449, 4641.34pt x 2091.815pt>
+//test-12-1.png>] [105 <./images//test-12-2.png> <./images//test-13-1.png>] [10
+6 <./images//test-14-1.png>]
+<images//pixel6.png, id=1454, 4641.34pt x 2091.815pt>
 File: images//pixel6.png Graphic file (type png)
 <use images//pixel6.png>
-Package pdftex.def Info: images//pixel6.png  used on input line 2716.
+Package pdftex.def Info: images//pixel6.png  used on input line 2731.
 (pdftex.def)             Requested size: 426.79135pt x 192.34079pt.
-[106 <./images//test-14-1.png>] [107 <./images//pixel6.png>]
+ [107] [108 <./images//pixel6.png>]
 Capitolo 6.
-(./Tesi.bbl [108
+(./Tesi.bbl [109
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -1326,7 +1327,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--108
  / esim / wp-[]content / uploads / 2020 /
  []
 
-[109
+[110
 
 ]
 Underfull \hbox (badness 1728) in paragraph at lines 110--114
@@ -1334,20 +1335,20 @@ Underfull \hbox (badness 1728) in paragraph at lines 110--114
 ECC) Brain-pool Stan-dard Cur-ves and Cur-ve
  []
 
-) [110] [111
+) [111] [112
 
 ] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: 7B3EEEE93D178BF679328E238EEDA147;12642.
  ) 
 Here is how much of TeX's memory you used:
- 15240 strings out of 476024
- 248075 string characters out of 5794016
+ 15241 strings out of 476024
+ 248083 string characters out of 5794016
  1877382 words of memory out of 5000000
  34982 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,76p,1302b,705s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,76p,2231b,705s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{c:/tex
 live/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2022/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2022/texmf-dist/fonts/type1
@@ -1363,10 +1364,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (112 pages, 4026862 bytes).
+Output written on Tesi.pdf (113 pages, 4030687 bytes).
 PDF statistics:
- 1669 PDF objects out of 1728 (max. 8388607)
- 1382 compressed objects within 14 object streams
- 441 named destinations out of 1000 (max. 500000)
+ 1673 PDF objects out of 1728 (max. 8388607)
+ 1385 compressed objects within 14 object streams
+ 442 named destinations out of 1000 (max. 500000)
  788 words of extra memory for PDF output out of 10000 (max. 10000000)
 

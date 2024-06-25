@@ -117,9 +117,9 @@
 \contentsline {subsubsection}{Certificato Root di Symantec Corporation}{96}{section*.119}%
 \contentsline {subsection}{\numberline {5.3.3}Analisi delle risposte ricevute}{97}{subsection.5.3.3}%
 \contentsline {subsection}{\numberline {5.3.4}Osservazioni sulle risposte ricevute}{106}{subsection.5.3.4}%
-\contentsline {section}{\numberline {5.4}Ottenimento dei client da testare}{106}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Risposte dei client testati}{106}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Scenari di attacchi ipotetici}{107}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Conclusione}{108}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{108}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Sviluppi futuri}{108}{section.6.2}%
+\contentsline {section}{\numberline {5.4}Ottenimento dei client da testare}{107}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Risposte dei client testati}{107}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Scenari di attacchi ipotetici}{108}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Conclusione}{109}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{109}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Sviluppi futuri}{109}{section.6.2}%
