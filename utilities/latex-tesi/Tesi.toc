@@ -118,7 +118,7 @@
 \contentsline {subsection}{\numberline {5.3.3}Analisi delle risposte ricevute}{97}{subsection.5.3.3}%
 \contentsline {subsection}{\numberline {5.3.4}Osservazioni sulle risposte ricevute}{106}{subsection.5.3.4}%
 \contentsline {section}{\numberline {5.4}Ottenimento dei client da testare}{107}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Risposte dei client testati}{107}{section.5.5}%
+\contentsline {section}{\numberline {5.5}Risposte dei client testati}{108}{section.5.5}%
 \contentsline {section}{\numberline {5.6}Scenari di attacchi ipotetici}{108}{section.5.6}%
 \contentsline {chapter}{\numberline {6}Conclusione}{109}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Resoconto dei risultati ottenuti}{109}{section.6.1}%
