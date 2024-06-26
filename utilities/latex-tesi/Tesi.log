@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  25 JUN 2024 19:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  26 JUN 2024 11:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -546,7 +546,7 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<Tesi-frn.pdf, id=241, 597.50829pt x 845.0471pt>
+<Tesi-frn.pdf, id=245, 597.50829pt x 845.0471pt>
 File: Tesi-frn.pdf Graphic file (type pdf)
 <use Tesi-frn.pdf>
 Package pdftex.def Info: Tesi-frn.pdf  used on input line 27.
@@ -598,17 +598,17 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 
 ] [9]
 Capitolo 2.
-<images//RSP-functioning.png, id=538, 445.665pt x 250.536pt>
+<images//RSP-functioning.png, id=545, 445.665pt x 250.536pt>
 File: images//RSP-functioning.png Graphic file (type png)
 <use images//RSP-functioning.png>
 Package pdftex.def Info: images//RSP-functioning.png  used on input line 79.
 (pdftex.def)             Requested size: 426.79135pt x 239.92691pt.
-<images//RSP-LPAd.png, id=543, 788.9475pt x 463.13025pt>
+<images//RSP-LPAd.png, id=550, 788.9475pt x 463.13025pt>
 File: images//RSP-LPAd.png Graphic file (type png)
 <use images//RSP-LPAd.png>
 Package pdftex.def Info: images//RSP-LPAd.png  used on input line 87.
 (pdftex.def)             Requested size: 426.79135pt x 250.53181pt.
-<images//RSP-LPAe.png, id=549, 696.80325pt x 465.53925pt>
+<images//RSP-LPAe.png, id=556, 696.80325pt x 465.53925pt>
 File: images//RSP-LPAe.png Graphic file (type png)
 <use images//RSP-LPAe.png>
 Package pdftex.def Info: images//RSP-LPAe.png  used on input line 105.
@@ -633,7 +633,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--173
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images//eUICC-arch.png, id=569, 707.0415pt x 419.166pt>
+<images//eUICC-arch.png, id=576, 707.0415pt x 419.166pt>
 File: images//eUICC-arch.png Graphic file (type png)
 <use images//eUICC-arch.png>
 Package pdftex.def Info: images//eUICC-arch.png  used on input line 177.
@@ -677,27 +677,27 @@ scia di-ret-ta-men-te i cer-ti-fi-ca-ti CERT.DPauth.SIG,
  []
 
 [15] [16] [17]
-<images//cert-chain.png, id=621, 631.158pt x 460.72125pt>
+<images//cert-chain.png, id=628, 631.158pt x 460.72125pt>
 File: images//cert-chain.png Graphic file (type png)
 <use images//cert-chain.png>
 Package pdftex.def Info: images//cert-chain.png  used on input line 340.
 (pdftex.def)             Requested size: 426.79135pt x 311.53583pt.
-<images//cert-chain-new1.png, id=622, 675.7245pt x 554.67226pt>
+<images//cert-chain-new1.png, id=629, 675.7245pt x 554.67226pt>
 File: images//cert-chain-new1.png Graphic file (type png)
 <use images//cert-chain-new1.png>
 Package pdftex.def Info: images//cert-chain-new1.png  used on input line 345.
 (pdftex.def)             Requested size: 426.79135pt x 350.33405pt.
-<images//cert-chain-new2.png, id=623, 839.5365pt x 484.81125pt>
+<images//cert-chain-new2.png, id=630, 839.5365pt x 484.81125pt>
 File: images//cert-chain-new2.png Graphic file (type png)
 <use images//cert-chain-new2.png>
 Package pdftex.def Info: images//cert-chain-new2.png  used on input line 350.
 (pdftex.def)             Requested size: 426.79135pt x 246.45891pt.
-<images//cert-chain-new3.png, id=624, 855.79726pt x 492.03825pt>
+<images//cert-chain-new3.png, id=631, 855.79726pt x 492.03825pt>
 File: images//cert-chain-new3.png Graphic file (type png)
 <use images//cert-chain-new3.png>
 Package pdftex.def Info: images//cert-chain-new3.png  used on input line 355.
 (pdftex.def)             Requested size: 426.79135pt x 245.38034pt.
-<images//cert-chain-new4.png, id=625, 859.41075pt x 491.436pt>
+<images//cert-chain-new4.png, id=632, 859.41075pt x 491.436pt>
 File: images//cert-chain-new4.png Graphic file (type png)
 <use images//cert-chain-new4.png>
 Package pdftex.def Info: images//cert-chain-new4.png  used on input line 360.
@@ -705,22 +705,22 @@ Package pdftex.def Info: images//cert-chain-new4.png  used on input line 360.
  [18 <./images//cert-chain.png>] [19 <./images//cert-chain-new1.png> <./images/
 /cert-chain-new2.png>] [20 <./images//cert-chain-new3.png> <./images//cert-chai
 n-new4.png>] [21] [22]
-<images//default-server.png, id=682, 529.37775pt x 244.5135pt>
+<images//default-server.png, id=689, 529.37775pt x 244.5135pt>
 File: images//default-server.png Graphic file (type png)
 <use images//default-server.png>
 Package pdftex.def Info: images//default-server.png  used on input line 417.
 (pdftex.def)             Requested size: 426.79135pt x 197.12956pt.
-<images//activation-code.png, id=683, 452.892pt x 227.04825pt>
+<images//activation-code.png, id=690, 452.892pt x 227.04825pt>
 File: images//activation-code.png Graphic file (type png)
 <use images//activation-code.png>
 Package pdftex.def Info: images//activation-code.png  used on input line 422.
 (pdftex.def)             Requested size: 426.79135pt x 213.96928pt.
-<images//profile-states1.png, id=691, 626.34pt x 466.74374pt>
+<images//profile-states1.png, id=698, 626.34pt x 466.74374pt>
 File: images//profile-states1.png Graphic file (type png)
 <use images//profile-states1.png>
 Package pdftex.def Info: images//profile-states1.png  used on input line 462.
 (pdftex.def)             Requested size: 426.79135pt x 318.05101pt.
-<images//profile-states2.png, id=692, 626.34pt x 184.89075pt>
+<images//profile-states2.png, id=699, 626.34pt x 184.89075pt>
 File: images//profile-states2.png Graphic file (type png)
 <use images//profile-states2.png>
 Package pdftex.def Info: images//profile-states2.png  used on input line 467.
@@ -735,34 +735,34 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [23 <./images//default-server.png> <./images//activation-code.png>] [24 <./imag
 es//profile-states1.png> <./images//profile-states2.png>]
-<images//common-mutual-auth.png, id=711, 361.35pt x 548.0475pt>
+<images//common-mutual-auth.png, id=718, 361.35pt x 548.0475pt>
 File: images//common-mutual-auth.png Graphic file (type png)
 <use images//common-mutual-auth.png>
 Package pdftex.def Info: images//common-mutual-auth.png  used on input line 515
 .
 (pdftex.def)             Requested size: 426.79135pt x 647.30927pt.
  [25] [26] [27 <./images//common-mutual-auth.png>] [28]
-<images//download-install.png, id=749, 459.96844pt x 672.26157pt>
+<images//download-install.png, id=756, 459.96844pt x 672.26157pt>
 File: images//download-install.png Graphic file (type png)
 <use images//download-install.png>
 Package pdftex.def Info: images//download-install.png  used on input line 611.
 (pdftex.def)             Requested size: 426.79135pt x 623.81198pt.
  [29] [30 <./images//download-install.png>]
 [31]
-<images//download-confirmation.png, id=784, 521.69907pt x 672.26157pt>
+<images//download-confirmation.png, id=791, 521.69907pt x 672.26157pt>
 File: images//download-confirmation.png Graphic file (type png)
 <use images//download-confirmation.png>
 Package pdftex.def Info: images//download-confirmation.png  used on input line 
 659.
 (pdftex.def)             Requested size: 426.79135pt x 549.96556pt.
  [32] [33 <./images//download-confirmation.png>]
-<images//device-change.png, id=809, 525.76425pt x 542.025pt>
+<images//device-change.png, id=816, 525.76425pt x 542.025pt>
 File: images//device-change.png Graphic file (type png)
 <use images//device-change.png>
 Package pdftex.def Info: images//device-change.png  used on input line 719.
 (pdftex.def)             Requested size: 426.79135pt x 439.99724pt.
  [34] [35 <./images//device-change.png>] [36]
-<images//common-cancel-session.png, id=859, 532.99126pt x 673.01437pt>
+<images//common-cancel-session.png, id=866, 532.99126pt x 673.01437pt>
 File: images//common-cancel-session.png Graphic file (type png)
 <use images//common-cancel-session.png>
 Package pdftex.def Info: images//common-cancel-session.png  used on input line 
@@ -774,7 +774,7 @@ Capitolo 3.
 [41
 
 ]
-<images//results2022.png, id=921, 477.58424pt x 317.988pt>
+<images//results2022.png, id=928, 477.58424pt x 317.988pt>
 File: images//results2022.png Graphic file (type png)
 <use images//results2022.png>
 Package pdftex.def Info: images//results2022.png  used on input line 949.
@@ -784,25 +784,25 @@ Capitolo 4.
 [45
 
 ]
-<images//all-msgs-pcap.png, id=952, 1264.725pt x 398.23781pt>
+<images//all-msgs-pcap.png, id=959, 1264.725pt x 398.23781pt>
 File: images//all-msgs-pcap.png Graphic file (type png)
 <use images//all-msgs-pcap.png>
 Package pdftex.def Info: images//all-msgs-pcap.png  used on input line 993.
 (pdftex.def)             Requested size: 426.79135pt x 134.38426pt.
  [46 <./images//all-msgs-pcap.png>]
-<images//msg1-stream-pcap.png, id=973, 712.91344pt x 183.68625pt>
+<images//msg1-stream-pcap.png, id=981, 712.91344pt x 183.68625pt>
 File: images//msg1-stream-pcap.png Graphic file (type png)
 <use images//msg1-stream-pcap.png>
 Package pdftex.def Info: images//msg1-stream-pcap.png  used on input line 1016.
 
 (pdftex.def)             Requested size: 426.79135pt x 109.96593pt.
-<images//base64.png, id=977, 467.49657pt x 283.0575pt>
+<images//base64.png, id=985, 467.49657pt x 283.0575pt>
 File: images//base64.png Graphic file (type png)
 <use images//base64.png>
 Package pdftex.def Info: images//base64.png  used on input line 1034.
 (pdftex.def)             Requested size: 426.79135pt x 258.42494pt.
  [47 <./images//msg1-stream-pcap.png>]
-<images//asn1-euiccInfo1.png, id=988, 271.0125pt x 85.82062pt>
+<images//asn1-euiccInfo1.png, id=995, 271.0125pt x 85.82062pt>
 File: images//asn1-euiccInfo1.png Graphic file (type png)
 <use images//asn1-euiccInfo1.png>
 Package pdftex.def Info: images//asn1-euiccInfo1.png  used on input line 1046.
@@ -827,13 +827,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 1078--1079
  []
 
 [49 <./images//asn1-euiccInfo1.png>]
-<images//decode-euiccInfo1.png, id=1027, 583.42969pt x 89.58469pt>
+<images//decode-euiccInfo1.png, id=1034, 583.42969pt x 89.58469pt>
 File: images//decode-euiccInfo1.png Graphic file (type png)
 <use images//decode-euiccInfo1.png>
 Package pdftex.def Info: images//decode-euiccInfo1.png  used on input line 1089
 .
 (pdftex.def)             Requested size: 426.79135pt x 65.53433pt.
-<images//msg2-stream-pcap.png, id=1029, 684.156pt x 311.36325pt>
+<images//msg2-stream-pcap.png, id=1036, 684.156pt x 311.36325pt>
 File: images//msg2-stream-pcap.png Graphic file (type png)
 <use images//msg2-stream-pcap.png>
 Package pdftex.def Info: images//msg2-stream-pcap.png  used on input line 1102.
@@ -849,7 +849,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1117--1118
 
  []
 
-<images//decode-serverSigned1.png, id=1041, 415.5525pt x 69.25874pt>
+<images//decode-serverSigned1.png, id=1048, 415.5525pt x 69.25874pt>
 File: images//decode-serverSigned1.png Graphic file (type png)
 <use images//decode-serverSigned1.png>
 Package pdftex.def Info: images//decode-serverSigned1.png  used on input line 1
@@ -871,31 +871,31 @@ Overfull \hbox (1.29951pt too wide) in paragraph at lines 1146--1147
 /10 : for-ni-sce mag-gio-ri in-for-ma-zio-ni sul-le chia-
  []
 
-<images//asn1-euiccCiPKIdToBeUsed.png, id=1051, 269.50688pt x 28.60687pt>
+<images//asn1-euiccCiPKIdToBeUsed.png, id=1058, 269.50688pt x 28.60687pt>
 File: images//asn1-euiccCiPKIdToBeUsed.png Graphic file (type png)
 <use images//asn1-euiccCiPKIdToBeUsed.png>
 Package pdftex.def Info: images//asn1-euiccCiPKIdToBeUsed.png  used on input li
 ne 1158.
 (pdftex.def)             Requested size: 426.79135pt x 45.30267pt.
-<images//decode-euiccCiPKIdToBeUsed.png, id=1052, 460.72125pt x 18.82031pt>
+<images//decode-euiccCiPKIdToBeUsed.png, id=1059, 460.72125pt x 18.82031pt>
 File: images//decode-euiccCiPKIdToBeUsed.png Graphic file (type png)
 <use images//decode-euiccCiPKIdToBeUsed.png>
 Package pdftex.def Info: images//decode-euiccCiPKIdToBeUsed.png  used on input 
 line 1163.
 (pdftex.def)             Requested size: 426.79135pt x 17.43405pt.
-<images//decode-serverCertificate1.png, id=1053, 663.22781pt x 510.40688pt>
+<images//decode-serverCertificate1.png, id=1060, 663.22781pt x 510.40688pt>
 File: images//decode-serverCertificate1.png Graphic file (type png)
 <use images//decode-serverCertificate1.png>
 Package pdftex.def Info: images//decode-serverCertificate1.png  used on input l
 ine 1168.
 (pdftex.def)             Requested size: 426.79135pt x 328.45056pt.
-<images//decode-serverCertificate2.png, id=1054, 671.50874pt x 476.53032pt>
+<images//decode-serverCertificate2.png, id=1061, 671.50874pt x 476.53032pt>
 File: images//decode-serverCertificate2.png Graphic file (type png)
 <use images//decode-serverCertificate2.png>
 Package pdftex.def Info: images//decode-serverCertificate2.png  used on input l
 ine 1173.
 (pdftex.def)             Requested size: 426.79135pt x 302.8697pt.
-<images//msg3-stream-pcap.png, id=1056, 828.09375pt x 420.82219pt>
+<images//msg3-stream-pcap.png, id=1063, 828.09375pt x 420.82219pt>
 File: images//msg3-stream-pcap.png Graphic file (type png)
 <use images//msg3-stream-pcap.png>
 Package pdftex.def Info: images//msg3-stream-pcap.png  used on input line 1181.
@@ -938,18 +938,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 1282--1283
 
  []
 
-<images//email.png, id=1080, 387.69844pt x 372.64218pt>
+<images//email.png, id=1087, 387.69844pt x 372.64218pt>
 File: images//email.png Graphic file (type png)
 <use images//email.png>
 Package pdftex.def Info: images//email.png  used on input line 1294.
 (pdftex.def)             Requested size: 426.79135pt x 410.22607pt.
-<images//decode-euiccSigned1.png, id=1082, 408.77719pt x 314.67563pt>
+<images//decode-euiccSigned1.png, id=1089, 408.77719pt x 314.67563pt>
 File: images//decode-euiccSigned1.png Graphic file (type png)
 <use images//decode-euiccSigned1.png>
 Package pdftex.def Info: images//decode-euiccSigned1.png  used on input line 13
 00.
 (pdftex.def)             Requested size: 426.79135pt x 328.56094pt.
-<images//msg4-stream-pcap.png, id=1084, 965.85844pt x 374.14781pt>
+<images//msg4-stream-pcap.png, id=1091, 965.85844pt x 374.14781pt>
 File: images//msg4-stream-pcap.png Graphic file (type png)
 <use images//msg4-stream-pcap.png>
 Package pdftex.def Info: images//msg4-stream-pcap.png  used on input line 1308.
@@ -971,7 +971,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1345--1346
 
  []
 
-<images//asn1-profileMetadata.png, id=1104, 273.27094pt x 83.5622pt>
+<images//asn1-profileMetadata.png, id=1112, 273.27094pt x 83.5622pt>
 File: images//asn1-profileMetadata.png Graphic file (type png)
 <use images//asn1-profileMetadata.png>
 Package pdftex.def Info: images//asn1-profileMetadata.png  used on input line 1
@@ -993,13 +993,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 1363--1364
 
  []
 
-<images//decode-smdpSigned2.png, id=1107, 603.75563pt x 49.68562pt>
+<images//decode-smdpSigned2.png, id=1115, 603.75563pt x 49.68562pt>
 File: images//decode-smdpSigned2.png Graphic file (type png)
 <use images//decode-smdpSigned2.png>
 Package pdftex.def Info: images//decode-smdpSigned2.png  used on input line 136
 6.
 (pdftex.def)             Requested size: 426.79135pt x 35.12238pt.
-<images//msg5-stream-pcap.png, id=1109, 700.86844pt x 192.72pt>
+<images//msg5-stream-pcap.png, id=1117, 700.86844pt x 192.72pt>
 File: images//msg5-stream-pcap.png Graphic file (type png)
 <use images//msg5-stream-pcap.png>
 Package pdftex.def Info: images//msg5-stream-pcap.png  used on input line 1374.
@@ -1025,14 +1025,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 1409--1410
 
  []
 
-<images//msg6-stream-pcap.png, id=1119, 1005.00468pt x 484.81125pt>
+<images//msg6-stream-pcap.png, id=1126, 1005.00468pt x 484.81125pt>
 File: images//msg6-stream-pcap.png Graphic file (type png)
 <use images//msg6-stream-pcap.png>
 Package pdftex.def Info: images//msg6-stream-pcap.png  used on input line 1422.
 
 (pdftex.def)             Requested size: 426.79135pt x 205.883pt.
 [59 <./images//decode-smdpSigned2.png> <./images//msg5-stream-pcap.png>]
-<images//decode-boundProfilePackage.png, id=1127, 743.02594pt x 380.17032pt>
+<images//decode-boundProfilePackage.png, id=1134, 743.02594pt x 380.17032pt>
 File: images//decode-boundProfilePackage.png Graphic file (type png)
 <use images//decode-boundProfilePackage.png>
 Package pdftex.def Info: images//decode-boundProfilePackage.png  used on input 
@@ -1084,14 +1084,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 1519--1520
 
  []
 
-<images//msg7-stream-pcap.png, id=1139, 794.97pt x 173.89969pt>
+<images//msg7-stream-pcap.png, id=1146, 794.97pt x 173.89969pt>
 File: images//msg7-stream-pcap.png Graphic file (type png)
 <use images//msg7-stream-pcap.png>
 Package pdftex.def Info: images//msg7-stream-pcap.png  used on input line 1522.
 
 (pdftex.def)             Requested size: 426.79135pt x 93.3631pt.
 [61]
-<images//decode-pendingNotification.png, id=1145, 568.37344pt x 207.77625pt>
+<images//decode-pendingNotification.png, id=1152, 568.37344pt x 207.77625pt>
 File: images//decode-pendingNotification.png Graphic file (type png)
 <use images//decode-pendingNotification.png>
 Package pdftex.def Info: images//decode-pendingNotification.png  used on input 
@@ -1109,7 +1109,7 @@ e del-l'is-suer di CERT.DPauth.SIG.
  []
 
 [65] [66] [67]
-<images//eUICC-reader.png, id=1199, 4641.34pt x 2091.815pt>
+<images//eUICC-reader.png, id=1206, 4641.34pt x 2091.815pt>
 File: images//eUICC-reader.png Graphic file (type png)
 <use images//eUICC-reader.png>
 Package pdftex.def Info: images//eUICC-reader.png  used on input line 1726.
@@ -1126,7 +1126,7 @@ tgeuicc.com\OT1/cmr/m/n/10 ).
 [69
 
 ]
-<images//web-page-blocked.png, id=1212, 584.93532pt x 127.22531pt>
+<images//web-page-blocked.png, id=1219, 584.93532pt x 127.22531pt>
 File: images//web-page-blocked.png Graphic file (type png)
 <use images//web-page-blocked.png>
 Package pdftex.def Info: images//web-page-blocked.png  used on input line 1786.
@@ -1177,92 +1177,92 @@ h.com/SymantecRSPTestRootCA/LatestCRL.crl
  []
 
 [96]
-<images//cert-duration.png, id=1372, 808.52063pt x 472.76625pt>
+<images//cert-duration.png, id=1379, 808.52063pt x 472.76625pt>
 File: images//cert-duration.png Graphic file (type png)
 <use images//cert-duration.png>
 Package pdftex.def Info: images//cert-duration.png  used on input line 2593.
 (pdftex.def)             Requested size: 426.79135pt x 249.5622pt.
-<images//test-1.png, id=1373, 795.72281pt x 473.51906pt>
+<images//test-1.png, id=1380, 795.72281pt x 473.51906pt>
 File: images//test-1.png Graphic file (type png)
 <use images//test-1.png>
 Package pdftex.def Info: images//test-1.png  used on input line 2598.
 (pdftex.def)             Requested size: 426.79135pt x 253.96962pt.
-<images//test-2.png, id=1374, 799.48688pt x 475.7775pt>
+<images//test-2.png, id=1381, 799.48688pt x 475.7775pt>
 File: images//test-2.png Graphic file (type png)
 <use images//test-2.png>
 Package pdftex.def Info: images//test-2.png  used on input line 2603.
 (pdftex.def)             Requested size: 426.79135pt x 253.98306pt.
-<images//test-3.png, id=1375, 798.73407pt x 478.03593pt>
+<images//test-3.png, id=1382, 798.73407pt x 478.03593pt>
 File: images//test-3.png Graphic file (type png)
 <use images//test-3.png>
 Package pdftex.def Info: images//test-3.png  used on input line 2608.
 (pdftex.def)             Requested size: 426.79135pt x 255.4294pt.
-<images//test-4.png, id=1376, 797.98125pt x 476.53032pt>
+<images//test-4.png, id=1383, 797.98125pt x 476.53032pt>
 File: images//test-4.png Graphic file (type png)
 <use images//test-4.png>
 Package pdftex.def Info: images//test-4.png  used on input line 2613.
 (pdftex.def)             Requested size: 426.79135pt x 254.86485pt.
-<images//test-5-1.png, id=1377, 795.72281pt x 473.51906pt>
+<images//test-5-1.png, id=1384, 795.72281pt x 473.51906pt>
 File: images//test-5-1.png Graphic file (type png)
 <use images//test-5-1.png>
 Package pdftex.def Info: images//test-5-1.png  used on input line 2618.
 (pdftex.def)             Requested size: 426.79135pt x 253.96962pt.
-<images//test-5-2.png, id=1378, 795.72281pt x 473.51906pt>
+<images//test-5-2.png, id=1385, 795.72281pt x 473.51906pt>
 File: images//test-5-2.png Graphic file (type png)
 <use images//test-5-2.png>
 Package pdftex.def Info: images//test-5-2.png  used on input line 2623.
 (pdftex.def)             Requested size: 426.79135pt x 253.96962pt.
-<images//test-6-2.png, id=1379, 795.72281pt x 474.27188pt>
+<images//test-6-2.png, id=1386, 795.72281pt x 474.27188pt>
 File: images//test-6-2.png Graphic file (type png)
 <use images//test-6-2.png>
 Package pdftex.def Info: images//test-6-2.png  used on input line 2628.
 (pdftex.def)             Requested size: 426.79135pt x 254.3734pt.
-<images//test-7-1.png, id=1380, 794.2172pt x 471.26062pt>
+<images//test-7-1.png, id=1387, 794.2172pt x 471.26062pt>
 File: images//test-7-1.png Graphic file (type png)
 <use images//test-7-1.png>
 Package pdftex.def Info: images//test-7-1.png  used on input line 2633.
 (pdftex.def)             Requested size: 426.79135pt x 253.24731pt.
-<images//test-7-2.png, id=1381, 796.47563pt x 473.51906pt>
+<images//test-7-2.png, id=1388, 796.47563pt x 473.51906pt>
 File: images//test-7-2.png Graphic file (type png)
 <use images//test-7-2.png>
 Package pdftex.def Info: images//test-7-2.png  used on input line 2638.
 (pdftex.def)             Requested size: 426.79135pt x 253.73119pt.
-<images//test-8.png, id=1382, 794.2172pt x 474.27188pt>
+<images//test-8.png, id=1389, 794.2172pt x 474.27188pt>
 File: images//test-8.png Graphic file (type png)
 <use images//test-8.png>
 Package pdftex.def Info: images//test-8.png  used on input line 2643.
 (pdftex.def)             Requested size: 426.79135pt x 254.86551pt.
-<images//test-9.png, id=1383, 797.22844pt x 475.02469pt>
+<images//test-9.png, id=1390, 797.22844pt x 475.02469pt>
 File: images//test-9.png Graphic file (type png)
 <use images//test-9.png>
 Package pdftex.def Info: images//test-9.png  used on input line 2648.
 (pdftex.def)             Requested size: 426.79135pt x 254.29877pt.
-<images//test-10.png, id=1384, 808.52063pt x 475.7775pt>
+<images//test-10.png, id=1391, 808.52063pt x 475.7775pt>
 File: images//test-10.png Graphic file (type png)
 <use images//test-10.png>
 Package pdftex.def Info: images//test-10.png  used on input line 2653.
 (pdftex.def)             Requested size: 426.79135pt x 251.15175pt.
-<images//test-11.png, id=1385, 797.22844pt x 474.27188pt>
+<images//test-11.png, id=1392, 797.22844pt x 474.27188pt>
 File: images//test-11.png Graphic file (type png)
 <use images//test-11.png>
 Package pdftex.def Info: images//test-11.png  used on input line 2658.
 (pdftex.def)             Requested size: 426.79135pt x 253.89577pt.
-<images//test-12-1.png, id=1386, 797.22844pt x 475.02469pt>
+<images//test-12-1.png, id=1393, 797.22844pt x 475.02469pt>
 File: images//test-12-1.png Graphic file (type png)
 <use images//test-12-1.png>
 Package pdftex.def Info: images//test-12-1.png  used on input line 2663.
 (pdftex.def)             Requested size: 426.79135pt x 254.29877pt.
-<images//test-12-2.png, id=1387, 796.47563pt x 475.02469pt>
+<images//test-12-2.png, id=1394, 796.47563pt x 475.02469pt>
 File: images//test-12-2.png Graphic file (type png)
 <use images//test-12-2.png>
 Package pdftex.def Info: images//test-12-2.png  used on input line 2668.
 (pdftex.def)             Requested size: 426.79135pt x 254.53796pt.
-<images//test-13-1.png, id=1388, 795.72281pt x 472.76625pt>
+<images//test-13-1.png, id=1395, 795.72281pt x 472.76625pt>
 File: images//test-13-1.png Graphic file (type png)
 <use images//test-13-1.png>
 Package pdftex.def Info: images//test-13-1.png  used on input line 2673.
 (pdftex.def)             Requested size: 426.79135pt x 253.56586pt.
-<images//test-14-1.png, id=1389, 796.47563pt x 474.27188pt>
+<images//test-14-1.png, id=1396, 796.47563pt x 474.27188pt>
 File: images//test-14-1.png Graphic file (type png)
 <use images//test-14-1.png>
 Package pdftex.def Info: images//test-14-1.png  used on input line 2678.
@@ -1273,15 +1273,15 @@ Package pdftex.def Info: images//test-14-1.png  used on input line 2678.
 st-7-1.png>] [102 <./images//test-7-2.png> <./images//test-8.png>] [103 <./imag
 es//test-9.png> <./images//test-10.png>] [104 <./images//test-11.png> <./images
 //test-12-1.png>] [105 <./images//test-12-2.png> <./images//test-13-1.png>] [10
-6 <./images//test-14-1.png>]
-<images//pixel6.png, id=1454, 4641.34pt x 2091.815pt>
+6 <./images//test-14-1.png>] [107]
+<images//pixel6.png, id=1466, 4641.34pt x 2091.815pt>
 File: images//pixel6.png Graphic file (type png)
 <use images//pixel6.png>
-Package pdftex.def Info: images//pixel6.png  used on input line 2732.
+Package pdftex.def Info: images//pixel6.png  used on input line 2800.
 (pdftex.def)             Requested size: 426.79135pt x 192.34079pt.
- [107] [108 <./images//pixel6.png>]
+ [108] [109 <./images//pixel6.png>]
 Capitolo 6.
-(./Tesi.bbl [109
+(./Tesi.bbl [110
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -1327,7 +1327,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--108
  / esim / wp-[]content / uploads / 2020 /
  []
 
-[110
+[111
 
 ]
 Underfull \hbox (badness 1728) in paragraph at lines 110--114
@@ -1335,20 +1335,17 @@ Underfull \hbox (badness 1728) in paragraph at lines 110--114
 ECC) Brain-pool Stan-dard Cur-ves and Cur-ve
  []
 
-) [111] [112
+) [112] [113
 
 ] (./Tesi.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 7B3EEEE93D178BF679328E238EEDA147;12642.
+(rerunfilecheck)             Checksum: 1AAD1F480FABE2CE457B5A2FAC225403;12818.
  ) 
 Here is how much of TeX's memory you used:
- 15241 strings out of 476024
- 248083 string characters out of 5794016
+ 15247 strings out of 476024
+ 248186 string characters out of 5794016
  1877382 words of memory out of 5000000
- 34982 multiletter control sequences out of 15000+600000
+ 34984 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,76p,2081b,705s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1367,10 +1364,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (113 pages, 4031136 bytes).
+Output written on Tesi.pdf (114 pages, 4035014 bytes).
 PDF statistics:
- 1673 PDF objects out of 1728 (max. 8388607)
- 1385 compressed objects within 14 object streams
- 442 named destinations out of 1000 (max. 500000)
- 788 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1687 PDF objects out of 1728 (max. 8388607)
+ 1398 compressed objects within 14 object streams
+ 446 named destinations out of 1000 (max. 500000)
+ 796 words of extra memory for PDF output out of 10000 (max. 10000000)
 

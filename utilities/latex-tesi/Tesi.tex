@@ -1842,12 +1842,12 @@ Simulatore & Simulatore lato server precedentemente implementato & Può essere c
 
 \section{Risposte dei server testati}
 \subsection{Casi di test definiti}
-I casi di test che sono stati implementati ed eseguiti ai fini della presente trattazione sono riportati nella tabella \ref{tab:test-cases}.\\
+I casi di test che sono stati implementati ed eseguiti ai fini della presente trattazione sono riportati nella tabella \ref{tab:servers-test-cases}.\\
 \begin{table}[h!]
 \begin{center}
 \captionsetup{skip=4pt}
 \caption{Elenco dei casi di test definiti per i server SM-DP+.}
-\label{tab:test-cases}
+\label{tab:servers-test-cases}
 \begin{tabularx}{\textwidth}{|c|X|} % <-- Alignments: 1st column center, with vertical lines in between
 \hline
 \textbf{ID} & \textbf{Descrizione}\\
@@ -2728,14 +2728,85 @@ Simulatore & Simulatore lato client precedentemente implementato & Utilizzerà u
 \end{center}
 \end{table}
 
+\section{Risposte dei client testati}
+\subsection{Casi di test definiti}
+I casi di test che sono stati implementati per valutare l'interazione tra il simulatore del server e i client a disposizione sono riportati nella tabella \ref{tab:clients-test-cases}.\\
+\begin{table}[h!]
+\begin{center}
+\captionsetup{skip=4pt}
+\caption{Elenco dei casi di test definiti per i client a disposizione.}
+\label{tab:clients-test-cases}
+\begin{tabularx}{\textwidth}{|c|X|} % <-- Alignments: 1st column center, with vertical lines in between
+\hline
+\textbf{ID} & \textbf{Descrizione}\\
+\hline
+1 & Il simulatore del server si comporta perfettamente come da specifiche.\\
+\hline
+2 & Manomissione del messaggio getBoundProfilePackageResponse: invio di un profilo dummy non crittografato.\\
+\hline
+3.1 & Manomissione del messaggio getBoundProfilePackageResponse: utilizzo di un Transaction ID non valido all'interno del sotto-campo initialiseSecureChannelRequest.\\
+\hline
+3.2 & Manomissione del messaggio getBoundProfilePackageResponse: utilizzo di una chiave pubblica one-time smdpOtpk casuale e non generata tramite ECDSA all'interno del sotto-campo initialiseSecureChannelRequest.\\
+\hline
+3.3 & Manomissione del messaggio getBoundProfilePackageResponse: calcolo errato della signature (smdpSign) all'interno del sotto-campo initialiseSecureChannelRequest.\\
+\hline
+4.1 & Manomissione del messaggio authenticateClientResponse: utilizzo di un iccid casuale all'interno del campo profileMetadata.\\
+\hline
+4.2 & Manomissione del messaggio authenticateClientResponse: eliminazione di profileClass, notificationConfigurationInfo e profileOwner dal campo profileMetadata.\\
+\hline
+4.3 & Manomissione del messaggio authenticateClientResponse: inserimento delle Profile Policy Rules all'interno del campo profileMetadata.\\
+\hline
+5 & Manomissione del messaggio authenticateClientResponse: ccRequiredFlag = True all'interno del campo smdpSigned2.\\
+\hline
+6.1 & Manomissione del messaggio authenticateClientResponse: utilizzo di un Transaction ID non valido all'interno del campo smdpSigned2.\\
+\hline
+6.2 & Manomissione del messaggio authenticateClientResponse: campo transactionId non valido direttamente all'interno del messaggio.\\
+\hline
+7 & Manomissione del messaggio authenticateClientResponse: smdpSignature2 errata.\\
+\hline
+8 & Manomissione del messaggio authenticateClientResponse: invio di un certificato smdpCertificate diverso da quello previsto.\\
+\hline
+9.1 & Manomissione del messaggio initiateAuthenticationResponse: utilizzo di una euiccChallenge non valida all'interno del campo serverSigned1.\\
+\hline
+9.2 & Manomissione del messaggio initiateAuthenticationResponse: utilizzo di una serverChallenge malforme (e.g. 0x00) all'interno del campo serverSigned1.\\
+\hline
+9.3 & Manomissione del messaggio initiateAuthenticationResponse: utilizzo di un serverAddress non corrispondente all'hostname realmente assegnato al simulatore del server.\\
+\hline
+10.1 & Manomissione del messaggio initiateAuthenticationResponse: utilizzo di Transaction ID differenti all'interno del campo serverSigned1 e direttamente nel messaggio.\\
+\hline
+10.2 & Manomissione del messaggio initiateAuthenticationResponse: utilizzo di un Transaction ID malforme direttamente all'interno del messaggio (e.g. 0x00).\\
+\hline
+11 & Manomissione del messaggio initiateAuthenticationResponse: serverSignature1 errata.\\
+\hline
+12 & Manomissione del messaggio initiateAuthenticationResponse: invio di un certificato serverCertificate diverso da quello previsto.\\
+\hline
+13 & Manomissione del messaggio initiateAuthenticationResponse: invio di un certificato euiccCiPKIdToBeUsed che non rientra in euiccCiPKIdListForVerification o euiccCiPKIdListForSigning.\\
+\hline
+14.1 & Avvio della Common Cancel Session Procedure già dal primo messaggio.\\
+\hline
+14.2 & Avvio della Common Cancel Session Procedure a partire dal secondo messaggio.\\
+\hline
+14.2 & Avvio della Common Cancel Session Procedure a partire dal terzo messaggio.\\
+\hline
+15.1 & Invio di getBoundProfilePackageResponse come primo messaggio.\\
+\hline
+15.2 & Invio di getBoundProfilePackageResponse come secondo messaggio.\\
+\hline
+\end{tabularx}
+\end{center}
+\end{table}
+
 \begin{figure}
 \includegraphics[width=\linewidth]{pixel6.png}
 \caption{Il Google Pixel 6 coinvolto negli esperimenti.}
 \label{fig:pixel6}
 \end{figure}
 
-\section{Risposte dei client testati}
-[TODO]
+\subsubsection{Caso di test 1}
+Consiste nel comunicare col client (in particolare con l'LPA) seguendo fedelmente le specifiche, senza alcuna manomissione nel protocollo o nei messaggi inviati. Di seguito è descritto il comportamento dei client in esame in questo caso di test.
+\begin{itemize}
+\item TODO
+\end{itemize}
 
 \section{Scenari di attacchi ipotetici}
 [TODO]
