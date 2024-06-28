@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  26 JUN 2024 11:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  28 JUN 2024 17:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1277,11 +1277,12 @@ es//test-9.png> <./images//test-10.png>] [104 <./images//test-11.png> <./images
 <images//pixel6.png, id=1466, 4641.34pt x 2091.815pt>
 File: images//pixel6.png Graphic file (type png)
 <use images//pixel6.png>
-Package pdftex.def Info: images//pixel6.png  used on input line 2800.
+Package pdftex.def Info: images//pixel6.png  used on input line 2794.
 (pdftex.def)             Requested size: 426.79135pt x 192.34079pt.
  [108] [109 <./images//pixel6.png>]
+[110] [111] [112] [113] [114]
 Capitolo 6.
-(./Tesi.bbl [110
+(./Tesi.bbl [115
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 9--14
@@ -1327,7 +1328,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--108
  / esim / wp-[]content / uploads / 2020 /
  []
 
-[111
+[116
 
 ]
 Underfull \hbox (badness 1728) in paragraph at lines 110--114
@@ -1335,15 +1336,21 @@ Underfull \hbox (badness 1728) in paragraph at lines 110--114
 ECC) Brain-pool Stan-dard Cur-ves and Cur-ve
  []
 
-) [112] [113
+) [117] [118
 
 ] (./Tesi.aux)
-Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 1AAD1F480FABE2CE457B5A2FAC225403;12818.
+
+Package rerunfilecheck Warning: File `Tesi.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Tesi.out':
+(rerunfilecheck)             Before: 1AAD1F480FABE2CE457B5A2FAC225403;12818
+(rerunfilecheck)             After:  324BBE985795807C379E0C4598176C9D;13039.
  ) 
 Here is how much of TeX's memory you used:
- 15247 strings out of 476024
- 248186 string characters out of 5794016
+ 15275 strings out of 476024
+ 248506 string characters out of 5794016
  1877382 words of memory out of 5000000
  34984 multiletter control sequences out of 15000+600000
  519399 words of font info for 49 fonts, out of 8000000 for 9000
@@ -1364,10 +1371,10 @@ e1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public
 /sfbx1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb><c:/texlive/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive
 /2022/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (114 pages, 4035014 bytes).
+Output written on Tesi.pdf (119 pages, 4042212 bytes).
 PDF statistics:
- 1687 PDF objects out of 1728 (max. 8388607)
- 1398 compressed objects within 14 object streams
- 446 named destinations out of 1000 (max. 500000)
+ 1737 PDF objects out of 2073 (max. 8388607)
+ 1442 compressed objects within 15 object streams
+ 474 named destinations out of 1000 (max. 500000)
  796 words of extra memory for PDF output out of 10000 (max. 10000000)
 
