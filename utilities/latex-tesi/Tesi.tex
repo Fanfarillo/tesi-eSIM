@@ -2343,7 +2343,7 @@ Consiste nell'inviare getBoundProfilePackage come primo messaggio della comunica
 \end{itemize}
 
 \subsection{Certificati esibiti dai server}
-Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. È perciò escluso da questa trattazione il server Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri sei server SM-DP+ sono elencati qui di seguito.
+Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simulatore del client e i server SM-DP+ in esame è il certificato CERT.DPauth.SIG esibito da ciascun server all'interno del messaggio initiateAuthenticationResponse. CERT.DPauth.SIG può essere ispezionato solo per i server che hanno risposto con successo al messaggio di richiesta initiateAuthentication in almeno uno dei casi di test sopra definiti. È perciò escluso da questa trattazione il server Infineon. Invece, i principali campi del certificato CERT.DPauth.SIG degli altri dodici server SM-DP+ sono elencati qui di seguito.
 
 \subsubsection{Certificato di Iliad e Very Mobile}
 \begin{itemize}
@@ -2799,211 +2799,271 @@ I casi di test che sono stati implementati per valutare l'interazione tra il sim
 \subsubsection{Caso di test 1}
 Consiste nel comunicare col client (in particolare con l'LPA) seguendo fedelmente le specifiche, senza alcuna manomissione nel protocollo o nei messaggi inviati. Di seguito è descritto il comportamento dei client in esame in questo caso di test.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: impossibile connettersi alla rete: non viene inviato nemmeno il messaggio initiateAuthentication. Ciò potrebbe essere dovuto al fatto che il client in questione non supporta i server SM-DP+ di test.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}, che corrisponde all'errore riscontrato e non risolto durante la fase di validazione.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}, che è esattamente l'errore riscontrato e non risolto durante la fase di validazione.
+\item \textbf{Simulatore}: il profilo viene installato con successo.
 \end{itemize}
 
 \subsubsection{Caso di test 2}
 Consiste nel manomettere il messaggio getBoundProfilePackageResponse inserendo all'interno dei sotto-campi firstSequenceOf87, sequenceOf88, secondSequenceOf87 e sequenceOf86 dei byte casuali (e.g. tutti pari a 0x00), in modo tale da rappresentare dei metadati e un profilo dummy non crittografato.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item \textbf{Simulatore}: Common Cancel Session Procedure completata con successo a seguito del terzo messaggio di risposta da parte del server (getBoundProfilePackageResponse).
 \end{itemize}
 
 \subsubsection{Caso di test 3.1}
 Consiste nel manomettere il messaggio getBoundProfilePackageResponse ponendo il Transaction ID all'interno del sotto-campo initialiseSecureChannelRequest pari a un valore non valido.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{invalidTransactionId}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{invalid\_transaction\_id}.
+\item \textbf{Simulatore}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{invalidTransactionId}.
 \end{itemize}
 
 \subsubsection{Caso di test 3.2}
 Consiste nel manomettere il messaggio getBoundProfilePackageResponse inserendo all'interno del sotto-campo initialiseSecureChannelRequest una chiave pubblica one-time smdpOtpk non generata tramite ECDSA, bensì espressa sottoforma di byte casuali.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: interruzione della comunicazione dopo il terzo messaggio di risposta (getBoundProfilePackageResponse).
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{unknown}.
+\item \textbf{Simulatore}: il profilo viene installato con successo.
 \end{itemize}
 
 \subsubsection{Caso di test 3.3}
 Consiste nel manomettere il messaggio getBoundProfilePackageResponse ponendo il campo smdpSign pari a un valore diverso dalla signature ottenuta firmando tutte le altre entry del sotto-campo initialiseSecureChannelRequest con la chiave privata del server SM-DP+.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{invalidSignature}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{invalid\_signature}.
+\item \textbf{Simulatore}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{invalidSignature}.
 \end{itemize}
 
 \subsubsection{Caso di test 4.1}
 Consiste nel manomettere il messaggio authenticateClientResponse inserendo all'interno del campo profileMetadata un iccid casuale e non quello originariamente assegnato al profilo che il client vuole scaricare.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item \textbf{Simulatore}: il profilo viene installato con successo.
 \end{itemize}
 
 \subsubsection{Caso di test 4.2}
 Consiste nel manomettere il messaggio authenticateClientResponse eliminando le entry relative a profileClass, notificationConfigurationInfo e profileOwner dal campo profileMetadata. Trattandosi solo di informazioni opzionali, questo caso di test non dovrebbe produrre un risultato differente dal caso di test 1.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item \textbf{Simulatore}: il profilo viene installato con successo.
 \end{itemize}
 
 \subsubsection{Caso di test 4.3}
 Consiste nel manomettere il messaggio authenticateClientResponse aggiungendo una entry relativa alle Profile Policy Rules all'interno del campo profileMetadata. In particolare, tale entry indica l'attivazione di entrambe le Profile Policy Rules (PPR1, PPR2).
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item \textbf{Simulatore}: il profilo viene installato con successo dopo una conferma all'utente sulla sottoscrizione delle PPR.
 \end{itemize}
 
 \subsubsection{Caso di test 5}
 Consiste nel manomettere il messaggio authenticateClientResponse ponendo ccRequiredFlag all'interno del campo smdpSigned2 pari a True, in modo tale da richiedere al client l'immissione di un Confirmation Code.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
+\item \textbf{Google Pixel 6}: n.d.
 \item \textbf{EasyEUICC}:
+\begin{itemize}
+\item Caso in cui l'utente ha immesso un qualunque Confirmation Code $\rightarrow$ \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con \textit{scp03tSecurityError}.
+\item Caso in cui l'utente non ha immesso alcun Confirmation Code $\rightarrow$ \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{undefinedError}.
+\end{itemize}
 \item \textbf{LPAC}:
+\begin{itemize}
+\item Caso in cui l'utente ha immesso un qualunque Confirmation Code $\rightarrow$ errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item Caso in cui l'utente non ha immesso alcun Confirmation Code $\rightarrow$ errore generico dopo il secondo messaggio di risposta (authenticateClientResponse).
+\end{itemize}
 \item \textbf{Simulatore}:
+\begin{itemize}
+\item Caso in cui l'utente ha immesso un qualunque Confirmation Code $\rightarrow$ il profilo viene installato con successo.
+\item Caso in cui l'utente non ha immesso alcun Confirmation Code $\rightarrow$ Common Cancel Session Procedure completata con successo a seguito del secondo messaggio di risposta da parte del server (authenticateClientResponse).
+\end{itemize}
 \end{itemize}
 
 \subsubsection{Caso di test 6.1}
 Consiste nel manomettere il messaggio authenticateClientResponse ponendo il Transaction ID all'interno del campo smdpSigned2 pari a un valore non valido.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidTransactionId}.
+\item \textbf{LPAC}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidTransactionId}.
+\item \textbf{Simulatore}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidTransactionId}.
 \end{itemize}
 
 \subsubsection{Caso di test 6.2}
 Consiste nel manomettere il messaggio authenticateClientResponse ponendo il Transaction ID pari a un valore non valido direttamente all’interno messaggio stesso.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item \textbf{Simulatore}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidTransactionId}.
 \end{itemize}
 
 \subsubsection{Caso di test 7}
 Consiste nel manomettere il messaggio authenticateClientResponse ponendo il campo smdpSignature2 pari a un valore diverso dalla signature ottenuta firmando smdpSigned2+euiccSignature1 con la chiave privata del server SM-DP+.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{undefinedError}.
+\item \textbf{LPAC}: errore generico dopo il secondo messaggio di risposta (authenticateClientResponse).
+\item \textbf{Simulatore}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidSignature}.
 \end{itemize}
 
 \subsubsection{Caso di test 8}
 Consiste nel manomettere il messaggio authenticateClientResponse inserendo all’interno del campo smdpCertificate un certificato appartenente a una certificate chain differente da quella dichiarata precedentemente in euiccCiPKIdToBeUsed.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidCertificate}.
+\item \textbf{LPAC}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidCertificate}.
+\item \textbf{Simulatore}: \textit{prepareDownloadResponseError} al terzo messaggio di richiesta (getBoundProfilePackage), con \textit{invalidCertificate}.
 \end{itemize}
 
 \subsubsection{Caso di test 9.1}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il sotto-campo euiccChallenge del campo serverSigned1 pari a un valore che non corrisponde alla challenge inviata dal client nel messaggio precedente (initiateAuthentication).
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{euiccChallengeMismatch}.
+\item \textbf{LPAC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{euiccChallengeMismatch}.
+\item \textbf{Simulatore}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{euiccChallengeMismatch}.
 \end{itemize}
 
 \subsubsection{Caso di test 9.2}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse utilizzando una serverChallenge malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default, e comunque troppo ridotta per svolgere il ruolo di challenge).
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: interruzione della comunicazione dopo il primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{LPAC}: errore generico dopo il primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{Simulatore}: il profilo viene installato con successo.
 \end{itemize}
 
 \subsubsection{Caso di test 9.3}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il sotto-campo serverAddress del campo serverSigned1 pari a una stringa che non corrisponde all’effettivo hostname del simulatore del server.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: invio del serverAddress errato nel secondo messaggio di richiesta (authenticateClient).
+\item \textbf{LPAC}: invio del serverAddress errato nel secondo messaggio di richiesta (authenticateClient).
+\item \textbf{Simulatore}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{invalidOid}.
 \end{itemize}
 
 \subsubsection{Caso di test 10.1}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il Transaction ID all'interno del campo serverSigned1 pari a un valore differente dal Transaction ID situato direttamente all'interno del messaggio stesso.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: invio del Transaction ID errato nel secondo messaggio di richiesta (authenticateClient).
+\item \textbf{LPAC}: invio del Transaction ID errato nel secondo messaggio di richiesta (authenticateClient).
+\item \textbf{Simulatore}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{undefinedError}.
 \end{itemize}
 
 \subsubsection{Caso di test 10.2}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse utilizzando un Transaction ID malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default, e comunque troppo ridotta per svolgere il ruolo di challenge).
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
+\item \textbf{LPAC}: errore dopo il terzo messaggio di risposta (getBoundProfilePackageResponse), con \textit{scp03t\_security\_error}.
+\item \textbf{Simulatore}: il profilo viene installato con successo.
 \end{itemize}
 
 \subsubsection{Caso di test 11}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il campo serverSignature1 pari a un valore diverso dalla signature ottenuta firmando serverSigned1 con la chiave privata del server SM-DP+.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{undefinedError}.
+\item \textbf{LPAC}: errore generico dopo il primo messaggio di risposta (initiateAuthenticationResponse).
+\item \textbf{Simulatore}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{invalidSignature}.
 \end{itemize}
 
 \subsubsection{Caso di test 12}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse inserendo all’interno del campo serverCertificate un certificato appartenente a una certificate chain differente da quella dichiarata in euiccCiPKIdToBeUsed.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{invalidOid}.
+\item \textbf{LPAC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{invalidOid}.
+\item \textbf{Simulatore}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{invalidCertificate}.
 \end{itemize}
 
 \subsubsection{Caso di test 13}
 Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il campo euiccCiPKIdToBeUsed pari a un valore che non rientra né in euiccCiPKIdListForVerification né in euiccCiPKIdListForSigning, in modo tale che venga indicata una certificate chain non inclusa tra quelle supportate dal client.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{ciPKUnknown}.
+\item \textbf{LPAC}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{ciPKUnknown}.
+\item \textbf{Simulatore}: \textit{authenticateResponseError} al secondo messaggio di richiesta (authenticateClient), con \textit{ciPKUnknown}.
 \end{itemize}
 
 \subsubsection{Caso di test 14.1}
 Consiste nell’inviare al client getBoundProfilePackageResponse come primo messaggio di risposta.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: interruzione della comunicazione dopo il messaggio di risposta getBoundProfilePackageResponse.
+\item \textbf{LPAC}: errore dopo il messaggio di risposta getBoundProfilePackageResponse, con \textit{unknown}.
+\item \textbf{Simulatore}: interruzione della comunicazione dopo il messaggio di risposta getBoundProfilePackageResponse.
 \end{itemize}
 
 \subsubsection{Caso di test 14.2}
 Consiste nell’inviare al client getBoundProfilePackageResponse subito dopo aver ricevuto il messaggio di authenticateClient, saltando così il messaggio di authenticateClientResponse.
 \begin{itemize}
-\item \textbf{Google Pixel 6}:
-\item \textbf{EasyEUICC}:
-\item \textbf{LPAC}:
-\item \textbf{Simulatore}:
+\item \textbf{Google Pixel 6}: n.d.
+\item \textbf{EasyEUICC}: interruzione della comunicazione dopo il messaggio di risposta getBoundProfilePackageResponse.
+\item \textbf{LPAC}: errore dopo il messaggio di risposta getBoundProfilePackageResponse, con \textit{unknown}.
+\item \textbf{Simulatore}: interruzione della comunicazione dopo il messaggio di risposta getBoundProfilePackageResponse.
 \end{itemize}
 
 \subsection{Certificati esibiti dai client}
+Anche contestualmente all'analisi delle risposte dei client può tornare utile analizzare i certificati esibiti dai client stessi e, in particolare, CERT.EUICC.SIG (proprio dell'eUICC) e CERT.EUM.SIG (proprio dell'EUM). Tali certificati possono essere ispezionati solo per i client che hanno inviato con successo il messaggio di richiesta authenticateClient in almeno uno dei casi di test sopra citati. È perciò esclusa da questa trattazione la coppia (eUICC originale, LPA originale) del Google Pixel 6. Di seguito sono riportati i principali campi dei certificati degli altri tre client, a partire dai CERT.EUICC.SIG; poiché i client EasyEUICC e LPAC condividono la medesima eUICC, devono necessariamente aver esposto lo stesso certificato.
+
+\subsubsection{Certificato di EasyEUICC e LPAC}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer countryName}: ES;
+\item \textbf{issuer organizationName}: RSP TEST EUM;
+\item \textbf{issuer commonName}: EUM Test;
+\item \textbf{validity notBefore}: 2024-01-25;
+\item \textbf{validity notAfter}: 7499-11-18;
+\item \textbf{countryName}: DE;
+\item \textbf{organizationName}: sysmocom RSP Test EUM;
+\item \textbf{commonName}: sysmoEUICC-C2T Test eUICC.
+\end{itemize}
+
+\subsubsection{Certificato del simulatore del client}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer countryName}: ES;
+\item \textbf{issuer organizationName}: RSP TEST EUM;
+\item \textbf{issuer commonName}: EUM Test;
+\item \textbf{validity notBefore}: 2020-04-01;
+\item \textbf{validity notAfter}: 7496-01-24;
+\item \textbf{countryName}: ES;
+\item \textbf{organizationName}: RSP Test EUM;
+\item \textbf{commonName}: Test eUICC.
+\end{itemize}
+
+\noindent Naturalmente, sarebbe stato anche possibile far comunicare il simulatore del server col simulatore del client utilizzando la medesima certificate chain custom introdotta durante la fase degli esperimenti sui server SM-DP+ reali: sarebbe stata la stessa cosa.\\
+Inoltre, dai campi \textit{issuer countryName}, \textit{issuer organizationName} e \textit{issuer commonName}, è possibile constatare che EasyEUICC e LPAC e, per costruzione, il simulatore del client condividono il medesimo EUM, il cui certificato CERT.EUM.SIG è descritto qui di seguito.
+
+\subsubsection{Certificato dell'EUM}
+\begin{itemize}
+\item \textbf{Algorithm}: ecdsaWithSHA256;
+\item \textbf{issuer countryName}: IT;
+\item \textbf{issuer organizationName}: RSPTEST;
+\item \textbf{issuer organizationalUnitName}: TESTCERT;
+\item \textbf{issuer commonName}: Test CI;
+\item \textbf{validity notBefore}: 2020-04-01;
+\item \textbf{validity notAfter}: 2054-03-24;
+\item \textbf{countryName}: ES;
+\item \textbf{organizationName}: RSP Test EUM;
+\item \textbf{commonName}: EUM Test;
+\item \textbf{crLDistributionPoints}: http://ci.test.example.com/crl-B.crl;
+\item \textbf{authorityKeyIdentifier}: sgp.
+\end{itemize}
+
+\subsection{Osservazioni sulle risposte ricevute}
 [TODO]
 
 \section{Scenari di attacchi ipotetici}
