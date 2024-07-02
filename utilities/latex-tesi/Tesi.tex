@@ -3044,7 +3044,7 @@ Anche contestualmente all'analisi delle risposte dei client può tornare utile a
 \item \textbf{commonName}: Test eUICC.
 \end{itemize}
 
-\noindent Naturalmente, sarebbe stato anche possibile far comunicare il simulatore del server col simulatore del client utilizzando la medesima certificate chain custom introdotta durante la fase degli esperimenti sui server SM-DP+ reali: sarebbe stata la stessa cosa.\\
+\noindent Naturalmente, sarebbe stato anche possibile far comunicare il simulatore del server col simulatore del client utilizzando la medesima certificate chain custom introdotta durante la fase degli esperimenti sui server SM-DP+ reali: non avrebbe fatto differenza.\\
 Inoltre, dai campi \textit{issuer countryName}, \textit{issuer organizationName} e \textit{issuer commonName}, è possibile constatare che EasyEUICC e LPAC e, per costruzione, il simulatore del client condividono il medesimo EUM, il cui certificato CERT.EUM.SIG è descritto qui di seguito.
 
 \subsubsection{Certificato dell'EUM}
@@ -3063,8 +3063,25 @@ Inoltre, dai campi \textit{issuer countryName}, \textit{issuer organizationName}
 \item \textbf{authorityKeyIdentifier}: sgp.
 \end{itemize}
 
-\subsection{Osservazioni sulle risposte ricevute}
-[TODO]
+\subsection{Analisi delle risposte ricevute}
+Per quanto concerne l'eUICC e l'applicazione LPA integrati nel Google Pixel 6, si potrebbe provare a capire quali siano le ragioni per cui la connessione non va a buon fine. È stato dunque catturato il traffico di rete nella comunicazione tra il dispositivo mobile e il simulatore del server ed è stato analizzato con Wireshark, come testimoniato dalla figura \ref{fig:wireshark-pixel}.
+\begin{figure}
+\includegraphics[width=\linewidth]{wireshark-pixel.png}
+\caption{Cattura Wireshark della comunicazione tra il Google Pixel 6 e il simulatore del server.}
+\label{fig:wireshark-pixel}
+\end{figure}
+Com'è possibile vedere, avviene l'intera procedura di handshake di TLS e, dopodiché, nel pacchetto evidenziato in blu nella figura, il dispositivo mobile invia un messaggio di [FIN, ACK] per interrompere la connessione TLS: qualcosa è andato storto durante l'handshake, come una configurazione non supportata da una delle due controparti. In particolare, sembra che il Google Pixel 6 abbia i certificati TLS caratterizzati dai PIN, grazie ai quali il dispositivo mobile è in grado di connettersi esclusivamente agli host che detengono certificati TLS specifici, e non con gli host che ne possiedono uno valido ma non previsto dai PIN.\\
+Dalla figura \ref{fig:wireshark-pixel} emerge anche che la versione di TLS che stava per essere utilizzata è la 1.2: una versione ancora accettata dalla GSM Association ma non la migliore possibile. È molto probabile che la maggioranza delle comunicazioni basate sul protocollo SM-DP+ si appoggino tuttora sulla versione 1.2 di TLS.\\
+
+\noindent Passando invece ai client sui quali è stato possibile testare il protocollo SM-DP+, balza subito all'occhio la perfetta analogia fra le risposte fornite da EasyEUICC nei vari esperimenti e quelle fornite da LPAC. Ciò era assolutamente prevedibile, dal momento in cui i due client fanno uso della medesima eUICC programmabile e differiscono soltanto dall'applicazione LPA. Si hanno dunque solo due client significativi dal punto di vista delle risposte ricevute, di cui uno è identificabile o con EasyEUICC o con LPAC, mentre l'altro è il simulatore del client sviluppato nel presente lavoro, per cui non è neanche un client in commercio. Conseguentemente, non ha molto senso graficare il comportamento dei client nei vari esperimenti come è stato fatto per i server SM-DP+; piuttosto, possono essere direttamente fatte delle osservazioni.
+\begin{itemize}
+\item All'interno del messaggio di risposta authenticateClientResponse si hanno due istanze di Transaction ID: una interna alla struttura smdpSigned2 e una esterna. Dai casi di test 6.1 e 6.2 emerge che EasyEUICC e LPAC controllano la correttezza soltanto dell'ID di transazione situato in smdpSigned2. Si tratta di una situazione perfettamente analoga a quella riscontrata durante l'esecuzione dei test dei server: anche nei messaggi di richiesta dei client si ha il Transaction ID ripetuto due volte e anche i server SM-DP+ verificano la correttezza del valore di una sola istanza dell'ID di transazione.
+\item Anche all'interno del messaggio di risposta initiateAuthenticationResponse si hanno due istanze di Transaction ID: una interna alla struttura serverSigned1 e una esterna. Dal caso di test 10.1 si ha di nuovo che, dal punto di vista di EasyEUICC e LPAC, fa fede esclusivamente l'ID di transazione interno. Infatti, nel caso di test 10.1 il valore dei due ID è differente e i client acquisiscono quello situato in serverSigned1.
+\item Nel caso di test 10.2, il Transaction ID proposto dal simulatore del server è composto da un unico byte e viene accettato così com'è dai client testati. Tuttavia, trattandosi di un nonce, sarebbe stato ideale forzare l'ID di transazione ad avere una certa entropia minima (i.e. una certa dimensione minima), in modo tale da evitare il più possibile il riuso del medesimo ID in più connessioni successive.
+\item All'interno del messaggio initiateAuthenticationResponse viene specificato l'hostname del server SM-DP+ che sta inviando tale messaggio. Sulla base del caso di test 9.3, sembra succedere ciò che viene descritto qui di seguito. Il client contatta il server SM-DP+ specificando nel messaggio initiateAuthentication l'hostname effettivo del server mediante il campo smdpAddress; il server risponde specificando nel messaggio initiateAuthenticationResponse un hostname differente; a quel punto, il client si convince che l'hostname corretto del server sia quello riportato in initiateAuthenticationResponse. Tale fenomeno può essere giustificato dal fatto che ciasucn server può avere più hostname (alias). Tuttavia, cià potrebbe far sospettare che l'hostname del server potrebbe essere spoofato all'interno del messaggio initiateAuthenticationResponse.
+\item Le condizioni di errore legate al calcolo errato della signature sono le uniche che vengono elaborate di EasyEUICC e LPAC come errori generici (o \textit{undefined}). In tutti gli altri casi, i client specificano sempre i dettagli sull'errore riscontrato. Si tratta nuovamente di un comportamento che è stato già osservato durante i test dei server SM-DP+.
+\end{itemize}
+Comunque sia, nel complesso, nonostante siano stati esaminati perlopiù client di test, il loro comportamento osservato rispecchia abbastanza fedelmente le specifiche di GSMA e, quindi, il comportamento atteso.
 
 \section{Scenari di attacchi ipotetici}
 [TODO]
