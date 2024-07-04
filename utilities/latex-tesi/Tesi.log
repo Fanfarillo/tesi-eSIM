@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  4 JUL 2024 12:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  4 JUL 2024 12:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1404,11 +1404,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 3140--3141
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 3142--3145
-
- []
-
 [124] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
 (rerunfilecheck)             Checksum: 12A09600C5462E401009D5700060798E;13240.
@@ -1430,14 +1425,14 @@ msfonts/cm/cmbx9.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm
 b><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texl
 ive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2022/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2022/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2022/texmf-dist/fonts/type1
+fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2022/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsy10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmti10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1000.p
 fb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/tex
 live/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive/2022/texmf
 -dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (125 pages, 4170285 bytes).
+Output written on Tesi.pdf (125 pages, 4169373 bytes).
 PDF statistics:
  1792 PDF objects out of 2073 (max. 8388607)
  1487 compressed objects within 15 object streams
