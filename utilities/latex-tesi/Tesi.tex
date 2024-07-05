@@ -388,7 +388,7 @@ La necessità di rinnovare le chiavi contenute nell'ECASD può presentarsi in du
 
 \section{Interazione tra eUICC, LPA, SM-DP+ e operatore}
 \subsection{Sicurezza TLS}
-Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA), dove è prevista la mutua autenticazione tra le parti. La documentazione di GSMA di riferimento \cite{GSMA-docs-new} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, introduce anche la possibilità (e suggerisce) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui in uno sviluppo futuro potrebbe essere interessante verificare quale sia la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
+Il protocollo TLS, la cui versione 1.2 è definita in RFC 5246 \cite{RFC-5246} e la cui versione 1.3 è definita in RFC 8446 \cite{RFC-8446}, è utilizzato per proteggere il traffico sulle interfacce ES2+ (tra server SM-DP+ e operatore) e ES9+ (tra server SM-DP+ e LPA), dove è prevista la mutua autenticazione tra le parti. La documentazione di GSMA di riferimento \cite{GSMA-docs-new} sottolinea l'obbligatorietà di fare uso di TLS v1.2 sia per gli algoritmi di autenticazione e autorizzazione, sia per l'integrità dei messaggi, sia per la confidenzialità. In realtà, introduce anche la possibilità (e suggerisce) di utilizzare TLS v1.3, che è la versione più recente di TLS e risolve le vulnerabilità che caratterizzano TLS v1.2, per cui, in linea di principio, dovrebbe risultare particolarmente difficoltoso da penetrare. Tuttavia, attualmente sembra essere solo un suggerimento, per cui successivamente potrebbe essere interessante verificare quale sia la versione di TLS utilizzata per proteggere la comunicazione tra LPA e server SM-DP+.\\
 Un discorso analogo vale per l'interazione che si ha nella mutua autenticazione tra l'eUICC e il server SM-DP+, dove le due parti interagiscono tra loro tramite un TLS tunnel \cite{Sec-analysis}. Per quanto invece riguarda la comunicazione tra eUICC e applicazione LPA, è richiesto l'utilizzo di un pairwise secure channel (ovvero di un canale di comunicazione sicuro rispetto alla confidenzialità e all'autenticazione dei messaggi) che collega le due parti all'interno del dispositivo mobile \cite{Sec-analysis}. Tuttavia, non esiste una specifica universale che imponga l'utilizzo di un particolare protocollo di crittografia per proteggere il pairwise secure channel, anche se il protocollo più utilizzato rimane TLS.
 %Di nuovo, potrebbe essere una buona idea stabilire con un approccio pratico se nel canale di comunicazione tra eUICC e LPA viene utilizzato TLS oppure un protocollo differente.
 
@@ -543,7 +543,7 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \begin{enumerate}
 \item Il primo step, che è opzionale, si articola in tre punti:
 \begin{enumerate}[label=\alph*)]
-\item Se non lo aveva già fatto in un momento precedente, l'LPA richiede le informazioni dell'eUICC (i.e. Specification Version Number e identificatori delle chiavi pubbliche del CI che possono essere utilizzate per autenticare il server e per firmare i propri dati) identificate dalla variabile euiccInfo1.
+\item Se non lo aveva già fatto in un momento precedente, l'LPA richiede le informazioni dell'eUICC (i.e. Specification Version Number e identificatori delle chiavi pubbliche del CI che possono essere utilizzate per autenticare il server e firmare i propri dati) identificate dalla variabile euiccInfo1.
 \item L'eUICC restituisce euiccInfo1 all'LPA.
 \item Se esiste una restrizione sulle chiavi pubbliche consentite del CI, l'LPA crea una nuova istanza di euiccInfo1 senza le chiavi pubbliche non compatibili del CI. Se dopo questa operazione rimane una lista vuota di chiavi pubbliche, l'LPA informa l'end user che la procedura di mutua autenticazione deve terminare.
 \end{enumerate}
@@ -571,11 +571,11 @@ Se anche solo uno di questi controlli non va a buon fine, il server restituisce 
 \begin{itemize}[itemsep=0pt]
 \item Verificare l'OID, che è l'Object Identifier del server SM-DP+ (se fornito in precedenza).
 \item Verificare che l'indirizzo SM-DP+ restituito dal server (incapsulato in serverSigned1) matchi con l'indirizzo SM-DP+ che l'LPA aveva inviato allo step (6).
-\item Verificare che la chiave pubblica associata del Root della certificate chain associata al certificato CERT.DPauth.SIG sia inclusa in euiccInfo1 (se l'opzione euiccCiUpdateSupport dell'LPA è attiva).
+\item Verificare che la chiave pubblica del Root della certificate chain associata al certificato CERT.DPauth.SIG sia inclusa in euiccInfo1 (se l'opzione euiccCiUpdateSupport dell'LPA è attiva).
 \item Effettuare altre verifiche sui certificati che non verranno approfondite in questa sede.
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, l'LPA interrompe la procedura di Common Mutual Authentication. In caso contrario, procede col generare la struttura dati ctxParams1, che dovrà essere inviata all'eUICC affinché venga poi inclusa tra i dati firmati.
-\item L'LPA invoca la funzione \textit{AuthenticateServer} passandovi come parametri serverSigned1, serverSignature1, euiccCiIdToBeUsed, il certificato CERT.DPauth.SIG, eventuali altri certificati, ctxParams1 ed eventualmente la CRL.
+\item L'LPA invoca la funzione \textit{AuthenticateServer} passandovi come parametri serverSigned1, serverSignature1, euiccCiPKIdToBeUsed, il certificato CERT.DPauth.SIG, eventuali altri certificati, ctxParams1 ed eventualmente la CRL.
 \item L'eUICC esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Verificare il certificato CERT.DPauth.SIG e altri eventuali certificati nella catena.
@@ -627,7 +627,7 @@ La figura \ref{fig:download-install} ripresa da \cite{GSMA-docs-new} illustra tu
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Verificare che esista un profilo correlato al Matching ID ricevuto in \textit{AuthenticateClient}.
-\item Se l'ordinazione di download del profilo è già linkato a un EID, verificare che quest'ultimo corrisponda all'EID dell'eUICC appena autenticato.
+\item Se l'ordinazione di download del profilo è già linkata a un EID, verificare che quest'ultimo corrisponda all'EID dell'eUICC appena autenticato.
 \item Verificare che il profilo sia nello stato Released o, nel caso di retry a seguito del fallimento di un'installazione precedente, nello stato Downloaded.
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, la procedura di download e installazione del profilo deve essere interrotta. In caso contrario, il server SM-DP+ deve procedere con le seguenti altre azioni:
@@ -635,7 +635,8 @@ Se anche solo uno di questi controlli non va a buon fine, la procedura di downlo
 \item Incrementare il contatore dei tentativi di download del profilo target. Se il numero massimo di tentativi viene sforato, il server deve notificare l'operatore del fallimento del download e l'intera procedura deve terminare.
 \item Effettuare i check di idoneità opportuni.
 \end{itemize}
-\item Il server SM-DP+ notifica l'operatore con l'esito dei check di validità mediante la funzione \textit{handleNotification} (step opzionale). La comunicazione tra server e operatore è protetta dall'uso di un pairwise secure channel, come nell'interazione tra eUICC e LPA; anche qui il protocollo più utilizzato è TLS ma non viene imposto dallo standard di GSMA. Di conseguenza, potrebbe essere nuovamente utile stabilire empiricamente se nel canale di comunicazione tra server SM-DP+ e operatore viene utilizzato TLS o meno.
+\item Il server SM-DP+ notifica l'operatore con l'esito dei check di validità mediante la funzione \textit{handleNotification} (step opzionale). La comunicazione tra server e operatore è protetta dall'uso di un pairwise secure channel, come nell'interazione tra eUICC e LPA; anche qui il protocollo più utilizzato è TLS ma non viene imposto dallo standard di GSMA.
+%Di conseguenza, potrebbe essere nuovamente utile stabilire empiricamente se nel canale di comunicazione tra server SM-DP+ e operatore viene utilizzato TLS o meno.
 \item Se i check di idoneità falliscono, allora il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Portare il profilo target allo stato Error.
@@ -784,7 +785,7 @@ Se anche solo uno di questi controlli non va a buon fine, o se l'ID di transazio
 \end{enumerate}
 
 \section{Policy dei profili}\label{sec:profile-policy}
-Come accennato nella sotto-sezione \ref{sec:down-install}, durante la procedura di download e installazione del profilo, è necessario anche verificare le policy del profilo per stabilire se quest'ultimo può essere installato all'interno dell'eUICC. Di conseguenza, può tornare utile illustrare nel dettaglio il meccanismo di gestione delle policy dei profili previsto in GSMA \cite{GSMA-docs-new}.\\
+Come accennato nella sottosezione \ref{sec:down-install}, durante la procedura di download e installazione del profilo, è necessario anche verificare le policy del profilo per stabilire se quest'ultimo può essere installato all'interno dell'eUICC. Di conseguenza, può tornare utile illustrare nel dettaglio il meccanismo di gestione delle policy dei profili previsto in GSMA \cite{GSMA-docs-new}.\\
 Le policy dei profili possono essere descritte dalle cosiddette \textbf{Profile Policy Rules} (PPR), che sono delle regole che descrivono cosa è possibile e cosa non è possibile fare con ciascun profilo. Attualmente possono essere definite due PPR in particolare:
 \begin{itemize}
 \item PPR1 - `Disabling of this Profile is not allowed'

@@ -29,8 +29,8 @@
 \contentsline {subsection}{\numberline {2.4.7}Sotto-procedura di Download Confirmation}{32}{subsection.2.4.7}%
 \contentsline {subsubsection}{Condizioni iniziali}{32}{section*.27}%
 \contentsline {subsubsection}{Procedimento}{32}{section*.28}%
-\contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{35}{subsection.2.4.8}%
-\contentsline {subsubsection}{Condizioni iniziali}{35}{section*.30}%
+\contentsline {subsection}{\numberline {2.4.8}Cambio di dispositivo}{34}{subsection.2.4.8}%
+\contentsline {subsubsection}{Condizioni iniziali}{36}{section*.30}%
 \contentsline {subsubsection}{Procedimento}{36}{section*.31}%
 \contentsline {subsection}{\numberline {2.4.9}Dettagli sulla Common Cancel Session Procedure}{37}{subsection.2.4.9}%
 \contentsline {subsubsection}{Procedimento}{37}{section*.33}%
