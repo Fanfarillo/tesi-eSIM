@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  6 JUL 2024 13:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.11)  6 JUL 2024 16:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1164,19 +1164,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2205--2206
 
  []
 
-[85] [86] [87] [88] [89] [90] [91] [92] [93]
-Overfull \hbox (78.6451pt too wide) in paragraph at lines 2465--2466
-[]\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
-h.com/ca[]a3dc2e3fea7708a11c889386d9d3a76f/LatestCRL.crl; 
- []
-
-[94] [95]
-Overfull \hbox (24.12819pt too wide) in paragraph at lines 2572--2573
-[]\OT1/cmr/bx/n/10 crLDistributionPoints\OT1/cmr/m/n/10 : http://pki-crl.symaut
-h.com/SymantecRSPTestRootCA/LatestCRL.crl 
- []
-
-[96]
+[85] [86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96]
 <images//cert-duration.png, id=1390, 808.52063pt x 472.76625pt>
 File: images//cert-duration.png Graphic file (type png)
 <use images//cert-duration.png>
@@ -1270,17 +1258,18 @@ Package pdftex.def Info: images//test-14-1.png  used on input line 2679.
  [97 <./images//cert-duration.png>] [98 <./images//test-1.png> <./images//test-
 2.png>] [99 <./images//test-3.png> <./images//test-4.png>] [100 <./images//test
 -5-1.png> <./images//test-5-2.png>] [101 <./images//test-6-2.png> <./images//te
-st-7-1.png>] [102 <./images//test-7-2.png> <./images//test-8.png>] [103 <./imag
-es//test-9.png> <./images//test-10.png>] [104 <./images//test-11.png> <./images
-//test-12-1.png>] [105 <./images//test-12-2.png> <./images//test-13-1.png>] [10
-6 <./images//test-14-1.png>] [107]
+st-7-1.png>]
+[102 <./images//test-7-2.png> <./images//test-8.png>] [103 <./images//test-9.pn
+g> <./images//test-10.png>] [104 <./images//test-11.png> <./images//test-12-1.p
+ng>] [105 <./images//test-12-2.png> <./images//test-13-1.png>] [106 <./images//
+test-14-1.png>] [107]
 <images//pixel6.png, id=1477, 4641.34pt x 2091.815pt>
 File: images//pixel6.png Graphic file (type png)
 <use images//pixel6.png>
 Package pdftex.def Info: images//pixel6.png  used on input line 2795.
 (pdftex.def)             Requested size: 426.79135pt x 192.34079pt.
- [108] [109 <./images//pixel6.png>]
-[110] [111] [112] [113] [114] [115]
+ [108] [109 <./images//pixel6.png>] [110] [111] [112]
+[113] [114] [115]
 <images//wireshark-pixel.png, id=1538, 1283.54532pt x 190.46156pt>
 File: images//wireshark-pixel.png Graphic file (type png)
 <use images//wireshark-pixel.png>
@@ -1406,7 +1395,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 3142--3143
 
 [124] (./Tesi.aux)
 Package rerunfilecheck Info: File `Tesi.out' has not changed.
-(rerunfilecheck)             Checksum: 12A09600C5462E401009D5700060798E;13240.
+(rerunfilecheck)             Checksum: 5CD6A91216C1504136F2769555E0AD34;13190.
  ) 
 Here is how much of TeX's memory you used:
  15303 strings out of 476024
@@ -1432,7 +1421,7 @@ m/cmtt10.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1000.p
 fb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/tex
 live/2022/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive/2022/texmf
 -dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on Tesi.pdf (125 pages, 4169456 bytes).
+Output written on Tesi.pdf (125 pages, 4169407 bytes).
 PDF statistics:
  1791 PDF objects out of 2073 (max. 8388607)
  1486 compressed objects within 15 object streams

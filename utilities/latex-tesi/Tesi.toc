@@ -56,7 +56,7 @@
 \contentsline {subsection}{\numberline {4.3.5}Analisi di getBoundProfilePackage}{59}{subsection.4.3.5}%
 \contentsline {subsection}{\numberline {4.3.6}Analisi di getBoundProfilePackageResponse}{60}{subsection.4.3.6}%
 \contentsline {subsection}{\numberline {4.3.7}Analisi di handleNotification}{61}{subsection.4.3.7}%
-\contentsline {section}{\numberline {4.4}Implementazione dei simulatori}{62}{section.4.4}%
+\contentsline {section}{\numberline {4.4}Scrittura del codice}{62}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}Librerie Python utilizzate}{63}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Confronto tra specifiche GSMA e simulatori}{63}{subsection.4.4.2}%
 \contentsline {subsubsection}{Check da parte del server alla ricezione di initiateAuthetication}{63}{section*.68}%
