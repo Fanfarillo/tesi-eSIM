@@ -1036,11 +1036,11 @@ L'idea alla base è molto semplice: si prende la sequenza di byte di partenza, l
 \caption{Tabella di conversione della codifica base64.}
 \label{fig:base64}
 \end{figure}
-La tabella di conversione della codifica base64 riporta anche un sessantacinquesimo carattere ('='), che svolge la funzione di padding. Infatti, è possibile assumere che ogni sequenza di byte data in input all'algoritmo di codifica base64 abbia una lunghezza multipla di 8 bit, ma non è detto che abbia una lunghezza multipla anche di 6 bit; di fatto, avere una linghezza multipla di 6 bit significherebbe avere una lunghezza multipla di 24 bit. Si hanno dunque tre casistiche \cite{RFC-4648}:
+La tabella di conversione della codifica base64 riporta anche un sessantacinquesimo carattere (`='), che svolge la funzione di padding. Infatti, è possibile assumere che ogni sequenza di byte data in input all'algoritmo di codifica base64 abbia una lunghezza multipla di 8 bit, ma non è detto che abbia una lunghezza multipla anche di 6 bit; di fatto, avere una linghezza multipla di 6 bit significherebbe avere una lunghezza multipla di 24 bit. Si hanno dunque tre casistiche \cite{RFC-4648}:
 \begin{enumerate}
-\item La sequenza di byte di input ha una lunghezza multipla di 24 bit: in tal caso, non è necessario avere particolari accortezze e, in particolare, non è previsto alcun padding.
-\item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 8 bit: in tal caso, vengono aggiunti 4 bit di padding pari a 0, vengono convertiti i 12 bit così ottenuti nei corrispettivi 2 caratteri ASCII e, in coda alla stringa di output, vengono aggiunti 2 caratteri di uguale ('==').
-\item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 16 bit: in tal caso, vengono aggiunti 2 bit di padding pari a 0, vengono convertiti i 18 bit così ottenuti nei corrispettivi 3 caratteri ASCII e, in coda alla stringa di output, viene aggiunto un carattere di uguale ('=').
+\item La sequenza di byte di input ha una lunghezza multipla di 24 bit: in tal caso, non è necessario avere particolari accortezze e non è previsto alcun padding.
+\item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 8 bit: in tal caso, vengono aggiunti 4 bit di padding pari a 0, vengono convertiti i 12 bit così ottenuti nei corrispettivi 2 caratteri ASCII e, in coda alla stringa di output, vengono aggiunti 2 caratteri di uguale (`==').
+\item La sequenza di byte di input ha una lunghezza tale per cui alla fine avanzano 16 bit: in tal caso, vengono aggiunti 2 bit di padding pari a 0, vengono convertiti i 18 bit così ottenuti nei corrispettivi 3 caratteri ASCII e, in coda alla stringa di output, viene aggiunto un carattere di uguale (`=').
 \end{enumerate}
 Sulla base dell'algoritmo di conversione appena esposto, è possibile concludere che il campo euiccChallenge del messaggio è uguale al valore intero 232645733703218863597835671721642336624, mentre il campo euiccInfo1 risulta pari alla sequenza di byte mostrata in figura \ref{fig:asn1-euiccInfo1}.\\
 \begin{figure}
@@ -1051,7 +1051,7 @@ Sulla base dell'algoritmo di conversione appena esposto, è possibile concludere
 Le specifiche di GSMA \cite{GSMA-docs-new} suggeriscono che i tipi di dato complessi come euiccInfo1 in RSP vengono rappresentati secondo lo standard \textbf{ASN.1} sfruttando la codifica \textbf{DER}.
 
 \subsubsection{Codifica DER}
-DER (Distinguished Encoding Rules) è una variante restrittiva di \textbf{BER} (Basic Encoding Rules) che, di fatto, elimina alcune flessibilità offerte da BER \cite{DER}.\\
+DER (Distinguished Encoding Rules) è una variante restrittiva di \textbf{BER} (Basic Encoding Rules) e, di fatto, elimina alcune flessibilità offerte da BER \cite{DER}.\\
 BER a sua volta rappresenta un insieme di regole per la conversione di dati eterogenei in flussi di byte. Per la codifica, fa uso del formato \textbf{TLV} (Tag-Length-Value) e, per questa ragione, è particolarmente legato allo standard ASN.1 \cite{BER}. Di conseguenza, per comprendere al meglio il significato dei byte che compongono euiccInfo1, può risultare utile introdurre una panoramica generale sul funzionamento dello standard ASN.1.
 
 \subsubsection{Standard ASN.1}
@@ -1084,7 +1084,7 @@ Comunque sia, conoscere lo standard ASN.1 non è sufficiente per interpretare in
 \item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per autenticare il server;
 \item una lista (Sequence) di identificatori delle chiavi pubbliche del CI che possono essere utilizzate dall'eUICC per firmare i propri dati.
 \end{itemize}
-Si noti che questa definizione di euiccInfo1 combacia perfettamente con le specifiche di GSMA \cite{GSMA-docs-new} relative alla procedura di Common Mutual Authentication \ref{sec:mutual-auth}.\\
+Si noti che questa definizione di euiccInfo1 combacia perfettamente con le specifiche di GSMA \cite{GSMA-docs-new} relative alla procedura di Common Mutual Authentication (sezione \ref{sec:mutual-auth}).\\
 Per determinare nel modo più agevole possibile i valori assunti dai tre campi di euiccInfo1 sopra elencati, si può far riferimento al sito https://lapo.it/asn1js/ (\textit{ASN.1 JavaScript decoder}) il quale, data una stringa base64, restituisce in chiaro le informazioni codificate con lo standard ASN.1. In figura \ref{fig:decode-euiccInfo1} è riportato l'output del sito \textit{ASN.1 JavaScript decoder} nel momento in cui gli viene dato in pasto la stringa base64 associata a euiccInfo1 in figura \ref{fig:msg1-stream-pcap}.
 \begin{figure}
 \includegraphics[width=\linewidth]{decode-euiccInfo1.png}
@@ -1132,7 +1132,7 @@ Per comprendere appieno le informazioni celate nei campi di initiateAuthenticati
 
 \hspace{0.75cm} \textit{serverAddress [3] UTF8String, \textcolor{gray}{{-}{-} The RSP Server address}}
 
-\hspace{0.75cm} \textit{serverChallenge [4] Octet16, \textcolor{gray}{{-}{-} The RSP Server Challenge}}
+\hspace{0.75cm} \textit{serverChallenge [4] Octet16 \textcolor{gray}{{-}{-} The RSP Server Challenge}}
 
 \textit{\}\\}
 
@@ -1188,7 +1188,7 @@ Il JSON del payload è composto da due campi:
 \item \textbf{authenticateServerResponse}: è una struttura dati che verrà approfondita tra poco;
 \item \textbf{transactionId}: corrisponde all'ID di transazione appena ricevuto nel messaggio initiateAuthenticationResponse.
 \end{itemize}
-Per quanto riguarda authenticateServerResponse, è una struttura composta da più elementi ASN.1 di tipo Sequence anche annidati tra loro, ed è descritta nella definizione riportata nelle pagine successive\cite{RSP-definitions}.\\
+Per quanto riguarda authenticateServerResponse, è una struttura composta da più elementi ASN.1 di tipo Sequence anche annidati tra loro, ed è descritta nella definizione riportata nelle pagine successive \cite{RSP-definitions}.\\
 
 \textit{AuthenticateServerResponse ::= [56] CHOICE \{ \textcolor{gray}{{-}{-} Tag `BF38'}}
 
@@ -1202,7 +1202,7 @@ Per quanto riguarda authenticateServerResponse, è una struttura composta da pi�
 
 \hspace{0.75cm} \textit{euiccSigned1 EuiccSigned1, \textcolor{gray}{{-}{-} Signed information}}
 
-\hspace{0.75cm} \textit{euiccSignature1 [APPLICAION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag `5F37'}}
+\hspace{0.75cm} \textit{euiccSignature1 [APPLICATION 55] OCTET STRING, \textcolor{gray}{{-}{-} EUICC\_Sign1, tag `5F37'}}
 
 \hspace{0.75cm} \textit{euiccCertificate Certificate, \textcolor{gray}{{-}{-} CERT.EUICC.ECDSA signed by the EUM}}
 
@@ -1351,7 +1351,7 @@ I campi che possono essere approfonditi con l'aiuto di \cite{RSP-definitions} e 
 \label{fig:asn1-profileMetadata}
 \end{figure}
 
-\noindent La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transazione e un booleano che indica se è richiesto il Confirmation Code immesso dall'utente per completare il download e l'installazione del profilo. La necessità o meno del Confirmation Code e l'eventuale relativo valore vengono negoziati da server SM-DP+ e operatore durante la fase di \textit{profile ordering} (sezione \ref{sec:step-RSP}). Nel caso specifico del profilo scaricato con l'operatore Very Mobile, il Confirmation Code non è richiesto, come testimoniato dalla figura \ref{fig:decode-smdpSigned2} tratta dal sito \textit{ASN.1 JavaScript decoder}.\\
+\noindent La struttura dati smdpSigned2, come mostrato di seguito, contiene l'ID di transazione e un booleano che indica se è richiesto un Confirmation Code immesso dall'utente per completare il download e l'installazione del profilo. La necessità o meno del Confirmation Code e l'eventuale relativo valore vengono negoziati da server SM-DP+ e operatore durante la fase di \textit{profile ordering} (sezione \ref{sec:step-RSP}). Nel caso specifico del profilo scaricato con l'operatore Very Mobile, il Confirmation Code non è richiesto, come testimoniato dalla figura \ref{fig:decode-smdpSigned2} tratta dal sito \textit{ASN.1 JavaScript decoder}.\\
 
 \textit{SmdpSigned2 ::= SEQUENCE \{}
 
