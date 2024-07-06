@@ -551,7 +551,7 @@ La figura \ref{fig:common-mutual-auth} ripresa da \cite{GSMA-docs-new} illustra 
 \item L'eUICC genera la challenge che successivamente dovrà essere firmata dal server SM-DP+ per l'autenticazione del server stesso.
 \item L'eUICC restituisce la challenge all'LPA.
 \item L'LPA stabilisce una nuova connessione HTTPS col server SM-DP+. Il setup della sessione TLS, poiché non può riutilizzare le chiavi da una sessione precedente, deve prevedere un nuovo key exchange, che avviene nella fase del TLS handshake. Qui il server fornisce all'LPA un certificato CERT.DP.TLS e l'LPA deve verificarne la validità; se l'LPA non riesce a effettuare la verifica, il server deve inviargli un certificato CERT.DP.TLS differente, e così via, fin tanto che l'LPA non sarà riuscito a validare un certificato oppure il numero di tentativi per ritrasmettere il certificato non avrà raggiunto il limite massimo. In questo secondo caso l'LPA interrompe la procedura di Common Mutual Authentication.
-\item L'LPA invoca la funzione \textit{InitiateAuthentication} passandovi come parametri le proprie capability, euiccChallenge, euiccInfo1 e l'indirizzo SM-DP+, il quale viene usato dall'LPA per accedere al server.
+\item L'LPA invoca la funzione \textit{initiateAuthentication} passandovi come parametri le proprie capability, euiccChallenge, euiccInfo1 e l'indirizzo SM-DP+, il quale viene usato dall'LPA per accedere al server.
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Verificare che l'indirizzo SM-DP+ inviato dall'LPA sia valido.
@@ -591,11 +591,11 @@ Se anche solo uno di questi controlli non va a buon fine, la procedura di Common
 \item Calcolare la euiccSignature1 a partire da euiccSigned1, utilizzando la chiave privata SK.EUICC.SIG.
 \end{itemize}
 \item L'eUICC restituisce all'LPA alcune informazioni, tra cui euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
-\item L'LPA invoca la funzione \textit{AuthenticateClient} passandovi come parametri euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
+\item L'LPA invoca la funzione \textit{authenticateClient} passandovi come parametri euiccSigned1, euiccSignature1 e la catena di certificati dell'eUICC.
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Verificare che l'ID di transazione contenuto in euiccSigned1 corrisponda a quello comunicato dal server stesso allo step (9).
-\item Verificare che il certificato root della certificate chain comunicata dall'eUICC corrisponda con quella selezionata dal server stesso (euiccCIPKToBeUsed) durante l'esecuzione della funzione \textit{InitiateAuthentication}.
+\item Verificare che il certificato root della certificate chain comunicata dall'eUICC corrisponda con quella selezionata dal server stesso (euiccCIPKToBeUsed) durante l'esecuzione della funzione \textit{initiateAuthentication}.
 \item Verificare che la certificate chain dell'eUICC sia valida.
 \item Verificare euiccSignature1.
 \item Verificare che la serverChallenge contenuta in euiccSigned1 matchi con la challenge generata dal server stesso allo step (8).
@@ -623,10 +623,10 @@ La figura \ref{fig:download-install} ripresa da \cite{GSMA-docs-new} illustra tu
 \subsubsection{Procedimento}
 \begin{enumerate}
 \item Se non lo ha già fatto in precedenza e se è necessario, l'applicazione LPA effettua il parsing dell'Activation Code: così ottiene l'indirizzo del server SM-DP+ e, opzionalmente, l'OID del server SM-DP+ e l'identificativo della chiave pubblica del CI Root.
-\item Viene eseguita la procedura di Common Mutual Authentication definita nella sezione \ref{sec:mutual-auth}. In particolare, nel messaggio \textit{AuthenticateClient}, l'LPA deve specificare il Matching ID, che è l'identificatore della transazione di download corrente e, dunque, individua esattamente il profilo che si vuole installare.
+\item Viene eseguita la procedura di Common Mutual Authentication definita nella sezione \ref{sec:mutual-auth}. In particolare, nel messaggio \textit{authenticateClient}, l'LPA deve specificare il Matching ID, che è l'identificatore della transazione di download corrente e, dunque, individua esattamente il profilo che si vuole installare.
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
-\item Verificare che esista un profilo correlato al Matching ID ricevuto in \textit{AuthenticateClient}.
+\item Verificare che esista un profilo correlato al Matching ID ricevuto in \textit{authenticateClient}.
 \item Se l'ordinazione di download del profilo è già linkata a un EID, verificare che quest'ultimo corrisponda all'EID dell'eUICC appena autenticato.
 \item Verificare che il profilo sia nello stato Released o, nel caso di retry a seguito del fallimento di un'installazione precedente, nello stato Downloaded.
 \end{itemize}
@@ -669,7 +669,7 @@ La figura \ref{fig:download-confirmation} ripresa da \cite{GSMA-docs-new} illust
 
 \subsubsection{Procedimento}
 \begin{enumerate}
-\item L'LPA invoca la funzione \textit{prepareDownload} passandovi come parametri le informazioni precedentemente ricevute del server SM-DP+ (come smdpSigned2, smdpSignature2 e il certificato CERT.DPpb.SIG) e opzionalmente l'hash del codice di conferma (Confirmation Code).
+\item L'LPA invoca la funzione \textit{prepareDownload} passandovi come parametri le informazioni precedentemente ricevute dal server SM-DP+ (come smdpSigned2, smdpSignature2 e il certificato CERT.DPpb.SIG) e opzionalmente l'hash del codice di conferma (Confirmation Code).
 \item L'eUICC esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
 \item Verificare che CERT.DPpb.SIG sia un certificato valido.
@@ -698,8 +698,8 @@ Se anche solo uno di questi controlli non va a buon fine, il server SM-DP+ deve 
 \item Il server SM-DP+ genera una coppia di chiavi one-time (otPK.DP.KA, otSK.DP.KA) da cui, assieme alla chiave otPK.EUICC.KA precedentemente ricevuta, ricava uno shared secret usato per cifrare e autenticare alcuni metadati del profilo da inviare al client; dopodiché, a partire da tali metadati e dal payload (cifrato) del profilo, genera il Bound Profile Package.
 \item Il server SM-DP+ può opzionalmente notificare l'operatore del completamento del download del profilo mediante la funzione \textit{handleNotification}.
 \item Il server SM-DP+ invia all'LPA la risposta a \textit{getBoundProfilePackage} e imposta lo stato del profilo target a Downloaded.
-\item Se l'LPA ha già trattato la struttura dati Profile Metadata in precedenza, allora deve assicurarsi che le informazioni contenute nel Bound Profile Package (BPP) appena ricevuto le informazioni relative ai metadati del profilo siano rimaste coerenti; se non dovessero esserlo, deve avviare la Common Cancel Session Procedure (\ref{sec:common-cancel-session}) per cancellare la sessione corrente.
-\item L'LPA e l'eUICC si scambiano una serie di messaggi per effettuare opportuni controlli e per portare a termine l'installazione del profilo all'interno dell'eUICC.
+\item Se l'LPA ha già trattato la struttura dati Profile Metadata in precedenza, allora deve assicurarsi che le informazioni contenute nel Bound Profile Package (BPP) appena ricevuto e le informazioni relative ai metadati del profilo siano rimaste coerenti; in caso di incoerenza, deve avviare la Common Cancel Session Procedure (\ref{sec:common-cancel-session}) per cancellare la sessione corrente.
+\item L'LPA e l'eUICC si scambiano una serie di messaggi per effettuare opportuni controlli e portare a termine l'installazione del profilo all'interno dell'eUICC.
 \item L'LPA invoca la funzione \textit{handleNotification} con lo scopo di consegnare il risultato dell'installazione del profilo al server SM-DP+, il quale risponderà con un semplice acknowledgement.
 \item Il server SM-DP+ esegue le seguenti operazioni:
 \begin{itemize}[itemsep=0pt]
@@ -734,11 +734,11 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item L'end user dà inizio all'operazione di cambio di dispositivo a partire dall'LPA del vecchio dispositivo e seleziona il profilo da installare nel nuovo dispositivo.
 \item L'LPA del vecchio dispositivo recupera DeviceChangeConfiguration dai metadati del profilo. Se DeviceChangeConfiguration indica requestToDp, allora si passa allo step (3); se invece DeviceChangeConfiguration indica usingStoredAc, allora si passa allo step (17).
 \item L'LPA del vecchio dispositivo determina l'indirizzo del server SM-DP+ a partire da DeviceChangeConfiguration.
-\item Se DeviceChangeConfiguration indica che è richiesto l'EID e/o la TAC (Type Allocation Code, che è un codice a 8 cifre univoco per il dispositivo) del nuovo dispositivo, allora l'LPA del vecchio dispositivo recupera l'EID e/o la TAC dal nuovo dispositivo.
+\item Se DeviceChangeConfiguration indica che è richiesto l'EID e/o il TAC (Type Allocation Code, che è un codice a 8 cifre univoco per il dispositivo) del nuovo dispositivo, allora l'LPA del vecchio dispositivo recupera l'EID e/o il TAC dal nuovo dispositivo.
 \item L'LPA del vecchio dispositivo dà inizio alla procedura di Common Mutual Authentication definita nella sezione \ref{sec:mutual-auth}.
-\item Se la funzione \textit{handleDeviceChangeRequest} è configurata nel Service Provider, allora il server SM-DP+ la invoca passandovi come parametri l'ICCID (Integrated Circuit Card ID, che è l'identificativo del profilo) ed eventualmente l'EID e la TAC del nuovo dispositivo. D'altro canto, però, se il server SM-DP+ non supporta il cambio di dispositivo o il cambio di dispositivo non è consentito per il profilo, allora il server risponde con un messaggio di errore e la procedura termina.
+\item Se la funzione \textit{handleDeviceChangeRequest} è configurata nel Service Provider, allora il server SM-DP+ la invoca passandovi come parametri l'ICCID (Integrated Circuit Card ID, che è l'identificativo del profilo) ed eventualmente l'EID e il TAC del nuovo dispositivo. Tuttavia, se il cambio di dispositivo non è supportato dal server SM-DP+ o non è consentito per il profilo, allora il server risponde con un messaggio di errore e la procedura termina.
 \item Il Service Provider risponde al server SM-DP+ col booleano isNewProfileRequired e, opzionalmente, un messaggio di Service Provider per il cambio di dispositivo e un codice di conferma.
-\item Se la funzione \textit{handleNotification} è configurata nel Service Provider, il server SM-DP+ la invoca per notificare il Service Provider riguardo la richiesta del cambio di dispositivo.
+\item Se la funzione \textit{handleNotification} è configurata nel Service Provider, il server SM-DP+ la invoca per notificare il Service Provider stesso riguardo la richiesta del cambio di dispositivo.
 \item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta ad \textit{authenticateClient} che comprende transactionId (l'identificativo della transazione), smdpSigned4 (informazioni del server SM-DP+), smdpSignature4 (signature di smdpSigned4) ed eventualmente il messaggio di Service Provider per il cambio di dispositivo.
 \item Se il booleano isNewProfileRequired fornito dal Service Provider nello step (7) vale TRUE, allora il Service Provider esegue il Download Preparation Process (processo di preparazione del download) e opzionalmente il Subscription Activation Process (processo di attivazione della sottoscrizione al profilo).
 \item L'LPA del vecchio dispositivo effettua una richiesta di conferma per il cambio di dispositivo. In particolare, se il Service Provider nello step (7) ha fornito il messaggio di Service Provider per il cambio di dispositivo, quest'ultimo viene presentato all'end user. Inoltre, se smdpSigned4 ha il campo ccRequiredFlag pari a TRUE, allora l'LPA del vecchio dispositivo chiede all'end user di inserire il codice di conferma fornito dal Service Provider nello step (7). Se l'end user non inserisce correttamente il codice di conferma entro un timeout prestabilito, si procede con la cancellazione della sessione (Common Cancel Session Procedure, \ref{sec:common-cancel-session}).
@@ -749,8 +749,8 @@ La figura \ref{fig:device-change} ripresa da \cite{GSMA-docs-new} illustra tutti
 \item Il server SM-DP+ restituisce all'LPA del vecchio dispositivo la risposta a \textit{confirmDeviceChange} che comprende l'esito del cambio di dispositivo. Se tale risposta contiene encryptedDeviceChangeData, l'LPA del vecchio dispositivo disabilita il profilo target. Dopodiché l'LPA verifica la signature del server SM-DP+ invocando la funzione \textit{verifyDeviceChange}.
 \item Se previsto, l'LPA del vecchio dispositivo elimina il profilo target dall'eUICC del vecchio dispositivo. Inoltre, se DeviceChangeConfiguration indica requestToDp e il server SM-DP+ nello step (16) ha indicato di supportare la recovery dei profili eliminati, allora l'LPA del vecchio dispositivo dovrebbe memorizzare alcune informazioni del profilo eliminato, come l'ICCID. Se invece l'eliminazione del profilo non è richiesta, si passa direttamente allo step (19).
 \item L'LPA del vecchio dispositivo invia al server SM-DP+ la notifica di eliminazione del profilo. Se l'invio della notifica fallisce, la procedura termina.
-\item L'LPA del vecchio dispositivo genera il codice di attivazione (Activation Code) e lo fornisce all'LPA del nuovo dispositivo. Inoltre, dovrebbe fornire al nuovo dispositivo lo stato attuale del profilo in modo tale da consentire all'LPA del nuovo dispositivo di ripristinare correttamente tale stato.
-\item Il profilo viene scaricato nel nuovo dispositivo a partire dal server SM-DP+ mediante la procedura di download e installazione del profilo, che è stata definita nella sezione \ref{sec:down-install}.
+\item L'LPA del vecchio dispositivo genera il codice di attivazione (Activation Code). Dopodiché fornisce all'LPA del nuovo dispositivo sia l'Activation Code sia lo stato attuale del profilo, in modo tale da consentire al nuovo dispositivo di ripristinare correttamente tale stato.
+\item Il profilo viene scaricato nel nuovo dispositivo a partire dal server SM-DP+ mediante la medesima procedura di download e installazione del profilo che è stata già definita nella sezione \ref{sec:down-install}.
 \end{enumerate}
 
 \subsection{Dettagli sulla Common Cancel Session Procedure}\label{sec:common-cancel-session}
@@ -776,7 +776,7 @@ La figura  \ref{fig:common-cancel-session} ripresa da \cite{GSMA-docs-new} illus
 \begin{itemize}[itemsep=0pt]
 \item Recuperare la sessione RSP corrente identificata dall'ID di transazione appena ricevuto.
 \item Verificare euiccCancelSessionSignature.
-\item Verificare che l'OID ricevuto sia uguale a quello contenuto in CERT.DPauth.SIG durante la procedura di Common Mutual Authentication.
+\item Verificare che l'OID ricevuto sia uguale a quello contenuto in CERT.DPauth.SIG.
 \end{itemize}
 Se anche solo uno di questi controlli non va a buon fine, o se l'ID di transazione ricevuto è ignoto, il server SM-DP+ deve restituire uno stato di errore e la procedura di Common Cancel Session deve essere interrotta. Inoltre, se la reason è postponed o timeout, allora il server deve mantenere l'ordinazione di download del profilo disponibile per ulteriori tentativi e passare allo step (9); in caso contrario, si procede con lo step successivo.
 \item Il server SM-DP+ imposta il profilo allo stato Error. Inoltre, se un SM-DS è coinvolto nella sessione RSP, allora il server deve anche eliminare l'evento corrispondente dall'SM-DS.
@@ -788,8 +788,8 @@ Se anche solo uno di questi controlli non va a buon fine, o se l'ID di transazio
 Come accennato nella sottosezione \ref{sec:down-install}, durante la procedura di download e installazione del profilo, è necessario anche verificare le policy del profilo per stabilire se quest'ultimo può essere installato all'interno dell'eUICC. Di conseguenza, può tornare utile illustrare nel dettaglio il meccanismo di gestione delle policy dei profili previsto in GSMA \cite{GSMA-docs-new}.\\
 Le policy dei profili possono essere descritte dalle cosiddette \textbf{Profile Policy Rules} (PPR), che sono delle regole che descrivono cosa è possibile e cosa non è possibile fare con ciascun profilo. Attualmente possono essere definite due PPR in particolare:
 \begin{itemize}
-\item PPR1 - `Disabling of this Profile is not allowed'
-\item PPR2 - `Deletion of this Profile is not allowed'
+\item PPR1 - ``Disabling of this Profile is not allowed"
+\item PPR2 - ``Deletion of this Profile is not allowed"
 \end{itemize}
 
 \subsection{Rules Authorisation Table}\label{sec:rat}
