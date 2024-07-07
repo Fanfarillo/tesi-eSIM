@@ -1590,6 +1590,8 @@ json & Viene usata per convertire i dati in e dal formato JSON, oltre che per le
 \hline
 os & Viene usata per interagire col sistema operativo.\\
 \hline
+qrcode & Viene usata a supporto della generazione dei codici QR.\\
+\hline
 random & Viene usata per generare valori o stringhe in modo pseudo-randomico, come ad esempio i Matching ID.\\
 \hline
 requests & Viene usata in alternativa alla libreria http, in particolar modo per utilizzare la parte client per la comunicazione HTTP quando si ha a che fare con un server che con la libreria http dà problemi.\\
@@ -1604,11 +1606,11 @@ socket & Viene usata per definire e utilizzare le socket dalle quali verrà ista
 \hline
 ssl & Viene usata per aggiungere la componente SSL (o TLS) alla connessione HTTP.\\
 \hline
-sslkeylog & Viene usata per generare un log su ciò che avviene all'interno di una connessione di rete.\\
-\hline
 string & Viene usata per la definizione di stringhe o di insiemi di caratteri; ad esempio, può indicare il set dei possibili caratteri che potenzialmente comporranno una stringa pseudo-randomica.\\
 \hline
 sys & Viene usata per interagire con l'ambiente runtime di Python.\\
+\hline
+time & Viene sfruttata per gestire il tempo, ad esempio mediante l'utilizzo della funzione \textit{sleep()}.\\
 \hline
 \end{tabularx}
 \end{center}
@@ -1648,7 +1650,7 @@ Per quanto concerne i dettagli implementativi del sistema simulato, è stato pos
 \item Validità della catena di certificati: l'implementazione prevede un controllo sul certificato CERT.EUM.SIG mediante la chiave pubblica del CI, ma anche un controllo sul certificato CERT.EUICC.SIG mediante la chiave pubblica dell'EUM.
 \item Validità di euiccSignature1: l'implementazione prevede un controllo della signature contenuta nel messaggio mediante la chiave pubblica associata al certificato CERT.EUICC.SIG.
 \item Validità di serverChallenge: l'implementazione prevede un controllo su se la serverChallenge ricevuta corrisponde a quella inviata nel precedente messaggio di initiateAuthenticationResponse.
-\item Validità del Matching ID: l'implementazione prevede un controllo su se il campo matchingId della struttura ctxParams1 corrisponde a un Matching ID realmente esistente per il server e correntemente nello stato `Released' o `Download'.
+\item Validità del Matching ID: l'implementazione prevede un controllo su se il campo matchingId della struttura ctxParams1 corrisponde a un Matching ID realmente esistente per il server e correntemente nello stato `Released' o `Downloaded'.
 \end{itemize}
 A livello implementativo sono stati aggiunti anche i controlli elencati qui di seguito.
 \begin{itemize}
@@ -1679,13 +1681,13 @@ A livello implementativo sono stati aggiunti anche i controlli elencati qui di s
 È stato aggiunto anche un controllo su se il campo transactionId di getBoundProfilePackage e il sotto-campo transactionId della struttura euiccSigned2 sono uguali all'ID di transazione che identifica la sessione RSP corrente.
 
 \subsubsection{Check da parte del client alla ricezione di getBoundProfilePackageResponse}
-In questa fase, è stato deciso di sintetizzare tutti i check svolti da parte dell'LPA e dell'eUICC in cinque punti fondamentali.
+In questa fase, è stato deciso di sintetizzare tutti i check effettuati da parte dell'LPA e dell'eUICC in cinque punti fondamentali.
 \begin{itemize}
 \item Validità del Bound Profile Package: l'implementazione prevede un controllo in modo particolare sul campo sequenceOf88 della struttura boundProfilePackage per verificare se corrisponde alla codifica ASN.1 dell'intero campo profileMetadata ricevuto nel precedente messaggio del server (authenticateClientResponse).
 \item Validità del Remote Operation Type: l'implementazione prevede un controllo su se il campo remoteOpId della struttura initialiseSecureChannelRequest corrisponde a un'operazione remota (Remote Operation) supportata.
 \item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId di getBoundProfilePackageResponse e il sotto-campo transactionId della struttura initialiseSecureChannelRequest sono uguali all'ID di transazione che identifica la sessione RSP corrente.
 \item Validità della Profile Class: l'implementazione prevede un controllo su se la classe del profilo target (Profile Class) è supportata.
-\item Validità di smdpSign: l'implementazione prevede un controllo della signature contenuta nella struttura initialiseSecureChannelRequest del messaggio mediante la chiave pubblica associata al certificato CERT.DPpb.SIG.
+\item Validità di smdpSign: l'implementazione prevede un controllo della signature contenuta nella struttura initialiseSecureChannelRequest mediante la chiave pubblica associata al certificato CERT.DPpb.SIG.
 \end{itemize}
 
 \subsubsection{Check da parte del server alla ricezione di handleNotification}
@@ -1697,13 +1699,13 @@ Nonostante la sezione \ref{sec:down-confirm} non parli esplicitamente di control
 
 \subsubsection{Check da parte del server alla ricezione di cancelSession}
 All'interno del sistema simulato, il client avvia la procedura di Common Cancel Session nei casi riportati qui di seguito, come suggerito dalle specifiche di GSMA \cite{GSMA-docs-new}:
-\begin{itemize}
+\begin{enumerate}
 \item il messaggio authenticateClientResponse da parte del server contiene un solo campo (transactionId);
 \item il messaggio authenticateClientResponse contiene la struttura profileMetadata con serviceProviderName o profileName pari alla stringa vuota;
 \item fallisce un qualche controllo sulle Profile Policy Rules all'interno dei metadati del profilo (struttura profileMetadata);
 \item l'end user non inserisce correttamente in input l'eventuale Confirmation Code o comunque non fornisce la conferma sul download del profilo target;
 \item il campo sequenceOf88 della struttura boundProfilePackage all'interno del messaggio getBoundProfilePackageResponse non corrisponde alla codifica ASN.1 dell'intero campo profileMetadata del precedente messaggio di authenticateClientResponse.
-\end{itemize}
+\end{enumerate}
 Quando il server riceve un messaggio di cancelSession all'interno del sistema simulato, vengono implementati i seguenti check:
 \begin{itemize}
 \item Validità dell'ID di transazione: l'implementazione prevede un controllo su se il campo transactionId di cancelSession e il sotto-campo transactionId della struttura euiccCancelSessionSigned sono uguali all'ID di transazione che identifica una sessione RSP correntemente attiva.
@@ -1715,14 +1717,15 @@ L'unico aspetto da puntualizzare è la mancanza di un controllo sull'OID.
 Prima di sfruttare i simulatori implementati per condurre gli esperimenti successivi, è necessario dimostrare che essi siano corretti, assicurandosi che rispettino fedelmente le specifiche di GSMA, siano privi di bug e siano in grado di comunicare con successo con server e client reali. In altre parole, si vuole validare i simulatori.
 
 \subsection{Validazione del simulatore lato client}
-Per validare il simulatore del client, si è deciso di farlo comunicare con un server di test, ovvero un server SM-DP+ che non è stato concepito per rilasciare profili reali a utenti che vogliono ottenere un vero e proprio piano tariffario, bensì per effettuare delle prove e rilasciare quindi dei profili di test. Tipicamente, un server di test prevede l'utilizzo di catene di certificati di test, le più importanti delle quali vengono definite e messe a disposizione direttamente dalla GSMA \cite{GSMA-test-cert}. Si tratta di due catene di certificati insieme alle quali è possibile scaricare anche le relative chiavi pubbliche e chiavi private. Inoltre, tali certificati coprono tutte le entità coinvolte nella catena, dalla RootCA, al server SM-DP+, all'EUM, all'eUICC. La prima certificate chain, indicata con BRP, fa uso dell'algoritmo Brainpool, che è un algoritmo utilizzato nell'ambito della crittografia basata sulle curve ellittiche \cite{RFC-5639}, mentre la seconda, indicata con NIST, no.\\
-Per aiutarsi con l'attività di debugging durante il processo di validazione del simulatore lato client, si è deciso di sfruttare un server di test open-source: \textbf{Osmo-smdpp}, che è possibile trovare su GitHub al link https://github.com/osmocom/pysim, ed è stato l'unico server SM-DP+ open-source reperibile al momento della validazione del simulatore. Si tratta di un server di test attualmente incompleto. Infatti, ha implementate tutte le funzioni necessarie per la mutua autenticazione e per il download dei profili di prova ma non prevede ancora tutti i controlli che, secondo le specifiche di GSMA \cite{GSMA-docs-new}, un qualunque server SM-DP+ deve effettuare a ogni messaggio ricevuto da parte dell'LPA coinvolta nella comunicazione; ciò è confermato dal fatto che all'interno del codice di Osmo-smdpp vi è un'ingente quantità di commenti marcati con l'espressione \textit{TODO}. Comunque sia, per semplicità, si è assunto che tale server di test fosse sufficiente per debuggare, completare e validare il simulatore del client appena sviluppato.\\
+Per validare il simulatore del client, si è deciso di farlo comunicare con un server di test, ovvero un server SM-DP+ che non è stato concepito per rilasciare profili reali a utenti che vogliono ottenere un vero e proprio piano tariffario, bensì per effettuare delle prove e rilasciare dei profili di test. Tipicamente, un server di test prevede l'utilizzo di catene di certificati di test, le più importanti delle quali vengono definite e messe a disposizione direttamente dalla GSMA \cite{GSMA-test-cert}. Si tratta di due catene di certificati insieme alle quali è possibile scaricare anche le relative chiavi pubbliche e chiavi private. Inoltre, tali certificati coprono tutte le entità coinvolte nella catena, dalla RootCA, al server SM-DP+, all'EUM, all'eUICC. La prima certificate chain, indicata con BRP, fa uso dell'algoritmo Brainpool, che è un algoritmo utilizzato nell'ambito della crittografia basata sulle curve ellittiche \cite{RFC-5639}, mentre la seconda, indicata con NIST, no.\\
+Per aiutarsi con l'attività di debugging durante il processo di validazione del simulatore lato client, si è deciso di sfruttare un server di test open-source: \textbf{Osmo-smdpp}, che è possibile trovare su GitHub al link https://github.com/osmocom/pysim, ed è stato l'unico server SM-DP+ open-source reperibile al momento della validazione del simulatore. Si tratta di un server di test attualmente incompleto. Infatti, ha implementate tutte le funzioni necessarie per la mutua autenticazione e per il download dei profili di prova ma non prevede ancora tutti i controlli che, secondo le specifiche di GSMA \cite{GSMA-docs-new}, un qualunque server SM-DP+ deve effettuare a ogni messaggio ricevuto da parte dell'LPA coinvolta nella comunicazione; ciò è confermato dal fatto che all'interno del codice di Osmo-smdpp vi è un'ingente quantità di commenti marcati con l'espressione \textit{TODO}.\\
+Comunque sia, si è assunto che tale server di test fosse sufficiente per debuggare, completare e validare il simulatore del client appena sviluppato.\\
 Il simulatore è stato approvato, e quindi considerato valido, nel momento in cui è stato in grado di completare con successo la comunicazione col server Osmo-smdpp inviando nell'ordine i messaggi initiateAuthentication, authenticateClient, getBoundProfilePackage e handleNotification, potendo sfruttare sia la catena di certificati BRP, sia la catena di certificati NIST.
 
 \subsection{Validazione del simulatore lato server}
-Per validare il simulatore del server, si è deciso di farlo comunicare con un client di test, che è composto da un'eUICC programmabile della Sysmocom. Tale eUICC può essere acquistata al sito https://shop.sysmocom.de e può essere inserita all'interno di un apposito lettore di SIM, il quale è direttamente collegabile al computer con cui si sta lavorando grazie al suo attacco USB ed è riportato in figura \ref{fig:eUICC-reader}. Inoltre, l'eUICC è pensata per comunicare col server di Osmocom (Osmo-smdpp) e, per questa ragione, supporta anch'essa la catena di certificati di test definita dalla GSMA, in particolare la NIST, che non fa uso dell'algoritmo Brainpool.\\
-Per testare il simulatore del server, è stato sufficiente installare e compilare un'apposita LPA di test (\textbf{lpac}) reperibile su GitHub al link https://github.com/estkme-group/lpac, collegare al computer il lettore di SIM con all'interno l'eUICC programmabile e avviare sia il simulatore del server che LPA di test in modo tale da farli comunicare tra loro.\\
-Il simulatore viene considerato valido nel momento in cui si riesce a installare con successo il profilo da lui offerto all'interno della SIM programmabile. Tuttavia, almeno per il momento, l'attività di debugging non ha consentito di raggiungere questo risultato: allo stato attuale, il simulatore è in grado di scambiare tutti i messaggi col client di test ma, dopo aver ricevuto il Bound Profile Package nel messaggio getBoundProfilePackageResponse, fornisce l'errore \textit{scp03tSecurityError} e non installa effettivamente il profilo all'interno dell'eUICC programmabile. Per questo motivo, il simulatore del server risulta validato solo parzialmente ma, grazie alla capacità di portare a termine la comunicazione coi client, rimane comunque uno strumento sufficientemente adeguato per intraprendere lo studio successivo con i client reali.
+Per validare il simulatore del server, si è deciso di farlo comunicare con un client di test, che è composto da un eUICC programmabile della Sysmocom. Tale eUICC può essere acquistata al sito https://shop.sysmocom.de e può essere inserita all'interno di un apposito lettore di SIM, il quale è direttamente collegabile al computer con cui si sta lavorando grazie al suo attacco USB ed è riportato in figura \ref{fig:eUICC-reader}. Inoltre, l'eUICC è pensato per comunicare col server di Osmocom (Osmo-smdpp) e, per questa ragione, supporta anch'esso la catena di certificati di test definita dalla GSMA, in particolare la NIST, che non fa uso dell'algoritmo Brainpool.\\
+Per testare il simulatore del server, è stato sufficiente installare e compilare un'apposita LPA di test (\textbf{lpac}) reperibile su GitHub al link https://github.com/estkme-group/lpac, collegare al computer il lettore di SIM con all'interno l'eUICC programmabile e avviare sia il simulatore del server che l'LPA di test in modo tale da farli comunicare tra loro.\\
+Il simulatore viene considerato valido nel momento in cui si riesce a installare con successo il profilo da lui offerto all'interno dell'eUICC programmabile. Tuttavia, almeno per il momento, l'attività di debugging non ha consentito di raggiungere questo risultato: allo stato attuale, il simulatore è in grado di scambiare tutti i messaggi col client di test ma quest'ultimo, dopo aver ricevuto il Bound Profile Package nel messaggio getBoundProfilePackageResponse, fornisce l'errore \textit{scp03tSecurityError} e non installa effettivamente il profilo all'interno dell'eUICC programmabile. Per questo motivo, il simulatore del server risulta validato solo parzialmente ma, grazie alla capacità di portare a termine la comunicazione coi client, rimane comunque uno strumento sufficientemente adeguato per intraprendere lo studio successivo con i client reali.
 \begin{figure}
 \includegraphics[width=\linewidth]{eUICC-reader.png}
 \caption{Lettore di SIM utilizzato per validare il simulatore del server.}
@@ -1739,7 +1742,7 @@ L'analisi di sicurezza che ci si propone di effettuare si articola in due fasi.
 
 \section{Ottenimento dei server da testare}
 L'idea originale consisteva nell'individuare tutti i server SM-DP+ del mondo in modo tale da effettuare dei test esaustivi e su larga scala. Tuttavia, non è stato possibile trovare in rete alcun riferimento a hostname o indirizzi IP dei server SM-DP+, eccezion fatta per i server di test e per alcuni server SM-DS. I server di test trovati sono quello di Google (con hostname \textit{prod.smdp-plus.rsp.goog}), Infineon (con hostname \textit{testsmdpplus.infineon.com}), Sysmocom (con hostname\\ \textit{smdpp.test.rsp.sysmocom.de}) e Truphone (con hostname \textit{rsp.truphone.com}). I server SM-DS trovati sono quello di GSMA (con hostname \textit{lpa.ds.gsma.com}), eSIM Discovery Production (con hostname \textit{lpa.live.esimdiscovery.com}), eSIM Discovery Staging (con hostname \textit{lpa.live.esimdiscovery.dev}), Stork (con hostname \textit{prod.smds.rsp.goog}) e Verizon Wireless (con hostname \textit{lpads.vzw.otgeuicc.com}). Tutti questi server, a differenza di Osmo-smdpp, non sono open-source e non devono essere installati sulla macchina locale per essere eseguiti, bensì possono essere visti come normali server SM-DP+.\\
-Per trovare dei server SM-DP+ che siano affiliati a degli operatori e permettano realmente di effettuare il download di profili, è stato necessario procedere come per il server di Very Mobile (vedere capitolo 4), ovvero acquistare un piano tariffario reale su un telefono che supporta l'eSIM, ricavando così l'hostname del server SM-DP+ a partire da un'email ricevuta dall'operatore (come quella in figura \ref{fig:email}). Sono stati così individuati i seguent server SM-DP+:
+Per trovare dei server SM-DP+ che siano affiliati a degli operatori e permettano realmente di effettuare il download di profili, è stato necessario procedere come per il server di Very Mobile (vedere capitolo 4), ovvero acquistare un piano tariffario reale su un telefono che supporta l'eSIM, ricavando così l'hostname del server SM-DP+ a partire da un'email ricevuta dall'operatore (come quella in figura \ref{fig:email}). Sono stati così individuati i seguenti server SM-DP+:
 \begin{itemize}
 \item server di Iliad, con hostname \textit{frm.prod.ondemandconnectivity.com};
 \item server di Tim, con hostname \textit{rsp-0001.oberthur.net};
@@ -1789,7 +1792,7 @@ Truphone & rsp.truphone.com & 185.99.24.88\\
 \label{fig:web-page-blocked}
 \end{figure}
 \noindent Dalla tabella \ref{tab:IP-addr} è possibile concludere che non c'è un pattern negli indirizzi IP dei server SM-DP+, per cui è impensabile ricavare ulteriori indirizzi IP a partire da quelli noti. Inoltre, è possibile osservare che gli operatori Iliad e Very Mobile si appoggiano sul medesimo server SM-DP+, così come Stork e Google.\\
-Si potrebbe pensare di procedere con la forza bruta e, per ogni indirizzo IP che va da 0.0.0.0 a 255.255.255.255, provare a stabilire se esso è associato o meno a un server SM-DP. Tuttavia, né inviando query a un server DNS, né provando a contattare direttamente gli host specificando il loro indirizzo IP anziché il loro hostname si riescono a ottenere informazioni utili.\\
+Si potrebbe pensare di procedere con la forza bruta e, per ogni indirizzo IP che va da 0.0.0.0 a 255.255.255.255, provare a stabilire se esso è associato o meno a un server SM-DP+. Tuttavia, né inviando query a un server DNS, né provando a contattare direttamente gli host specificando il loro indirizzo IP anziché il loro hostname si riescono a ottenere informazioni utili.\\
 L'unico aspetto su cui si è potuto lavorare è l'hostname del server SM-DP+ associato a Tim, dove compare un numero $N$ a quattro cifre (0001). Facendo variare $N$, si ottengono ancora degli hostname esistenti e validi per qualunque $N$ a quattro cifre compreso tra 0001 e 0032. In particolare, i 32 hostname così trovati sono mappati soltanto su quattro indirizzi IP diversi, per cui molti di loro costituiscono degli alias. I quattro host individuati solo elencati di seguito:
 \begin{itemize}
 \item \textit{rsp-0001.oberthur.net}, con indirizzo IP 51.11.249.51;
@@ -1859,7 +1862,7 @@ I casi di test che sono stati implementati ed eseguiti ai fini della presente tr
 \hline
 3 & Manomissione del messaggio authenticateClient: utilizzo di una certificate chain lato client differente da quella scelta di default.\\
 \hline
-4 & Manomissione del messaggio authenticateClient: calcolo errato dalla signature (euiccSignature1).\\
+4 & Manomissione del messaggio authenticateClient: calcolo errato della signature (euiccSignature1).\\
 \hline
 5.1 & Manomissione del messaggio authenticateClient (sotto-campo euiccInfo2): utilizzo di un SVN (Specification Version Number) non atteso (e.g. 0x000000, che corrisponderebbe alla versione 0.0.0).\\
 \hline
@@ -2146,7 +2149,7 @@ Consiste nel manomettere il messaggio authenticateClient ponendo il sotto-campo 
 \end{itemize}
 
 \subsubsection{Caso di test 10}
-Consiste nel manomettere il messaggio initiateAuthentication utilizzando una euiccChallenge malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default, e comunque troppo ridotta per svolgere il ruolo di challenge).
+Consiste nel manomettere il messaggio initiateAuthentication utilizzando una euiccChallenge malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default e comunque troppo ridotta per svolgere il ruolo di challenge).
 \begin{itemize}
 \item \textbf{Iliad \& Very Mobile}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``1.6"}, \textit{``reasonCode": ``2.1"}, \textit{``subjectIdentifier": ``Function"}, \textit{``message": ``Euicc challenge format is not Octet[16]"}.
 \item \textbf{Tim}: \textit{``status": ``Failed"} al primo messaggio di risposta (initiateAuthenticationResponse), con \textit{``subjectCode: ``8.8"}, \textit{``reasonCode": ``4.2"}, \textit{``subjectIdentifier": ``SM-DP+"}, \textit{``message": ``Execution Error"}.
@@ -2528,7 +2531,7 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \item \textbf{authorityKeyIdentifier}: fanfa.
 \end{itemize}
 
-\noindent A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA), RSPTEST (a capo della certificate chain di test usata da Infineon e Osmo-smdpp) e Symantec Corporation (a capo della certificate chain di test usata da Stork e Google). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri tre certificati.
+\noindent A proposito di certificati, in rete sono disponibili quelli delle RootCA incontrate finora, ovvero GSM Association (i.e. GSMA), RSPTEST (a capo della certificate chain di test usata da Infineon, Sysmocom e Osmo-smdpp) e Symantec Corporation (a capo della certificate chain di test usata da Stork e Google). Sempre con l'ausilio del sito \textit{ASN.1 JavaScript decoder}, è stato possibile ispezionare anche questi altri tre certificati.
 
 \subsubsection{Certificato Root di GSM Association}
 \begin{itemize}
@@ -2574,13 +2577,9 @@ Un ulteriore aspetto interessante da analizzare nella comunicazione tra il simul
 \end{itemize}
 
 \subsection{Analisi delle risposte ricevute}
-A seguito di un'attenta analisi dei vari messaggi di risposta ricevuti dai server SM-DP+, il primo aspetto interessante che balza all'occhio è l'estrema somiglianza tra alcune implementazioni. In particolare, è possibile individuare tre sottoinsiemi di server:
-\begin{enumerate}
-\item Tim, Gemello di Tim, Truphone;
-\item eSIM Discovery Production, eSIM Discovery Staging, GSMA, Verizon Wireless;
-\item Sysmocom, Osmo-smdpp.
-\end{enumerate}
-Solo il server di Iliad \& Very Mobile, quello di Stork \& Google e il simulatore precedentemente sviluppato assumono un comportamento abbastanza differente da tutti gli altri. D'altra parte, il server di Infineon solleva sempre l'errore HTTP\_BAD\_REQUEST indipendentemente dal messaggio di richiesta inviatogli: si tratta dunque di un server non particolarmente utile ai fini dello studio ma, per completezza, sarà preso in considerazione anche nelle valutazioni successive.\\
+A seguito di un'attenta analisi dei vari messaggi di risposta ricevuti dai server SM-DP+, è possibile notare che il server di Iliad \& Very Mobile, durante l'esecuzione degli esperimenti, ha esibito un certificato diverso e generato antecedentemente rispetto a quello osservato nella cattura Wireshark analizzata nel capitolo 4. Sembra dunque che i server SM-DP+ possano detenere contemporaneamente più certificati differenti.\\
+Un ulteriorie aspetto interessante che balza all'occhio è l'estrema somiglianza tra alcune implementazioni. In particolare, è possibile individuare tre sottoinsiemi di server: il primo è composto da Tim, Gemello di Tim e Truphone; il secondo è composto da eSIM Discovery Production, eSIM Discovery Staging, GSMA e Verizon Wireless; l'ultimo è composto da Sysmocom e Osmo-smdpp.\\
+Solo i server di Iliad \& Very Mobile, Stork \& Google e il simulatore precedentemente sviluppato assumono un comportamento abbastanza differente da tutti gli altri. D'altra parte, il server di Infineon solleva sempre l'errore HTTP\_BAD\_REQUEST indipendentemente dal messaggio di richiesta inviatogli: si tratta dunque di un server non particolarmente utile ai fini dello studio ma, per completezza, sarà preso in considerazione anche nelle valutazioni successive.\\
 Ai fini dell'analisi finale, non si terrà conto della suddivisione dei server SM-DP+ basata sui relativi messaggi di risposta, bensì ha più senso fare una distinzione sulla tipologia dei server stessi: di fatto, la mancanza di un controllo nell'implementazione di un server SM-DP+ di test ha un peso differente dalla mancanza del medesimo controllo nell'implementazione di un server SM-DP+ reale. In definitiva, farà fede la classificazione riportata qui di seguito:
 \begin{itemize}
 \item \textbf{server SM-DP+ reali}: Iliad \& Very Mobile, Tim, Gemello di Tim;
@@ -2936,7 +2935,7 @@ Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il 
 \end{itemize}
 
 \subsubsection{Caso di test 9.2}
-Consiste nel manomettere il messaggio initiateAuthenticationResponse utilizzando una serverChallenge malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default, e comunque troppo ridotta per svolgere il ruolo di challenge).
+Consiste nel manomettere il messaggio initiateAuthenticationResponse utilizzando una serverChallenge malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default e comunque troppo ridotta per svolgere il ruolo di challenge).
 \begin{itemize}
 \item \textbf{Google Pixel 6}: n.d.
 \item \textbf{EasyEUICC}: interruzione della comunicazione dopo il primo messaggio di risposta (initiateAuthenticationResponse).
@@ -2963,7 +2962,7 @@ Consiste nel manomettere il messaggio initiateAuthenticationResponse ponendo il 
 \end{itemize}
 
 \subsubsection{Caso di test 10.2}
-Consiste nel manomettere il messaggio initiateAuthenticationResponse utilizzando un Transaction ID malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default, e comunque troppo ridotta per svolgere il ruolo di challenge).
+Consiste nel manomettere il messaggio initiateAuthenticationResponse utilizzando un Transaction ID malforme (e.g. 0x00, che ha una lunghezza differente dai 16 byte di default e comunque troppo ridotta per svolgere il ruolo di challenge).
 \begin{itemize}
 \item \textbf{Google Pixel 6}: n.d.
 \item \textbf{EasyEUICC}: \textit{errorResult} al quarto messaggio di richiesta (pendingNotification), con\\ \textit{scp03tSecurityError}.
