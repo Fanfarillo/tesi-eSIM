@@ -112,4 +112,10 @@ IETF.
   2010.
 \newblock \url{https://datatracker.ietf.org/doc/html/rfc5639}.
 
+\bibitem[Standards(1999)]{NIST}
+National Institute of Standards.
+\newblock \emph{``Recommended Elliptic Curves for Federal Government Use"},
+  1999.
+\newblock \url{http://csrc.nist.gov/groups/ST/toolkit/documents/dss/NISTReCur.pdf}.
+
 \end{thebibliography}
